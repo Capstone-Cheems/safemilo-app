@@ -1,0 +1,21 @@
+name: Run ESLint
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  lint:
+    name: Lint Code with ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '23' # Adjust based on your project's requirements
+      - name: Install Dependencies
+        run: npm install
+      - name: Run ESLint
+        run: npx eslint .
