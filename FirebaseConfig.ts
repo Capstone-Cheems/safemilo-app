@@ -1,14 +1,21 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID
+} from "@env";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAlJBJ4yVpIET3j439D7ONzwmux2j7BZNU",
-  authDomain: "safemilo-app-f15cf.firebaseapp.com",
-  projectId: "safemilo-app-f15cf",
-  storageBucket: "safemilo-app-f15cf.firebasestorage.app",
-  messagingSenderId: "287303608250",
-  appId: "1:287303608250:web:1333e09756fe70e5e4df83"
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID
 };
 
 // Initialize Firebase
