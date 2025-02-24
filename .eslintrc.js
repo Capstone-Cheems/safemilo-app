@@ -15,7 +15,6 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'warn',
         '@typescript-eslint/no-unused-vars': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        'prettier/prettier': 'error',
-        'import/no-unresolved': 'off'
+        'prettier/prettier': 'error'
     }
 }

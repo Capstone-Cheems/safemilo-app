@@ -1,55 +1,21 @@
-import { useEffect, useState, type ReactNode } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Login from './screens/Login'
-import CreatedPost from './screens/CreatedPost'
-import NewPost from './screens/NewPost'
-import { onAuthStateChanged, User } from 'firebase/auth'
-import { FIREBASE_AUTH } from '../FirebaseConfig'
-import PostDetails from './screens/PostDetails'
-import { RootStackParamList } from '../types/types'
-
-const Stack = createNativeStackNavigator()
-
-const InsideStack = createNativeStackNavigator<RootStackParamList>()
-
-function InsideLayout(): React.JSX.Element {
-    return (
-        <InsideStack.Navigator>
-            <InsideStack.Screen name="created post" component={CreatedPost} />
-            <InsideStack.Screen name="post details" component={PostDetails} />
-            <InsideStack.Screen name="new post" component={NewPost} />
-        </InsideStack.Navigator>
-    )
-}
+import { StatusBar } from 'expo-status-bar'
+import { StyleSheet, Text, View } from 'react-native'
+import { type ReactNode } from 'react'
 
 export default function App(): ReactNode {
-    const [user, setUser] = useState<User | null>(null)
-
-    useEffect(() => {
-        onAuthStateChanged(FIREBASE_AUTH, user => {
-            console.log('user', user)
-            setUser(user)
-        })
-    }, [])
-
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
-                {user ? (
-                    <Stack.Screen
-                        name="Inside"
-                        component={InsideLayout}
-                        options={{ headerShown: false }}
-                    />
-                ) : (
-                    <Stack.Screen
-                        name="Login"
-                        component={Login}
-                        options={{ headerShown: false }}
-                    />
-                )}
-            </Stack.Navigator>
-        </NavigationContainer>
+        <View style={styles.container}>
+            <Text>Welcome to Safemilo!</Text>
+            <StatusBar style="auto" />
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+})
