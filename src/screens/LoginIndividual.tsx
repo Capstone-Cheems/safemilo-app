@@ -1,14 +1,14 @@
+import React, { useState } from 'react'
 import {
     View,
-    StyleSheet,
     TextInput,
     ActivityIndicator,
     Button,
-    KeyboardAvoidingView,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    StyleSheet,
+    KeyboardAvoidingView
 } from 'react-native'
-import React, { useState } from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
@@ -16,10 +16,10 @@ import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from '../../types/types'
 
 interface Props {
-    navigation: NavigationProp<RootStackParamList, 'Login'>
+    navigation: NavigationProp<RootStackParamList, 'LoginIndividual'>
 }
 
-const Login = ({ navigation }: Props): React.JSX.Element => {
+const LoginIndividual = ({ navigation }: Props): React.JSX.Element => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
@@ -35,11 +35,10 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
             )
             const user = response.user
 
-            await fetch('http://localhost:3000/auth/login/organization', {
+            await fetch('http://localhost:3000/auth/login/individual', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    userID: user.uid,
                     email: user.email
                 })
             })
@@ -84,15 +83,15 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
                 <View style={styles.row}>
                     <Text>Don't have an account?</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Signup')}
+                        onPress={() => navigation.navigate('SignupIndividual')}
                     >
                         <Text style={styles.textLink}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.row}>
-                    <Text>Individual User?</Text>
+                    <Text>Orgnaizational User?</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('LoginIndividual')}
+                        onPress={() => navigation.navigate('Login')}
                     >
                         <Text style={styles.textLink}>Click here</Text>
                     </TouchableOpacity>
@@ -102,7 +101,7 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
     )
 }
 
-export default Login
+export default LoginIndividual
 
 const styles = StyleSheet.create({
     container: {

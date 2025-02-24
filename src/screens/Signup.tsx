@@ -98,6 +98,14 @@ const Signup = ({ navigation }: Props): React.JSX.Element => {
                         <Text style={styles.textLink}>Login</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={styles.row}>
+                    <Text>Individual User?</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignupIndividual')}
+                    >
+                        <Text style={styles.textLink}>Click here</Text>
+                    </TouchableOpacity>
+                </View>
             </KeyboardAvoidingView>
         </View>
     )
