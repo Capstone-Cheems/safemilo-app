@@ -27,7 +27,7 @@ const PostDetails = ({ route }: Props): React.JSX.Element => {
             setLoading(true)
             try {
                 const response = await fetch(
-                    `http://192.168.1.97:3000/news/${newsID}`
+                    `http://localhost:3000/news/${newsID}`
                 )
                 const data = await response.json()
                 setNews(data)

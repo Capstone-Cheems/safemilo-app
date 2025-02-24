@@ -35,7 +35,7 @@ const CreatedPost = ({ navigation }: RouterProps): React.JSX.Element => {
 
             if (user) {
                 const response = await fetch(
-                    `http://192.168.1.97:3000/news/organization/${user.uid}`
+                    `http://localhost:3000/news/organization/${user.uid}`
                 )
                 const data = await response.json()
                 setScamNews(data)

@@ -6,15 +6,48 @@ import {
     Button,
     StyleSheet,
     ActivityIndicator,
-    Alert
+    Alert,
+    FlatList,
+    TouchableOpacity
 } from 'react-native'
+import * as DocumentPicker from 'expo-document-picker'
 import { FIREBASE_AUTH } from '../../FirebaseConfig'
 
 const NewPost = (): React.JSX.Element => {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [scamTypeTags, setScamTypeTags] = useState('')
+    const [images, setImages] = useState<DocumentPicker.DocumentPickerAsset[]>(
+        []
+    )
     const [loading, setLoading] = useState(false)
+
+    const handleImageUpload = async (): Promise<void> => {
+        try {
+            const result = await DocumentPicker.getDocumentAsync({
+                type: 'image/*',
+                multiple: true,
+                copyToCacheDirectory: false
+            })
+
+            if (result.canceled || !result.assets) return
+
+            const newImages = result.assets.map(asset => ({
+                name: asset.name || 'Unnamed file',
+                uri: asset.uri,
+                type: asset.mimeType || 'image/jpeg'
+            }))
+
+            setImages(prevImages => [...prevImages, ...newImages])
+        } catch (error) {
+            console.error('Image upload error:', error)
+            Alert.alert('Error', 'Failed to select image')
+        }
+    }
+
+    const handleImageDelete = (index: number): void => {
+        setImages(prevImages => prevImages.filter((_, i) => i !== index))
+    }
 
     const handleSubmit = async (): Promise<void> => {
         setLoading(true)
@@ -27,7 +60,9 @@ const NewPost = (): React.JSX.Element => {
                 return
             }
 
-            const response = await fetch('http://192.168.1.97:3000/news', {
+            console.log('Selected images:', images)
+
+            const response = await fetch('http://localhost:3000/news', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -43,6 +78,7 @@ const NewPost = (): React.JSX.Element => {
                 setTitle('')
                 setContent('')
                 setScamTypeTags('')
+                setImages([])
             } else {
                 const errorData = await response.json()
                 Alert.alert(
@@ -84,6 +120,34 @@ const NewPost = (): React.JSX.Element => {
                 onChangeText={setScamTypeTags}
             />
 
+            {/* Image Upload Button */}
+            <Button title="Select Images" onPress={handleImageUpload} />
+
+            {/* Display Selected Images */}
+            {images.length > 0 && (
+                <View style={styles.imageListContainer}>
+                    <FlatList
+                        data={images}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => (
+                            <View style={styles.imageItem}>
+                                <Text style={styles.imageName}>
+                                    {item.name}
+                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => handleImageDelete(index)}
+                                    style={styles.deleteButton}
+                                >
+                                    <Text style={styles.deleteButtonText}>
+                                        Delete
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                    />
+                </View>
+            )}
+
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
             ) : (
@@ -114,5 +178,34 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         backgroundColor: '#fff'
+    },
+    imageListContainer: {
+        marginTop: 10,
+        marginBottom: 10
+    },
+    imageItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 10,
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        marginBottom: 5,
+        backgroundColor: '#f9f9f9'
+    },
+    imageName: {
+        fontSize: 16,
+        color: '#333'
+    },
+    deleteButton: {
+        backgroundColor: '#FF5733',
+        borderRadius: 5,
+        paddingHorizontal: 8,
+        paddingVertical: 4
+    },
+    deleteButtonText: {
+        color: '#fff',
+        fontWeight: 'bold'
     }
 })
