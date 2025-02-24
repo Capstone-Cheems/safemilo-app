@@ -35,7 +35,7 @@ const CreatedPost = ({ navigation }: RouterProps): React.JSX.Element => {
 
             if (user) {
                 const response = await fetch(
-                    `http://192.168.1.97:3000/news/organization/${user.uid}`
+                    `http://localhost:3000/news/organization/${user.uid}`
                 )
                 const data = await response.json()
                 setScamNews(data)
@@ -90,8 +90,9 @@ const CreatedPost = ({ navigation }: RouterProps): React.JSX.Element => {
                             >
                                 {item.image && (
                                     <Image
-                                        source={{ uri: item.image }}
+                                        source={{ uri: item.image[0] }}
                                         style={{ width: '100%', height: 150 }}
+                                        resizeMode="cover"
                                     />
                                 )}
                                 <View style={{ padding: 10 }}>

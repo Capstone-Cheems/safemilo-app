@@ -1,41 +1,41 @@
+import React, { useState } from 'react'
 import {
     View,
-    StyleSheet,
     TextInput,
     ActivityIndicator,
     Button,
-    KeyboardAvoidingView,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    StyleSheet,
+    KeyboardAvoidingView
 } from 'react-native'
-import React, { useState } from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
 import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from '../../types/types'
 
 interface Props {
-    navigation: NavigationProp<RootStackParamList, 'Login'>
+    navigation: NavigationProp<RootStackParamList, 'SignupIndividual'>
 }
 
-const Login = ({ navigation }: Props): React.JSX.Element => {
+const SignupIndividual = ({ navigation }: Props): React.JSX.Element => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const auth = FIREBASE_AUTH
 
-    const signIn = async (): Promise<void> => {
+    const signUp = async (): Promise<void> => {
         setLoading(true)
         try {
-            const response = await signInWithEmailAndPassword(
+            const response = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
             )
             const user = response.user
 
-            await fetch('http://localhost:3000/auth/login/organization', {
+            await fetch('http://localhost:3000/auth/register/individual', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -44,14 +44,14 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
                 })
             })
 
-            console.log('User logged in:', user)
+            console.log('User registered:', user)
         } catch (error: unknown) {
             if (error instanceof FirebaseError) {
                 console.error(error)
-                alert('Sign-in failed')
+                alert('Sign-up failed')
             } else {
                 console.error('Unexpected error:', error)
-                alert('Sign-in failed: An unexpected error occurred')
+                alert('Sign-up failed: An unexpected error occurred')
             }
         } finally {
             setLoading(false)
@@ -79,20 +79,20 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
                 {loading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
                 ) : (
-                    <Button title="Login" onPress={signIn} />
+                    <Button title="Create account" onPress={signUp} />
                 )}
                 <View style={styles.row}>
-                    <Text>Don't have an account?</Text>
+                    <Text>Already have an account?</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Signup')}
+                        onPress={() => navigation.navigate('LoginIndividual')}
                     >
-                        <Text style={styles.textLink}>Sign Up</Text>
+                        <Text style={styles.textLink}>Login</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.row}>
-                    <Text>Individual User?</Text>
+                    <Text>Orgnaizational User?</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('LoginIndividual')}
+                        onPress={() => navigation.navigate('Signup')}
                     >
                         <Text style={styles.textLink}>Click here</Text>
                     </TouchableOpacity>
@@ -102,7 +102,7 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
     )
 }
 
-export default Login
+export default SignupIndividual
 
 const styles = StyleSheet.create({
     container: {
