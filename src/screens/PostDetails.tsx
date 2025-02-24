@@ -59,7 +59,7 @@ const PostDetails = ({ route }: Props): React.JSX.Element => {
         <ScrollView style={{ padding: 20 }}>
             {news.image && (
                 <Image
-                    source={{ uri: news.image }}
+                    source={{ uri: news.image[0] }}
                     style={{ width: '100%', height: 200, borderRadius: 10 }}
                 />
             )}

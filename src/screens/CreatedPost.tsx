@@ -90,8 +90,9 @@ const CreatedPost = ({ navigation }: RouterProps): React.JSX.Element => {
                             >
                                 {item.image && (
                                     <Image
-                                        source={{ uri: item.image }}
+                                        source={{ uri: item.image[0] }}
                                         style={{ width: '100%', height: 150 }}
+                                        resizeMode="cover"
                                     />
                                 )}
                                 <View style={{ padding: 10 }}>

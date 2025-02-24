@@ -10,48 +10,50 @@ import {
 } from 'react-native'
 import React, { useState } from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
 import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from '../../types/types'
 
 interface Props {
-    navigation: NavigationProp<RootStackParamList, 'Login'>
+    navigation: NavigationProp<RootStackParamList, 'Signup'>
 }
 
-const Login = ({ navigation }: Props): React.JSX.Element => {
+const Signup = ({ navigation }: Props): React.JSX.Element => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [organizationName, setOrganizationName] = useState('')
     const [loading, setLoading] = useState(false)
     const auth = FIREBASE_AUTH
 
-    const signIn = async (): Promise<void> => {
+    const signUp = async (): Promise<void> => {
         setLoading(true)
         try {
-            const response = await signInWithEmailAndPassword(
+            const response = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
             )
             const user = response.user
 
-            await fetch('http://localhost:3000/auth/login/organization', {
+            await fetch('http://localhost:3000/auth/register/organization', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     userID: user.uid,
-                    email: user.email
+                    email: user.email,
+                    organizationName: organizationName
                 })
             })
 
-            console.log('User logged in:', user)
+            console.log('User registered:', user)
         } catch (error: unknown) {
             if (error instanceof FirebaseError) {
                 console.error(error)
-                alert('Sign-in failed')
+                alert('Sign-up failed')
             } else {
                 console.error('Unexpected error:', error)
-                alert('Sign-in failed: An unexpected error occurred')
+                alert('Sign-up failed: An unexpected error occurred')
             }
         } finally {
             setLoading(false)
@@ -61,6 +63,13 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
     return (
         <View style={styles.container}>
             <KeyboardAvoidingView behavior="padding">
+                <TextInput
+                    value={organizationName}
+                    style={styles.input}
+                    placeholder="Organization Name"
+                    autoCapitalize="words"
+                    onChangeText={text => setOrganizationName(text)}
+                />
                 <TextInput
                     value={email}
                     style={styles.input}
@@ -79,14 +88,14 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
                 {loading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
                 ) : (
-                    <Button title="Login" onPress={signIn} />
+                    <Button title="Create account" onPress={signUp} />
                 )}
                 <View style={styles.row}>
-                    <Text>Don't have an account?</Text>
+                    <Text>Already have an account?</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Signup')}
+                        onPress={() => navigation.navigate('Login')}
                     >
-                        <Text style={styles.textLink}>Sign Up</Text>
+                        <Text style={styles.textLink}>Login</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -94,7 +103,7 @@ const Login = ({ navigation }: Props): React.JSX.Element => {
     )
 }
 
-export default Login
+export default Signup
 
 const styles = StyleSheet.create({
     container: {
