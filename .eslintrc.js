@@ -5,6 +5,13 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended'
     ],
+    ignorePatterns: [
+        '/dist/*',
+        'components/**',
+        'metro.config.js',
+        'babel.config.js',
+        'tailwind.config.js'
+    ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2020,
