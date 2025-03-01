@@ -4,6 +4,8 @@ export type RootStackParamList = {
     Signup: undefined
     SignupIndividual: undefined
     Home: undefined
+    Learn: undefined
+    Chat: undefined
     'created post': undefined
     'post details': { newsID: string }
     'new post': undefined
