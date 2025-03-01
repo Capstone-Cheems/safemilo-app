@@ -23,7 +23,8 @@
     "react-native": "0.76.7",
     "react-native-dotenv": "^3.4.11",
     "react-native-web": "~0.19.13",
-    "expo-document-picker": "~13.0.3"
+    "expo-document-picker": "~13.0.3",
+    "expo-av": "~15.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
