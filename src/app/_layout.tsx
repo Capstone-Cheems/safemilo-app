@@ -1,14 +1,13 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome'
 import {
     DarkTheme,
     DefaultTheme,
     ThemeProvider
 } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
-import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { ReactNode, useEffect } from 'react'
 import 'react-native-reanimated'
+import { Stack } from 'expo-router'
 import SpaceMonoFont from '../../assets/fonts/SpaceMono-Regular.ttf'
 import { useColorScheme } from '../../components/useColorScheme'
 import { GluestackUIProvider } from '../../components/ui/gluestack-ui-provider'
@@ -20,8 +19,7 @@ export {
 } from 'expo-router'
 
 export const unstable_settings = {
-    // Ensure that reloading on `/modal` keeps a back button present.
-    initialRouteName: '(tabs)'
+    initialRouteName: 'onboarding/onboarding'
 }
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -29,11 +27,9 @@ SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout(): ReactNode {
     const [loaded, error] = useFonts({
-        SpaceMono: SpaceMonoFont,
-        ...FontAwesome.font
+        SpaceMono: SpaceMonoFont
     })
 
-    // Expo Router uses Error Boundaries to catch errors in the navigation tree.
     useEffect(() => {
         if (error) throw error
     }, [error])
@@ -63,12 +59,7 @@ function RootLayoutNav(): ReactNode {
             <ThemeProvider
                 value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
             >
-                <Stack>
-                    <Stack.Screen
-                        name="(tabs)"
-                        options={{ headerShown: false }}
-                    />
-                </Stack>
+                <Stack />
             </ThemeProvider>
         </GluestackUIProvider>
     )
