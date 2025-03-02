@@ -58,6 +58,34 @@ const commonStyles = StyleSheet.create({
         width: 200,
         height: 200,
         marginBottom: 30
+    },
+    // Auth
+    link: {
+        marginTop: 20
+    },
+    linkText: {
+        color: 'blue'
+    },
+    input: {
+        width: '80%',
+        padding: 10,
+        margin: 10,
+        borderWidth: 1,
+        borderRadius: 5
+    },
+    errorText: {
+        color: 'red',
+        marginBottom: 10
+    },
+    textContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    formButton: {
+        backgroundColor: '#000000',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 20
     }
 })
 

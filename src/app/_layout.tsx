@@ -12,6 +12,7 @@ import SpaceMonoFont from '../../assets/fonts/SpaceMono-Regular.ttf'
 import { useColorScheme } from '../../components/useColorScheme'
 import { GluestackUIProvider } from '../../components/ui/gluestack-ui-provider'
 import '../../global.css'
+import { AuthProvider } from '../contexts/AuthContext'
 
 export {
     // Catch any errors thrown by the Layout component.
@@ -45,9 +46,11 @@ export default function RootLayout(): ReactNode {
     }
 
     return (
-        <GluestackUIProvider mode="light">
-            <RootLayoutNav />
-        </GluestackUIProvider>
+        <AuthProvider>
+            <GluestackUIProvider mode="light">
+                <RootLayoutNav />
+            </GluestackUIProvider>
+        </AuthProvider>
     )
 }
 
