@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
+import commonStyles from '../../styles/commonStyles'
 
 const Tour1start = (): React.JSX.Element => {
     const router = useRouter()
@@ -14,54 +15,27 @@ const Tour1start = (): React.JSX.Element => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.boldText}>Take a Tour of SafeMilo!</Text>
-            <Text style={styles.messageText}>
+        <View style={commonStyles.container}>
+            <Text style={commonStyles.boldText}>Take a Tour of SafeMilo!</Text>
+            <Text style={commonStyles.messageText}>
                 Explore and discover our app features
             </Text>
 
-            <TouchableOpacity style={styles.button} onPress={handleProceed}>
-                <Text style={styles.buttonText}>Take the tour</Text>
+            <TouchableOpacity
+                style={commonStyles.longButton}
+                onPress={handleProceed}
+            >
+                <Text style={commonStyles.buttonText}>Take the tour</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={handleDeny}>
-                <Text style={styles.buttonText}>No thanks</Text>
+            <TouchableOpacity
+                style={commonStyles.longButton}
+                onPress={handleDeny}
+            >
+                <Text style={commonStyles.buttonText}>No thanks</Text>
             </TouchableOpacity>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20
-    },
-    messageText: {
-        fontSize: 18,
-        textAlign: 'center',
-        marginBottom: 30,
-        marginTop: 10
-    },
-    boldText: {
-        fontWeight: 'bold',
-        fontSize: 28,
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    button: {
-        backgroundColor: '#000000',
-        padding: 15,
-        borderRadius: 5,
-        marginBottom: 10,
-        width: '80%'
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 16,
-        textAlign: 'center'
-    }
-})
 
 export default Tour1start

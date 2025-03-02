@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
+import commonStyles from '../../styles/commonStyles'
 
 const Tour2tip = (): React.JSX.Element => {
     const router = useRouter()
@@ -14,69 +15,37 @@ const Tour2tip = (): React.JSX.Element => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.boldText}>Milo's Tip of the Day</Text>
-            <Text style={styles.boldText}>Did you know?</Text>
+        <View style={commonStyles.container}>
+            <Text style={commonStyles.boldText}>Milo's Tip of the Day</Text>
+            <Text style={commonStyles.boldText}>Did you know?</Text>
 
-            <Text style={styles.messageText}>
+            <Text style={commonStyles.messageText}>
                 Never share One time password or codes with anyone -- not even
                 your bank!
             </Text>
 
-            <Text style={styles.messageText}>
+            <Text style={commonStyles.messageText}>
                 Every day, I'll share a quick tip to help you spot and avoid
                 scams. Stay one step ahead!
             </Text>
 
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={handleBack}>
-                    <Text style={styles.buttonText}>Back</Text>
+            <View style={commonStyles.buttonContainer}>
+                <TouchableOpacity
+                    style={commonStyles.button}
+                    onPress={handleBack}
+                >
+                    <Text style={commonStyles.buttonText}>Back</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={handleNext}>
-                    <Text style={styles.buttonText}>Next</Text>
+                <TouchableOpacity
+                    style={commonStyles.button}
+                    onPress={handleNext}
+                >
+                    <Text style={commonStyles.buttonText}>Next</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20
-    },
-    messageText: {
-        fontSize: 18,
-        textAlign: 'center',
-        marginBottom: 30
-    },
-    boldText: {
-        fontWeight: 'bold',
-        fontSize: 28,
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '80%'
-    },
-    button: {
-        backgroundColor: '#000000',
-        padding: 10,
-        borderRadius: 5,
-        marginBottom: 10,
-        flex: 1,
-        marginHorizontal: 10
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 16,
-        textAlign: 'center'
-    }
-})
 
 export default Tour2tip
