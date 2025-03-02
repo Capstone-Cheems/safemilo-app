@@ -15,11 +15,9 @@ const Tour1start = (): React.JSX.Element => {
 
     return (
         <View style={styles.container}>
-            <Text>
-                <Text style={styles.boldText}>Take a Tour of SafeMilo!</Text>
-                <Text style={styles.messageText}>
-                    Explore and discover our app features
-                </Text>
+            <Text style={styles.boldText}>Take a Tour of SafeMilo!</Text>
+            <Text style={styles.messageText}>
+                Explore and discover our app features
             </Text>
 
             <TouchableOpacity style={styles.button} onPress={handleProceed}>
@@ -43,20 +41,26 @@ const styles = StyleSheet.create({
     messageText: {
         fontSize: 18,
         textAlign: 'center',
-        marginBottom: 30
+        marginBottom: 30,
+        marginTop: 10
     },
     boldText: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: 28,
+        textAlign: 'center',
+        marginBottom: 10
     },
     button: {
         backgroundColor: '#000000',
-        padding: 10,
+        padding: 15,
         borderRadius: 5,
-        marginBottom: 10
+        marginBottom: 10,
+        width: '80%'
     },
     buttonText: {
         color: '#fff',
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center'
     }
 })
 

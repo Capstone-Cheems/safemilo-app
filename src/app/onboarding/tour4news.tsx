@@ -22,13 +22,15 @@ const Tour4news = (): React.JSX.Element => {
                 <Text>Stay ahead!</Text>
             </Text>
 
-            <TouchableOpacity style={styles.button} onPress={handleBack}>
-                <Text style={styles.buttonText}>Back</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={handleBack}>
+                    <Text style={styles.buttonText}>Back</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={handleNext}>
-                <Text style={styles.buttonText}>Next</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleNext}>
+                    <Text style={styles.buttonText}>Next</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -48,15 +50,23 @@ const styles = StyleSheet.create({
     boldText: {
         fontWeight: 'bold'
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '80%'
+    },
     button: {
         backgroundColor: '#000000',
         padding: 10,
         borderRadius: 5,
-        marginBottom: 10
+        marginBottom: 10,
+        flex: 1,
+        marginHorizontal: 10
     },
     buttonText: {
         color: '#fff',
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center'
     }
 })
 

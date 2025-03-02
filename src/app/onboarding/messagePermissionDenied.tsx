@@ -9,8 +9,20 @@ const MessagePermissionDenied = (): React.JSX.Element => {
         router.replace('/onboarding/callPermission')
     }
 
+    const handleBack = (): void => {
+        router.replace('/onboarding/messagePermission')
+    }
+
     return (
         <View style={styles.container}>
+            <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    style={styles.backIcon}
+                />
+            </TouchableOpacity>
+
             <Text style={styles.welcomeText}>
                 That's okay! You can enable it later in settings for extra
                 protection.
@@ -36,6 +48,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20
     },
+    backButton: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+        padding: 10
+    },
+    backIcon: {
+        width: 30,
+        height: 30
+    },
     mascotImage: {
         width: 200,
         height: 200,
@@ -48,12 +70,15 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#000000',
-        padding: 10,
-        borderRadius: 5
+        padding: 15,
+        borderRadius: 5,
+        marginBottom: 10,
+        width: '80%'
     },
     buttonText: {
         color: '#fff',
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center'
     }
 })
 

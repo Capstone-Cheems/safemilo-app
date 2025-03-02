@@ -51,12 +51,15 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#000000',
-        padding: 10,
-        borderRadius: 5
+        padding: 15,
+        borderRadius: 5,
+        marginBottom: 10,
+        width: '80%'
     },
     buttonText: {
         color: '#fff',
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center'
     }
 })
 
