@@ -2,31 +2,32 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useRouter } from 'expo-router'
 
-const CallPermission = (): React.JSX.Element => {
+const Tour1start = (): React.JSX.Element => {
     const router = useRouter()
 
-    const handleAllow = (): void => {
-        router.replace('/onboarding/tour1start')
+    const handleProceed = (): void => {
+        router.replace('/onboarding/tour2tip')
     }
 
     const handleDeny = (): void => {
-        router.replace('/onboarding/callPermissionDenied')
+        router.replace('/home')
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.messageText}>
-                <Text style={styles.boldText}>Call Permission:</Text> To protect
-                you from scam calls, I need permission to access incoming calls.
-                Your data will be safe and secure with us.
+            <Text>
+                <Text style={styles.boldText}>Take a Tour of SafeMilo!</Text>
+                <Text style={styles.messageText}>
+                    Explore and discover our app features
+                </Text>
             </Text>
 
-            <TouchableOpacity style={styles.button} onPress={handleAllow}>
-                <Text style={styles.buttonText}>Allow</Text>
+            <TouchableOpacity style={styles.button} onPress={handleProceed}>
+                <Text style={styles.buttonText}>Take the tour</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={handleDeny}>
-                <Text style={styles.buttonText}>Deny</Text>
+                <Text style={styles.buttonText}>No thanks</Text>
             </TouchableOpacity>
         </View>
     )
@@ -59,4 +60,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CallPermission
+export default Tour1start

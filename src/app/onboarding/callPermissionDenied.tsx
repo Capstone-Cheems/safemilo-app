@@ -6,7 +6,7 @@ const MessagePermissionDenied = (): React.JSX.Element => {
     const router = useRouter()
 
     const handleContinue = (): void => {
-        router.replace('/home')
+        router.replace('//onboarding/tour1start')
     }
 
     return (

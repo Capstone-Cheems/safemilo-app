@@ -2,31 +2,39 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useRouter } from 'expo-router'
 
-const CallPermission = (): React.JSX.Element => {
+const Tour2tip = (): React.JSX.Element => {
     const router = useRouter()
 
-    const handleAllow = (): void => {
+    const handleBack = (): void => {
         router.replace('/onboarding/tour1start')
     }
 
-    const handleDeny = (): void => {
-        router.replace('/onboarding/callPermissionDenied')
+    const handleNext = (): void => {
+        router.replace('/onboarding/tour3lesson')
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.messageText}>
-                <Text style={styles.boldText}>Call Permission:</Text> To protect
-                you from scam calls, I need permission to access incoming calls.
-                Your data will be safe and secure with us.
+            <Text>
+                <Text style={styles.boldText}>Milo's Tip of the Day</Text>
+                <Text style={styles.boldText}>Did you know?</Text>
+                <Text style={styles.messageText}>
+                    Never share One time password or codes with anyone--not even
+                    your bank!
+                </Text>
             </Text>
 
-            <TouchableOpacity style={styles.button} onPress={handleAllow}>
-                <Text style={styles.buttonText}>Allow</Text>
+            <Text style={styles.messageText}>
+                Every day, I'll share a quick tip to help you spot and avoid
+                scams. Stay one step ahead!
+            </Text>
+
+            <TouchableOpacity style={styles.button} onPress={handleBack}>
+                <Text style={styles.buttonText}>Back</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={handleDeny}>
-                <Text style={styles.buttonText}>Deny</Text>
+            <TouchableOpacity style={styles.button} onPress={handleNext}>
+                <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
         </View>
     )
@@ -59,4 +67,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CallPermission
+export default Tour2tip

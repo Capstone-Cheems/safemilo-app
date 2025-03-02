@@ -59,11 +59,7 @@ function RootLayoutNav(): ReactNode {
             <ThemeProvider
                 value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
             >
-                <Stack>
-                    <Stack.Screen name="onboarding" />
-                    <Stack.Screen name="messagePermission" />
-                    <Stack.Screen name="callPermission" />
-                </Stack>
+                <Stack />
             </ThemeProvider>
         </GluestackUIProvider>
     )
