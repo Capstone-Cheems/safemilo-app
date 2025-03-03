@@ -1,12 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import AuthForm from '../auth/authForm'
 
 const signupOrganization = (): React.JSX.Element => {
-    return (
-        <View>
-            <Text>signupOrganization</Text>
-        </View>
-    )
+    return <AuthForm type="signup" />
 }
 
 export default signupOrganization
