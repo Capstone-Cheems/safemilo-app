@@ -7,7 +7,7 @@ const CallPermissionDenied = (): React.JSX.Element => {
     const router = useRouter()
 
     const handleContinue = (): void => {
-        router.replace('//onboarding/tour1start')
+        router.replace('/onboarding/tour1start')
     }
 
     const handleBack = (): void => {

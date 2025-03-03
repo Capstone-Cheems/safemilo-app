@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import auth from '@react-native-firebase/auth'
 import { useRouter } from 'expo-router'
 import { useAuth } from '../../contexts/AuthContext'
 import commonStyles from '../../styles/commonStyles'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { FIREBASE_AUTH } from '../../config/firebaseConfig'
 
 const Login = (): React.JSX.Element => {
     const router = useRouter()
@@ -12,10 +13,12 @@ const Login = (): React.JSX.Element => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const auth = FIREBASE_AUTH
 
     const handleLogin = async (): Promise<void> => {
         try {
-            const userCredential = await auth().signInWithEmailAndPassword(
+            const userCredential = await signInWithEmailAndPassword(
+                auth,
                 email,
                 password
             )
