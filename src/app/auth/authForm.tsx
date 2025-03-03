@@ -37,7 +37,7 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
                 login(user, token)
             }
 
-            router.replace('/organization/createdPost')
+            router.replace('/(organization)/createdPost')
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(err.message)
