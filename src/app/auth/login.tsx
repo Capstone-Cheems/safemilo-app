@@ -68,9 +68,19 @@ const Login = (): React.JSX.Element => {
                 onPress={() => router.replace('/auth/signup')}
                 style={commonStyles.link}
             >
-                <Text style={commonStyles.textContainer}>
+                <Text style={commonStyles.textRow}>
                     <Text>Don't have an account?</Text>
                     <Text style={commonStyles.linkText}> Sign up</Text>
+                </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                onPress={() => router.replace('/auth/loginOrganization')}
+                style={commonStyles.link}
+            >
+                <Text style={commonStyles.textRow}>
+                    <Text>Orgnaizational User?</Text>
+                    <Text style={commonStyles.linkText}> Click here</Text>
                 </Text>
             </TouchableOpacity>
         </View>
