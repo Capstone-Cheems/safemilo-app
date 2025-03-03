@@ -41,6 +41,7 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#000000',
         padding: 15,
         borderRadius: 5,
+        marginTop: 10,
         marginBottom: 10,
         width: '80%'
     },
