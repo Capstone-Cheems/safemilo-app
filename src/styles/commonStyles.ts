@@ -77,9 +77,11 @@ const commonStyles = StyleSheet.create({
         color: 'red',
         marginBottom: 10
     },
-    textContainer: {
+    textRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center',
+        marginTop: 10,
+        gap: 20
     },
     formButton: {
         backgroundColor: '#000000',
