@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { ScrollView, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Box } from '@/components/ui/box'
 import { useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 
+const tips = [
+    'Never share One Time Password or codes with anyone, not even your bank!',
+    'Be cautious of emails asking for personal information, phishing scams are common.',
+    'If a deal sounds too good to be true, it probably is a scam!',
+    'Avoid clicking on unknown links in messages or emails.'
+]
+
 const Home = (): React.JSX.Element => {
     const router = useRouter()
+    const [randomTip, setRandomTip] = useState<string>('')
+
+    useEffect(() => {
+        const randomIndex = Math.floor(Math.random() * tips.length)
+        setRandomTip(tips[randomIndex])
+    }, [])
 
     const checkProfile = (): void => {
         router.push('/profile')
@@ -57,10 +70,7 @@ const Home = (): React.JSX.Element => {
                             Milo’s Tip of the Day
                         </Text>
                     </View>
-                    <Text className="text-[16px] mx-4">
-                        Never share One time password or codes with anyone, not
-                        even your bank!
-                    </Text>
+                    <Text className="text-[16px] mx-4">{randomTip}</Text>
                 </View>
             </Box>
 
