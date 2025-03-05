@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 
@@ -16,19 +16,24 @@ const Tour2tip = (): React.JSX.Element => {
 
     return (
         <View style={commonStyles.container}>
-            <Text style={commonStyles.boldText}>Milo's Tip of the Day</Text>
-            <Text style={commonStyles.boldText}>Did you know?</Text>
+            <Image
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                source={require('../../../assets/images/tour-tip.png')}
+                className="w-[100%] h-[26%] mb-8"
+            />
 
-            <Text style={commonStyles.messageText}>
-                Never share One time password or codes with anyone -- not even
-                your bank!
-            </Text>
-
-            <Text style={commonStyles.messageText}>
-                Every day, I'll share a quick tip to help you spot and avoid
-                scams. Stay one step ahead!
-            </Text>
-
+            <View style={commonStyles.dialogBox}>
+                <Text style={commonStyles.messageText}>
+                    Every day, I'll share a quick tip to help you spot and avoid
+                    scams. Stay one step ahead!
+                </Text>
+                <View style={commonStyles.triangle} />
+            </View>
+            <Image
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                source={require('../../../assets/images/onBoardingMascotImage.png')}
+                style={commonStyles.mascotImage}
+            />
             <View style={commonStyles.buttonContainer}>
                 <TouchableOpacity
                     style={commonStyles.button}

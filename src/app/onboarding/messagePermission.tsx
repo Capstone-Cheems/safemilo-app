@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 
@@ -15,28 +15,39 @@ const MessagePermission = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.container}>
-            <Text style={commonStyles.boldText}>Message</Text>
-            <Text style={commonStyles.messageText}>
-                To protect you from scam messages, I need permission to access
-                your messages. Your data will be safe and secure with us.
-            </Text>
+        <View style={commonStyles.viewContainer}>
+            <View style={commonStyles.dialogBox}>
+                <Text style={commonStyles.title}>
+                    Allow Access to your Message
+                </Text>
+                <Text style={commonStyles.description}>
+                    Allowing 'SafeMilo' to access your messages will help
+                    protect you from scam messages.
+                </Text>
 
-            <View style={commonStyles.buttonContainer}>
-                <TouchableOpacity
-                    style={commonStyles.button}
-                    onPress={handleAllow}
-                >
-                    <Text style={commonStyles.buttonText}>Allow</Text>
-                </TouchableOpacity>
+                <View style={commonStyles.buttonContainer}>
+                    <TouchableOpacity
+                        style={commonStyles.button}
+                        onPress={handleDeny}
+                    >
+                        <Text style={commonStyles.buttonText}>Deny</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={commonStyles.button}
-                    onPress={handleDeny}
-                >
-                    <Text style={commonStyles.buttonText}>Deny</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity
+                        style={commonStyles.button}
+                        onPress={handleAllow}
+                    >
+                        <Text style={commonStyles.buttonText}>Allow</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={commonStyles.triangle} />
             </View>
+            <Image
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                source={require('../../../assets/images/onBoardingMascotImage.png')}
+                style={commonStyles.mascotImage}
+            />
         </View>
     )
 }

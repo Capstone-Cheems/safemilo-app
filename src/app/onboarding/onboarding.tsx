@@ -11,22 +11,24 @@ const OnboardingScreen = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.container}>
-            <Text style={commonStyles.boldText}>Hi, I'm Milo!</Text>
+        <View style={commonStyles.viewContainer}>
+            <View style={commonStyles.dialogBox}>
+                <Text style={commonStyles.title}>Hi! I’m Mylo,</Text>
+                <Text style={commonStyles.description}>
+                    Your scam-free buddy. I’ll help you stay safe from online
+                    scams.
+                </Text>
+                <Text style={commonStyles.description}>Let’s begin!</Text>
 
-            <Text style={commonStyles.messageText}>
-                Your scam-free buddy. I'll help you stay safe from daily scams.
-            </Text>
+                <TouchableOpacity
+                    style={commonStyles.longButton}
+                    onPress={handleContinue}
+                >
+                    <Text style={commonStyles.buttonText}>Continue</Text>
+                </TouchableOpacity>
 
-            <Text style={commonStyles.messageText}>Let's begin!</Text>
-
-            <TouchableOpacity
-                style={commonStyles.longButton}
-                onPress={handleContinue}
-            >
-                <Text style={commonStyles.buttonText}>Continue</Text>
-            </TouchableOpacity>
-
+                <View style={commonStyles.triangle} />
+            </View>
             <Image
                 // eslint-disable-next-line @typescript-eslint/no-require-imports
                 source={require('../../../assets/images/onBoardingMascotImage.png')}

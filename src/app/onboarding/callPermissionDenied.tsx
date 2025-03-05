@@ -15,7 +15,7 @@ const CallPermissionDenied = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.container}>
+        <View style={commonStyles.viewContainer}>
             <TouchableOpacity
                 style={commonStyles.backButton}
                 onPress={handleBack}
@@ -26,18 +26,22 @@ const CallPermissionDenied = (): React.JSX.Element => {
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
-            <Text style={commonStyles.messageText}>
-                That's okay! You can enable it later in settings for extra
-                protection.
-            </Text>
 
-            <TouchableOpacity
-                style={commonStyles.longButton}
-                onPress={handleContinue}
-            >
-                <Text style={commonStyles.buttonText}>Continue</Text>
-            </TouchableOpacity>
+            <View style={commonStyles.dialogBox}>
+                <Text style={commonStyles.description}>
+                    That's okay! You can enable it later in settings for extra
+                    protection.
+                </Text>
 
+                <TouchableOpacity
+                    style={commonStyles.longButton}
+                    onPress={handleContinue}
+                >
+                    <Text style={commonStyles.buttonText}>Continue</Text>
+                </TouchableOpacity>
+
+                <View style={commonStyles.triangle} />
+            </View>
             <Image
                 // eslint-disable-next-line @typescript-eslint/no-require-imports
                 source={require('../../../assets/images/onBoardingMascotImage.png')}

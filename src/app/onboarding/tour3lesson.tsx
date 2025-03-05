@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 
@@ -16,10 +16,24 @@ const Tour3lesson = (): React.JSX.Element => {
 
     return (
         <View style={commonStyles.container}>
-            <Text style={commonStyles.messageText}>
-                Learn to spot and avoid scams with our quick, helpful safety
-                lessons!
-            </Text>
+            <Image
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                source={require('../../../assets/images/tour-learn.png')}
+                className="w-[100%] h-[10%] mb-8"
+            />
+
+            <View style={commonStyles.dialogBox}>
+                <Text style={commonStyles.messageText}>
+                    Learn to spot and avoid scams with our quick, helpful safety
+                    lessons!
+                </Text>
+                <View style={commonStyles.triangle} />
+            </View>
+            <Image
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                source={require('../../../assets/images/onBoardingMascotImage.png')}
+                style={commonStyles.mascotImage}
+            />
 
             <View style={commonStyles.buttonContainer}>
                 <TouchableOpacity

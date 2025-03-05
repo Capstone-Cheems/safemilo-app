@@ -19,7 +19,7 @@ const CallPermission = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.container}>
+        <View style={commonStyles.viewContainer}>
             <TouchableOpacity
                 style={commonStyles.backButton}
                 onPress={handleBack}
@@ -31,27 +31,38 @@ const CallPermission = (): React.JSX.Element => {
                 />
             </TouchableOpacity>
 
-            <Text style={commonStyles.boldText}>Call</Text>
-            <Text style={commonStyles.messageText}>
-                To protect you from scam calls, I need permission to access
-                incoming calls. Your data will be safe and secure with us.
-            </Text>
+            <View style={commonStyles.dialogBox}>
+                <Text style={commonStyles.title}>
+                    Allow Access to your Calls
+                </Text>
+                <Text style={commonStyles.description}>
+                    Allowing 'SafeMilo' to access your call will help you from
+                    scam calls.
+                </Text>
 
-            <View style={commonStyles.buttonContainer}>
-                <TouchableOpacity
-                    style={commonStyles.button}
-                    onPress={handleAllow}
-                >
-                    <Text style={commonStyles.buttonText}>Allow</Text>
-                </TouchableOpacity>
+                <View style={commonStyles.buttonContainer}>
+                    <TouchableOpacity
+                        style={commonStyles.button}
+                        onPress={handleDeny}
+                    >
+                        <Text style={commonStyles.buttonText}>Deny</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={commonStyles.button}
-                    onPress={handleDeny}
-                >
-                    <Text style={commonStyles.buttonText}>Deny</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity
+                        style={commonStyles.button}
+                        onPress={handleAllow}
+                    >
+                        <Text style={commonStyles.buttonText}>Allow</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={commonStyles.triangle} />
             </View>
+            <Image
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                source={require('../../../assets/images/onBoardingMascotImage.png')}
+                style={commonStyles.mascotImage}
+            />
         </View>
     )
 }

@@ -7,20 +7,29 @@ import {
     Alert,
     StyleSheet
 } from 'react-native'
-import { useAuth } from '../../contexts/AuthContext'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import { FIREBASE_AUTH } from '../../config/firebaseConfig'
-import { useRouter } from 'expo-router'
 
-const NewPost = (): React.JSX.Element => {
-    const { user } = useAuth()
+const EditPost = (): React.JSX.Element => {
     const router = useRouter()
+    const {
+        newsID,
+        title: initialTitle,
+        content: initialContent,
+        scamTypeTag: initialScamTypeTag
+    } = useLocalSearchParams<{
+        newsID: string
+        title: string
+        content: string
+        scamTypeTag: string
+    }>()
 
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const [scamTypeTag, setScamTypeTag] = useState('')
+    const [title, setTitle] = useState(initialTitle || '')
+    const [content, setContent] = useState(initialContent || '')
+    const [scamTypeTag, setScamTypeTag] = useState(initialScamTypeTag || '')
     const [loading, setLoading] = useState(false)
 
-    const handleSubmit = async (): Promise<void> => {
+    const handleUpdate = async (): Promise<void> => {
         if (!title || !content || !scamTypeTag) {
             Alert.alert('Error', 'All fields are required')
             return
@@ -29,31 +38,34 @@ const NewPost = (): React.JSX.Element => {
         try {
             setLoading(true)
             const token = await FIREBASE_AUTH.currentUser?.getIdToken()
-            const response = await fetch(`http://34.235.29.56:8080/news/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    organizationID: user?.uid,
-                    title,
-                    content,
-                    scamTypeTags: scamTypeTag
-                })
-            })
+
+            const response = await fetch(
+                `http://34.235.29.56:8080/news/${newsID}`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        title,
+                        content,
+                        scamTypeTags: scamTypeTag
+                    })
+                }
+            )
 
             if (!response.ok) {
-                throw new Error('Failed to create scam news')
+                throw new Error('Failed to update scam news')
             }
 
-            Alert.alert('Success', 'Scam news report created successfully!')
+            Alert.alert('Success', 'Scam news updated successfully!')
             router.replace('/(organization)/createdPost')
         } catch (error) {
-            console.error('Error creating scam news:', error)
+            console.error('Error updating scam news:', error)
             Alert.alert(
                 'Error',
-                'Failed to create scam news. Please try again.'
+                'Failed to update scam news. Please try again.'
             )
         } finally {
             setLoading(false)
@@ -62,7 +74,7 @@ const NewPost = (): React.JSX.Element => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>Create Scam News</Text>
+            <Text style={styles.header}>Edit Scam News</Text>
 
             <TextInput
                 style={styles.input}
@@ -87,12 +99,20 @@ const NewPost = (): React.JSX.Element => {
 
             <TouchableOpacity
                 style={[styles.button, loading && styles.buttonDisabled]}
-                onPress={handleSubmit}
+                onPress={handleUpdate}
                 disabled={loading}
             >
                 <Text style={styles.buttonText}>
-                    {loading ? 'Submitting...' : 'Submit'}
+                    {loading ? 'Updating...' : 'Update'}
                 </Text>
+            </TouchableOpacity>
+
+            {/* Cancel Button */}
+            <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={() => router.replace('/(organization)/createdPost')}
+            >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
         </View>
     )
@@ -130,7 +150,16 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontSize: 16
+    },
+    cancelButton: {
+        marginTop: 10,
+        padding: 10,
+        alignItems: 'center'
+    },
+    cancelButtonText: {
+        fontSize: 16,
+        color: '#007AFF'
     }
 })
 
-export default NewPost
+export default EditPost

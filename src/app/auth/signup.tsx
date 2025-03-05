@@ -63,6 +63,16 @@ const Signup = (): React.JSX.Element => {
                 </Text>
             </TouchableOpacity>
 
+            <TouchableOpacity style={commonStyles.longButton}>
+                <Text style={commonStyles.buttonText}>Continue with Apple</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={commonStyles.longButton}>
+                <Text style={commonStyles.buttonText}>
+                    Continue with Google
+                </Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
                 onPress={() => router.replace('/auth/signupOrganization')}
                 style={commonStyles.link}
