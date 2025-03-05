@@ -33,6 +33,7 @@
     "@gluestack-ui/textarea": "^0.1.24",
     "@gluestack-ui/toast": "^1.0.9",
     "@legendapp/motion": "^2.4.0",
+    "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-native-firebase/app": "^21.11.0",
     "@react-native-firebase/auth": "^21.11.0",
     "@react-navigation/native": "^7.0.14",
