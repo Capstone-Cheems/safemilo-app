@@ -34,9 +34,12 @@ const CreatedPost = (): React.JSX.Element => {
     const fetchNews = async (): Promise<void> => {
         try {
             const token = await FIREBASE_AUTH.currentUser?.getIdToken()
-            const response = await fetch(`http://34.235.29.56:8080/news/`, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
+            const response = await fetch(
+                `http://34.235.29.56:8080/news/organization/${user?.uid}`,
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            )
             const data = await response.json()
             setNews(data.data)
         } catch (error) {
