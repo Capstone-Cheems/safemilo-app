@@ -37,13 +37,15 @@ const PostDetail = (): React.JSX.Element => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
+        padding: 30,
+        paddingTop: 80,
         backgroundColor: '#ffffff'
     },
     title: {
         fontSize: 22,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        textAlign: 'center'
     },
     date: {
         fontSize: 14,

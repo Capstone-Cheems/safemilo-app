@@ -58,28 +58,51 @@ const CreatedPost = (): React.JSX.Element => {
                     data={news}
                     keyExtractor={item => item.newsID}
                     renderItem={({ item }) => (
-                        <TouchableOpacity
-                            style={styles.newsItem}
-                            onPress={() =>
-                                router.push({
-                                    pathname: '/(organization)/postDetail',
-                                    params: {
-                                        title: item.title,
-                                        content: item.content,
-                                        scamTypeTag: item.scamTypeTag,
-                                        createdAt: item.createdAt
-                                    }
-                                })
-                            }
-                        >
-                            <Text style={styles.title}>{item.title}</Text>
-                            <Text style={styles.content}>{item.content}</Text>
-                            <Text style={styles.tag}>#{item.scamTypeTag}</Text>
-                            <Text style={styles.date}>
-                                Posted on{' '}
-                                {new Date(item.createdAt).toDateString()}
-                            </Text>
-                        </TouchableOpacity>
+                        <View style={styles.newsItem}>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    router.push({
+                                        pathname: '/(organization)/postDetail',
+                                        params: {
+                                            title: item.title,
+                                            content: item.content,
+                                            scamTypeTag: item.scamTypeTag,
+                                            createdAt: item.createdAt
+                                        }
+                                    })
+                                }
+                            >
+                                <Text style={styles.title}>{item.title}</Text>
+                                <Text style={styles.content}>
+                                    {item.content}
+                                </Text>
+                                <Text style={styles.tag}>
+                                    #{item.scamTypeTag}
+                                </Text>
+                                <Text style={styles.date}>
+                                    Posted on{' '}
+                                    {new Date(item.createdAt).toDateString()}
+                                </Text>
+                            </TouchableOpacity>
+
+                            {/* Edit Button */}
+                            <TouchableOpacity
+                                style={styles.editButton}
+                                onPress={() =>
+                                    router.push({
+                                        pathname: '/(organization)/editPost',
+                                        params: {
+                                            newsID: item.newsID,
+                                            title: item.title,
+                                            content: item.content,
+                                            scamTypeTag: item.scamTypeTag
+                                        }
+                                    })
+                                }
+                            >
+                                <Text style={styles.editButtonText}>Edit</Text>
+                            </TouchableOpacity>
+                        </View>
                     )}
                 />
             )}
@@ -113,7 +136,10 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
-        shadowRadius: 4
+        shadowRadius: 4,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     title: {
         fontSize: 18,
@@ -121,7 +147,8 @@ const styles = StyleSheet.create({
     },
     content: {
         fontSize: 14,
-        marginTop: 5
+        marginTop: 5,
+        flex: 1 // Allow text to take up remaining space
     },
     tag: {
         fontSize: 12,
@@ -132,6 +159,17 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#888',
         marginTop: 5
+    },
+    editButton: {
+        backgroundColor: '#0d1b2a',
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 5
+    },
+    editButtonText: {
+        color: 'white',
+        fontSize: 14,
+        fontWeight: 'bold'
     }
 })
 
