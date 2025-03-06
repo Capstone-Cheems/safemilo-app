@@ -1,14 +1,8 @@
 import React, { useState } from 'react'
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Alert,
-    StyleSheet
-} from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { FIREBASE_AUTH } from '../../config/firebaseConfig'
+import commonStyles from '../../styles/commonStyles'
 
 const EditPost = (): React.JSX.Element => {
     const router = useRouter()
@@ -50,7 +44,7 @@ const EditPost = (): React.JSX.Element => {
                     body: JSON.stringify({
                         title,
                         content,
-                        scamTypeTags: scamTypeTag
+                        scamTypeTag: scamTypeTag
                     })
                 }
             )
@@ -73,17 +67,17 @@ const EditPost = (): React.JSX.Element => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Edit Scam News</Text>
+        <View style={commonStyles.postContainer}>
+            <Text style={commonStyles.header}>Edit Scam News</Text>
 
             <TextInput
-                style={styles.input}
+                style={commonStyles.postInput}
                 placeholder="Title"
                 value={title}
                 onChangeText={setTitle}
             />
             <TextInput
-                style={styles.input}
+                style={commonStyles.postInput}
                 placeholder="Content"
                 value={content}
                 onChangeText={setContent}
@@ -91,75 +85,34 @@ const EditPost = (): React.JSX.Element => {
                 numberOfLines={4}
             />
             <TextInput
-                style={styles.input}
+                style={commonStyles.postInput}
                 placeholder="Scam Type Tag (e.g. Phishing, Fraud)"
                 value={scamTypeTag}
                 onChangeText={setScamTypeTag}
             />
 
             <TouchableOpacity
-                style={[styles.button, loading && styles.buttonDisabled]}
+                style={[
+                    commonStyles.button,
+                    loading && commonStyles.buttonDisabled
+                ]}
                 onPress={handleUpdate}
                 disabled={loading}
             >
-                <Text style={styles.buttonText}>
+                <Text style={commonStyles.buttonText}>
                     {loading ? 'Updating...' : 'Update'}
                 </Text>
             </TouchableOpacity>
 
             {/* Cancel Button */}
             <TouchableOpacity
-                style={styles.cancelButton}
+                style={commonStyles.cancelButton}
                 onPress={() => router.replace('/(organization)/createdPost')}
             >
-                <Text style={styles.cancelButtonText}>Cancel</Text>
+                <Text style={commonStyles.cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        backgroundColor: '#ffffff'
-    },
-    header: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20
-    },
-    input: {
-        width: '100%',
-        padding: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: 10
-    },
-    button: {
-        backgroundColor: '#000000',
-        padding: 15,
-        borderRadius: 5,
-        alignItems: 'center'
-    },
-    buttonDisabled: {
-        backgroundColor: 'gray'
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 16
-    },
-    cancelButton: {
-        marginTop: 10,
-        padding: 10,
-        alignItems: 'center'
-    },
-    cancelButtonText: {
-        fontSize: 16,
-        color: '#007AFF'
-    }
-})
 
 export default EditPost

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 
@@ -12,13 +12,13 @@ const PostDetail = (): React.JSX.Element => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.date}>
+        <View style={commonStyles.detailContainer}>
+            <Text style={commonStyles.title}>{title}</Text>
+            <Text style={commonStyles.detailDate}>
                 Posted on {new Date(createdAt as string).toDateString()}
             </Text>
-            <Text style={styles.tag}>#{scamTypeTag}</Text>
-            <Text style={styles.content}>{content}</Text>
+            <Text style={commonStyles.detailTag}>#{scamTypeTag}</Text>
+            <Text style={commonStyles.detailContent}>{content}</Text>
 
             <TouchableOpacity
                 style={commonStyles.backButton}
@@ -33,35 +33,5 @@ const PostDetail = (): React.JSX.Element => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 30,
-        paddingTop: 80,
-        backgroundColor: '#ffffff'
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        textAlign: 'center'
-    },
-    date: {
-        fontSize: 14,
-        color: '#888',
-        marginBottom: 5
-    },
-    tag: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: '#007AFF',
-        marginBottom: 10
-    },
-    content: {
-        fontSize: 16,
-        lineHeight: 24
-    }
-})
 
 export default PostDetail

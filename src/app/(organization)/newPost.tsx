@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Alert,
-    StyleSheet
-} from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { useAuth } from '../../contexts/AuthContext'
 import { FIREBASE_AUTH } from '../../config/firebaseConfig'
 import { useRouter } from 'expo-router'
+import commonStyles from '../../styles/commonStyles'
 
 const NewPost = (): React.JSX.Element => {
     const { user } = useAuth()
@@ -39,7 +33,7 @@ const NewPost = (): React.JSX.Element => {
                     organizationID: user?.uid,
                     title,
                     content,
-                    scamTypeTags: scamTypeTag
+                    scamTypeTag: scamTypeTag
                 })
             })
 
@@ -61,17 +55,17 @@ const NewPost = (): React.JSX.Element => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Create Scam News</Text>
+        <View style={commonStyles.postContainer}>
+            <Text style={commonStyles.header}>Create Scam News</Text>
 
             <TextInput
-                style={styles.input}
+                style={commonStyles.postInput}
                 placeholder="Title"
                 value={title}
                 onChangeText={setTitle}
             />
             <TextInput
-                style={styles.input}
+                style={commonStyles.postInput}
                 placeholder="Content"
                 value={content}
                 onChangeText={setContent}
@@ -79,58 +73,26 @@ const NewPost = (): React.JSX.Element => {
                 numberOfLines={4}
             />
             <TextInput
-                style={styles.input}
+                style={commonStyles.postInput}
                 placeholder="Scam Type Tag (e.g. Phishing, Fraud)"
                 value={scamTypeTag}
                 onChangeText={setScamTypeTag}
             />
 
             <TouchableOpacity
-                style={[styles.button, loading && styles.buttonDisabled]}
+                style={[
+                    commonStyles.button,
+                    loading && commonStyles.buttonDisabled
+                ]}
                 onPress={handleSubmit}
                 disabled={loading}
             >
-                <Text style={styles.buttonText}>
+                <Text style={commonStyles.buttonText}>
                     {loading ? 'Submitting...' : 'Submit'}
                 </Text>
             </TouchableOpacity>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        backgroundColor: '#ffffff'
-    },
-    header: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20
-    },
-    input: {
-        width: '100%',
-        padding: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: 10
-    },
-    button: {
-        backgroundColor: '#000000',
-        padding: 15,
-        borderRadius: 5,
-        alignItems: 'center'
-    },
-    buttonDisabled: {
-        backgroundColor: 'gray'
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 16
-    }
-})
 
 export default NewPost

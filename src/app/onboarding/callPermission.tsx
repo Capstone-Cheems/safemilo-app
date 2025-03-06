@@ -1,13 +1,39 @@
-import React from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native'
 import { useRouter } from 'expo-router'
+import * as Contacts from 'expo-contacts'
 import commonStyles from '../../styles/commonStyles'
 
 const CallPermission = (): React.JSX.Element => {
     const router = useRouter()
+    const [permissionStatus, setPermissionStatus] =
+        useState<Contacts.PermissionStatus | null>(null)
 
-    const handleAllow = (): void => {
-        router.replace('/onboarding/tour1start')
+    useEffect(() => {
+        const checkPermission = async (): Promise<void> => {
+            const { status } = await Contacts.getPermissionsAsync()
+            setPermissionStatus(status)
+            console.log('Initial Permission Status:', permissionStatus)
+        }
+
+        checkPermission()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const requestPermission = async (): Promise<void> => {
+        const { status } = await Contacts.requestPermissionsAsync()
+        setPermissionStatus(status)
+        console.log('Updated Permission Status:', permissionStatus)
+
+        if (status === 'granted') {
+            router.replace('/onboarding/tour1start')
+        } else {
+            Alert.alert(
+                'Permission Denied',
+                'You need to enable contact access in your device settings to use this feature.'
+            )
+            router.replace('/onboarding/callPermissionDenied')
+        }
     }
 
     const handleDeny = (): void => {
@@ -50,7 +76,7 @@ const CallPermission = (): React.JSX.Element => {
 
                     <TouchableOpacity
                         style={commonStyles.button}
-                        onPress={handleAllow}
+                        onPress={requestPermission}
                     >
                         <Text style={commonStyles.buttonText}>Allow</Text>
                     </TouchableOpacity>
