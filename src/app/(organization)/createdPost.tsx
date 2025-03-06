@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import {
     View,
     Text,
     FlatList,
     ActivityIndicator,
-    StyleSheet,
     TouchableOpacity
 } from 'react-native'
 import { useAuth } from '../../contexts/AuthContext'
 import { FIREBASE_AUTH } from '../../config/firebaseConfig'
 import { useRouter } from 'expo-router'
+import { useFocusEffect } from '@react-navigation/native'
+import commonStyles from '../../styles/commonStyles'
 
 type NewsItem = {
     newsID: string
@@ -49,23 +50,31 @@ const CreatedPost = (): React.JSX.Element => {
         }
     }
 
+    useFocusEffect(
+        useCallback(() => {
+            if (!user) return
+            fetchNews()
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [user])
+    )
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Your Scam News</Text>
+        <View style={commonStyles.postContainer}>
+            <Text style={commonStyles.header}>Your Scam News</Text>
             {loading ? (
                 <ActivityIndicator size="large" color="#000000" />
             ) : news.length === 0 ? (
-                <Text style={styles.noNewsText}>No scam news found.</Text>
+                <Text style={commonStyles.noNewsText}>No scam news found.</Text>
             ) : (
                 <FlatList
                     data={news}
                     keyExtractor={item => item.newsID}
                     renderItem={({ item }) => (
-                        <View style={styles.newsItem}>
+                        <View style={commonStyles.postnewsItem}>
                             <TouchableOpacity
                                 onPress={() =>
                                     router.push({
-                                        pathname: '/(organization)/postDetail',
+                                        pathname: '/news/postDetail',
                                         params: {
                                             title: item.title,
                                             content: item.content,
@@ -75,14 +84,16 @@ const CreatedPost = (): React.JSX.Element => {
                                     })
                                 }
                             >
-                                <Text style={styles.title}>{item.title}</Text>
-                                <Text style={styles.content}>
+                                <Text style={commonStyles.postTitle}>
+                                    {item.title}
+                                </Text>
+                                <Text style={commonStyles.content}>
                                     {item.content}
                                 </Text>
-                                <Text style={styles.tag}>
+                                <Text style={commonStyles.tag}>
                                     #{item.scamTypeTag}
                                 </Text>
-                                <Text style={styles.date}>
+                                <Text style={commonStyles.date}>
                                     Posted on{' '}
                                     {new Date(item.createdAt).toDateString()}
                                 </Text>
@@ -90,10 +101,10 @@ const CreatedPost = (): React.JSX.Element => {
 
                             {/* Edit Button */}
                             <TouchableOpacity
-                                style={styles.editButton}
+                                style={commonStyles.editButton}
                                 onPress={() =>
                                     router.push({
-                                        pathname: '/(organization)/editPost',
+                                        pathname: '/news/editPost',
                                         params: {
                                             newsID: item.newsID,
                                             title: item.title,
@@ -103,7 +114,9 @@ const CreatedPost = (): React.JSX.Element => {
                                     })
                                 }
                             >
-                                <Text style={styles.editButtonText}>Edit</Text>
+                                <Text style={commonStyles.editButtonText}>
+                                    Edit
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     )}
@@ -112,68 +125,5 @@ const CreatedPost = (): React.JSX.Element => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        backgroundColor: '#ffffff'
-    },
-    header: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    noNewsText: {
-        textAlign: 'center',
-        fontSize: 16,
-        color: 'gray',
-        marginTop: 20
-    },
-    newsItem: {
-        backgroundColor: '#f9f9f9',
-        padding: 15,
-        marginBottom: 10,
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: 'bold'
-    },
-    content: {
-        fontSize: 14,
-        marginTop: 5,
-        flex: 1 // Allow text to take up remaining space
-    },
-    tag: {
-        fontSize: 12,
-        color: '#555',
-        marginTop: 5
-    },
-    date: {
-        fontSize: 12,
-        color: '#888',
-        marginTop: 5
-    },
-    editButton: {
-        backgroundColor: '#0d1b2a',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 5
-    },
-    editButtonText: {
-        color: 'white',
-        fontSize: 14,
-        fontWeight: 'bold'
-    }
-})
 
 export default CreatedPost

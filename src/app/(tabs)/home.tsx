@@ -78,7 +78,7 @@ const Home = (): React.JSX.Element => {
             <View className="flex-col gap-8 mb-8">
                 <TouchableOpacity
                     className="flex-row bg-yellow-100 rounded-2xl"
-                    onPress={() => router.push('/news')}
+                    onPress={() => router.push('/news/news')}
                 >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -98,7 +98,7 @@ const Home = (): React.JSX.Element => {
 
                 <TouchableOpacity
                     className="flex-row bg-orange-100 rounded-2xl"
-                    onPress={() => router.push('/calls')}
+                    onPress={() => router.push('/screening/calls')}
                 >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -118,7 +118,7 @@ const Home = (): React.JSX.Element => {
 
                 <TouchableOpacity
                     className="flex-row bg-blue-100 rounded-2xl"
-                    onPress={() => router.push('/messages')}
+                    onPress={() => router.push('/screening/messages')}
                 >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
