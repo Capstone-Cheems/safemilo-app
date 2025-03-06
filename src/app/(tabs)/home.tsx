@@ -1,12 +1,13 @@
 import { Box } from '@/components/ui/box'
+import { NewsSection } from '@/src/features/news/news-section'
 import React, { ReactNode } from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView } from 'react-native'
 
 const Home = (): ReactNode => {
     return (
         <ScrollView>
             <Box className="flex justify-center">
-                <Text>Home</Text>
+                <NewsSection />
             </Box>
         </ScrollView>
     )

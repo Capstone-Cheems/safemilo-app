@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "safemilo",
-    "slug": "safemilo",
+    "slug": "safemilo-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -20,7 +20,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.uvoleti00.safemilo",
+      "permissions": ["android.permission.READ_PHONE_STATE","android.permission.SYSTEM_ALERT_WINDOW","android.permission.READ_CONTACTS"]
     },
     "web": {
       "bundler": "metro",
@@ -32,6 +34,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "293b840b-9e46-4088-b3e3-70212d313417"
+      }
     }
   }
 }
