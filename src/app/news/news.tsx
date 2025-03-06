@@ -82,8 +82,18 @@ const News = (): React.JSX.Element => {
                             })
                         }
                     >
-                        <Text style={commonStyles.cardTitle}>{item.title}</Text>
-                        <Text numberOfLines={2} style={commonStyles.content}>
+                        <Text
+                            style={commonStyles.cardTitle}
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                        >
+                            {item.title}
+                        </Text>
+                        <Text
+                            style={commonStyles.content}
+                            numberOfLines={2}
+                            ellipsizeMode="tail"
+                        >
                             {item.content}
                         </Text>
                         <Text style={commonStyles.tag}>

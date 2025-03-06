@@ -84,10 +84,18 @@ const CreatedPost = (): React.JSX.Element => {
                                     })
                                 }
                             >
-                                <Text style={commonStyles.postTitle}>
+                                <Text
+                                    style={commonStyles.postTitle}
+                                    numberOfLines={1}
+                                    ellipsizeMode="tail"
+                                >
                                     {item.title}
                                 </Text>
-                                <Text style={commonStyles.content}>
+                                <Text
+                                    style={commonStyles.cardContent}
+                                    numberOfLines={2}
+                                    ellipsizeMode="tail"
+                                >
                                     {item.content}
                                 </Text>
                                 <Text style={commonStyles.tag}>

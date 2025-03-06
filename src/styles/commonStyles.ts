@@ -194,7 +194,8 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#0d1b2a',
         paddingVertical: 12,
         paddingHorizontal: 24,
-        borderRadius: 5
+        borderRadius: 5,
+        marginLeft: -10
     },
     editButtonText: {
         color: 'white',
@@ -217,11 +218,15 @@ const commonStyles = StyleSheet.create({
         shadowRadius: 4,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '100%',
+        height: 120,
+        overflow: 'hidden'
     },
     postTitle: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        maxWidth: '80%'
     },
     detailContainer: {
         flex: 1,
@@ -263,6 +268,12 @@ const commonStyles = StyleSheet.create({
     cancelButtonText: {
         fontSize: 16,
         color: '#007AFF'
+    },
+    cardContent: {
+        fontSize: 14,
+        marginTop: 5,
+        color: '#555',
+        maxWidth: '80%'
     }
 })
 

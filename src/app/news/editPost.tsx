@@ -44,7 +44,7 @@ const EditPost = (): React.JSX.Element => {
                     body: JSON.stringify({
                         title,
                         content,
-                        scamTypeTag: scamTypeTag
+                        scamTypeTags: scamTypeTag
                     })
                 }
             )
