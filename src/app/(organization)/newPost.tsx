@@ -33,7 +33,7 @@ const NewPost = (): React.JSX.Element => {
                     organizationID: user?.uid,
                     title,
                     content,
-                    scamTypeTag: scamTypeTag
+                    scamTypeTags: scamTypeTag
                 })
             })
 
