@@ -274,6 +274,16 @@ const commonStyles = StyleSheet.create({
         marginTop: 5,
         color: '#555',
         maxWidth: '80%'
+    },
+    scrollContainer: {
+        flexGrow: 1,
+        paddingBottom: 20
+    },
+    moreButton: {
+        position: 'absolute',
+        top: 20,
+        right: 20,
+        padding: 10
     }
 })
 
