@@ -75,6 +75,7 @@ const CreatedPost = (): React.JSX.Element => {
                                     router.push({
                                         pathname: '/news/postDetail',
                                         params: {
+                                            newsID: item.newsID,
                                             title: item.title,
                                             content: item.content,
                                             scamTypeTag: item.scamTypeTag,
