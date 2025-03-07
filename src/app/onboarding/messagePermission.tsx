@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 
 const MessagePermission = (): React.JSX.Element => {
@@ -13,6 +13,11 @@ const MessagePermission = (): React.JSX.Element => {
     const handleDeny = (): void => {
         router.replace('/onboarding/messagePermissionDenied')
     }
+
+    const navigation = useNavigation()
+    useLayoutEffect(() => {
+        navigation.setOptions({ title: 'OnBoarding' })
+    }, [navigation])
 
     return (
         <View style={commonStyles.viewContainer}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { useRouter } from 'expo-router'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../shared'
 
 const Index = (): React.JSX.Element => {
     const [isReady, setIsReady] = useState(false)
@@ -15,7 +15,7 @@ const Index = (): React.JSX.Element => {
     useEffect(() => {
         if (isReady) {
             if (user) {
-                router.replace('/onboarding/onboarding')
+                router.replace('/home')
             } else {
                 router.replace('/auth/login')
             }

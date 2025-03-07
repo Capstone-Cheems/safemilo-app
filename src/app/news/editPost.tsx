@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { FIREBASE_AUTH } from '../../config/firebaseConfig'
 import commonStyles from '../../styles/commonStyles'
+import { useAuth } from '@/src/shared'
 
 const EditPost = (): React.JSX.Element => {
     const router = useRouter()
+    const { user } = useAuth()
     const {
         newsID,
         title: initialTitle,
@@ -31,7 +32,7 @@ const EditPost = (): React.JSX.Element => {
 
         try {
             setLoading(true)
-            const token = await FIREBASE_AUTH.currentUser?.getIdToken()
+            const token = user?.getIdToken()
 
             const response = await fetch(
                 `http://34.235.29.56:8080/news/${newsID}`,

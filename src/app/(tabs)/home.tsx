@@ -3,7 +3,7 @@ import { ScrollView, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Box } from '@/components/ui/box'
 import { useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
-
+import { useAuth } from '@/src/shared'
 const tips = [
     'Never share One Time Password or codes with anyone, not even your bank!',
     'Be cautious of emails asking for personal information, phishing scams are common.',
@@ -14,6 +14,7 @@ const tips = [
 const Home = (): React.JSX.Element => {
     const router = useRouter()
     const [randomTip, setRandomTip] = useState<string>('')
+    const { user } = useAuth()
 
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * tips.length)
@@ -31,30 +32,13 @@ const Home = (): React.JSX.Element => {
     return (
         <ScrollView className="p-4 bg-white">
             {/* Welcome Message */}
-            <View className="mb-4 flex-row justify-between items-center">
+            {/*<View className="mb-4 flex-row justify-between items-center">
                 <View>
                     <Text className="text-[1.5rem] font-semibold">
-                        Welcome,
+                        Welcome,{user?.email}
                     </Text>
-                    <Text className="text-xl font-bold">User</Text>
                 </View>
-                <View className="flex-row gap-4">
-                    <TouchableOpacity onPress={checkProfile}>
-                        <Image
-                            // eslint-disable-next-line @typescript-eslint/no-require-imports
-                            source={require('../../../assets/images/profile-icon.png')}
-                            style={commonStyles.backIcon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={checkNotification}>
-                        <Image
-                            // eslint-disable-next-line @typescript-eslint/no-require-imports
-                            source={require('../../../assets/images/notification-icon.png')}
-                            style={commonStyles.backIcon}
-                        />
-                    </TouchableOpacity>
-                </View>
-            </View>
+            </View>*/}
 
             {/* Tip of the Day */}
             <Box className="bg-gray-100 rounded-2xl px-4 py-8 mb-6">

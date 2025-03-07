@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
+import commonStyles from '../../styles/commonStyles'
 import {
     createUserWithEmailAndPassword,
+    getAuth,
     signInWithEmailAndPassword
 } from 'firebase/auth'
-import { FIREBASE_AUTH } from '../../config/firebaseConfig'
-import commonStyles from '../../styles/commonStyles'
-import { useAuth } from '../../contexts/AuthContext'
 
 type AuthFormProps = {
     type: 'signup' | 'login'
@@ -15,26 +14,17 @@ type AuthFormProps = {
 
 const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
     const router = useRouter()
-    const { login } = useAuth()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const auth = FIREBASE_AUTH
 
     const handleAuth = async (): Promise<void> => {
         try {
             if (type === 'signup') {
-                await createUserWithEmailAndPassword(auth, email, password)
+                await createUserWithEmailAndPassword(getAuth(), email, password)
             } else {
-                const userCredential = await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                )
-                const user = userCredential.user
-                const token = await user.getIdToken()
-                login(user, token)
+                await signInWithEmailAndPassword(getAuth(), email, password)
             }
 
             router.replace('/(organization)/createdPost')

@@ -6,11 +6,10 @@ import {
     ActivityIndicator,
     TouchableOpacity
 } from 'react-native'
-import { useAuth } from '../../contexts/AuthContext'
-import { FIREBASE_AUTH } from '../../config/firebaseConfig'
 import { useRouter } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 import commonStyles from '../../styles/commonStyles'
+import { useAuth } from '@/src/shared'
 
 type NewsItem = {
     newsID: string
@@ -34,7 +33,7 @@ const CreatedPost = (): React.JSX.Element => {
 
     const fetchNews = async (): Promise<void> => {
         try {
-            const token = await FIREBASE_AUTH.currentUser?.getIdToken()
+            const token = user?.getIdToken()
             const response = await fetch(
                 `http://34.235.29.56:8080/news/organization/${user?.uid}`,
                 {

@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 
 const OnboardingScreen = (): React.JSX.Element => {
     const router = useRouter()
-
+    const navigation = useNavigation()
     const handleContinue = (): void => {
         router.replace('/onboarding/messagePermission')
     }
-
+    useLayoutEffect(() => {
+        navigation.setOptions({ title: 'OnBoarding' })
+    }, [navigation])
     return (
         <View style={commonStyles.viewContainer}>
             <View style={commonStyles.dialogBox}>

@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { FIREBASE_AUTH } from '../../config/firebaseConfig'
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 
 const Signup = (): React.JSX.Element => {
     const router = useRouter()
@@ -11,11 +10,10 @@ const Signup = (): React.JSX.Element => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const auth = FIREBASE_AUTH
 
     const handleSignup = async (): Promise<void> => {
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
+            await createUserWithEmailAndPassword(getAuth(), email, password)
             router.replace('/onboarding/onboarding')
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {

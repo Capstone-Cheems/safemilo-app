@@ -1,36 +1,58 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import { useRouter } from 'expo-router'
-import { useAuth } from '../../contexts/AuthContext'
+import React, { useLayoutEffect, useState } from 'react'
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    ActivityIndicator
+} from 'react-native'
+import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { FIREBASE_AUTH } from '../../config/firebaseConfig'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 const Login = (): React.JSX.Element => {
     const router = useRouter()
-    const { login } = useAuth()
-
+    const navigation = useNavigation()
+    useLayoutEffect(() => {
+        navigation.setOptions({ title: 'Login' })
+    }, [navigation])
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const auth = FIREBASE_AUTH
+    const [loading, setLoading] = useState(false) // To track loading state
+
+    // Basic email validation
+    const isValidEmail = (email: string): boolean => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        return emailRegex.test(email)
+    }
 
     const handleLogin = async (): Promise<void> => {
+        if (!email || !password) {
+            setError('Email and password are required')
+            return
+        }
+
+        if (!isValidEmail(email)) {
+            setError('Please enter a valid email address')
+            return
+        }
+
+        setError('') // Clear previous error
+        setLoading(true)
+
         try {
-            const userCredential = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            )
-            const user = userCredential.user
-            const token = await user.getIdToken()
+            await signInWithEmailAndPassword(getAuth(), email, password)
 
-            login(user, token)
-
-            router.replace('/onboarding/onboarding')
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (err: any) {
-            setError(err.message)
+            router.replace('/')
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message || 'Login failed. Please try again.')
+            } else {
+                setError('An unexpected error occurred.')
+            }
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -60,8 +82,13 @@ const Login = (): React.JSX.Element => {
             <TouchableOpacity
                 onPress={handleLogin}
                 style={commonStyles.formButton}
+                disabled={loading} // Disable button while loading
             >
-                <Text style={commonStyles.buttonText}>Login</Text>
+                {loading ? (
+                    <ActivityIndicator color="white" /> // Show loader while processing
+                ) : (
+                    <Text style={commonStyles.buttonText}>Login</Text>
+                )}
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -89,7 +116,7 @@ const Login = (): React.JSX.Element => {
                 style={commonStyles.link}
             >
                 <Text style={commonStyles.textRow}>
-                    <Text>Orgnaizational User?</Text>
+                    <Text>Organizational User?</Text>
                     <Text style={commonStyles.linkText}> Click here</Text>
                 </Text>
             </TouchableOpacity>

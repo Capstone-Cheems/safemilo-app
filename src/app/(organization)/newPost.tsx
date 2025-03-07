@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
-import { useAuth } from '../../contexts/AuthContext'
-import { FIREBASE_AUTH } from '../../config/firebaseConfig'
 import { useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
+import { useAuth } from '@/src/shared'
 
 const NewPost = (): React.JSX.Element => {
     const { user } = useAuth()
@@ -22,7 +21,7 @@ const NewPost = (): React.JSX.Element => {
 
         try {
             setLoading(true)
-            const token = await FIREBASE_AUTH.currentUser?.getIdToken()
+            const token = user?.getIdToken()
             const response = await fetch(`http://34.235.29.56:8080/news/`, {
                 method: 'POST',
                 headers: {

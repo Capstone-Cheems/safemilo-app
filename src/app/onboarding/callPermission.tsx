@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useNavigation, useRouter } from 'expo-router'
 import * as Contacts from 'expo-contacts'
 import commonStyles from '../../styles/commonStyles'
 
@@ -8,7 +8,10 @@ const CallPermission = (): React.JSX.Element => {
     const router = useRouter()
     const [permissionStatus, setPermissionStatus] =
         useState<Contacts.PermissionStatus | null>(null)
-
+    const navigation = useNavigation()
+    useLayoutEffect(() => {
+        navigation.setOptions({ title: 'OnBoarding' })
+    }, [navigation])
     useEffect(() => {
         const checkPermission = async (): Promise<void> => {
             const { status } = await Contacts.getPermissionsAsync()
