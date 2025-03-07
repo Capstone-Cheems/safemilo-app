@@ -42,7 +42,7 @@ const NewsDetail = (): React.JSX.Element => {
             <TouchableOpacity onPress={handleShare}>
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/share.png')}
+                    source={require('../../../assets/images/share-icon.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
