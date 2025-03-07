@@ -6,6 +6,8 @@ import CompletedCoursesScreen from './CompletedCoursesScreen'
 import AchievementsScreen from './AchievementsScreen'
 import LessonScreen from './LessonScreen'
 import QuizScreen from './QuizScreen'
+import BrowseCategoriesScreen from './BrowseCategoriesScreen'
+import SpecificCategoryScreen from './SpecificCategoryScreen'
 
 const Stack = createStackNavigator()
 
@@ -41,6 +43,16 @@ const LearnNavigator = (): JSX.Element => {
                 name="Quiz"
                 component={QuizScreen}
                 options={{ title: 'Quick Quiz' }}
+            />
+            <Stack.Screen
+                name="BrowseCategories"
+                component={BrowseCategoriesScreen}
+                options={{ title: 'Browse Scam Categories' }}
+            />
+            <Stack.Screen
+                name="SpecificCategory"
+                component={SpecificCategoryScreen}
+                options={{ title: 'Scam Category' }}
             />
         </Stack.Navigator>
     )

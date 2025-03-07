@@ -7,4 +7,10 @@ export type RootStackParamList = {
     'created post': undefined
     'post details': { newsID: string }
     'new post': undefined
+    LearnDashboard: undefined
+    BrowseCategories: undefined
+    SpecificCategory: { categoryName: string }
+    Achievements: undefined
+    Lesson: { courseId?: string }
+    Quiz: { lessonId?: string }
 }
