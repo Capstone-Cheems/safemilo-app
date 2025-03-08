@@ -1575,6 +1575,7 @@ const BookmarkIcon = createIcon({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="#f8f1eb"
       />
     </>
   ),
@@ -1593,7 +1594,7 @@ const BookmarkFilledIcon = createIcon({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="white"
+        fill="#007AFF"
       />
     </>
   ),
