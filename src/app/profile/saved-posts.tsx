@@ -24,7 +24,7 @@ const SavedPosts = (): React.JSX.Element => {
     const [loading, setLoading] = useState(true)
     const router = useRouter()
 
-    const fetchSavedPosts = async () => {
+    const fetchSavedPosts = async (): Promise<void> => {
         try {
             setLoading(true)
             const savedPostsData = await AsyncStorage.getItem('savedPosts')
@@ -42,7 +42,7 @@ const SavedPosts = (): React.JSX.Element => {
         }, [])
     )
 
-    const handleRemovePost = async (newsID: string) => {
+    const handleRemovePost = async (newsID: string): Promise<void> => {
         const updatedSavedPosts = savedPosts.filter(
             post => post.newsID !== newsID
         )
@@ -57,7 +57,7 @@ const SavedPosts = (): React.JSX.Element => {
         }
     }
 
-    const handleRemoveAllPosts = async () => {
+    const handleRemoveAllPosts = async (): Promise<void> => {
         setSavedPosts([])
         try {
             await AsyncStorage.removeItem('savedPosts')
@@ -66,10 +66,16 @@ const SavedPosts = (): React.JSX.Element => {
         }
     }
 
-    const handlePostClick = (post: NewsItem) => {
+    const handlePostClick = (post: NewsItem): void => {
         router.push({
-            pathname: '../news/postDetail',
-            params: post
+            pathname: '../news/newsDetail',
+            params: {
+                newsID: post.newsID,
+                title: post.title,
+                content: post.content,
+                scamTypeTag: post.scamTypeTag,
+                createdAt: post.createdAt
+            }
         })
     }
 
