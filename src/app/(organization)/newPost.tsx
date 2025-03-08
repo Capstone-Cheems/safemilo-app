@@ -53,6 +53,14 @@ const NewPost = (): React.JSX.Element => {
         }
     }
 
+    const handleAutoFill = (): void => {
+        setTitle('Warn of Extortion Scam')
+        setContent(
+            'The Canadian Anti-Fraud Centre is receiving reports of extortion letters being sent by email. The extortion letters have your full name, personal telephone number, personal residential address and a screenshot from search engines. The letter claims that you have visited explicit websites and threatens to send a copy of a video to your contact list unless you pay them using cryptocurrency. Some letters may also use a QR Code. This is a scam! Do not send money under pressure and do not repy to threatening messages. Report it to your local police.'
+        )
+        setScamTypeTag('Fraud, Extortion')
+    }
+
     return (
         <View style={commonStyles.postContainer}>
             <Text style={commonStyles.header}>Create Scam News</Text>
@@ -89,6 +97,19 @@ const NewPost = (): React.JSX.Element => {
                 <Text style={commonStyles.buttonText}>
                     {loading ? 'Submitting...' : 'Submit'}
                 </Text>
+            </TouchableOpacity>
+
+            {/* Hidden Auto-Fill Button */}
+            <TouchableOpacity
+                style={{
+                    position: 'absolute',
+                    bottom: 10,
+                    right: 10,
+                    opacity: 0.2
+                }}
+                onPress={handleAutoFill}
+            >
+                <Text style={{ color: '#FFFFFF' }}>Auto-Fill</Text>
             </TouchableOpacity>
         </View>
     )
