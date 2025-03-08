@@ -46,7 +46,11 @@ export const VieNews: React.FC<{
                     onPress={handleListen}
                 />
             ) : (
-                <ButtonWidget text="Stop" onPress={handleStop} />
+                <ButtonWidget
+                    text="Stop"
+                    stopIcon={true}
+                    onPress={handleStop}
+                />
             )}
             <Heading>{news.title}</Heading>
             <Box className="flex-row flex-nowrap justify-between">
