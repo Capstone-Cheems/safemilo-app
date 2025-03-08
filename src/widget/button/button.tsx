@@ -6,6 +6,7 @@ export const ButtonWidget: React.FC<
     {
         text: string
         playIcon?: boolean
+        onPress?: () => void
     } & ComponentPropsWithRef<typeof Button>
 > = ({ text, playIcon, ...rest }) => {
     return (
