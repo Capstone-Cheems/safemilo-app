@@ -1,6 +1,6 @@
 import { Box } from '@/components/ui/box'
 import { News, timeAgo } from '@/src/shared'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, TouchableOpacity } from 'react-native'
 import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
@@ -8,13 +8,60 @@ import { Heading } from '@/components/ui/heading'
 import { ImageView } from '@/src/shared/ui/image/image'
 import { BookmarkIcon, BookmarkFilledIcon } from '@/components/ui/icon'
 import * as Speech from 'expo-speech'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const VieNews: React.FC<{
     news: News
     coverImage: string
 }> = ({ news, coverImage }) => {
     const [isSpeaking, setIsSpeaking] = useState(false)
-    const [isBookmarked, setIsBookmarked] = useState(false)
+    const [isSaved, setIsSaved] = useState(false)
+
+    useEffect(() => {
+        checkIfSaved()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const checkIfSaved = async (): Promise<void> => {
+        try {
+            const savedPostsData = await AsyncStorage.getItem('savedPosts')
+            const savedPosts = savedPostsData ? JSON.parse(savedPostsData) : []
+            const isAlreadySaved = savedPosts.some(
+                (post: News) => post.newsID === news.newsID
+            )
+            setIsSaved(isAlreadySaved)
+        } catch (error) {
+            console.error('Error checking saved posts:', error)
+        }
+    }
+
+    const toggleSave = async (): Promise<void> => {
+        try {
+            const savedPostsData = await AsyncStorage.getItem('savedPosts')
+            const savedPosts = savedPostsData ? JSON.parse(savedPostsData) : []
+
+            if (isSaved) {
+                // Remove from saved posts
+                const updatedPosts = savedPosts.filter(
+                    (post: News) => post.newsID !== news.newsID
+                )
+                await AsyncStorage.setItem(
+                    'savedPosts',
+                    JSON.stringify(updatedPosts)
+                )
+            } else {
+                // Add to saved posts
+                const updatedPosts = [...savedPosts, news]
+                await AsyncStorage.setItem(
+                    'savedPosts',
+                    JSON.stringify(updatedPosts)
+                )
+            }
+            setIsSaved(prev => !prev)
+        } catch (error) {
+            console.error('Error toggling save state:', error)
+        }
+    }
 
     const handleListen = (): void => {
         const textToRead = `${news.title}. ${news.content}`
@@ -31,10 +78,6 @@ export const VieNews: React.FC<{
         setIsSpeaking(false)
     }
 
-    const toggleBookmark = (): void => {
-        setIsBookmarked(prevState => !prevState)
-    }
-
     return (
         <VStack space="md" className="m-4">
             <Box className="relative">
@@ -46,7 +89,7 @@ export const VieNews: React.FC<{
                 />
 
                 <TouchableOpacity
-                    onPress={toggleBookmark}
+                    onPress={toggleSave}
                     className="absolute top-0 right-2 p-2"
                     style={{
                         elevation: 4,
@@ -54,7 +97,7 @@ export const VieNews: React.FC<{
                         height: 48
                     }}
                 >
-                    {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+                    {isSaved ? <BookmarkFilledIcon /> : <BookmarkIcon />}
                 </TouchableOpacity>
             </Box>
             {!isSpeaking ? (
