@@ -1,12 +1,13 @@
 import { Box } from '@/components/ui/box'
 import React, { ReactNode } from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView } from 'react-native'
+import LearnDashboardScreen from '../learning/LearnDashboard'
 
 const Learn = (): ReactNode => {
     return (
         <ScrollView>
             <Box>
-                <Text>Learn</Text>
+                <LearnDashboardScreen />
             </Box>
         </ScrollView>
     )

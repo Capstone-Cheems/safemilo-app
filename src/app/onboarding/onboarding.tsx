@@ -10,7 +10,7 @@ const OnboardingScreen = (): React.JSX.Element => {
         router.replace('/onboarding/messagePermission')
     }
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'OnBoarding' })
+        navigation.setOptions({ headerShown: false })
     }, [navigation])
     return (
         <View style={commonStyles.viewContainer}>

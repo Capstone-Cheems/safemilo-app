@@ -7,7 +7,7 @@ const CallPermissionDenied = (): React.JSX.Element => {
     const router = useRouter()
     const navigation = useNavigation()
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'OnBoarding' })
+        navigation.setOptions({ headerShown: false })
     }, [navigation])
     const handleContinue = (): void => {
         router.replace('/onboarding/tour1start')

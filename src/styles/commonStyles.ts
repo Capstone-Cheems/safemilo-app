@@ -3,9 +3,12 @@ import { StyleSheet } from 'react-native'
 const commonStyles = StyleSheet.create({
     // Onboarding
     messageText: {
-        fontSize: 18,
+        fontSize: 24,
         textAlign: 'center',
         marginBottom: 30
+    },
+    accent: {
+        color: 'black'
     },
     boldText: {
         fontWeight: 'bold',
@@ -275,15 +278,152 @@ const commonStyles = StyleSheet.create({
         color: '#555',
         maxWidth: '80%'
     },
-    scrollContainer: {
-        flexGrow: 1,
-        paddingBottom: 20
+    //Profile Section
+    largeformButton: {
+        backgroundColor: 'grey',
+        padding: 10,
+        width: '100%',
+        marginTop: 10,
+        borderRadius: 10
     },
-    moreButton: {
+    Logout: {
+        backgroundColor: '#000000',
+        padding: 10,
+        width: '100%',
+        marginTop: 25,
+        borderRadius: 10
+    },
+    profileImage: {
+        width: 50,
+        height: 80,
+        borderRadius: 80,
+        marginBottom: 20
+    },
+    profilePlaceholder: {
+        width: 80,
+        height: 80,
+        backgroundColor: '#666',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20
+    },
+    leftText: {
+        fontWeight: 'bold',
+        fontSize: 28,
+        alignItems: 'flex-start',
+        textAlign: 'left',
+        marginBottom: 10
+    },
+    popupText: {
+        fontSize: 16,
+        textAlign: 'center',
+        marginBottom: 10
+    },
+    //Saved Posts
+    removeButton: {
         position: 'absolute',
-        top: 20,
-        right: 20,
-        padding: 10
+        top: 10,
+        right: 10,
+        padding: 2,
+        borderRadius: 45
+    },
+    removeButtonText: {
+        color: 'red',
+        fontWeight: 'bold'
+    },
+    saveButton: {
+        backgroundColor: '#4CAF50',
+        padding: 8,
+        borderRadius: 5,
+        marginTop: 10
+    },
+    noSavedPosts: {
+        marginTop: 20,
+        alignItems: 'center'
+    },
+    savedPostItem: {
+        position: 'relative',
+        marginBottom: 10,
+        padding: 10,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: '#ddd'
+    },
+    removeAllButton: {
+        padding: 10,
+        marginBottom: 5,
+        alignSelf: 'flex-end',
+        borderRadius: 5,
+        top: -15
+    },
+    removeAllButtonText: {
+        color: '#FF3B30',
+        fontWeight: 'bold'
+    },
+    browseButton: {
+        backgroundColor: '#007BFF',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        marginVertical: 10
+    },
+    browseButtonText: {
+        color: 'white'
+    },
+    //FAQS
+    faqItem: {
+        backgroundColor: '#f5f5f5',
+        padding: 15,
+        marginVertical: 5,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#ddd'
+    },
+    faqQuestion: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#333'
+    },
+    faqAnswer: {
+        marginTop: 5,
+        fontSize: 14,
+        color: '#555'
+    },
+    featureSection: {
+        marginBottom: 20
+    },
+    featureTitle: {
+        fontSize: 18,
+        fontWeight: '600'
+    },
+    featureDescription: {
+        fontSize: 14,
+        marginVertical: 10,
+        color: '#555'
+    },
+    featureLink: {
+        backgroundColor: '#007BFF',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        borderRadius: 4
+    },
+    //Report a bug
+    inputSection: {
+        marginBottom: 20
+    },
+    inputLabel: {
+        fontSize: 16,
+        fontWeight: '600',
+        marginBottom: 8
+    },
+    buginput: {
+        borderColor: '#ccc',
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 4,
+        fontSize: 14,
+        minHeight: 100
     }
 })
 

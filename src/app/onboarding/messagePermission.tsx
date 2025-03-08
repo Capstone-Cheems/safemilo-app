@@ -16,7 +16,7 @@ const MessagePermission = (): React.JSX.Element => {
 
     const navigation = useNavigation()
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'OnBoarding' })
+        navigation.setOptions({ headerShown: false })
     }, [navigation])
 
     return (

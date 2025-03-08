@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import {
     createUserWithEmailAndPassword,
@@ -18,6 +18,11 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+
+    const navigation = useNavigation()
+    useLayoutEffect(() => {
+        navigation.setOptions({ headerShown: false })
+    }, [navigation])
 
     const handleAuth = async (): Promise<void> => {
         try {

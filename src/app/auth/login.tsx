@@ -14,7 +14,7 @@ const Login = (): React.JSX.Element => {
     const router = useRouter()
     const navigation = useNavigation()
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'Login' })
+        navigation.setOptions({ headerShown: false })
     }, [navigation])
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

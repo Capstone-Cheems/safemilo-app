@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Tabs } from 'expo-router'
+import { Tabs, useRouter } from 'expo-router'
 import { BellIcon, Icon } from '@/components/ui/icon'
 import {
     Avatar,
@@ -9,9 +9,11 @@ import {
 } from '@/components/ui/avatar'
 import { HStack } from '@/components/ui/hstack'
 import { useAuth } from '@/src/shared'
+import { TouchableOpacity } from 'react-native'
 
 export default function TabLayout(): ReactNode {
     const { user } = useAuth()
+    const router = useRouter()
     return (
         <Tabs
             screenOptions={{
@@ -23,21 +25,31 @@ export default function TabLayout(): ReactNode {
                             reversed={false}
                             className="pr-2 justify-center items-center"
                         >
-                            <Icon
-                                as={BellIcon}
-                                className="text-typography-800"
-                            />
-                            <Avatar size="sm">
-                                <AvatarFallbackText>
-                                    {user?.email}
-                                </AvatarFallbackText>
-                                <AvatarImage
-                                    source={{
-                                        uri: user?.photoURL ?? ''
-                                    }}
+                            <TouchableOpacity
+                                onPress={() =>
+                                    router.push('/notification/notification')
+                                }
+                            >
+                                <Icon
+                                    as={BellIcon}
+                                    className="text-typography-800"
                                 />
-                                <AvatarBadge />
-                            </Avatar>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => router.push('/profile/profile')}
+                            >
+                                <Avatar size="sm">
+                                    <AvatarFallbackText>
+                                        {user?.email}
+                                    </AvatarFallbackText>
+                                    <AvatarImage
+                                        source={{
+                                            uri: user?.photoURL ?? ''
+                                        }}
+                                    />
+                                    <AvatarBadge />
+                                </Avatar>
+                            </TouchableOpacity>
                         </HStack>
                     </>
                 )

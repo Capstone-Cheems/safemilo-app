@@ -69,7 +69,12 @@ function RootLayoutNav(): ReactNode {
             <ThemeProvider
                 value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
             >
-                <Stack screenOptions={{ gestureEnabled: false }}>
+                <Stack
+                    screenOptions={{
+                        gestureEnabled: false,
+                        headerTitleAlign: 'center'
+                    }}
+                >
                     <Stack.Screen
                         name="(tabs)"
                         options={{ headerShown: false }}

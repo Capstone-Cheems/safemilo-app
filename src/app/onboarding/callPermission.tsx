@@ -10,7 +10,7 @@ const CallPermission = (): React.JSX.Element => {
         useState<Contacts.PermissionStatus | null>(null)
     const navigation = useNavigation()
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'OnBoarding' })
+        navigation.setOptions({ headerShown: false })
     }, [navigation])
     useEffect(() => {
         const checkPermission = async (): Promise<void> => {
