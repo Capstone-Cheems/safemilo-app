@@ -2,7 +2,7 @@ import { Box } from '@/components/ui/box'
 import { News, timeAgo } from '@/src/shared'
 import React from 'react'
 import { Text } from 'react-native'
-import { ButtonWidget } from '../../button'
+import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
 import { Heading } from '@/components/ui/heading'
 import { ImageView } from '@/src/shared/ui/image/image'
@@ -30,6 +30,9 @@ export const VieNews: React.FC<{
             <Box>
                 <Text>{news.content}</Text>
             </Box>
+            <ShareButtonWidget
+                message={`${news.title}\n#${news.scamTypeTag}\n\n${news.content}\n\nStay safe from scams!\nby SafeMilo🦊`}
+            />
         </VStack>
     )
 }
