@@ -244,12 +244,17 @@
 // export default Settings
 import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, Switch, Alert } from 'react-native'
-import Slider from '@react-native-community/slider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Contacts from 'expo-contacts'
 import * as SMS from 'expo-sms'
 import { Audio } from 'expo-av'
 import commonStyles from '../../styles/commonStyles'
+import {
+    Slider,
+    SliderFilledTrack,
+    SliderThumb,
+    SliderTrack
+} from '@/components/ui/slider'
 
 const Settings = (): React.JSX.Element => {
     // Load text size from storage
@@ -406,13 +411,14 @@ const Settings = (): React.JSX.Element => {
             {showSlider && (
                 <Slider
                     style={{ width: 200, height: 40 }}
-                    minimumValue={20}
-                    maximumValue={40}
                     value={textSize}
-                    onValueChange={handleTextSizeChange}
-                    minimumTrackTintColor="#FFFFFF"
-                    maximumTrackTintColor="#000000"
-                />
+                    onChange={handleTextSizeChange}
+                >
+                    <SliderTrack>
+                        <SliderFilledTrack />
+                    </SliderTrack>
+                    <SliderThumb />
+                </Slider>
             )}
 
             <TouchableOpacity

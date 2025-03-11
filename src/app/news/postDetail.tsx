@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
-import ActionSheet from 'react-native-action-sheet'
 
 const PostDetail = (): React.JSX.Element => {
     const { newsID, title, content, scamTypeTag, createdAt } =
@@ -13,7 +12,7 @@ const PostDetail = (): React.JSX.Element => {
         router.replace('/(organization)/createdPost')
     }
 
-    const handleOpenMenu = (): void => {
+    /* const handleOpenMenu = (): void => {
         ActionSheet.showActionSheetWithOptions(
             {
                 options: ['Cancel', 'Edit'],
@@ -25,7 +24,7 @@ const PostDetail = (): React.JSX.Element => {
                 }
             }
         )
-    }
+    }*/
 
     const handleEdit = (): void => {
         router.push({
@@ -54,7 +53,7 @@ const PostDetail = (): React.JSX.Element => {
 
             <TouchableOpacity
                 style={commonStyles.moreButton}
-                onPress={handleOpenMenu}
+                /*onPress={handleOpenMenu}*/
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
