@@ -12,7 +12,8 @@
             "distribution": "internal"
         },
         "production": {
-            "autoIncrement": true
+            "autoIncrement": true,
+            "NODE_ENV": "development"
         }
     },
     "submit": {
