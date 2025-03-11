@@ -10,6 +10,7 @@ export default {
         scheme: 'myapp',
         userInterfaceStyle: 'automatic',
         newArchEnabled: true,
+        owner: 'uvoleti00-org',
         splash: {
             image: './assets/images/splash-icon.png',
             resizeMode: 'contain',
@@ -19,6 +20,7 @@ export default {
             supportsTablet: true
         },
         android: {
+            package: 'com.safemilo.app',
             adaptiveIcon: {
                 foregroundImage: './assets/images/adaptive-icon.png',
                 backgroundColor: '#ffffff'
@@ -40,7 +42,10 @@ export default {
             FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
             API_URL: process.env.API_URL,
             S3_IMAGE_URL: process.env.S3_IMAGE_URL,
-            S3_NO_IMAGE: process.env.S3_NO_IMAGE
+            S3_NO_IMAGE: process.env.S3_NO_IMAGE,
+            eas: {
+                projectId: '167efeae-ffda-4722-89c6-a4abff155ed6'
+            }
         }
     }
 }
