@@ -8,7 +8,7 @@ import {
     Image
 } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
-import { getAuth, signOut, updateProfile } from '@react-native-firebase/auth'
+import { getAuth, updateProfile } from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
@@ -26,7 +26,7 @@ const Profile = (): React.JSX.Element => {
 
     // Load settings from storage
     useEffect(() => {
-        const Settings = async () => {
+        const Settings = async (): Promise<void> => {
             const storedSize = await AsyncStorage.getItem('textSize')
             if (storedSize) {
                 setTextSize(parseInt(storedSize))
@@ -39,68 +39,31 @@ const Profile = (): React.JSX.Element => {
         Settings()
     }, [])
 
-    interface UserData {
-        displayName: string | null
-        email: string
-        uid: string
-        providerData: { providerId: string }[]
-        photoURL: string | null
-    }
-
-    const [userData, setUserData] = useState<UserData | null>(null)
     const [newDisplayName, setNewDisplayName] = useState<string>('')
     const router = useRouter()
     const auth = getAuth()
-    const { logout } = useAuth()
+    const { user, logout } = useAuth()
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const storedUserData = await AsyncStorage.getItem('user')
-                console.log('Stored User Data:', storedUserData)
-                if (storedUserData) {
-                    setUserData(JSON.parse(storedUserData))
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error)
-            }
-        }
-        fetchUserData()
-    }, [])
-
-    const handleLogout = async () => {
+    const handleLogout = async (): Promise<void> => {
         try {
             logout()
-            await AsyncStorage.removeItem('userData') // Clear stored user data
-            await signOut(auth)
             Alert.alert('Success', 'You have been logged out!')
-            router.replace('/auth/login')
         } catch (error) {
             Alert.alert('Logout Failed', (error as Error).message)
         }
     }
 
-    const navigateTo = (path: string) => {
+    const navigateTo = (path: string): void => {
         router.push(path)
     }
 
-    const handleDisplayNameChange = async () => {
+    const handleDisplayNameChange = async (): Promise<void> => {
         try {
             // Update displayName in Firebase
             if (auth.currentUser) {
                 await updateProfile(auth.currentUser, {
                     displayName: newDisplayName
                 })
-                // Update local state and stored user data
-                setUserData(prevData => ({
-                    ...prevData,
-                    displayName: newDisplayName,
-                    email: prevData?.email || '',
-                    uid: prevData?.uid || '',
-                    providerData: prevData?.providerData || [],
-                    photoURL: prevData?.photoURL || null
-                }))
-                await AsyncStorage.setItem('user', JSON.stringify(userData))
                 Alert.alert('Success', 'Display name updated!')
             }
         } catch (error) {
@@ -118,14 +81,14 @@ const Profile = (): React.JSX.Element => {
             >
                 Profile
             </Text>
-            {userData?.displayName ? (
+            {user?.displayName ? (
                 <Text
                     style={[
                         { fontWeight: isBold ? 'bold' : 'normal' },
                         { fontSize: textSize }
                     ]}
                 >
-                    Welcome, {userData.displayName} !
+                    Welcome, {user.displayName} !
                 </Text>
             ) : (
                 <View>
@@ -155,13 +118,13 @@ const Profile = (): React.JSX.Element => {
                     { fontSize: textSize - 8 }
                 ]}
             >
-                {userData ? userData.email : 'Guest'}
+                {user ? user.email : 'Guest'}
             </Text>
 
             {/* Conditionally render photo URL */}
-            {userData?.photoURL ? (
+            {user?.photoURL ? (
                 <Image
-                    source={{ uri: userData.photoURL }}
+                    source={{ uri: user.photoURL }}
                     style={commonStyles.profileImage} // Add appropriate styles
                 />
             ) : (
