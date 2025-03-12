@@ -17,10 +17,13 @@ export default {
             backgroundColor: '#ffffff'
         },
         ios: {
-            supportsTablet: true
+            supportsTablet: true,
+            googleServicesFile: './GoogleService-Info.plist',
+            bundleIdentifier: 'com.safemilo.app'
         },
         android: {
             package: 'com.safemilo.app',
+            googleServicesFile: './google-services.json',
             adaptiveIcon: {
                 foregroundImage: './assets/images/adaptive-icon.png',
                 backgroundColor: '#ffffff'
@@ -31,7 +34,20 @@ export default {
             output: 'static',
             favicon: './assets/images/favicon.png'
         },
-        plugins: ['expo-router', 'expo-asset'],
+        plugins: [
+            'expo-router',
+            'expo-asset',
+            '@react-native-firebase/app',
+            '@react-native-firebase/auth',
+            [
+                'expo-build-properties',
+                {
+                    ios: {
+                        useFrameworks: 'static'
+                    }
+                }
+            ]
+        ],
         extra: {
             FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
             FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,

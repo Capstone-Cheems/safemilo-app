@@ -8,7 +8,7 @@ import {
     Image
 } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
-import { getAuth, signOut, updateProfile } from 'firebase/auth'
+import { getAuth, signOut, updateProfile } from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'

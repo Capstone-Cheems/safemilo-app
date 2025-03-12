@@ -2,7 +2,10 @@ import React, { useLayoutEffect, useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import {
+    createUserWithEmailAndPassword,
+    getAuth
+} from '@react-native-firebase/auth'
 
 const Signup = (): React.JSX.Element => {
     const router = useRouter()

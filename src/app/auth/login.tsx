@@ -8,7 +8,10 @@ import {
 } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import {
+    getAuth,
+    signInWithEmailAndPassword
+} from '@react-native-firebase/auth'
 
 const Login = (): React.JSX.Element => {
     const router = useRouter()

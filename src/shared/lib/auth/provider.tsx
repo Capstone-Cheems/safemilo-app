@@ -1,12 +1,11 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
-import { FIREBASE_APP } from './firebase-config'
+import { FirebaseAuthTypes, getAuth } from '@react-native-firebase/auth'
+import { useRouter } from 'expo-router'
 
 export type UserContextType = {
     logout: () => void
     isAuthenticated: boolean
-    user: User | null
+    user: FirebaseAuthTypes.User | null
 }
 
 export const AuthContext = createContext<UserContextType>({} as UserContextType)
@@ -14,38 +13,26 @@ export const AuthContext = createContext<UserContextType>({} as UserContextType)
 type Props = { children: React.ReactNode }
 
 export const AuthProvider = ({ children }: Props): JSX.Element => {
-    const [user, setUser] = useState<User | null>(null)
-    getAuth(FIREBASE_APP)
+    const router = useRouter()
+    const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null)
+
     // Listen for authentication state changes
     useEffect(() => {
-        const subscriber = onAuthStateChanged(getAuth(), async userState => {
-            setUser(userState) // Update state with current user or null
-            await AsyncStorage.setItem('user', JSON.stringify(userState))
-        })
-
-        return (): void => subscriber() // Cleanup the listener on unmount
-    }, [])
-
-    useEffect(() => {
-        const loadAuthState = async (): Promise<void> => {
-            try {
-                const storedUser = await AsyncStorage.getItem('user')
-                console.log('storedUser info ' + storedUser)
-                if (storedUser) {
-                    setUser(JSON.parse(storedUser))
-                }
-            } catch (error) {
-                console.error('Error loading auth state:', error)
+        const subscriber = getAuth().onAuthStateChanged(user => {
+            console.log('User Check')
+            setUser(user)
+            if (user) {
+                router.replace('/home')
+            } else {
+                router.replace('/auth/login')
             }
-        }
-
-        loadAuthState()
-    }, [])
+        })
+        return (): void => subscriber() // Cleanup the listener on unmount
+    }, [router])
 
     const logout = async (): Promise<void> => {
         setUser(null)
-
-        await AsyncStorage.removeItem('user')
+        getAuth().signOut()
     }
 
     const value = useMemo(

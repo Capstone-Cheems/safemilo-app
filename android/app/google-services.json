@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "697158494512",
+    "project_id": "safemilo",
+    "storage_bucket": "safemilo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697158494512:android:c9b1d1e09e871842e2c0f5",
+        "android_client_info": {
+          "package_name": "com.safemilo.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697158494512-mbpjqbe09kpl2jf526i91i5bbffd2g5n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI8q58Bm7pZgw7omLZGpw3-HUQaJYxWRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697158494512-4vu6lopnhdmh90l22q2ut6qkfv752n4j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "697158494512-br2qdlq4se32da3pc3ap4tvhbcn26tgm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.safemilo.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

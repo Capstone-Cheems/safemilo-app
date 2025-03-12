@@ -9,11 +9,13 @@
             "distribution": "internal"
         },
         "preview": {
-            "distribution": "internal"
+            "distribution": "internal",
+            "android": {
+                "buildType": "apk"
+            }
         },
         "production": {
-            "autoIncrement": true,
-            "NODE_ENV": "development"
+            "autoIncrement": true
         }
     },
     "submit": {

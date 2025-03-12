@@ -6,7 +6,7 @@ import {
     createUserWithEmailAndPassword,
     getAuth,
     signInWithEmailAndPassword
-} from 'firebase/auth'
+} from '@react-native-firebase/auth'
 
 type AuthFormProps = {
     type: 'signup' | 'login'
