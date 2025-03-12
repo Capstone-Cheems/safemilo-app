@@ -7,13 +7,7 @@ export const NewsList: React.FC<{ news: News[] }> = ({ news }) => {
         <>
             <VStack space="md" className="m-2">
                 {news.map((item, index) => {
-                    return (
-                        <NewsCard
-                            coverImage={item.newsID}
-                            news={item}
-                            key={index}
-                        ></NewsCard>
-                    )
+                    return <NewsCard news={item} key={index} />
                 })}
             </VStack>
         </>
