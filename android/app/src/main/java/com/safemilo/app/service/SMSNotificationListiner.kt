@@ -4,6 +4,7 @@ import android.app.Notification
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import android.widget.Toast
 
 
 class SMSNotificationListiner : NotificationListenerService() {
@@ -23,6 +24,7 @@ class SMSNotificationListiner : NotificationListenerService() {
             val sender = extras.getString(Notification.EXTRA_TITLE)
             val message = extras.getString(Notification.EXTRA_TEXT)
 
+            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
             // Log the sender and message
             Log.d("TAG", "Sender: $sender")
             Log.d("TAG", "Message: $message")

@@ -30,7 +30,18 @@ export default {
             },
             Permissions: [
                 'android.permission.BIND_SCREENING_SERVICE',
-                'android.permission.BIND_NOTIFICATION_LISTENER_SERVICE'
+                'android.permission.BIND_NOTIFICATION_LISTENER_SERVICE',
+                'android.permission.INTERNET'
+            ],
+            intentFilters:[
+                {
+                    action: "VIEW",
+                    data:{
+                        scheme:"http"
+                    }
+
+                }
+
             ]
         },
         web: {
@@ -48,6 +59,10 @@ export default {
                 {
                     ios: {
                         useFrameworks: 'static'
+                    },
+                    android: {
+                        usesCleartextTraffic: true,
+                        networkSecurityConfig: './network_security_config.xml'
                     }
                 }
             ],

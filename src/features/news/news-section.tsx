@@ -4,6 +4,7 @@ import { Spinner } from '@/components/ui/spinner'
 import { Text } from '@/components/ui/text'
 import { NewsResponse, useFetchData } from '@/src/shared'
 import { NewsList } from '@/src/widget/news'
+import Constants from 'expo-constants'
 import React, { ReactNode } from 'react'
 
 export const NewsSection = (): ReactNode => {
@@ -18,7 +19,7 @@ export const NewsSection = (): ReactNode => {
                     </HStack>
                 </Center>
             ) : error ? (
-                <Text> Error loading..</Text>
+                <Text> Error loading.. {error}----{Constants.expoConfig?.extra?.API_URL}</Text>
             ) : data && data.data && data.data.length > 0 ? (
                 <NewsList news={data.data}></NewsList>
             ) : (
