@@ -1,4 +1,5 @@
 package com.safemilo.app
+import android.content.Intent
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
@@ -10,6 +11,8 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnable
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 
 import expo.modules.ReactActivityDelegateWrapper
+import android.provider.Settings
+import android.widget.Toast
 
 class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +24,12 @@ class MainActivity : ReactActivity() {
     SplashScreenManager.registerOnActivity(this)
     // @generated end expo-splashscreen
     super.onCreate(null)
+
+      if (!isNotificationServiceEnabled()) {
+          Toast.makeText(this, "Please enable notification access for this app.", Toast.LENGTH_LONG).show()
+          requestNotificationAccess()
+      }
+
   }
 
   /**
@@ -62,4 +71,16 @@ class MainActivity : ReactActivity() {
       // because it's doing more than [Activity.moveTaskToBack] in fact.
       super.invokeDefaultOnBackPressed()
   }
+
+    private fun isNotificationServiceEnabled(): Boolean {
+        val pkgName = packageName
+        val flat = Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
+        return !flat.isNullOrEmpty() && flat.contains(pkgName)
+    }
+
+    private fun requestNotificationAccess() {
+        val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+        startActivity(intent)
+    }
+
 }

@@ -46,6 +46,12 @@ export default {
                         useFrameworks: 'static'
                     }
                 }
+            ],
+            [
+                'expo-dev-client',
+                {
+                    launchMode: 'most-recent'
+                }
             ]
         ],
         extra: {
