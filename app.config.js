@@ -27,7 +27,11 @@ export default {
             adaptiveIcon: {
                 foregroundImage: './assets/images/adaptive-icon.png',
                 backgroundColor: '#ffffff'
-            }
+            },
+            Permissions: [
+                'android.permission.BIND_SCREENING_SERVICE',
+                'android.permission.BIND_NOTIFICATION_LISTENER_SERVICE'
+            ]
         },
         web: {
             bundler: 'metro',
