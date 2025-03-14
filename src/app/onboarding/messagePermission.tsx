@@ -50,7 +50,7 @@ const MessagePermission = (): React.JSX.Element => {
             </View>
             <Image
                 // eslint-disable-next-line @typescript-eslint/no-require-imports
-                source={require('../../../assets/images/onBoardingMascotImage.png')}
+                source={require('../../../assets/images/permission-milo-2.png')}
                 style={commonStyles.mascotImage}
             />
         </View>
