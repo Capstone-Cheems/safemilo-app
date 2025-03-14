@@ -19,7 +19,11 @@ export const NewsSection = (): ReactNode => {
                     </HStack>
                 </Center>
             ) : error ? (
-                <Text> Error loading.. {error}----{Constants.expoConfig?.extra?.API_URL}</Text>
+                <Text>
+                    {' '}
+                    Error loading.. {error}----
+                    {Constants.expoConfig?.extra?.API_URL}
+                </Text>
             ) : data && data.data && data.data.length > 0 ? (
                 <NewsList news={data.data}></NewsList>
             ) : (

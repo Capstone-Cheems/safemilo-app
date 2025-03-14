@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { ScrollView, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Box } from '@/components/ui/box'
 import { useRouter } from 'expo-router'
-import commonStyles from '../../styles/commonStyles'
-import { useAuth } from '@/src/shared'
+import { useNotification } from '@/src/shared'
+
 const tips = [
     'Never share One Time Password or codes with anyone, not even your bank!',
     'Be cautious of emails asking for personal information, phishing scams are common.',
@@ -12,9 +12,9 @@ const tips = [
 ]
 
 const Home = (): React.JSX.Element => {
+    const { notification, expoPushToken, error } = useNotification()
     const router = useRouter()
     const [randomTip, setRandomTip] = useState<string>('')
-    const { user } = useAuth()
 
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * tips.length)
@@ -39,6 +39,18 @@ const Home = (): React.JSX.Element => {
                     </Text>
                 </View>
             </View>*/}
+            <View>
+                <Text>{expoPushToken}</Text>
+                <Text>Latest notification:</Text>
+                <Text>{notification?.request.content.title}</Text>
+                <Text>
+                    {JSON.stringify(
+                        notification?.request.content.data,
+                        null,
+                        2
+                    )}
+                </Text>
+            </View>
 
             {/* Tip of the Day */}
             <Box className="bg-gray-100 rounded-2xl px-4 py-8 mb-6">

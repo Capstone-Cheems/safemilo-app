@@ -7,12 +7,21 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { ReactNode, useEffect } from 'react'
 import 'react-native-reanimated'
-import { Stack, useRouter } from 'expo-router'
+import { Stack } from 'expo-router'
 import SpaceMonoFont from '../../assets/fonts/SpaceMono-Regular.ttf'
 import { useColorScheme } from '../../components/useColorScheme'
 import { GluestackUIProvider } from '../../components/ui/gluestack-ui-provider'
 import '../../global.css'
-import { AuthProvider, useAuth } from '../shared'
+import { AuthProvider, NotificationProvider } from '../shared'
+import * as Notifications from 'expo-notifications'
+
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true
+    })
+})
 
 export {
     // Catch any errors thrown by the Layout component.
@@ -47,15 +56,15 @@ export default function RootLayout(): ReactNode {
 
     return (
         <AuthProvider>
-            <RootLayoutNav />
+            <NotificationProvider>
+                <RootLayoutNav />
+            </NotificationProvider>
         </AuthProvider>
     )
 }
 
 function RootLayoutNav(): ReactNode {
     const colorScheme = useColorScheme()
-
-
 
     return (
         <GluestackUIProvider mode="light">
