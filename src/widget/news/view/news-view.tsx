@@ -1,19 +1,21 @@
 import { Box } from '@/components/ui/box'
 import { News, timeAgo } from '@/src/shared'
 import React, { useState, useEffect } from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, Image } from 'react-native'
 import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
 import { Heading } from '@/components/ui/heading'
-import { ImageView } from '@/src/shared/ui/image/image'
 import { BookmarkIcon, BookmarkFilledIcon } from '@/components/ui/icon'
+import {
+    scamTypeImages,
+    DEFAULT_SCAM_IMAGE
+} from '@/src/shared/ui/image/scam-news-image'
 import * as Speech from 'expo-speech'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const VieNews: React.FC<{
     news: News
-    coverImage: string
-}> = ({ news, coverImage }) => {
+}> = ({ news }) => {
     const [isSpeaking, setIsSpeaking] = useState(false)
     const [isSaved, setIsSaved] = useState(false)
 
@@ -78,11 +80,19 @@ export const VieNews: React.FC<{
         setIsSpeaking(false)
     }
 
+    const imageSource = scamTypeImages[news.scamTypeTag] || DEFAULT_SCAM_IMAGE
+
     return (
         <VStack space="md" className="m-4">
             <Box className="relative">
-                <ImageView
-                    coverImage={`${coverImage}.jpg`}
+                <Image
+                    source={imageSource}
+                    style={{
+                        width: '100%',
+                        height: 200,
+                        maxWidth: 320,
+                        maxHeight: 200
+                    }}
                     className="aspect-[320/208] max-w-full max-h-full"
                     resizeMode="contain"
                     alt="image"
