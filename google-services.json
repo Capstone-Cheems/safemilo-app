@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "697158494512-a2s2vp04r0ecj7h329d8p5ov3gpb37aa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safemilo.app",
+            "certificate_hash": "6052b89ffde632e6524e8163d26e528018b012a7"
+          }
+        },
+        {
           "client_id": "697158494512-mbpjqbe09kpl2jf526i91i5bbffd2g5n.apps.googleusercontent.com",
           "client_type": 3
         }

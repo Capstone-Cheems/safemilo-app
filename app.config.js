@@ -33,15 +33,13 @@ export default {
                 'android.permission.BIND_NOTIFICATION_LISTENER_SERVICE',
                 'android.permission.INTERNET'
             ],
-            intentFilters:[
+            intentFilters: [
                 {
-                    action: "VIEW",
-                    data:{
-                        scheme:"http"
+                    action: 'VIEW',
+                    data: {
+                        scheme: 'http'
                     }
-
                 }
-
             ]
         },
         web: {
