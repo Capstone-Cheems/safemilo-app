@@ -55,14 +55,7 @@ export default function RootLayout(): ReactNode {
 function RootLayoutNav(): ReactNode {
     const colorScheme = useColorScheme()
 
-    const { user } = useAuth() // Get auth state
-    const router = useRouter()
 
-    useEffect(() => {
-        if (!user) {
-            router.replace('/auth/login') // Redirect if not authenticated
-        }
-    }, [user, router])
 
     return (
         <GluestackUIProvider mode="light">
