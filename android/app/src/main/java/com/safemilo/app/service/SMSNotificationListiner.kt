@@ -1,6 +1,8 @@
 package com.safemilo.app.service
 
 import android.app.Notification
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
@@ -21,11 +23,17 @@ class SMSNotificationListiner : NotificationListenerService() {
         return super.onBind(intent)
     }
 
+    private fun getPreferences(): SharedPreferences {
+        return applicationContext.getSharedPreferences(applicationContext.packageName + ".settings", Context.MODE_PRIVATE)
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         Log.d("Package Name", sbn.packageName)
         val packageName = sbn.packageName
 
+        val token = getPreferences().getString("token","")
+        Toast.makeText(applicationContext, "$token is Spam", Toast.LENGTH_LONG).show()
         // Check if the notification is from the default SMS app
         if (packageName == "com.android.mms" || packageName == "com.google.android.apps.messaging") {
             // Extract the notification extras
