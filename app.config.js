@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 export default {
     expo: {
-        name: 'safemilo',
+        name: 'SafeMilo',
         slug: 'safemilo',
         version: '1.0.0',
         orientation: 'portrait',
