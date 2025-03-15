@@ -1,43 +1,31 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
     View,
     Text,
     TouchableOpacity,
     Alert,
     TextInput,
-    Image
+    Image,
+    StyleSheet
 } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import { getAuth, signOut, updateProfile } from 'firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
+import { WebView } from 'react-native-webview'
 
 const Profile = (): React.JSX.Element => {
-    // Load text size from storage
     const [textSize, setTextSize] = useState(20) // Default text size
-    // State to track whether the text is bold
     const [isBold, setIsBold] = useState(true)
+    const [userData, setUserData] = useState<UserData | null>(null)
+    const [newDisplayName, setNewDisplayName] = useState<string>('')
 
     const navigation = useNavigation()
-    useLayoutEffect(() => {
-        navigation.setOptions({ title: 'Profile' })
-    }, [navigation])
-
-    // Load settings from storage
-    useEffect(() => {
-        const Settings = async () => {
-            const storedSize = await AsyncStorage.getItem('textSize')
-            if (storedSize) {
-                setTextSize(parseInt(storedSize))
-            }
-            const storedBold = await AsyncStorage.getItem('isBold')
-            if (storedBold) {
-                setIsBold(storedBold === 'true')
-            }
-        }
-        Settings()
-    }, [])
+    const router = useRouter()
+    const auth = getAuth()
+    const { logout } = useAuth()
 
     interface UserData {
         displayName: string | null
@@ -47,31 +35,40 @@ const Profile = (): React.JSX.Element => {
         photoURL: string | null
     }
 
-    const [userData, setUserData] = useState<UserData | null>(null)
-    const [newDisplayName, setNewDisplayName] = useState<string>('')
-    const router = useRouter()
-    const auth = getAuth()
-    const { logout } = useAuth()
+    // Function to load settings
+    const loadSettings = useCallback(async () => {
+        try {
+            const storedSize = await AsyncStorage.getItem('textSize')
+            const storedBold = await AsyncStorage.getItem('isBold')
+            const storedUserData = await AsyncStorage.getItem('user')
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const storedUserData = await AsyncStorage.getItem('user')
-                console.log('Stored User Data:', storedUserData)
-                if (storedUserData) {
-                    setUserData(JSON.parse(storedUserData))
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error)
+            if (storedSize) {
+                setTextSize(parseInt(storedSize))
             }
+
+            if (storedBold) {
+                setIsBold(storedBold === 'true')
+            }
+
+            if (storedUserData) {
+                setUserData(JSON.parse(storedUserData))
+            }
+        } catch (error) {
+            console.error('Error loading settings:', error)
         }
-        fetchUserData()
     }, [])
+
+    // Load settings when the screen is focused
+    useFocusEffect(
+        useCallback(() => {
+            loadSettings()
+        }, [loadSettings])
+    )
 
     const handleLogout = async () => {
         try {
             logout()
-            await AsyncStorage.removeItem('userData') // Clear stored user data
+            await AsyncStorage.removeItem('user') // Clear stored user data
             await signOut(auth)
             Alert.alert('Success', 'You have been logged out!')
             router.replace('/auth/login')
@@ -80,27 +77,27 @@ const Profile = (): React.JSX.Element => {
         }
     }
 
-    const navigateTo = (path: string) => {
-        router.push(path)
-    }
-
     const handleDisplayNameChange = async () => {
         try {
-            // Update displayName in Firebase
             if (auth.currentUser) {
                 await updateProfile(auth.currentUser, {
                     displayName: newDisplayName
                 })
-                // Update local state and stored user data
-                setUserData(prevData => ({
-                    ...prevData,
+
+                const updatedUserData = {
+                    ...userData,
                     displayName: newDisplayName,
-                    email: prevData?.email || '',
-                    uid: prevData?.uid || '',
-                    providerData: prevData?.providerData || [],
-                    photoURL: prevData?.photoURL || null
-                }))
-                await AsyncStorage.setItem('user', JSON.stringify(userData))
+                    email: userData?.email || '',
+                    uid: userData?.uid || '',
+                    providerData: userData?.providerData || [],
+                    photoURL: userData?.photoURL || null
+                }
+
+                setUserData(updatedUserData)
+                await AsyncStorage.setItem(
+                    'user',
+                    JSON.stringify(updatedUserData)
+                )
                 Alert.alert('Success', 'Display name updated!')
             }
         } catch (error) {
@@ -108,8 +105,19 @@ const Profile = (): React.JSX.Element => {
         }
     }
 
+    const navigateTo = (path: string) => {
+        router.push(path)
+    }
+
     return (
         <View style={commonStyles.container}>
+            <View style={styles.container}>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/milo-mascot.png')}
+                    style={styles.image}
+                />
+            </View>
             <Text
                 style={[
                     { fontSize: textSize + 4 },
@@ -125,7 +133,7 @@ const Profile = (): React.JSX.Element => {
                         { fontSize: textSize }
                     ]}
                 >
-                    Welcome, {userData.displayName} !
+                    Welcome, {userData.displayName}!
                 </Text>
             ) : (
                 <View>
@@ -157,19 +165,6 @@ const Profile = (): React.JSX.Element => {
             >
                 {userData ? userData.email : 'Guest'}
             </Text>
-
-            {/* Conditionally render photo URL */}
-            {userData?.photoURL ? (
-                <Image
-                    source={{ uri: userData.photoURL }}
-                    style={commonStyles.profileImage} // Add appropriate styles
-                />
-            ) : (
-                <View style={commonStyles.profilePlaceholder}>
-                    <Text style={commonStyles.boldText}>No Profile Image</Text>
-                    {/* Optionally, add a button to upload a profile image */}
-                </View>
-            )}
 
             <TouchableOpacity
                 onPress={() => navigateTo('./settings')}
@@ -253,5 +248,17 @@ const Profile = (): React.JSX.Element => {
         </View>
     )
 }
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 20
+    },
+    image: {
+        width: 200,
+        height: 200,
+        borderRadius: 50
+    }
+})
 
 export default Profile
