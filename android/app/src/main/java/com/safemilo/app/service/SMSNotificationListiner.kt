@@ -32,8 +32,8 @@ class SMSNotificationListiner : NotificationListenerService() {
         Log.d("Package Name", sbn.packageName)
         val packageName = sbn.packageName
 
-        val token = getPreferences().getString("token","")
-        Toast.makeText(applicationContext, "$token is Spam", Toast.LENGTH_LONG).show()
+
+
         // Check if the notification is from the default SMS app
         if (packageName == "com.android.mms" || packageName == "com.google.android.apps.messaging") {
             // Extract the notification extras
@@ -65,9 +65,10 @@ class SMSNotificationListiner : NotificationListenerService() {
         Thread{
             try {
                 val client = OkHttpClient()
-
+                val token = getPreferences().getString("token","")
                 val request = Request.Builder()
                     .url("http://34.235.29.56:8080/verifylink/$url")
+                    .addHeader("Authorization", "Bearer $token")
                     .build()
 
                 val response: Response = client.newCall(request).execute()

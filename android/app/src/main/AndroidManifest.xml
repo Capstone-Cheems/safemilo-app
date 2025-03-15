@@ -49,7 +49,6 @@
       <intent-filter data-generated="true">
         <action android:name="android.intent.action.VIEW"/>
         <data android:scheme="http"/>
-        <data android:scheme="exp+safemilo"/>
       </intent-filter>
     </activity>
   </application>

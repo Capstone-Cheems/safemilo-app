@@ -1,5 +1,7 @@
 package com.safemilo.app.service
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.telecom.Call
 import android.telecom.CallScreeningService
 import android.widget.Toast
@@ -11,6 +13,10 @@ import org.json.JSONObject
 import kotlin.concurrent.thread
 
 class SafeMiloCallScreeningService : CallScreeningService() {
+
+    private fun getPreferences(): SharedPreferences {
+        return applicationContext.getSharedPreferences(applicationContext.packageName + ".settings", Context.MODE_PRIVATE)
+    }
 
     override fun onScreenCall(callDetails: Call.Details) {
         val incomingNumber = callDetails.handle.schemeSpecificPart
@@ -34,9 +40,10 @@ class SafeMiloCallScreeningService : CallScreeningService() {
         // Perform the network request in a background thread
         thread {
             val client = OkHttpClient()
-
+            val token = getPreferences().getString("token","")
             val request = Request.Builder()
                 .url("http://34.235.29.56:8080/verifynumber/$phoneNumber")
+                .addHeader("Authorization", "Bearer $token")
                 .build()
 
             try {
