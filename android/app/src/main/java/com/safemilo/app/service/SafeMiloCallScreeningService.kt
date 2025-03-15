@@ -24,20 +24,23 @@ class SafeMiloCallScreeningService : CallScreeningService() {
         val response = CallResponse.Builder()
 
         // Validate the number asynchronously
-        validateNumberWithApi(incomingNumber) { isSpam ->
-            if (isSpam) {
-                Toast.makeText(applicationContext, "$incomingNumber is Spam", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(applicationContext, "$incomingNumber is not Spam", Toast.LENGTH_LONG).show()
+        if(incomingNumber != null && incomingNumber.isNotEmpty()){
+            validateNumberWithApi(incomingNumber) { isSpam ->
+                if (isSpam) {
+                    Toast.makeText(applicationContext, "$incomingNumber is Spam", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(applicationContext, "$incomingNumber is not Spam", Toast.LENGTH_LONG).show()
+                }
             }
-
-            // Respond to the call after validation
-            respondToCall(callDetails, response.build())
         }
+
+        // Respond to the call after validation
+        respondToCall(callDetails, response.build())
     }
 
     private fun validateNumberWithApi(phoneNumber: String, callback: (Boolean) -> Unit) {
         // Perform the network request in a background thread
+
         thread {
             val client = OkHttpClient()
             val token = getPreferences().getString("token","")

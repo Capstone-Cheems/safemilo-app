@@ -14,7 +14,6 @@ class CustomModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     fun setToken(token:String){
-        Toast.makeText(reactApplicationContext.applicationContext, "$token is Spam", Toast.LENGTH_LONG).show()
         getPreferences().edit().putString("token", token).apply()
     }
     private fun getPreferences(): SharedPreferences {
