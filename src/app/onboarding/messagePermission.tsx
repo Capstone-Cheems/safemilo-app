@@ -51,7 +51,7 @@ const MessagePermission = (): React.JSX.Element => {
             </View>
 
             <LookPhoneMessageAnimation
-                style={commonStyles.lookPhoneMessageAnimation}
+                style={commonStyles.lookPhoneAnimation}
             />
         </View>
     )

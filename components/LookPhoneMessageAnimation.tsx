@@ -163,7 +163,12 @@ const FLAG_MESSAGE_FRAMES = [
     require('../assets/animations/Flag-Message-116.png'),
     require('../assets/animations/Flag-Message-117.png'),
     require('../assets/animations/Flag-Message-118.png'),
-    require('../assets/animations/Flag-Message-119.png')
+    require('../assets/animations/Flag-Message-119.png'),
+    require('../assets/animations/Flag-Message-120.png'),
+    require('../assets/animations/Flag-Message-121.png'),
+    require('../assets/animations/Flag-Message-122.png'),
+    require('../assets/animations/Flag-Message-123.png'),
+    require('../assets/animations/Flag-Message-124.png'),
 ]
 
 interface LookPhoneMessageAnimationProps {

@@ -104,7 +104,7 @@ const commonStyles = StyleSheet.create({
         marginLeft: -60,
         resizeMode: 'contain'
     },
-    lookPhoneMessageAnimation: {
+    lookPhoneAnimation: {
         width: 300,
         height: 300,
         marginTop: 10,
