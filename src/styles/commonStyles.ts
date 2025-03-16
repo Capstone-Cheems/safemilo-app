@@ -88,9 +88,17 @@ const commonStyles = StyleSheet.create({
         width: 30,
         height: 30
     },
-    mascotImage: {
-        width: 200,
-        height: 200,
+    jumpWaveLoopAnimation: {
+        width: 250,
+        height: 250,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
+    lookPhoneMessageAnimation: {
+        width: 300,
+        height: 300,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,

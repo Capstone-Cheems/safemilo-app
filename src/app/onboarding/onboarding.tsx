@@ -37,7 +37,7 @@ const OnboardingScreen = (): React.JSX.Element => {
             </View>
 
             <JumpWaveLoopAnimation
-                style={commonStyles.mascotImage}
+                style={commonStyles.jumpWaveLoopAnimation}
                 frameRate={40}
             />
         </View>

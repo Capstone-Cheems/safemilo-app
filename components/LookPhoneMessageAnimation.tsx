@@ -169,12 +169,10 @@ const FLAG_MESSAGE_FRAMES = [
 ]
 
 interface LookPhoneMessageAnimationProps {
-    frameRate?: number
     style?: object
 }
 
 const LookPhoneMessageAnimation: React.FC<LookPhoneMessageAnimationProps> = ({
-    frameRate = 40,
     style = {},
 }) => {
     const [currentFrame, setCurrentFrame] = useState(0)
@@ -182,8 +180,10 @@ const LookPhoneMessageAnimation: React.FC<LookPhoneMessageAnimationProps> = ({
 
     useEffect(() => {
         let frameInterval: NodeJS.Timeout
+        let frameRate: number
 
         if (stage === 'look') {
+            frameRate = 80 // Slower speed (0.5x)
             frameInterval = setInterval(() => {
                 setCurrentFrame((prev) => {
                     if (prev < LOOK_RIGHT_FRAMES.length - 1) {
@@ -196,6 +196,7 @@ const LookPhoneMessageAnimation: React.FC<LookPhoneMessageAnimationProps> = ({
                 })
             }, frameRate)
         } else if (stage === 'getPhone') {
+            frameRate = 40 // Normal speed (1x)
             frameInterval = setInterval(() => {
                 setCurrentFrame((prev) => {
                     if (prev < GET_PHONE_FRAMES.length - 1) {
@@ -208,13 +209,14 @@ const LookPhoneMessageAnimation: React.FC<LookPhoneMessageAnimationProps> = ({
                 })
             }, frameRate)
         } else {
+            frameRate = 80 // Slower speed (0.5x)
             frameInterval = setInterval(() => {
                 setCurrentFrame((prev) => (prev + 1) % FLAG_MESSAGE_FRAMES.length)
             }, frameRate)
         }
 
         return () => clearInterval(frameInterval)
-    }, [stage, frameRate])
+    }, [stage])
 
     return (
         <Image
