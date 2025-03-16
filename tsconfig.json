@@ -9,12 +9,19 @@
       "tailwind.config": [
         "./tailwind.config.js"
       ]
-    }
+    },
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "esnext",
+    "jsx": "react-native",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "nativewind-env.d.ts",
     "font.d.ts"
-  ]
+  ],
 }
