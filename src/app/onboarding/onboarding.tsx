@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
-import MascotAnimation from '../../../components/JumpWaveLoopAnimation'
+import JumpWaveLoopAnimation from '../../../components/JumpWaveLoopAnimation'
 
 const OnboardingScreen = (): React.JSX.Element => {
     const router = useRouter()
@@ -36,7 +36,10 @@ const OnboardingScreen = (): React.JSX.Element => {
                 <View style={commonStyles.triangle} />
             </View>
 
-            <MascotAnimation style={commonStyles.mascotImage} frameRate={40} />
+            <JumpWaveLoopAnimation
+                style={commonStyles.mascotImage}
+                frameRate={40}
+            />
         </View>
     )
 }
