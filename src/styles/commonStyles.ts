@@ -88,6 +88,14 @@ const commonStyles = StyleSheet.create({
         width: 30,
         height: 30
     },
+    mascotImage: {
+        width: 250,
+        height: 250,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
     jumpWaveLoopAnimation: {
         width: 250,
         height: 250,
@@ -99,6 +107,14 @@ const commonStyles = StyleSheet.create({
     lookPhoneMessageAnimation: {
         width: 300,
         height: 300,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
+    moduleCompleteAnimation: {
+        width: 230,
+        height: 230,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,
