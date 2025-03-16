@@ -1,17 +1,21 @@
-import React, { useLayoutEffect } from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
+import JumpWaveLoopAnimation from '../../../components/JumpWaveLoopAnimation'
 
 const OnboardingScreen = (): React.JSX.Element => {
     const router = useRouter()
     const navigation = useNavigation()
+
+    useEffect(() => {
+        navigation.setOptions({ headerShown: false })
+    }, [navigation])
+
     const handleContinue = (): void => {
         router.replace('/onboarding/messagePermission')
     }
-    useLayoutEffect(() => {
-        navigation.setOptions({ headerShown: false })
-    }, [navigation])
+
     return (
         <View style={commonStyles.viewContainer}>
             <View style={commonStyles.dialogBox}>
@@ -31,10 +35,10 @@ const OnboardingScreen = (): React.JSX.Element => {
 
                 <View style={commonStyles.triangle} />
             </View>
-            <Image
-                // eslint-disable-next-line @typescript-eslint/no-require-imports
-                source={require('../../../assets/images/onBoardingMascotImage.png')}
-                style={commonStyles.mascotImage}
+
+            <JumpWaveLoopAnimation
+                style={commonStyles.jumpWaveLoopAnimation}
+                frameRate={40}
             />
         </View>
     )

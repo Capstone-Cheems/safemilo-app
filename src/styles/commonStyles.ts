@@ -26,7 +26,7 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f8f1eb'
+        backgroundColor: '#30a8fd'
     },
     dialogBox: {
         backgroundColor: 'white',
@@ -89,8 +89,32 @@ const commonStyles = StyleSheet.create({
         height: 30
     },
     mascotImage: {
-        width: 200,
-        height: 200,
+        width: 250,
+        height: 250,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
+    jumpWaveLoopAnimation: {
+        width: 250,
+        height: 250,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
+    lookPhoneAnimation: {
+        width: 300,
+        height: 300,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
+    moduleCompleteAnimation: {
+        width: 230,
+        height: 230,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,

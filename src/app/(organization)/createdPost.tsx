@@ -62,7 +62,7 @@ const CreatedPost = (): React.JSX.Element => {
             <Text style={commonStyles.header}>Your Scam News</Text>
             {loading ? (
                 <ActivityIndicator size="large" color="#000000" />
-            ) : news.length === 0 ? (
+            ) : !news || news.length === 0 ? (
                 <Text style={commonStyles.noNewsText}>No scam news found.</Text>
             ) : (
                 <FlatList

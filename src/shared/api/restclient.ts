@@ -1,4 +1,5 @@
 import Constants from 'expo-constants'
+import { getAuth } from 'firebase/auth'
 
 export const RestClient = async <ResT, ReqT = undefined>(
     endpoint: string,
@@ -8,8 +9,10 @@ export const RestClient = async <ResT, ReqT = undefined>(
     const apiUrl = Constants.expoConfig?.extra?.API_URL
     console.log('API URL' + apiUrl)
     // Prepare headers for the request
+    const token = await getAuth().currentUser?.getIdToken()
     const headers: HeadersInit = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
     }
 
     // Prepare the request options (method, headers, body)
