@@ -30,7 +30,7 @@ const Tour1start = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/light-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
@@ -45,14 +45,14 @@ const Tour1start = (): React.JSX.Element => {
                     style={commonStyles.longButton}
                     onPress={handleProceed}
                 >
-                    <Text style={commonStyles.buttonText}>Continue</Text>
+                    <Text style={commonStyles.buttonText}>Take a tour</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={commonStyles.longButton}
+                    style={commonStyles.longButtonWhite}
                     onPress={handleDeny}
                 >
-                    <Text style={commonStyles.buttonText}>Skip</Text>
+                    <Text style={commonStyles.buttonTextWhite}>Skip</Text>
                 </TouchableOpacity>
 
                 <View style={commonStyles.triangle} />

@@ -112,7 +112,7 @@ const commonStyles = StyleSheet.create({
     },
     backButton: {
         position: 'absolute',
-        top: 20,
+        top: 50,
         left: 20,
         padding: 10
     },

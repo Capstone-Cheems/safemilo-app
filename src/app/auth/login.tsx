@@ -69,7 +69,7 @@ const Login = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/dark-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
