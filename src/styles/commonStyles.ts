@@ -60,11 +60,25 @@ const commonStyles = StyleSheet.create({
     },
     longButton: {
         backgroundColor: '#0d1b2a',
-        padding: 15,
-        borderRadius: 8,
+        padding: 13.5,
+        borderRadius: 16,
         marginTop: 10,
         marginBottom: 10,
-        width: '80%'
+        width: '80%',
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
+    },
+    longButtonWhite: {
+        backgroundColor: '#FFFFFF',
+        padding: 13.5,
+        borderRadius: 16,
+        marginTop: 10,
+        marginBottom: 10,
+        width: '80%',
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
     },
     button: {
         backgroundColor: '#0d1b2a',
@@ -78,6 +92,11 @@ const commonStyles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center'
     },
+    buttonTextWhite: {
+        color: '#294141',
+        fontSize: 22,
+        textAlign: 'center'
+    },
     backButton: {
         position: 'absolute',
         top: 20,
@@ -87,6 +106,22 @@ const commonStyles = StyleSheet.create({
     backIcon: {
         width: 30,
         height: 30
+    },
+    iconButtonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center', // Centers both icon & text
+        width: '100%'
+    },
+    googleIcon: {
+        width: 24,
+        height: 24,
+        marginLeft: 8
+    },
+    appleIcon: {
+        width: 30,
+        height: 30,
+        marginLeft: 8
     },
     mascotImage: {
         width: 250,
@@ -161,9 +196,10 @@ const commonStyles = StyleSheet.create({
     },
     formButton: {
         backgroundColor: '#000000',
-        padding: 10,
-        borderRadius: 5,
-        marginTop: 20
+        padding: 15,
+        borderRadius: 16,
+        marginTop: 20,
+        width: '80%'
     },
     // Scam news (Post)
     header: {

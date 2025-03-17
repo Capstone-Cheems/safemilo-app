@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
@@ -65,14 +65,28 @@ const Signup = (): React.JSX.Element => {
                 </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={commonStyles.longButton}>
-                <Text style={commonStyles.buttonText}>Continue with Apple</Text>
+            <TouchableOpacity style={commonStyles.longButtonWhite}>
+                <View style={commonStyles.iconButtonContainer}>
+                    <Text style={commonStyles.buttonTextWhite}>
+                        Continue with
+                    </Text>
+                    <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
+                        source={require('../../../assets/images/Google-icon.png')}
+                        style={commonStyles.googleIcon}
+                    />
+                </View>
             </TouchableOpacity>
 
             <TouchableOpacity style={commonStyles.longButton}>
-                <Text style={commonStyles.buttonText}>
-                    Continue with Google
-                </Text>
+                <View style={commonStyles.iconButtonContainer}>
+                    <Text style={commonStyles.buttonText}>Continue with</Text>
+                    <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
+                        source={require('../../../assets/images/light-Apple-icon.png')}
+                        style={commonStyles.appleIcon}
+                    />
+                </View>
             </TouchableOpacity>
 
             <TouchableOpacity
