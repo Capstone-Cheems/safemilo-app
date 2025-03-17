@@ -1,6 +1,8 @@
 package com.safemilo.app.service
 
+import PopupService
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.telecom.Call
 import android.telecom.CallScreeningService
@@ -28,6 +30,9 @@ class SafeMiloCallScreeningService : CallScreeningService() {
             validateNumberWithApi(incomingNumber) { isSpam ->
                 if (isSpam) {
                     Toast.makeText(applicationContext, "$incomingNumber is Spam", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, PopupService::class.java)
+                    startService(intent)
+
                 } else {
                     Toast.makeText(applicationContext, "$incomingNumber is not Spam", Toast.LENGTH_LONG).show()
                 }

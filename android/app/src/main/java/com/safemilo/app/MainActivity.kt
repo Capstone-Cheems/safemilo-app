@@ -1,5 +1,6 @@
 package com.safemilo.app
 import android.content.Intent
+import android.net.Uri
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
@@ -29,6 +30,15 @@ class MainActivity : ReactActivity() {
           Toast.makeText(this, "Please enable notification access for this app.", Toast.LENGTH_LONG).show()
           requestNotificationAccess()
       }
+
+      if (!Settings.canDrawOverlays(this)) {
+          val intent = Intent(
+              Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+              Uri.parse("package:$packageName")
+          )
+          startActivity(intent)
+      }
+
 
   }
 
