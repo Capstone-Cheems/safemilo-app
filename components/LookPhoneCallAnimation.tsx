@@ -186,7 +186,7 @@ const LookPhoneCallAnimation: React.FC<LookPhoneCallAnimationProps> = ({
         let frameRate: number
 
         if (stage === 'look') {
-            frameRate = 80 // Slower speed (0.5x)
+            frameRate = 40
             frameInterval = setInterval(() => {
                 setCurrentFrame((prev) => {
                     if (prev < LOOK_RIGHT_FRAMES.length - 1) {
@@ -199,7 +199,7 @@ const LookPhoneCallAnimation: React.FC<LookPhoneCallAnimationProps> = ({
                 })
             }, frameRate)
         } else if (stage === 'getPhone') {
-            frameRate = 40 // Normal speed (1x)
+            frameRate = 40
             frameInterval = setInterval(() => {
                 setCurrentFrame((prev) => {
                     if (prev < GET_PHONE_FRAMES.length - 1) {
@@ -212,7 +212,7 @@ const LookPhoneCallAnimation: React.FC<LookPhoneCallAnimationProps> = ({
                 })
             }, frameRate)
         } else {
-            frameRate = 80 // Slower speed (0.5x)
+            frameRate = 40
             frameInterval = setInterval(() => {
                 setCurrentFrame((prev) => (prev + 1) % FLAG_CALL_FRAMES.length)
             }, frameRate)

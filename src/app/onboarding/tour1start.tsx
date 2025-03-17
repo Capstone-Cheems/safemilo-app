@@ -7,7 +7,7 @@ const Tour1start = (): React.JSX.Element => {
     const router = useRouter()
     const navigation = useNavigation()
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'Walkthrough' })
+        navigation.setOptions({ headerShown: false })
     }, [navigation])
 
     const handleProceed = (): void => {
@@ -19,7 +19,7 @@ const Tour1start = (): React.JSX.Element => {
     }
 
     const handleBack = (): void => {
-        router.replace('/onboarding/messagePermission')
+        router.replace('/onboarding/callPermission')
     }
 
     return (

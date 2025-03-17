@@ -163,24 +163,24 @@ const commonStyles = StyleSheet.create({
         resizeMode: 'contain'
     },
     jumpWaveLoopAnimation: {
-        width: 250,
-        height: 250,
+        width: 350,
+        height: 350,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,
         resizeMode: 'contain'
     },
     lookPhoneAnimation: {
-        width: 300,
-        height: 300,
+        width: 420,
+        height: 420,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,
         resizeMode: 'contain'
     },
     moduleCompleteAnimation: {
-        width: 230,
-        height: 230,
+        width: 320,
+        height: 320,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,
