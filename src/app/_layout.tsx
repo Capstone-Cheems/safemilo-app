@@ -60,7 +60,7 @@ function RootLayoutNav(): ReactNode {
 
     useEffect(() => {
         if (!user) {
-            router.replace('/auth/login') // Redirect if not authenticated
+            router.replace('/welcome') // Redirect if not authenticated
         }
     }, [user, router])
 
