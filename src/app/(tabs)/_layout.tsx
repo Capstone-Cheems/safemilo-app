@@ -41,7 +41,7 @@ export default function TabLayout(): ReactNode {
             // eslint-disable-next-line @typescript-eslint/no-require-imports
             active: require('../../../assets/images/chat-active.png'),
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            inactive: require('../../../assets/images/chat.png')
+            inactive: require('../../../assets/images/Chat.png')
         })
     }, [])
 
@@ -101,8 +101,7 @@ export default function TabLayout(): ReactNode {
                     height: 70,
                     backgroundColor: '#fff',
                     borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
-                    position: 'absolute'
+                    borderTopRightRadius: 20
                 },
                 headerRight: () => (
                     <HStack
