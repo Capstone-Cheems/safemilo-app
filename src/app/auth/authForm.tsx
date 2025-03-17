@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import {
@@ -39,8 +39,23 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
         }
     }
 
+    const handleBack = (): void => {
+        router.replace('/welcome')
+    }
+
     return (
-        <View style={commonStyles.container}>
+        <View style={commonStyles.authContainer}>
+            <TouchableOpacity
+                style={commonStyles.backButton}
+                onPress={handleBack}
+            >
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    style={commonStyles.backIcon}
+                />
+            </TouchableOpacity>
+
             <Text style={commonStyles.boldText}>
                 {type === 'signup' ? 'Sign Up' : 'Login'} as Organization
             </Text>
@@ -75,17 +90,17 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
 
             {type === 'signup' ? (
                 <TouchableOpacity
-                    onPress={() => router.replace(`/auth/login`)}
+                    onPress={() => router.replace(`/auth/loginOrganization`)}
                     style={commonStyles.link}
                 >
                     <Text style={commonStyles.textRow}>
-                        <Text>Already have an account?</Text>
+                        <Text>Have an account?</Text>
                         <Text style={commonStyles.linkText}> Login</Text>
                     </Text>
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity
-                    onPress={() => router.replace(`/auth/signup`)}
+                    onPress={() => router.replace(`/auth/signupOrganization`)}
                     style={commonStyles.link}
                 >
                     <Text style={commonStyles.textRow}>

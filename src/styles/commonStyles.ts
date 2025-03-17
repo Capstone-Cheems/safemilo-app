@@ -2,6 +2,12 @@ import { StyleSheet } from 'react-native'
 
 const commonStyles = StyleSheet.create({
     // Onboarding
+    appLogo: {
+        width: 290,
+        height: 200,
+        marginBottom: 120,
+        alignSelf: 'center'
+    },
     messageText: {
         fontSize: 24,
         textAlign: 'center',
@@ -21,6 +27,13 @@ const commonStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20
+    },
+    authContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#fbede5'
     },
     viewContainer: {
         flex: 1,
@@ -123,6 +136,24 @@ const commonStyles = StyleSheet.create({
         height: 30,
         marginLeft: 8
     },
+    dividerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 16,
+        width: '80%',
+        alignSelf: 'center'
+    },
+    dividerLine: {
+        flex: 1,
+        height: 2,
+        backgroundColor: '#D3D3D3'
+    },
+    dividerText: {
+        marginHorizontal: 10,
+        fontSize: 16,
+        color: '#333',
+        fontWeight: '500'
+    },
     mascotImage: {
         width: 250,
         height: 250,
@@ -179,10 +210,13 @@ const commonStyles = StyleSheet.create({
     },
     input: {
         width: '80%',
-        padding: 10,
+        padding: 13.5,
         margin: 10,
+        borderRadius: 16,
+        backgroundColor: '#FFFFFF',
         borderWidth: 1,
-        borderRadius: 5
+        borderColor: '#7b7b7b',
+        borderStyle: 'solid'
     },
     errorText: {
         color: 'red',
@@ -195,7 +229,7 @@ const commonStyles = StyleSheet.create({
         gap: 20
     },
     formButton: {
-        backgroundColor: '#000000',
+        backgroundColor: '#0d1b2a',
         padding: 15,
         borderRadius: 16,
         marginTop: 20,

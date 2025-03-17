@@ -25,8 +25,23 @@ const Signup = (): React.JSX.Element => {
         }
     }
 
+    const handleBack = (): void => {
+        router.replace('/welcome')
+    }
+
     return (
-        <View style={commonStyles.container}>
+        <View style={commonStyles.authContainer}>
+            <TouchableOpacity
+                style={commonStyles.backButton}
+                onPress={handleBack}
+            >
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    style={commonStyles.backIcon}
+                />
+            </TouchableOpacity>
+
             <Text style={commonStyles.boldText}>Sign Up</Text>
 
             <TextInput
@@ -55,15 +70,11 @@ const Signup = (): React.JSX.Element => {
                 <Text style={commonStyles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-                onPress={() => router.replace('/auth/login')}
-                style={commonStyles.link}
-            >
-                <Text style={commonStyles.textRow}>
-                    <Text>Already have an account?</Text>
-                    <Text style={commonStyles.linkText}> Login</Text>
-                </Text>
-            </TouchableOpacity>
+            <View style={commonStyles.dividerContainer}>
+                <View style={commonStyles.dividerLine} />
+                <Text style={commonStyles.dividerText}>or</Text>
+                <View style={commonStyles.dividerLine} />
+            </View>
 
             <TouchableOpacity style={commonStyles.longButtonWhite}>
                 <View style={commonStyles.iconButtonContainer}>
@@ -90,12 +101,12 @@ const Signup = (): React.JSX.Element => {
             </TouchableOpacity>
 
             <TouchableOpacity
-                onPress={() => router.replace('/auth/signupOrganization')}
+                onPress={() => router.replace('/auth/login')}
                 style={commonStyles.link}
             >
                 <Text style={commonStyles.textRow}>
-                    <Text>Orgnaizational User?</Text>
-                    <Text style={commonStyles.linkText}> Click here</Text>
+                    <Text>Have an account?</Text>
+                    <Text style={commonStyles.linkText}> Login</Text>
                 </Text>
             </TouchableOpacity>
         </View>
