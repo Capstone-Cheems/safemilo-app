@@ -16,7 +16,8 @@
     "jsx": "react-native",
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["node_modules/@types", "src/types"]
   },
   "include": [
     "**/*.ts",
