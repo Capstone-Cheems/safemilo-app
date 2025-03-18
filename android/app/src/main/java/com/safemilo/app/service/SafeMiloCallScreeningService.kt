@@ -29,9 +29,15 @@ class SafeMiloCallScreeningService : CallScreeningService() {
         if(incomingNumber != null && incomingNumber.isNotEmpty()){
             validateNumberWithApi(incomingNumber) { isSpam ->
                 if (isSpam) {
+
                     Toast.makeText(applicationContext, "$incomingNumber is Spam", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, PopupService::class.java)
-                    startService(intent)
+
+                    try{
+                        val intent = Intent(this, PopupService::class.java)
+                        startService(intent)
+                    }catch (e: Exception){
+                        Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
+                    }
 
                 } else {
                     Toast.makeText(applicationContext, "$incomingNumber is not Spam", Toast.LENGTH_LONG).show()
