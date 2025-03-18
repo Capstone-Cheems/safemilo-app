@@ -14,6 +14,7 @@ const LOOK_RIGHT_FRAMES = [
     require('../assets/animations/Look-Right-09.png'),
     require('../assets/animations/Look-Right-10.png'),
     require('../assets/animations/Look-Right-11.png'),
+    require('../assets/animations/Look-Right-12.png'),
 ]
 
 const GET_PHONE_FRAMES = [
@@ -41,6 +42,7 @@ const GET_PHONE_FRAMES = [
     require('../assets/animations/Get-Phone-21.png'),
     require('../assets/animations/Get-Phone-22.png'),
     require('../assets/animations/Get-Phone-23.png'),
+    require('../assets/animations/Get-Phone-24.png'),
 ]
 
 const FLAG_CALL_FRAMES = [
