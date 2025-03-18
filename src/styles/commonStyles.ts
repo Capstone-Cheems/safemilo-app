@@ -35,6 +35,16 @@ const commonStyles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#fbede5'
     },
+    authInputContainer: {
+        width: '100%',
+        marginBottom: 16,
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    authInputLabel: {
+        alignSelf: 'flex-start',
+        marginLeft: 32
+    },
     viewContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -232,7 +242,6 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#0d1b2a',
         padding: 15,
         borderRadius: 16,
-        marginTop: 20,
         width: '80%'
     },
     // Scam news (Post)
