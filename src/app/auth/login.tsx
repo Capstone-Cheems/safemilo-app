@@ -69,29 +69,33 @@ const Login = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/dark-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
 
-            <Text style={commonStyles.boldText}>Login</Text>
+            <View style={commonStyles.authInputContainer}>
+                <Text style={commonStyles.authInputLabel}>Your Email</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                />
+            </View>
 
-            <TextInput
-                style={commonStyles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                keyboardType="email-address"
-            />
-
-            <TextInput
-                style={commonStyles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+            <View style={commonStyles.authInputContainer}>
+                <Text style={commonStyles.authInputLabel}>Your Password</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
+            </View>
 
             {error && <Text style={commonStyles.errorText}>{error}</Text>}
 

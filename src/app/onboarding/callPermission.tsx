@@ -56,12 +56,17 @@ const CallPermission = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/light-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
 
             <View style={commonStyles.dialogBox}>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/call-permission-icon.png')}
+                    style={commonStyles.permissionIcon}
+                />
                 <Text style={commonStyles.title}>
                     Allow Access to your Calls
                 </Text>
@@ -72,10 +77,10 @@ const CallPermission = (): React.JSX.Element => {
 
                 <View style={commonStyles.buttonContainer}>
                     <TouchableOpacity
-                        style={commonStyles.button}
+                        style={commonStyles.buttonWhite}
                         onPress={handleDeny}
                     >
-                        <Text style={commonStyles.buttonText}>Deny</Text>
+                        <Text style={commonStyles.buttonTextWhite}>Deny</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity

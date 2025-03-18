@@ -51,31 +51,37 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/dark-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
 
-            <Text style={commonStyles.boldText}>
+            {/* <Text style={commonStyles.boldText}>
                 {type === 'signup' ? 'Sign Up' : 'Login'} as Organization
-            </Text>
+            </Text> */}
 
-            <TextInput
-                style={commonStyles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                keyboardType="email-address"
-            />
+            <View style={commonStyles.authInputContainer}>
+                <Text style={commonStyles.authInputLabel}>Your Email</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                />
+            </View>
 
-            <TextInput
-                style={commonStyles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+            <View style={commonStyles.authInputContainer}>
+                <Text style={commonStyles.authInputLabel}>Your Password</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
+            </View>
 
             {error && <Text style={commonStyles.errorText}>{error}</Text>}
 

@@ -35,6 +35,16 @@ const commonStyles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#fbede5'
     },
+    authInputContainer: {
+        width: '100%',
+        marginBottom: 16,
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    authInputLabel: {
+        alignSelf: 'flex-start',
+        marginLeft: 32
+    },
     viewContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -97,8 +107,21 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#0d1b2a',
         paddingVertical: 10,
         paddingHorizontal: 30,
-        borderRadius: 8,
-        marginTop: 10
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
+    },
+    buttonWhite: {
+        backgroundColor: '#FFFFFF',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
     },
     buttonText: {
         color: 'white',
@@ -106,13 +129,13 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center'
     },
     buttonTextWhite: {
-        color: '#294141',
+        color: '#0d1b2a',
         fontSize: 22,
         textAlign: 'center'
     },
     backButton: {
         position: 'absolute',
-        top: 20,
+        top: 50,
         left: 20,
         padding: 10
     },
@@ -163,24 +186,24 @@ const commonStyles = StyleSheet.create({
         resizeMode: 'contain'
     },
     jumpWaveLoopAnimation: {
-        width: 250,
-        height: 250,
+        width: 350,
+        height: 350,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,
         resizeMode: 'contain'
     },
     lookPhoneAnimation: {
-        width: 300,
-        height: 300,
+        width: 420,
+        height: 280,
         marginTop: 10,
         marginBottom: 30,
-        marginLeft: -60,
+        marginLeft: 30,
         resizeMode: 'contain'
     },
     moduleCompleteAnimation: {
-        width: 230,
-        height: 230,
+        width: 320,
+        height: 320,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,
@@ -200,6 +223,10 @@ const commonStyles = StyleSheet.create({
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
         borderTopColor: 'white'
+    },
+    permissionIcon: {
+        width: 40,
+        height: 40
     },
     // Auth
     link: {
@@ -232,7 +259,6 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#0d1b2a',
         padding: 15,
         borderRadius: 16,
-        marginTop: 20,
         width: '80%'
     },
     // Scam news (Post)

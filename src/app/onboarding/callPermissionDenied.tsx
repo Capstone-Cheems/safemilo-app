@@ -25,7 +25,7 @@ const CallPermissionDenied = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/light-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
@@ -40,7 +40,7 @@ const CallPermissionDenied = (): React.JSX.Element => {
                     style={commonStyles.longButton}
                     onPress={handleContinue}
                 >
-                    <Text style={commonStyles.buttonText}>Continue</Text>
+                    <Text style={commonStyles.buttonText}>Next</Text>
                 </TouchableOpacity>
 
                 <View style={commonStyles.triangle} />

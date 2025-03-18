@@ -47,13 +47,13 @@ const PostDetail = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/dark-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={commonStyles.moreButton}
+                style={commonStyles.backIcon}
                 onPress={handleOpenMenu}
             >
                 <Image
@@ -68,7 +68,7 @@ const PostDetail = (): React.JSX.Element => {
                 Posted on {new Date(createdAt as string).toDateString()}
             </Text>
             <Text style={commonStyles.detailTag}>#{scamTypeTag}</Text>
-            <ScrollView style={commonStyles.scrollContainer}>
+            <ScrollView style={commonStyles.container}>
                 <Text style={commonStyles.detailContent}>{content}</Text>
             </ScrollView>
         </View>
