@@ -195,10 +195,10 @@ const commonStyles = StyleSheet.create({
     },
     lookPhoneAnimation: {
         width: 420,
-        height: 420,
+        height: 280,
         marginTop: 10,
         marginBottom: 30,
-        marginLeft: -60,
+        marginLeft: 30,
         resizeMode: 'contain'
     },
     moduleCompleteAnimation: {
