@@ -7,10 +7,10 @@ const Tour2tip = (): React.JSX.Element => {
     const router = useRouter()
     const navigation = useNavigation()
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'Walkthrough' })
+        navigation.setOptions({ headerShown: false })
     }, [navigation])
-    const handleBack = (): void => {
-        router.replace('/onboarding/tour1start')
+    const handleDeny = (): void => {
+        router.replace('/home')
     }
 
     const handleNext = (): void => {
@@ -39,10 +39,10 @@ const Tour2tip = (): React.JSX.Element => {
             />
             <View style={commonStyles.buttonContainer}>
                 <TouchableOpacity
-                    style={commonStyles.button}
-                    onPress={handleBack}
+                    style={commonStyles.buttonWhite}
+                    onPress={handleDeny}
                 >
-                    <Text style={commonStyles.buttonText}>Back</Text>
+                    <Text style={commonStyles.buttonTextWhite}>Skip</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity

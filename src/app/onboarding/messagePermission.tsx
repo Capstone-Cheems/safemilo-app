@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import LookPhoneMessageAnimation from '../../../components/LookPhoneMessageAnimation'
@@ -23,6 +23,11 @@ const MessagePermission = (): React.JSX.Element => {
     return (
         <View style={commonStyles.viewContainer}>
             <View style={commonStyles.dialogBox}>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/message-permission-icon.png')}
+                    style={commonStyles.permissionIcon}
+                />
                 <Text style={commonStyles.title}>
                     Allow Access to your Message
                 </Text>
@@ -33,10 +38,10 @@ const MessagePermission = (): React.JSX.Element => {
 
                 <View style={commonStyles.buttonContainer}>
                     <TouchableOpacity
-                        style={commonStyles.button}
+                        style={commonStyles.buttonWhite}
                         onPress={handleDeny}
                     >
-                        <Text style={commonStyles.buttonText}>Deny</Text>
+                        <Text style={commonStyles.buttonTextWhite}>Deny</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity

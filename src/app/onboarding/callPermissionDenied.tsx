@@ -40,7 +40,7 @@ const CallPermissionDenied = (): React.JSX.Element => {
                     style={commonStyles.longButton}
                     onPress={handleContinue}
                 >
-                    <Text style={commonStyles.buttonText}>Continue</Text>
+                    <Text style={commonStyles.buttonText}>Next</Text>
                 </TouchableOpacity>
 
                 <View style={commonStyles.triangle} />

@@ -107,8 +107,21 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#0d1b2a',
         paddingVertical: 10,
         paddingHorizontal: 30,
-        borderRadius: 8,
-        marginTop: 10
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
+    },
+    buttonWhite: {
+        backgroundColor: '#FFFFFF',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
     },
     buttonText: {
         color: 'white',
@@ -116,7 +129,7 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center'
     },
     buttonTextWhite: {
-        color: '#294141',
+        color: '#0d1b2a',
         fontSize: 22,
         textAlign: 'center'
     },
@@ -210,6 +223,10 @@ const commonStyles = StyleSheet.create({
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
         borderTopColor: 'white'
+    },
+    permissionIcon: {
+        width: 40,
+        height: 40
     },
     // Auth
     link: {
