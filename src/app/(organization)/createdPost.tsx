@@ -33,7 +33,7 @@ const CreatedPost = (): React.JSX.Element => {
 
     const fetchNews = async (): Promise<void> => {
         try {
-            const token = user?.getIdToken()
+            const token = await user?.getIdToken()
             const response = await fetch(
                 `http://34.235.29.56:8080/news/organization/${user?.uid}`,
                 {

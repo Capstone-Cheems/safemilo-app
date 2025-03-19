@@ -32,7 +32,7 @@ const EditPost = (): React.JSX.Element => {
 
         try {
             setLoading(true)
-            const token = user?.getIdToken()
+            const token = await user?.getIdToken()
 
             const response = await fetch(
                 `http://34.235.29.56:8080/news/${newsID}`,
