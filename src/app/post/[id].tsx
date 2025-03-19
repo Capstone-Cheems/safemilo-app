@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { Text, Image, ActivityIndicator, ScrollView } from 'react-native'
