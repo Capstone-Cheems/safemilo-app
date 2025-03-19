@@ -1,3 +1,5 @@
+package com.safemilo.app.service
+
 import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
@@ -7,12 +9,17 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import com.safemilo.app.R
 
 class PopupService : Service() {
 
     private lateinit var windowManager: WindowManager
     private lateinit var popupView: View
+
+
 
     override fun onCreate() {
         super.onCreate()
@@ -35,15 +42,31 @@ class PopupService : Service() {
             PixelFormat.TRANSLUCENT
         )
 
-        // Positioning (e.g., top-right corner)
-        params.gravity = Gravity.TOP or Gravity.END
+
+        params.gravity = Gravity.CENTER or Gravity.START
         params.x = 10
         params.y = 100
 
         // Add view to window
         windowManager.addView(popupView, params)
+
+        val stopServiceBtn = popupView.findViewById<ImageView>(R.id.imageView4);
+
+
+
+        stopServiceBtn?.setOnClickListener {
+            Toast.makeText(this, "Button Clicked!", Toast.LENGTH_SHORT).show()
+            onDestroy()
+        }
+
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val textView=popupView.findViewById<TextView>(R.id.textView4)
+        val phoneNumber = intent?.getStringExtra("PHONE_NUMBER") ?: "Unknown"
+        textView.text=phoneNumber
+        return START_REDELIVER_INTENT
+    }
     override fun onDestroy() {
         super.onDestroy()
         if (::popupView.isInitialized) {

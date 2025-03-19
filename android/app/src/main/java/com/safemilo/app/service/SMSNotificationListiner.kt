@@ -10,14 +10,20 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.facebook.react.bridge.UiThreadUtil.runOnUiThread
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.safemilo.app.service.SafeMiloCallScreeningService.SpamNumber
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
 import java.util.Base64
+import java.util.Date
 
 
 class SMSNotificationListiner : NotificationListenerService() {
+
+    private val gson = Gson()
 
     override fun onBind(intent: android.content.Intent): android.os.IBinder? {
         return super.onBind(intent)
@@ -26,6 +32,12 @@ class SMSNotificationListiner : NotificationListenerService() {
     private fun getPreferences(): SharedPreferences {
         return applicationContext.getSharedPreferences(applicationContext.packageName + ".settings", Context.MODE_PRIVATE)
     }
+
+    data class Message(
+        val sender: String,
+        val description: String,
+        val timestamp: String
+    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onNotificationPosted(sbn: StatusBarNotification) {
@@ -49,9 +61,22 @@ class SMSNotificationListiner : NotificationListenerService() {
 
 
             for (url in urls) {
-                Toast.makeText(applicationContext, url, Toast.LENGTH_LONG).show()
                 val urlBytes = url.toByteArray(Charsets.UTF_8)
                 verifyLink(Base64.getEncoder().encodeToString(urlBytes))
+                val existing = getPreferences().getString("MESSAGES","[]")?:"[]"
+
+                val messages: MutableList<Message> = gson.fromJson(existing, object : TypeToken<MutableList<Message>>() {}.type)
+
+                messages.add(
+                    Message(
+                    sender= sender ?: "",
+                    description = message,
+                    timestamp = Date().toString()
+
+                )
+                )
+
+                getPreferences().edit().putString("MESSAGES", gson.toJson(messages)).apply()
             }
         }
     }
@@ -77,9 +102,9 @@ class SMSNotificationListiner : NotificationListenerService() {
                     try {
                         val res = JSONObject(responseBody)
                         Log.d("Status", res.getString("status"))
-                        runOnUiThread{
+                        /*runOnUiThread{
                             Toast.makeText(applicationContext, res.getString("status"), Toast.LENGTH_LONG).show()
-                        }
+                        }*/
                     }catch (e : Exception){
                         Log.d("Error", e.message.toString())
                         runOnUiThread{
