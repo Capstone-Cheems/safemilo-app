@@ -73,7 +73,7 @@ const CreatedPost = (): React.JSX.Element => {
                             <TouchableOpacity
                                 onPress={() =>
                                     router.push({
-                                        pathname: '/news/postDetail',
+                                        pathname: `/post/${item.newsID}`,
                                         params: {
                                             newsID: item.newsID,
                                             title: item.title,
