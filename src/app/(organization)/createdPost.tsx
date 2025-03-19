@@ -17,6 +17,7 @@ type NewsItem = {
     content: string
     scamTypeTag: string
     createdAt: string
+    images?: string[]
 }
 
 const CreatedPost = (): React.JSX.Element => {
@@ -79,7 +80,8 @@ const CreatedPost = (): React.JSX.Element => {
                                             title: item.title,
                                             content: item.content,
                                             scamTypeTag: item.scamTypeTag,
-                                            createdAt: item.createdAt
+                                            createdAt: item.createdAt,
+                                            images: JSON.stringify(item.images)
                                         }
                                     })
                                 }

@@ -22,7 +22,18 @@ type NewsItem = {
 }
 
 const OrganizationNewsDetail = (): React.JSX.Element => {
-    const { id } = useLocalSearchParams<{ id: string }>()
+    const { newsID, title, content, scamTypeTag, createdAt, images } =
+        useLocalSearchParams<{
+            newsID: string
+            title: string
+            content: string
+            scamTypeTag: string
+            createdAt: string
+            images: string
+        }>()
+
+    const parsedImages: string[] = images ? JSON.parse(images) : []
+
     const { user } = useAuth()
     const [news, setNews] = useState<NewsItem | null>(null)
     const [loading, setLoading] = useState(true)
@@ -37,7 +48,7 @@ const OrganizationNewsDetail = (): React.JSX.Element => {
         try {
             const token = await user?.getIdToken()
             const response = await fetch(
-                `http://34.235.29.56:8080/news/${id}`,
+                `http://34.235.29.56:8080/news/${newsID}`,
                 {
                     headers: { Authorization: `Bearer ${token}` }
                 }
@@ -61,9 +72,10 @@ const OrganizationNewsDetail = (): React.JSX.Element => {
         <ScrollView>
             <VStack space="md" className="m-4">
                 <Box className="relative">
-                    {news.images && news.images.length > 0 ? (
+                    {/* Display images if available */}
+                    {parsedImages.length > 0 ? (
                         <ScrollView horizontal>
-                            {news.images.map((img, index) => (
+                            {parsedImages.map((img, index) => (
                                 <Image
                                     key={index}
                                     source={{ uri: img }}
@@ -91,18 +103,18 @@ const OrganizationNewsDetail = (): React.JSX.Element => {
                     )}
                 </Box>
 
-                <Heading>{news.title}</Heading>
+                <Heading>{title}</Heading>
                 <Box className="flex-row flex-nowrap justify-between">
-                    <Text>{news.scamTypeTag}</Text>
-                    <Text>{timeAgo(news.createdAt)}</Text>
+                    <Text>{scamTypeTag}</Text>
+                    <Text>{timeAgo(createdAt)}</Text>
                 </Box>
                 <Box>
-                    <Text>{news.content}</Text>
+                    <Text>{content}</Text>
                 </Box>
 
                 {/* Share Button */}
                 <ShareButtonWidget
-                    message={`${news.title}\n#${news.scamTypeTag}\n\n${news.content}\n\nStay safe from scams!\nby SafeMilo:fox_face:`}
+                    message={`${title}\n#${scamTypeTag}\n\n${content}\n\nStay safe from scams!\nby SafeMilo 🦊`}
                 />
             </VStack>
         </ScrollView>

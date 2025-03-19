@@ -11,6 +11,7 @@ export interface News {
     scamTypeTag: string
     createdAt: string
     updatedAt: string
+    images?: string[]
 }
 
 export interface Meta {
