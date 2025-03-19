@@ -16,8 +16,8 @@ const Messages = (): React.JSX.Element => {
     const [messages, setMessages] = useState<Message[]>()
 
     const getMessages = (): void => {
-        CustomModule.getMessages((data: Message[]) => {
-            setMessages(data)
+        CustomModule.getMessages((data: string) => {
+            setMessages(JSON.parse(data))
         })
     }
 

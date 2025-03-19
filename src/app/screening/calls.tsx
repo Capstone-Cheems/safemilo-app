@@ -15,8 +15,8 @@ const Calls = (): React.JSX.Element => {
     const [spamNumbers, setSpanNumbers] = useState<SpamNumber[]>()
 
     const getSpamNUmbers = (): void => {
-        CustomModule.getSpamNumbers((data: SpamNumber[]) => {
-            setSpanNumbers(data)
+        CustomModule.getSpamNumbers((data: string) => {
+            setSpanNumbers(JSON.parse(data))
         })
     }
 
