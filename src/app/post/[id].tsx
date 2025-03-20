@@ -71,6 +71,15 @@ const OrganizationNewsDetail = (): React.JSX.Element => {
     return (
         <ScrollView>
             <VStack space="md" className="m-4">
+                <Heading>{title}</Heading>
+                <Box className="flex-row flex-nowrap justify-between">
+                    <Text>{scamTypeTag}</Text>
+                    <Text>{timeAgo(createdAt)}</Text>
+                </Box>
+                <Box>
+                    <Text>{content}</Text>
+                </Box>
+
                 <Box className="relative">
                     {/* Display images if available */}
                     {parsedImages.length > 0 ? (
@@ -101,15 +110,6 @@ const OrganizationNewsDetail = (): React.JSX.Element => {
                             resizeMode="contain"
                         />
                     )}
-                </Box>
-
-                <Heading>{title}</Heading>
-                <Box className="flex-row flex-nowrap justify-between">
-                    <Text>{scamTypeTag}</Text>
-                    <Text>{timeAgo(createdAt)}</Text>
-                </Box>
-                <Box>
-                    <Text>{content}</Text>
                 </Box>
 
                 {/* Share Button */}

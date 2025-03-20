@@ -119,7 +119,8 @@ const CreatedPost = (): React.JSX.Element => {
                                             newsID: item.newsID,
                                             title: item.title,
                                             content: item.content,
-                                            scamTypeTag: item.scamTypeTag
+                                            scamTypeTag: item.scamTypeTag,
+                                            images: JSON.stringify(item.images)
                                         }
                                     })
                                 }
