@@ -1,8 +1,23 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    Alert,
+    Image,
+    FlatList,
+    Dimensions
+} from 'react-native'
+import * as ImagePicker from 'expo-image-picker'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
+import Constants from 'expo-constants'
+
+const S3_BUCKET_URL = Constants.expoConfig?.extra?.S3_IMAGE_URL ?? ''
+const SCREEN_WIDTH = Dimensions.get('window').width
+const IMAGE_SIZE = (SCREEN_WIDTH - 48) / 3
 
 const EditPost = (): React.JSX.Element => {
     const router = useRouter()
@@ -11,18 +26,80 @@ const EditPost = (): React.JSX.Element => {
         newsID,
         title: initialTitle,
         content: initialContent,
-        scamTypeTag: initialScamTypeTag
+        scamTypeTag: initialScamTypeTag,
+        images: initialImages
     } = useLocalSearchParams<{
         newsID: string
         title: string
         content: string
         scamTypeTag: string
+        images?: string
     }>()
 
     const [title, setTitle] = useState(initialTitle || '')
     const [content, setContent] = useState(initialContent || '')
     const [scamTypeTag, setScamTypeTag] = useState(initialScamTypeTag || '')
     const [loading, setLoading] = useState(false)
+
+    const [images, setImages] = useState<string[]>(
+        initialImages ? JSON.parse(initialImages) : []
+    )
+
+    const pickImages = async (): Promise<void> => {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsMultipleSelection: true,
+            quality: 0.8
+        })
+
+        if (!result.canceled && result.assets.length > 0) {
+            const selectedImages = result.assets.map(asset => asset.uri)
+            setImages(prevImages => [...prevImages, ...selectedImages])
+        }
+    }
+
+    const handleRemoveImage = (index: number): void => {
+        setImages(prevImages => prevImages.filter((_, i) => i !== index))
+    }
+
+    const uploadImagesToS3 = async (): Promise<string[]> => {
+        const uploadedUrls: string[] = []
+
+        for (const uri of images) {
+            if (uri.startsWith('http')) {
+                uploadedUrls.push(uri)
+                continue
+            }
+
+            try {
+                const response = await fetch(uri)
+                const blob = await response.blob()
+
+                const filename = `scam-news-${Date.now()}-${Math.random()
+                    .toString(36)
+                    .substring(7)}.jpg`
+                const uploadUrl = `${S3_BUCKET_URL}${filename}`
+
+                const uploadResponse = await fetch(uploadUrl, {
+                    method: 'PUT',
+                    body: blob,
+                    headers: {
+                        'Content-Type': 'image/jpeg'
+                    }
+                })
+
+                if (!uploadResponse.ok) {
+                    throw new Error('Failed to upload image')
+                }
+
+                uploadedUrls.push(uploadUrl)
+            } catch (error) {
+                console.error('Image upload error:', error)
+            }
+        }
+
+        return uploadedUrls
+    }
 
     const handleUpdate = async (): Promise<void> => {
         if (!title || !content || !scamTypeTag) {
@@ -32,7 +109,10 @@ const EditPost = (): React.JSX.Element => {
 
         try {
             setLoading(true)
-            const token = user?.getIdToken()
+            const token = await user?.getIdToken()
+
+            // eslint-disable-next-line prefer-const
+            let uploadedImageUrls = await uploadImagesToS3()
 
             const response = await fetch(
                 `http://34.235.29.56:8080/news/${newsID}`,
@@ -45,7 +125,8 @@ const EditPost = (): React.JSX.Element => {
                     body: JSON.stringify({
                         title,
                         content,
-                        scamTypeTags: scamTypeTag
+                        scamTypeTags: scamTypeTag,
+                        images: uploadedImageUrls
                     })
                 }
             )
@@ -66,6 +147,58 @@ const EditPost = (): React.JSX.Element => {
             setLoading(false)
         }
     }
+
+    const renderImageItem = ({
+        item,
+        index
+    }: {
+        item: string
+        index: number
+    }): React.JSX.Element => (
+        <View
+            style={{
+                width: IMAGE_SIZE,
+                height: IMAGE_SIZE,
+                margin: 4,
+                alignItems: 'center',
+                position: 'relative'
+            }}
+        >
+            <Image
+                source={{ uri: item }}
+                style={{
+                    width: IMAGE_SIZE,
+                    height: IMAGE_SIZE,
+                    borderRadius: 8
+                }}
+            />
+
+            <TouchableOpacity
+                style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: [{ translateX: -25 }, { translateY: -20 }],
+                    backgroundColor: 'rgba(0,0,0,0.6)',
+                    paddingVertical: 8,
+                    paddingHorizontal: 15,
+                    borderRadius: 20
+                }}
+                onPress={() => handleRemoveImage(index)}
+            >
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('@/assets/images/light-trash-icon.png')}
+                    style={{
+                        width: 24,
+                        height: 24,
+                        tintColor: '#fff'
+                    }}
+                    resizeMode="contain"
+                />
+            </TouchableOpacity>
+        </View>
+    )
 
     return (
         <View style={commonStyles.postContainer}>
@@ -93,6 +226,26 @@ const EditPost = (): React.JSX.Element => {
             />
 
             <TouchableOpacity
+                style={commonStyles.button}
+                onPress={pickImages}
+                disabled={loading}
+            >
+                <Text style={commonStyles.buttonText}>
+                    {images.length > 0 ? 'Add More Images' : 'Select Images'}
+                </Text>
+            </TouchableOpacity>
+
+            {images.length > 0 && (
+                <FlatList
+                    data={images}
+                    keyExtractor={(item, index) => index.toString()}
+                    numColumns={3}
+                    columnWrapperStyle={{ justifyContent: 'flex-start' }}
+                    renderItem={renderImageItem}
+                />
+            )}
+
+            <TouchableOpacity
                 style={[
                     commonStyles.button,
                     loading && commonStyles.buttonDisabled
@@ -105,7 +258,6 @@ const EditPost = (): React.JSX.Element => {
                 </Text>
             </TouchableOpacity>
 
-            {/* Cancel Button */}
             <TouchableOpacity
                 style={commonStyles.cancelButton}
                 onPress={() => router.replace('/(organization)/createdPost')}

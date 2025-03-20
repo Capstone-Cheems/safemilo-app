@@ -17,6 +17,7 @@ type NewsItem = {
     content: string
     scamTypeTag: string
     createdAt: string
+    images?: string[]
 }
 
 const CreatedPost = (): React.JSX.Element => {
@@ -33,7 +34,7 @@ const CreatedPost = (): React.JSX.Element => {
 
     const fetchNews = async (): Promise<void> => {
         try {
-            const token = user?.getIdToken()
+            const token = await user?.getIdToken()
             const response = await fetch(
                 `http://34.235.29.56:8080/news/organization/${user?.uid}`,
                 {
@@ -73,13 +74,14 @@ const CreatedPost = (): React.JSX.Element => {
                             <TouchableOpacity
                                 onPress={() =>
                                     router.push({
-                                        pathname: '/news/postDetail',
+                                        pathname: `/post/${item.newsID}`,
                                         params: {
                                             newsID: item.newsID,
                                             title: item.title,
                                             content: item.content,
                                             scamTypeTag: item.scamTypeTag,
-                                            createdAt: item.createdAt
+                                            createdAt: item.createdAt,
+                                            images: JSON.stringify(item.images)
                                         }
                                     })
                                 }
@@ -117,7 +119,8 @@ const CreatedPost = (): React.JSX.Element => {
                                             newsID: item.newsID,
                                             title: item.title,
                                             content: item.content,
-                                            scamTypeTag: item.scamTypeTag
+                                            scamTypeTag: item.scamTypeTag,
+                                            images: JSON.stringify(item.images)
                                         }
                                     })
                                 }
