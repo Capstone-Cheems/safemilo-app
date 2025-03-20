@@ -40,7 +40,6 @@ const EditPost = (): React.JSX.Element => {
     const [content, setContent] = useState(initialContent || '')
     const [scamTypeTag, setScamTypeTag] = useState(initialScamTypeTag || '')
     const [loading, setLoading] = useState(false)
-
     const [images, setImages] = useState<string[]>(
         initialImages ? JSON.parse(initialImages) : []
     )
@@ -152,53 +151,78 @@ const EditPost = (): React.JSX.Element => {
         item,
         index
     }: {
-        item: string
+        item: string | null
         index: number
-    }): React.JSX.Element => (
-        <View
-            style={{
-                width: IMAGE_SIZE,
-                height: IMAGE_SIZE,
-                margin: 4,
-                alignItems: 'center',
-                position: 'relative'
-            }}
-        >
-            <Image
-                source={{ uri: item }}
+    }): React.JSX.Element => {
+        if (item === null) {
+            // "+" Button
+            return (
+                <TouchableOpacity
+                    onPress={pickImages}
+                    style={{
+                        width: IMAGE_SIZE,
+                        height: IMAGE_SIZE,
+                        margin: 4,
+                        backgroundColor: '#ffffff',
+                        borderRadius: 8,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderWidth: 1,
+                        borderColor: '#ffffff'
+                    }}
+                >
+                    <Text style={{ fontSize: 36, color: '#0d1b2a' }}>+</Text>
+                </TouchableOpacity>
+            )
+        }
+
+        return (
+            <View
                 style={{
                     width: IMAGE_SIZE,
                     height: IMAGE_SIZE,
-                    borderRadius: 8
+                    margin: 4,
+                    alignItems: 'center',
+                    position: 'relative'
                 }}
-            />
-
-            <TouchableOpacity
-                style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: [{ translateX: -25 }, { translateY: -20 }],
-                    backgroundColor: 'rgba(0,0,0,0.6)',
-                    paddingVertical: 8,
-                    paddingHorizontal: 15,
-                    borderRadius: 20
-                }}
-                onPress={() => handleRemoveImage(index)}
             >
                 <Image
-                    // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('@/assets/images/light-trash-icon.png')}
+                    source={{ uri: item }}
                     style={{
-                        width: 24,
-                        height: 24,
-                        tintColor: '#fff'
+                        width: IMAGE_SIZE,
+                        height: IMAGE_SIZE,
+                        borderRadius: 8
                     }}
-                    resizeMode="contain"
                 />
-            </TouchableOpacity>
-        </View>
-    )
+
+                {/* Remove Button */}
+                <TouchableOpacity
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: [{ translateX: -25 }, { translateY: -20 }],
+                        backgroundColor: 'rgba(0,0,0,0.6)',
+                        paddingVertical: 8,
+                        paddingHorizontal: 15,
+                        borderRadius: 20
+                    }}
+                    onPress={() => handleRemoveImage(index)}
+                >
+                    <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
+                        source={require('@/assets/images/light-trash-icon.png')}
+                        style={{
+                            width: 24,
+                            height: 24,
+                            tintColor: '#fff'
+                        }}
+                        resizeMode="contain"
+                    />
+                </TouchableOpacity>
+            </View>
+        )
+    }
 
     return (
         <View style={commonStyles.postContainer}>
@@ -225,25 +249,13 @@ const EditPost = (): React.JSX.Element => {
                 onChangeText={setScamTypeTag}
             />
 
-            <TouchableOpacity
-                style={commonStyles.button}
-                onPress={pickImages}
-                disabled={loading}
-            >
-                <Text style={commonStyles.buttonText}>
-                    {images.length > 0 ? 'Add More Images' : 'Select Images'}
-                </Text>
-            </TouchableOpacity>
-
-            {images.length > 0 && (
-                <FlatList
-                    data={images}
-                    keyExtractor={(item, index) => index.toString()}
-                    numColumns={3}
-                    columnWrapperStyle={{ justifyContent: 'flex-start' }}
-                    renderItem={renderImageItem}
-                />
-            )}
+            <FlatList
+                data={[...images, null]}
+                keyExtractor={(item, index) => index.toString()}
+                numColumns={3}
+                columnWrapperStyle={{ justifyContent: 'flex-start' }}
+                renderItem={renderImageItem}
+            />
 
             <TouchableOpacity
                 style={[
@@ -254,7 +266,7 @@ const EditPost = (): React.JSX.Element => {
                 disabled={loading}
             >
                 <Text style={commonStyles.buttonText}>
-                    {loading ? 'Updating...' : 'Update'}
+                    {loading ? 'Updating...' : 'Save'}
                 </Text>
             </TouchableOpacity>
 
@@ -262,7 +274,7 @@ const EditPost = (): React.JSX.Element => {
                 style={commonStyles.cancelButton}
                 onPress={() => router.replace('/(organization)/createdPost')}
             >
-                <Text style={commonStyles.cancelButtonText}>Cancel</Text>
+                <Text style={commonStyles.cancelButtonText}>Discard</Text>
             </TouchableOpacity>
         </View>
     )

@@ -328,10 +328,10 @@ const commonStyles = StyleSheet.create({
     postContainer: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#f5f5f5'
     },
     postnewsItem: {
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#ffffff',
         padding: 15,
         marginBottom: 10,
         borderRadius: 10,
