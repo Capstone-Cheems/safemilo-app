@@ -90,7 +90,8 @@ const commonStyles = StyleSheet.create({
         width: '80%',
         borderWidth: 2,
         borderColor: '#0d1b2a',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        alignSelf: 'center'
     },
     longButtonWhite: {
         backgroundColor: '#FFFFFF',
@@ -101,7 +102,8 @@ const commonStyles = StyleSheet.create({
         width: '80%',
         borderWidth: 2,
         borderColor: '#0d1b2a',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        alignSelf: 'center'
     },
     button: {
         backgroundColor: '#0d1b2a',
@@ -378,7 +380,8 @@ const commonStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
-        marginBottom: 10
+        marginBottom: 10,
+        backgroundColor: '#ffffff'
     },
     buttonDisabled: {
         backgroundColor: 'gray'
@@ -397,6 +400,9 @@ const commonStyles = StyleSheet.create({
         marginTop: 5,
         color: '#555',
         maxWidth: '80%'
+    },
+    newsInputLabel: {
+        color: '#000'
     },
     //Profile Section
     largeformButton: {

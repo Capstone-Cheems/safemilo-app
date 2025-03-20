@@ -227,12 +227,25 @@ const NewPost = (): React.JSX.Element => {
                 <View style={commonStyles.postContainer}>
                     <Text style={commonStyles.header}>Create a Post</Text>
 
+                    <Text style={commonStyles.newsInputLabel}>News Title</Text>
                     <TextInput
                         style={commonStyles.postInput}
                         placeholder="Title"
                         value={title}
                         onChangeText={setTitle}
                     />
+
+                    <Text style={commonStyles.newsInputLabel}>
+                        Scam Category
+                    </Text>
+                    <TextInput
+                        style={commonStyles.postInput}
+                        placeholder="Scam Type Tag (e.g. Phishing, Fraud)"
+                        value={scamTypeTag}
+                        onChangeText={setScamTypeTag}
+                    />
+
+                    <Text style={commonStyles.newsInputLabel}>Content</Text>
                     <TextInput
                         style={commonStyles.postInput}
                         placeholder="Content"
@@ -241,14 +254,8 @@ const NewPost = (): React.JSX.Element => {
                         multiline
                         numberOfLines={4}
                     />
-                    <TextInput
-                        style={commonStyles.postInput}
-                        placeholder="Scam Type Tag (e.g. Phishing, Fraud)"
-                        value={scamTypeTag}
-                        onChangeText={setScamTypeTag}
-                    />
 
-                    {/* Image Gallery */}
+                    <Text style={commonStyles.newsInputLabel}>Photos</Text>
                     <FlatList
                         data={[...images, null]}
                         keyExtractor={(item, index) => index.toString()}
@@ -258,26 +265,30 @@ const NewPost = (): React.JSX.Element => {
                     />
 
                     <TouchableOpacity
+                        style={commonStyles.longButtonWhite}
+                        onPress={() => {
+                            setTitle('')
+                            setContent('')
+                            setScamTypeTag('')
+                            setImages([])
+                            router.replace('/(organization)/createdPost')
+                        }}
+                    >
+                        <Text style={commonStyles.buttonTextWhite}>
+                            Discard
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
                         style={[
-                            commonStyles.button,
+                            commonStyles.longButton,
                             loading && commonStyles.buttonDisabled
                         ]}
                         onPress={handleSubmit}
                         disabled={loading}
                     >
                         <Text style={commonStyles.buttonText}>
-                            {loading ? 'Submitting...' : 'Submit'}
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={commonStyles.cancelButton}
-                        onPress={() =>
-                            router.replace('/(organization)/createdPost')
-                        }
-                    >
-                        <Text style={commonStyles.cancelButtonText}>
-                            Discard
+                            {loading ? 'Loading...' : 'Post'}
                         </Text>
                     </TouchableOpacity>
 

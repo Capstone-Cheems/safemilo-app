@@ -225,58 +225,76 @@ const EditPost = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.postContainer}>
-            <Text style={commonStyles.header}>Edit Scam News</Text>
+        <FlatList
+            data={['form']}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={() => (
+                <View style={commonStyles.postContainer}>
+                    <Text style={commonStyles.header}>Edit Post</Text>
 
-            <TextInput
-                style={commonStyles.postInput}
-                placeholder="Title"
-                value={title}
-                onChangeText={setTitle}
-            />
-            <TextInput
-                style={commonStyles.postInput}
-                placeholder="Content"
-                value={content}
-                onChangeText={setContent}
-                multiline
-                numberOfLines={4}
-            />
-            <TextInput
-                style={commonStyles.postInput}
-                placeholder="Scam Type Tag (e.g. Phishing, Fraud)"
-                value={scamTypeTag}
-                onChangeText={setScamTypeTag}
-            />
+                    <Text style={commonStyles.newsInputLabel}>News Title</Text>
+                    <TextInput
+                        style={commonStyles.postInput}
+                        placeholder="Title"
+                        value={title}
+                        onChangeText={setTitle}
+                    />
 
-            <FlatList
-                data={[...images, null]}
-                keyExtractor={(item, index) => index.toString()}
-                numColumns={3}
-                columnWrapperStyle={{ justifyContent: 'flex-start' }}
-                renderItem={renderImageItem}
-            />
+                    <Text style={commonStyles.newsInputLabel}>
+                        Scam Category
+                    </Text>
+                    <TextInput
+                        style={commonStyles.postInput}
+                        placeholder="Scam Type Tag (e.g. Phishing, Fraud)"
+                        value={scamTypeTag}
+                        onChangeText={setScamTypeTag}
+                    />
 
-            <TouchableOpacity
-                style={[
-                    commonStyles.button,
-                    loading && commonStyles.buttonDisabled
-                ]}
-                onPress={handleUpdate}
-                disabled={loading}
-            >
-                <Text style={commonStyles.buttonText}>
-                    {loading ? 'Updating...' : 'Save'}
-                </Text>
-            </TouchableOpacity>
+                    <Text style={commonStyles.newsInputLabel}>Content</Text>
+                    <TextInput
+                        style={commonStyles.postInput}
+                        placeholder="Content"
+                        value={content}
+                        onChangeText={setContent}
+                        multiline
+                        numberOfLines={4}
+                    />
 
-            <TouchableOpacity
-                style={commonStyles.cancelButton}
-                onPress={() => router.replace('/(organization)/createdPost')}
-            >
-                <Text style={commonStyles.cancelButtonText}>Discard</Text>
-            </TouchableOpacity>
-        </View>
+                    <Text style={commonStyles.newsInputLabel}>Photos</Text>
+                    <FlatList
+                        data={[...images, null]}
+                        keyExtractor={(item, index) => index.toString()}
+                        numColumns={3}
+                        columnWrapperStyle={{ justifyContent: 'flex-start' }}
+                        renderItem={renderImageItem}
+                    />
+
+                    <TouchableOpacity
+                        style={commonStyles.longButtonWhite}
+                        onPress={() =>
+                            router.replace('/(organization)/createdPost')
+                        }
+                    >
+                        <Text style={commonStyles.buttonTextWhite}>
+                            Discard
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[
+                            commonStyles.longButton,
+                            loading && commonStyles.buttonDisabled
+                        ]}
+                        onPress={handleUpdate}
+                        disabled={loading}
+                    >
+                        <Text style={commonStyles.buttonText}>
+                            {loading ? 'Updating...' : 'Save'}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+        />
     )
 }
 
