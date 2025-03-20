@@ -1,6 +1,11 @@
-import { useFetchData } from '@/src/shared'
+import { Box } from '@/components/ui/box'
+import { ArrowUpIcon, Icon } from '@/components/ui/icon'
+import { useAuth, useFetchData } from '@/src/shared'
 import { Message } from '@/src/widget/chat/types'
-import React, { ReactNode, useState, useEffect } from 'react'
+import { useNavigation } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
+import { getAuth } from 'firebase/auth'
+import React, { ReactNode, useState, useEffect, useLayoutEffect } from 'react'
 import {
     View,
     Text,
@@ -8,24 +13,67 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
-    ActivityIndicator
+    ActivityIndicator,
+    Image
 } from 'react-native'
 import Markdown from 'react-native-markdown-display'
 const API_ENDPOINT = 'chatbot'
 
+const tips = [
+    '**Never share** One Time Password or codes with anyone, not even your bank!',
+    'Be cautious of emails asking for personal information, phishing scams are common.',
+    'If a deal sounds too good to be true, it probably is a scam!',
+    'Avoid clicking on unknown links in messages or emails.'
+]
+
 export default function Chat(): ReactNode {
+    const [randomTip, setRandomTip] = useState<string>('')
+    const navigation = useNavigation()
+    const { user } = useAuth()
+    useEffect(() => {
+        const randomIndex = Math.floor(Math.random() * tips.length)
+        setRandomTip(tips[randomIndex])
+    }, [])
     const [messages, setMessages] = useState<Message[]>([
         {
             id: Date.now().toString(),
-            text: 'Hello! How can I assist you?',
+            text: `${randomTip} Do you need assistance?`,
             sender: 'bot'
+        },
+        {
+            id: Date.now().toString(),
+            text: `${randomTip} Do you need assistance?`,
+            sender: 'user'
         }
     ])
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerStyle: {
+                backgroundColor: '#0A2941' // Change to your desired color
+            },
+            headerTintColor: '#F9F4F4',
+            headerTitleAlign: 'left',
+            headerTitle: () => (
+                <Box className="flex flex-row items-center gap-3">
+                    <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
+                        source={require('../../../assets/images/ChatIcon.png')}
+                        className="max-w-10 max-h-10"
+                    />
+                    <Text className="font-bold text-[#F9F4F4]">
+                        Chat with Milo
+                    </Text>
+                </Box>
+            ),
+            headerRight: () => <></>
+        })
+    }, [navigation])
     const [inputText, setInputText] = useState<string>('')
 
     const { data, loading, error, fetchData } = useFetchData<
         { reply: string },
-        { prompt: string; userId: string }
+        { prompt: string }
     >(API_ENDPOINT)
 
     const sendMessage = async (): Promise<void> => {
@@ -39,7 +87,7 @@ export default function Chat(): ReactNode {
         setMessages(prev => [...prev, userMessage])
 
         setInputText('')
-        await fetchData('POST', { prompt: inputText, userId: 'user123' })
+        await fetchData('POST', { prompt: inputText })
     }
 
     useEffect(() => {
@@ -54,20 +102,36 @@ export default function Chat(): ReactNode {
     }, [data])
 
     return (
-        <View style={styles.container}>
-            <ScrollView style={styles.chatContainer}>
+        <View className="bg-[#83D1FF] flex flex-1 p-5">
+            <StatusBar style="light" />
+            <ScrollView>
                 {messages.map(msg => (
-                    <View
-                        key={msg.id}
-                        style={[
-                            styles.message,
-                            msg.sender === 'user'
-                                ? styles.userMessage
-                                : styles.botMessage
-                        ]}
+                    <Box
+                        className={`flex flex-row gap-1 items-center ${msg.sender === 'user' ? 'self-start' : 'self-end'} grow`}
                     >
-                        <Markdown>{msg.text}</Markdown>
-                    </View>
+                        {msg.sender !== 'user' && (
+                            <Image
+                                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                                source={require('../../../assets/images/ChatIcon.png')}
+                                className="max-w-10 max-h-10"
+                            />
+                        )}
+                        <View
+                            key={msg.id}
+                            className={`p-5 rounded-3xl  bg-white`}
+                        >
+                            <Markdown>{msg.text}</Markdown>
+                        </View>
+                        {msg.sender === 'user' && (
+                            <Image
+                                source={{
+                                    uri:
+                                        getAuth().currentUser?.photoURL ||
+                                        'path_to_default_image'
+                                }}
+                            />
+                        )}
+                    </Box>
                 ))}
                 {loading && <ActivityIndicator size="small" color="#007AFF" />}
                 {error && <Text style={styles.errorText}>{error}</Text>}
@@ -82,11 +146,11 @@ export default function Chat(): ReactNode {
                     editable={!loading}
                 />
                 <TouchableOpacity
-                    style={styles.sendButton}
                     onPress={sendMessage}
                     disabled={loading}
+                    className="border rounded-full p-4"
                 >
-                    <Text style={styles.sendButtonText}>Send</Text>
+                    <Icon as={ArrowUpIcon} size="xl" />
                 </TouchableOpacity>
             </View>
         </View>
@@ -94,16 +158,6 @@ export default function Chat(): ReactNode {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#f5f5f5', padding: 10 },
-    chatContainer: { flex: 1, marginBottom: 60 },
-    message: {
-        maxWidth: '80%',
-        padding: 10,
-        marginVertical: 5,
-        borderRadius: 10
-    },
-    userMessage: { alignSelf: 'flex-end', backgroundColor: '#007AFF' },
-    botMessage: { alignSelf: 'flex-start', backgroundColor: '#ddd' },
     messageText: { fontSize: 16, color: '#fff' },
     errorText: { color: 'red', textAlign: 'center', marginTop: 10 },
     inputContainer: {
@@ -117,12 +171,5 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         elevation: 5
     },
-    input: { flex: 1, fontSize: 16, padding: 10 },
-    sendButton: {
-        backgroundColor: '#007AFF',
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderRadius: 20
-    },
-    sendButtonText: { color: '#fff', fontSize: 16 }
+    input: { flex: 1, fontSize: 16, padding: 10 }
 })

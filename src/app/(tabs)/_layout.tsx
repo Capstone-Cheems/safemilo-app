@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/avatar'
 import { HStack } from '@/components/ui/hstack'
 import { useAuth } from '@/src/shared'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Image } from 'react-native'
 
 export default function TabLayout(): ReactNode {
     const { user } = useAuth()
@@ -57,7 +57,18 @@ export default function TabLayout(): ReactNode {
         >
             <Tabs.Screen name="home" options={{ title: 'Home' }} />
             <Tabs.Screen name="learn" options={{ title: 'Learn' }} />
-            <Tabs.Screen name="chat" options={{ title: 'Chat' }} />
+            <Tabs.Screen
+                name="chat"
+                options={{
+                    tabBarIcon: () => (
+                        <Image
+                            // eslint-disable-next-line @typescript-eslint/no-require-imports
+                            source={require('../../../assets/images/ChatIcon.png')}
+                        />
+                    ),
+                    title: 'Chat with Milo'
+                }}
+            />
         </Tabs>
     )
 }
