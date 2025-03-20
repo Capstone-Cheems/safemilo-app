@@ -51,6 +51,13 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#30a8fd'
     },
+    viewDeniedContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#30a8fd',
+        paddingTop: 110
+    },
     dialogBox: {
         backgroundColor: 'white',
         padding: 20,

@@ -19,7 +19,7 @@ const CallPermissionDenied = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.viewContainer}>
+        <View style={commonStyles.viewDeniedContainer}>
             <TouchableOpacity
                 style={commonStyles.backButton}
                 onPress={handleBack}
