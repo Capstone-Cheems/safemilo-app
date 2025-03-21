@@ -111,9 +111,10 @@ const commonStyles = StyleSheet.create({
         borderStyle: 'solid'
     },
     button: {
-        backgroundColor: '#0d1b2a',
+        backgroundColor: '#0A2941',
         paddingVertical: 10,
         paddingHorizontal: 30,
+        width: '100%',
         borderRadius: 16,
         marginTop: 10,
         borderWidth: 2,
@@ -521,8 +522,8 @@ const commonStyles = StyleSheet.create({
     savedPostItem: {
         position: 'relative',
         marginBottom: 10,
-        padding: 10,
-        backgroundColor: '#f5f5f5',
+        padding: 6,
+        backgroundColor: 'white',
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#ddd'
@@ -540,14 +541,30 @@ const commonStyles = StyleSheet.create({
     },
     browseButton: {
         backgroundColor: '#0A2941',
-        padding: 10,
-        width: '100%',
-        borderRadius: 5,
+        padding: 16,
+        width: '80%',
+        borderRadius: 16,
         alignItems: 'center',
-        marginVertical: 10
+        marginVertical: 10,
+        marginTop: 20
     },
     browseButtonText: {
-        color: 'white'
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    pcontainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20
+    },
+    mcontainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        borderRadius: 30
     },
     //FAQS
     faqItem: {
@@ -588,7 +605,8 @@ const commonStyles = StyleSheet.create({
     },
     //Report a bug
     inputSection: {
-        marginBottom: 20
+        marginBottom: 20,
+        width: '100%'
     },
     inputLabel: {
         fontSize: 16,
@@ -596,12 +614,12 @@ const commonStyles = StyleSheet.create({
         marginBottom: 8
     },
     buginput: {
-        borderColor: '#ccc',
+        borderColor: '#0A2941',
         borderWidth: 1,
         padding: 10,
-        borderRadius: 4,
+        borderRadius: 10,
         fontSize: 14,
-        minHeight: 100
+        minHeight: 200
     },
     modalView: {
         margin: 20,
