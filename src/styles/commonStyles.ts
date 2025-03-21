@@ -136,6 +136,10 @@ const commonStyles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center'
     },
+    PbuttonText: {
+        color: 'white',
+        textAlign: 'center'
+    },
     buttonTextWhite: {
         color: '#0d1b2a',
         fontSize: 22,
@@ -560,10 +564,11 @@ const commonStyles = StyleSheet.create({
     },
     mcontainer: {
         flex: 1,
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
-        borderRadius: 30
+        padding: 5,
+        borderRadius: 0
     },
     //FAQS
     faqcontainer: {

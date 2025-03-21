@@ -7,8 +7,7 @@ import {
     ScrollView,
     Alert
 } from 'react-native'
-import { useNavigation, useRouter } from 'expo-router'
-import { getAuth, signOut, updateProfile } from 'firebase/auth'
+
 import { useFocusEffect } from '@react-navigation/native'
 import Slider from '@react-native-community/slider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -17,8 +16,6 @@ import * as SMS from 'expo-sms'
 import * as Notifications from 'expo-notifications'
 import { Audio } from 'expo-av'
 import commonStyles from '../../styles/commonStyles'
-import { useAuth } from '@/src/shared'
-import { WebView } from 'react-native-webview'
 
 const Settings = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20)

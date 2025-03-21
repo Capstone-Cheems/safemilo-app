@@ -10,12 +10,12 @@ import {
 } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import { getAuth, signOut, updateProfile } from 'firebase/auth'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import commonStyles from '../../styles/commonStyles'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 // eslint-disable-next-line import/no-unresolved
 import { useAuth } from '@/src/shared'
-import { WebView } from 'react-native-webview'
 
 const Profile = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20) // Default text size
