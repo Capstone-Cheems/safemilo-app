@@ -37,7 +37,7 @@ const Tour5chat = (): React.JSX.Element => {
 
             <View style={commonStyles.buttonContainer}>
                 <TouchableOpacity
-                    style={commonStyles.button}
+                    style={commonStyles.dialogButton}
                     onPress={handleNext}
                 >
                     <Text style={commonStyles.buttonText}>Done</Text>

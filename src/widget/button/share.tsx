@@ -24,7 +24,10 @@ export const ShareButtonWidget: React.FC<ShareButtonProps> = ({ message }) => {
     }
 
     return (
-        <Button onPress={handleShare} className="bg-blue-500 mb-8">
+        <Button
+            onPress={handleShare}
+            className="bg-[#0D1B2A] w-[134px] rounded-full"
+        >
             <ButtonIcon as={ShareIcon} />
             <ButtonText className="text-white font-bold">Share</ButtonText>
         </Button>

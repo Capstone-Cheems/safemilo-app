@@ -97,7 +97,8 @@ const commonStyles = StyleSheet.create({
         width: '80%',
         borderWidth: 2,
         borderColor: '#0d1b2a',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        alignSelf: 'center'
     },
     longButtonWhite: {
         backgroundColor: '#FFFFFF',
@@ -108,10 +109,22 @@ const commonStyles = StyleSheet.create({
         width: '80%',
         borderWidth: 2,
         borderColor: '#0d1b2a',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        alignSelf: 'center'
     },
     button: {
         backgroundColor: '#0A2941',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        width: '100%',
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
+    },
+    dialogButton: {
+        backgroundColor: '#0d1b2a',
         paddingVertical: 10,
         paddingHorizontal: 30,
         width: '100%',
@@ -339,10 +352,10 @@ const commonStyles = StyleSheet.create({
     postContainer: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#f5f5f5'
     },
     postnewsItem: {
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#ffffff',
         padding: 15,
         marginBottom: 10,
         borderRadius: 10,
@@ -389,7 +402,8 @@ const commonStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
-        marginBottom: 10
+        marginBottom: 10,
+        backgroundColor: '#ffffff'
     },
     buttonDisabled: {
         backgroundColor: 'gray'
@@ -408,6 +422,9 @@ const commonStyles = StyleSheet.create({
         marginTop: 5,
         color: '#555',
         maxWidth: '80%'
+    },
+    newsInputLabel: {
+        color: '#000'
     },
     //Profile Section
     largeformButton: {
@@ -569,6 +586,10 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center',
         padding: 5,
         borderRadius: 0
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        borderRadius: 30
     },
     //FAQS
     faqcontainer: {
