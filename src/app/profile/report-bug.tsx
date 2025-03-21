@@ -7,23 +7,65 @@ import {
     Alert,
     ScrollView
 } from 'react-native'
+import axios from 'axios'
 import commonStyles from '../../styles/commonStyles'
+
+const JIRA_API_URL =
+    'https://mylangara-team-2502.atlassian.net/rest/api/3/issue'
+const JIRA_AUTH = btoa(
+    'h279@mylangara.ca:ATATT3xFfGF08xUFn3TkvstKVg-tmLlvxPBbPQvgbV33e5ncQU6VyObo9k-lUZINjdID4S_nDXGJgszcvBp6-8FmsdyHywoJGE2o2oW0_yCH6VwoTF6gkMiVDhA82a2rrtmOTMgHMMLh_AG0Da6i7j6Wz_LSnmbEK_SDAH2Co9QX8-yqEr6R0uU=00A7B451'
+) // Base64 encode email:API Token
 
 const ReportBug = (): React.JSX.Element => {
     const [bugDescription, setBugDescription] = useState('')
 
-    const handleReportBug = () => {
+    const handleReportBug = async () => {
         if (!bugDescription) {
             Alert.alert('Please describe the bug before submitting.')
             return
         }
-        // Logic to send bug report goes here, e.g., saving to a database or sending via email
+        const issueData = {
+            fields: {
+                project: { key: 'SCRUM' },
+                summary: 'Bug Reported to Jira By Safe Milo User',
+                description: {
+                    type: 'doc',
+                    version: 1,
+                    content: [
+                        {
+                            type: 'paragraph',
+                            content: [{ type: 'text', text: bugDescription }]
+                        }
+                    ]
+                },
+                issuetype: { name: 'Bug' }
+            }
+        }
 
-        Alert.alert(
-            'Bug Reported',
-            'Thank you for reporting the bug. We will investigate it shortly.'
-        )
-        setBugDescription('') // Clear the text input after submission
+        try {
+            const response = await axios.post(JIRA_API_URL, issueData, {
+                headers: {
+                    Authorization: `Basic ${JIRA_AUTH}`,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json' // Ensure the API accepts JSON
+                }
+            })
+
+            if (response.status === 201) {
+                Alert.alert(
+                    'Bug Reported',
+                    'Thank you for reporting the bug. We will investigate it shortly.'
+                )
+                setBugDescription('')
+            }
+        } catch (error) {
+            console.error(
+                'Error creating Jira ticket:',
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (error as any).response?.data || error
+            )
+            Alert.alert('Error', 'Failed to submit the bug report.')
+        }
     }
 
     return (

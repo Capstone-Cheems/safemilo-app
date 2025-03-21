@@ -3,10 +3,9 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Alert,
     Switch,
-    Modal,
-    ScrollView
+    ScrollView,
+    Alert
 } from 'react-native'
 import Slider from '@react-native-community/slider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -14,8 +13,6 @@ import * as Contacts from 'expo-contacts'
 import * as SMS from 'expo-sms'
 import { Audio } from 'expo-av'
 import commonStyles from '../../styles/commonStyles'
-import { Image } from 'react-native'
-import { Picker } from '@react-native-picker/picker'
 
 const Settings = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20)
@@ -34,14 +31,15 @@ const Settings = (): React.JSX.Element => {
 
     useEffect(() => {
         const checkPermissions = async (): Promise<void> => {
+            // Check Contacts Permission
             const contacts = await Contacts.getPermissionsAsync()
-            setContactsPermission(
-                contacts.status as 'granted' | 'denied' | null
-            )
+            setContactsPermission(contacts.status as 'granted' | 'denied')
 
+            // Check SMS Permission
             const messages = await SMS.isAvailableAsync()
             setMessagesPermission(messages ? 'granted' : 'denied')
 
+            // Check Microphone Permission
             const mic = await Audio.getPermissionsAsync()
             setMicrophonePermission(
                 mic.status === 'granted' ? 'granted' : 'denied'
@@ -50,6 +48,27 @@ const Settings = (): React.JSX.Element => {
 
         checkPermissions()
     }, [])
+
+    const requestContactsPermission = async () => {
+        const { status } = await Contacts.requestPermissionsAsync()
+        setContactsPermission(status as 'granted' | 'denied')
+    }
+
+    const requestMessagesPermission = async () => {
+        if (!messagesPermission) {
+            const available = await SMS.isAvailableAsync()
+            if (available) {
+                setMessagesPermission('granted')
+            } else {
+                Alert.alert('SMS not supported on this device')
+            }
+        }
+    }
+
+    const requestMicrophonePermission = async () => {
+        const { status } = await Audio.requestPermissionsAsync()
+        setMicrophonePermission(status === 'granted' ? 'granted' : 'denied')
+    }
 
     useEffect(() => {
         const loadSettings = async () => {
@@ -95,45 +114,68 @@ const Settings = (): React.JSX.Element => {
                 </TouchableOpacity>
 
                 {showSlider && (
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={showSlider}
-                        onRequestClose={() => setShowSlider(false)}
+                    <View
+                        style={[
+                            commonStyles.dividerContainer,
+                            { marginTop: 10 }
+                        ]}
                     >
-                        <View style={commonStyles.detailContainer}>
-                            <View style={commonStyles.modalView}>
-                                <Text
-                                    style={[
-                                        commonStyles.ptext,
-                                        {
-                                            fontSize: textSize,
-                                            fontWeight: isBold
-                                                ? 'bold'
-                                                : 'normal'
-                                        }
-                                    ]}
-                                >
-                                    Adjust Text Size
+                        <Text
+                            style={[
+                                commonStyles.ptext,
+                                {
+                                    fontSize: textSize - 6,
+                                    fontWeight: isBold ? 'bold' : 'normal',
+                                    marginRight: 5,
+                                    marginLeft: -20
+                                }
+                            ]}
+                        >
+                            aA
+                        </Text>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}
+                        >
+                            <View style={{ position: 'absolute', left: 0 }}>
+                                <Text style={{ fontSize: textSize - 7 }}>
+                                    20
                                 </Text>
-                                <Slider
-                                    style={{ width: 200, height: 40 }}
-                                    minimumValue={20}
-                                    maximumValue={30}
-                                    value={textSize}
-                                    onValueChange={setTextSize}
-                                />
-                                <TouchableOpacity
-                                    style={commonStyles.modalButton}
-                                    onPress={() => setShowSlider(false)}
-                                >
-                                    <Text style={commonStyles.modalButton}>
-                                        x
-                                    </Text>
-                                </TouchableOpacity>
                             </View>
+                            <View style={{ position: 'absolute', left: '33%' }}>
+                                <Text style={{ fontSize: textSize - 5 }}>
+                                    25
+                                </Text>
+                            </View>
+                            <View style={{ position: 'absolute', left: '66%' }}>
+                                <Text style={{ fontSize: textSize }}>30</Text>
+                            </View>
+
+                            <Slider
+                                style={{ width: 250, height: 40 }}
+                                minimumValue={20}
+                                maximumValue={30}
+                                value={textSize}
+                                onValueChange={setTextSize}
+                            />
                         </View>
-                    </Modal>
+
+                        <Text
+                            style={[
+                                commonStyles.ptext,
+                                {
+                                    fontSize: textSize,
+                                    fontWeight: isBold ? 'bold' : 'normal',
+                                    marginLeft: 10
+                                }
+                            ]}
+                        >
+                            aA
+                        </Text>
+                    </View>
                 )}
 
                 <TouchableOpacity
@@ -169,7 +211,11 @@ const Settings = (): React.JSX.Element => {
                     App Permissions
                 </Text>
 
-                <TouchableOpacity style={commonStyles.toplargeformButton}>
+                {/* Microphone Access */}
+                <TouchableOpacity
+                    style={commonStyles.toplargeformButton}
+                    onPress={requestMicrophonePermission}
+                >
                     <Text
                         style={[
                             commonStyles.ptext,
@@ -181,22 +227,17 @@ const Settings = (): React.JSX.Element => {
                     >
                         Microphone Access
                     </Text>
-                    <Picker
-                        selectedValue={microphonePermission}
-                        onValueChange={() =>
-                            setMicrophonePermission(
-                                microphonePermission === 'granted'
-                                    ? 'denied'
-                                    : 'granted'
-                            )
-                        }
-                    >
-                        <Picker.Item label="Granted" value="granted" />
-                        <Picker.Item label="Denied" value="denied" />
-                    </Picker>
+                    <Switch
+                        value={microphonePermission === 'granted'}
+                        onValueChange={requestMicrophonePermission}
+                    />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={commonStyles.largeformButton}>
+                {/* Contacts Access */}
+                <TouchableOpacity
+                    style={commonStyles.largeformButton}
+                    onPress={requestContactsPermission}
+                >
                     <Text
                         style={[
                             commonStyles.ptext,
@@ -208,22 +249,17 @@ const Settings = (): React.JSX.Element => {
                     >
                         Contacts Access
                     </Text>
-                    <Picker
-                        selectedValue={contactsPermission}
-                        onValueChange={() =>
-                            setContactsPermission(
-                                contactsPermission === 'granted'
-                                    ? 'denied'
-                                    : 'granted'
-                            )
-                        }
-                    >
-                        <Picker.Item label="Granted" value="granted" />
-                        <Picker.Item label="Denied" value="denied" />
-                    </Picker>
+                    <Switch
+                        value={contactsPermission === 'granted'}
+                        onValueChange={requestContactsPermission}
+                    />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={commonStyles.bottomlargeformButton}>
+                {/* SMS Access */}
+                <TouchableOpacity
+                    style={commonStyles.bottomlargeformButton}
+                    onPress={requestMessagesPermission}
+                >
                     <Text
                         style={[
                             commonStyles.ptext,
@@ -235,19 +271,10 @@ const Settings = (): React.JSX.Element => {
                     >
                         SMS Access
                     </Text>
-                    <Picker
-                        selectedValue={messagesPermission}
-                        onValueChange={() =>
-                            setMessagesPermission(
-                                messagesPermission === 'granted'
-                                    ? 'denied'
-                                    : 'granted'
-                            )
-                        }
-                    >
-                        <Picker.Item label="Granted" value="granted" />
-                        <Picker.Item label="Denied" value="denied" />
-                    </Picker>
+                    <Switch
+                        value={messagesPermission === 'granted'}
+                        onValueChange={requestMessagesPermission}
+                    />
                 </TouchableOpacity>
             </View>
         </ScrollView>
