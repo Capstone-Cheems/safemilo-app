@@ -84,7 +84,7 @@ const CallPermission = (): React.JSX.Element => {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={commonStyles.button}
+                        style={commonStyles.dialogButton}
                         onPress={requestPermission}
                     >
                         <Text style={commonStyles.buttonText}>Allow</Text>

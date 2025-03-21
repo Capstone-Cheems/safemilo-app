@@ -123,6 +123,16 @@ const commonStyles = StyleSheet.create({
         borderColor: '#0d1b2a',
         borderStyle: 'solid'
     },
+    dialogButton: {
+        backgroundColor: '#0d1b2a',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
+    },
     buttonWhite: {
         backgroundColor: '#FFFFFF',
         paddingVertical: 10,

@@ -45,7 +45,7 @@ const MessagePermission = (): React.JSX.Element => {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={commonStyles.button}
+                        style={commonStyles.dialogButton}
                         onPress={handleAllow}
                     >
                         <Text style={commonStyles.buttonText}>Allow</Text>
