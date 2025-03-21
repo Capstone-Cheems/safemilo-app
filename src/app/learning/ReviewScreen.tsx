@@ -5,7 +5,8 @@ import ModuleCompletionAnimation from '../../../components/ModuleCompleteAnimati
 
 const ReviewScreen = (): JSX.Element => {
     const router = useRouter()
-    const { totalScore } = useLocalSearchParams<{ totalScore: string }>()
+    const { totalScore } = useLocalSearchParams<{ totalScore?: string }>()
+    const finalScore = totalScore ? parseInt(totalScore, 10) : 0
 
     return (
         <View className="flex-1 bg-blue-300 items-center justify-center p-6">
@@ -18,7 +19,7 @@ const ReviewScreen = (): JSX.Element => {
                     Woohoo! Module Completed!
                 </Text>
                 <Text className="text-3xl font-bold text-blue-900 mt-2">
-                    +{totalScore} Points Earned
+                    +{finalScore} Points Earned
                 </Text>
             </View>
 
