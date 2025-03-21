@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
 import * as Speech from 'expo-speech'
 import ProgressBar from '@/src/widget/Components/ProgressBar'
+import { useCourses } from '../learning/useCourses' // ✅ Import course progress manager
+import ModuleCompleteAnimation from '../../../components/ModuleCompleteAnimation'
 
 const quizQuestions = [
     {
@@ -48,17 +50,15 @@ const quizQuestions = [
     }
 ]
 
-const QuizScreen = (): JSX.Element => {
+const QuizScreen = ({ courseId }: { courseId: string }): JSX.Element => {
     const router = useRouter()
+    const { updateCourseProgress } = useCourses() // ✅ Import progress update function
     const [currentQuestion, setCurrentQuestion] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
-    const [quizCompleted, setQuizCompleted] = useState<boolean>(false)
     const [showExplanation, setShowExplanation] = useState<boolean>(false)
-    const [showCourseCompleted, setShowCourseCompleted] =
-        useState<boolean>(false)
-    const [showBadgeAchieved, setShowBadgeAchieved] = useState<boolean>(false)
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
+    const [showAnimation, setShowAnimation] = useState<boolean>(false) // ✅ Track animation state
 
     const progressPercentage =
         ((currentQuestion + 1) / quizQuestions.length) * 100
@@ -74,27 +74,36 @@ const QuizScreen = (): JSX.Element => {
             setIsCorrect(isCorrectAnswer)
 
             if (isCorrectAnswer) {
-                setScore(prevScore => prevScore + 20) // Adds 20 points for each correct answer
+                setScore(prevScore => prevScore + 20) // ✅ Adds 20 points per correct answer
             }
             setShowExplanation(true)
         }
     }
 
-    const handleNextQuestion = (): void => {
+    const handleNextQuestion = async (): Promise<void> => {
         if (currentQuestion + 1 < quizQuestions.length) {
             setCurrentQuestion(prev => prev + 1)
             setSelectedAnswer(null)
             setShowExplanation(false)
             setIsCorrect(null)
         } else {
-            setQuizCompleted(true)
-            setShowCourseCompleted(true)
+            console.log('🟡 Quiz Completed! Updating Course Progress...')
+            setShowAnimation(true) // ✅ Show animation when quiz is completed
 
+            await updateCourseProgress(courseId, 100) // ✅ Move course to Completed Courses
+
+            console.log('🟢 Course should now be completed:', courseId)
+
+            // Ensure Learn tab refreshes
             setTimeout(() => {
-                setShowCourseCompleted(false)
-                setShowBadgeAchieved(true)
+                setShowAnimation(false)
+                router.replace('/(tabs)/learn')
             }, 2000)
         }
+    }
+
+    const handleBackToLearn = (): void => {
+        router.replace('../(tabs)/learn') // ✅ Navigate to the Learn tab correctly
     }
 
     const handleListen = (): void => {
@@ -113,28 +122,19 @@ const QuizScreen = (): JSX.Element => {
                 <Text style={styles.buttonText}>Listen</Text>
             </TouchableOpacity>
 
-            {showCourseCompleted ? (
-                <View>
-                    <Text style={styles.header}>Woohoo! Module completed.</Text>
+            {showAnimation ? (
+                // ✅ Show animation when the quiz is completed
+                <View style={styles.animationContainer}>
+                    <ModuleCompleteAnimation style={styles.animation} />
+                    <Text style={styles.header}>Quiz Completed!</Text>
                     <Text style={styles.points}>
-                        Total Score: {score} / 100
+                        Final Score: {score} / 100
                     </Text>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => router.push('/learning/Achievements')}
+                        onPress={handleBackToLearn}
                     >
-                        <Text style={styles.buttonText}>View Achievements</Text>
-                    </TouchableOpacity>
-                </View>
-            ) : showBadgeAchieved ? (
-                <View>
-                    <Text style={styles.header}>Congratulations!</Text>
-                    <Text>You have achieved the 'Cautious Clicker' badge!</Text>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => router.push('/learning/Achievements')}
-                    >
-                        <Text style={styles.buttonText}>View Achievements</Text>
+                        <Text style={styles.buttonText}>Back to Learn</Text>
                     </TouchableOpacity>
                 </View>
             ) : showExplanation ? (
@@ -152,7 +152,7 @@ const QuizScreen = (): JSX.Element => {
                         <Text style={styles.buttonText}>Continue</Text>
                     </TouchableOpacity>
                 </View>
-            ) : !quizCompleted ? (
+            ) : (
                 <View>
                     <Text style={styles.header}>
                         {quizQuestions[currentQuestion].question}
@@ -185,15 +185,32 @@ const QuizScreen = (): JSX.Element => {
                         <Text style={styles.buttonText}>Submit</Text>
                     </TouchableOpacity>
                 </View>
-            ) : null}
+            )}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 16, backgroundColor: '#F9F9F9' },
-    header: { fontSize: 22, fontWeight: 'bold', marginBottom: 10 },
-    points: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
+    container: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: '#F9F9F9',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    animationContainer: { alignItems: 'center', justifyContent: 'center' },
+    header: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'center'
+    },
+    points: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'center'
+    },
     listenButton: {
         backgroundColor: '#444',
         padding: 10,
@@ -217,7 +234,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     correctOption: { backgroundColor: 'green' },
-    wrongOption: { backgroundColor: 'red' }
+    wrongOption: { backgroundColor: 'red' },
+    animation: { width: 200, height: 200, marginBottom: 20 } // ✅ Adjust animation size
 })
 
 export default QuizScreen

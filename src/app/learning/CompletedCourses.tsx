@@ -1,24 +1,30 @@
-import CourseCard from '@/src/widget/Components/CourseCard'
 import React from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { useCourses } from './useCourses'
 
-const completedCourses = [{ id: '2', title: 'Charity Scams', progress: 100 }]
+const CompletedCourses = (): JSX.Element => {
+    // Explicit return type added
+    const { completedCourses } = useCourses()
 
-const CompletedCoursesScreen = (): JSX.Element => {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Completed Courses</Text>
-            <FlatList
-                data={completedCourses}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <CourseCard
-                        title={item.title}
-                        progress={item.progress}
-                        onPress={() => {}}
-                    />
-                )}
-            />
+            {completedCourses.length === 0 ? (
+                <Text style={styles.noCourses}>No completed courses yet</Text>
+            ) : (
+                <FlatList
+                    data={completedCourses}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (
+                        <View style={styles.completedCard}>
+                            <Text style={styles.title}>{item.title}</Text>
+                            <Text style={styles.completedText}>
+                                ✔ Completed
+                            </Text>
+                        </View>
+                    )}
+                />
+            )}
         </View>
     )
 }
@@ -26,14 +32,33 @@ const CompletedCoursesScreen = (): JSX.Element => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
-        backgroundColor: '#F9F9F9'
+        padding: 16
     },
     header: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10
+    },
+    completedCard: {
+        backgroundColor: '#DFF0D8',
+        padding: 16,
+        borderRadius: 10,
+        marginBottom: 12
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    completedText: {
+        fontSize: 14,
+        color: 'green'
+    },
+    noCourses: {
+        fontSize: 16,
+        color: '#888',
+        textAlign: 'center',
+        marginTop: 20
     }
 })
 
-export default CompletedCoursesScreen
+export default CompletedCourses

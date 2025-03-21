@@ -8,16 +8,12 @@ import {
     TouchableOpacity,
     FlatList
 } from 'react-native'
-
-const courses = [
-    { id: '1', title: 'Scam Awareness Basics', progress: 0 },
-    { id: '2', title: 'Phishing Scams 101', progress: 20 },
-    { id: '3', title: 'Online Shopping Fraud', progress: 50 },
-    { id: '4', title: 'Investment Scams', progress: 100 }
-]
+import { useCourses } from './useCourses' // ✅ Import Course State Hook
 
 const LearnDashboardScreen = (): JSX.Element => {
     const router = useRouter()
+    const { activeCourses, completedCourses } = useCourses() // ✅ Get Active & Completed Courses
+
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Learn</Text>
@@ -26,45 +22,83 @@ const LearnDashboardScreen = (): JSX.Element => {
                 time.
             </Text>
 
+            {/* ✅ Active Courses Section */}
             <Text style={styles.sectionTitle}>Active Courses</Text>
-            <FlatList
-                data={courses}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={item => item.id}
-                contentContainerStyle={styles.courseList}
-                renderItem={({ item }) => (
-                    <TouchableOpacity
-                        style={styles.card}
-                        onPress={() =>
-                            router.push({
-                                pathname: '/learning/Lesson',
-                                params: { courseId: '1' }
-                            })
-                        }
-                    >
-                        <Text style={styles.cardTitle}>{item.title}</Text>
-                        <Text style={styles.progressText}>
-                            Lesson 0/10 | {item.progress}% Complete
-                        </Text>
-                        <ProgressBar progress={item.progress} />
+            {activeCourses.length === 0 ? (
+                <Text style={styles.noCourses}>
+                    No active courses. Start a new one!
+                </Text>
+            ) : (
+                <FlatList
+                    data={activeCourses}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={item => item.id}
+                    contentContainerStyle={styles.courseList}
+                    renderItem={({ item }) => (
                         <TouchableOpacity
-                            style={styles.button}
+                            style={styles.card}
                             onPress={() =>
                                 router.push({
                                     pathname: '/learning/Lesson',
-                                    params: { courseId: '1' }
+                                    params: { courseId: item.id }
                                 })
                             }
                         >
-                            <Text style={styles.buttonText}>
-                                Start learning
+                            <Text style={styles.cardTitle}>{item.title}</Text>
+                            <Text style={styles.progressText}>
+                                Lesson 0/10 | {item.progress}% Complete
+                            </Text>
+                            <ProgressBar progress={item.progress} />
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() =>
+                                    router.push({
+                                        pathname: '/learning/Lesson',
+                                        params: { courseId: item.id }
+                                    })
+                                }
+                            >
+                                <Text style={styles.buttonText}>
+                                    Continue Learning
+                                </Text>
+                            </TouchableOpacity>
+                        </TouchableOpacity>
+                    )}
+                />
+            )}
+
+            {/* ✅ Completed Courses Section */}
+            <Text style={styles.sectionTitle}>Completed Courses</Text>
+            {completedCourses.length === 0 ? (
+                <Text style={styles.noCourses}>No completed courses yet.</Text>
+            ) : (
+                <FlatList
+                    data={completedCourses}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={item => item.id}
+                    contentContainerStyle={styles.courseList}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            style={[styles.card, styles.completedCard]}
+                            onPress={() =>
+                                router.push({
+                                    pathname: '/learning/CompletedLesson',
+                                    params: { courseId: item.id }
+                                })
+                            }
+                        >
+                            <Text style={styles.cardTitle}>{item.title}</Text>
+                            <Text style={styles.completedText}>
+                                ✔ Completed
                             </Text>
                         </TouchableOpacity>
-                    </TouchableOpacity>
-                )}
-            />
+                    )}
+                />
+            )}
 
+            {/* ✅ Additional Learning Options */}
             <TouchableOpacity
                 style={styles.infoCard}
                 onPress={() => router.push('/learning/BrowseCategories')}
@@ -122,6 +156,9 @@ const styles = StyleSheet.create({
         width: 200,
         justifyContent: 'space-between'
     },
+    completedCard: {
+        backgroundColor: '#DFF0D8' // ✅ Different background for completed courses
+    },
     cardTitle: {
         fontSize: 18,
         fontWeight: 'bold',
@@ -131,6 +168,12 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#666',
         marginVertical: 5
+    },
+    completedText: {
+        fontSize: 16,
+        color: 'green',
+        fontWeight: 'bold',
+        marginTop: 5
     },
     button: {
         backgroundColor: '#444',
@@ -159,6 +202,12 @@ const styles = StyleSheet.create({
     score: {
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    noCourses: {
+        fontSize: 16,
+        color: '#888',
+        textAlign: 'center',
+        marginTop: 10
     }
 })
 

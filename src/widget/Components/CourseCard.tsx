@@ -1,39 +1,73 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 
 interface CourseCardProps {
+    id: string
     title: string
     progress: number // percentage
     onPress: () => void
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
+    id,
     title,
     progress,
     onPress
 }) => {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>
-            <Text style={styles.title}>{title}</Text>
-            <View style={styles.progressBar}>
-                <View style={[styles.progress, { width: `${progress}%` }]} />
+            {/* Placeholder Image */}
+            <Image
+                source={{ uri: 'https://via.placeholder.com/80' }}
+                style={styles.image}
+                resizeMode="cover"
+            />
+
+            <View style={styles.content}>
+                {/* Course Title */}
+                <Text style={styles.title}>{title}</Text>
+
+                {/* Progress Bar */}
+                <View style={styles.progressBar}>
+                    <View
+                        style={[styles.progress, { width: `${progress}%` }]}
+                    />
+                </View>
+
+                {/* Progress Percentage */}
+                <Text style={styles.progressText}>{progress}% Complete</Text>
             </View>
-            <Text style={styles.progressText}>{progress}% Complete</Text>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     card: {
+        flexDirection: 'row',
+        alignItems: 'center',
         backgroundColor: '#FFF',
-        padding: 16,
+        padding: 12,
         borderRadius: 10,
         marginBottom: 12,
-        elevation: 3
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        shadowOffset: { width: 0, height: 3 }
+    },
+    image: {
+        width: 80,
+        height: 80,
+        borderRadius: 10,
+        marginRight: 12
+    },
+    content: {
+        flex: 1
     },
     title: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#333'
     },
     progressBar: {
         height: 10,

@@ -1,26 +1,36 @@
-import CourseCard from '@/src/widget/Components/CourseCard'
 import React from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
+import CourseCard from '../../widget/Components/CourseCard'
+import { useCourses } from './useCourses'
 
-const activeCourses = [
-    { id: '1', title: 'Scam Awareness Basics', progress: 50 }
-]
+const ActiveCourses = (): JSX.Element => {
+    // ✅ Add explicit return type
+    const { activeCourses, updateCourseProgress } = useCourses()
 
-const ActiveCoursesScreen = (): JSX.Element => {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Active Courses</Text>
-            <FlatList
-                data={activeCourses}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <CourseCard
-                        title={item.title}
-                        progress={item.progress}
-                        onPress={() => {}}
-                    />
-                )}
-            />
+            {activeCourses.length === 0 ? (
+                <Text style={styles.noCourses}>No active courses</Text>
+            ) : (
+                <FlatList
+                    data={activeCourses}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (
+                        <CourseCard
+                            id={item.id} // ✅ `id` is now recognized
+                            title={item.title}
+                            progress={item.progress}
+                            onPress={async () =>
+                                await updateCourseProgress(
+                                    item.id,
+                                    item.progress + 20
+                                )
+                            } // Ensure `onPress` is a Promise
+                        />
+                    )}
+                />
+            )}
         </View>
     )
 }
@@ -28,14 +38,19 @@ const ActiveCoursesScreen = (): JSX.Element => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
-        backgroundColor: '#F9F9F9'
+        padding: 16
     },
     header: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10
+    },
+    noCourses: {
+        fontSize: 16,
+        color: '#888',
+        textAlign: 'center',
+        marginTop: 20
     }
 })
 
-export default ActiveCoursesScreen
+export default ActiveCourses
