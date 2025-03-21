@@ -24,3 +24,5 @@ export interface NewsResponse {
     data: News[]
     meta: Meta
 }
+
+declare module 'react-native-svg-charts'
