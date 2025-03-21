@@ -67,6 +67,7 @@ const SavedPosts = (): React.JSX.Element => {
     }
 
     const handlePostClick = (post: NewsItem): void => {
+        console.log(post) // Debugging the post object
         router.push({
             pathname: '../news/newsDetail',
             params: {

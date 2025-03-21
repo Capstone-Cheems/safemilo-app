@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    ScrollView,
+    StyleSheet
+} from 'react-native'
 import commonStyles from '../../styles/commonStyles'
 
 const faqs = [
@@ -49,16 +55,17 @@ const FAQ = (): React.JSX.Element => {
     }
 
     return (
-        <ScrollView
-            contentContainerStyle={commonStyles.container} // Fix here
-        >
-            <Text style={commonStyles.header}>Safe Milo - FAQ's</Text>
+        <ScrollView contentContainerStyle={commonStyles.faqcontainer}>
+            <Text style={commonStyles.faqheader}>Safe Milo - FAQ's</Text>
 
             {faqs.map((faq, index) => (
                 <TouchableOpacity
                     key={index}
                     onPress={() => toggleFAQ(index)}
-                    style={commonStyles.faqItem}
+                    style={[
+                        commonStyles.faqItem,
+                        expandedIndex === index && commonStyles.expandedItem
+                    ]}
                 >
                     <Text style={commonStyles.faqQuestion}>{faq.question}</Text>
                     {expandedIndex === index && (

@@ -241,7 +241,7 @@ const commonStyles = StyleSheet.create({
         marginTop: 20
     },
     linkText: {
-        color: 'blue'
+        color: 'white'
     },
     input: {
         width: '80%',
@@ -273,7 +273,6 @@ const commonStyles = StyleSheet.create({
     header: {
         fontSize: 24,
         fontWeight: 'bold',
-        textAlign: 'center',
         marginBottom: 10
     },
     loadingContainer: {
@@ -567,24 +566,46 @@ const commonStyles = StyleSheet.create({
         borderRadius: 30
     },
     //FAQS
-    faqItem: {
-        backgroundColor: '#f5f5f5',
+    faqcontainer: {
         padding: 15,
-        marginVertical: 5,
+        paddingBottom: 30,
+        backgroundColor: '#F9FAFB'
+    },
+    faqheader: {
+        fontSize: 28,
+        fontWeight: '700',
+        textAlign: 'center',
+        color: '#4A4A4A',
+        marginBottom: 20
+    },
+    faqItem: {
+        backgroundColor: '#FFFFFF',
+        padding: 15,
+        marginBottom: 10,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: '#ddd'
+        borderColor: '#E2E8F0',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 3
+    },
+    expandedItem: {
+        backgroundColor: '#F0F4F8' // Light grey for expanded items
     },
     faqQuestion: {
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontSize: 18,
+        fontWeight: '600',
         color: '#333'
     },
     faqAnswer: {
-        marginTop: 5,
-        fontSize: 14,
-        color: '#555'
+        marginTop: 10,
+        fontSize: 16,
+        color: '#555',
+        lineHeight: 24
     },
+    //Features
     featureSection: {
         marginBottom: 20
     },
@@ -598,7 +619,7 @@ const commonStyles = StyleSheet.create({
         color: '#555'
     },
     featureLink: {
-        backgroundColor: '#007BFF',
+        backgroundColor: '#0A2941',
         paddingVertical: 8,
         paddingHorizontal: 12,
         borderRadius: 4
@@ -621,6 +642,13 @@ const commonStyles = StyleSheet.create({
         fontSize: 14,
         minHeight: 200
     },
+    scrollViewContainer: {
+        alignItems: 'center', // Example style, adjust as needed
+        justifyContent: 'center' // Example style, adjust as needed
+        // Any other styles for the ScrollView container
+    },
+
+    // Modals
     modalView: {
         margin: 20,
 
@@ -657,6 +685,47 @@ const commonStyles = StyleSheet.create({
         padding: 10,
 
         elevation: 2
+    },
+
+    modalBackground: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)' // Semi-transparent background
+    },
+    modalContainer: {
+        width: '80%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+        elevation: 5 // For Android
+    },
+    modalTitle: {
+        fontSize: 20,
+        fontWeight: '600',
+        marginBottom: 15,
+        color: '#0A2941'
+    },
+    modalContent: {
+        fontSize: 16,
+        color: '#333',
+        lineHeight: 24,
+        marginBottom: 20
+    },
+    closeButton: {
+        backgroundColor: '#0A2941',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 25,
+        alignItems: 'center'
+    },
+    closeButtonText: {
+        color: 'white',
+        fontWeight: '500'
     }
 })
 

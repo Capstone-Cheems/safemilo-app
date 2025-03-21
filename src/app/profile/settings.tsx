@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
     View,
     Text,
@@ -7,6 +7,9 @@ import {
     ScrollView,
     Alert
 } from 'react-native'
+import { useNavigation, useRouter } from 'expo-router'
+import { getAuth, signOut, updateProfile } from 'firebase/auth'
+import { useFocusEffect } from '@react-navigation/native'
 import Slider from '@react-native-community/slider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Contacts from 'expo-contacts'
@@ -14,6 +17,8 @@ import * as SMS from 'expo-sms'
 import * as Notifications from 'expo-notifications'
 import { Audio } from 'expo-av'
 import commonStyles from '../../styles/commonStyles'
+import { useAuth } from '@/src/shared'
+import { WebView } from 'react-native-webview'
 
 const Settings = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20)
@@ -35,6 +40,43 @@ const Settings = (): React.JSX.Element => {
     const [notificationPermission, setNotificationPermission] = useState<
         'granted' | 'denied' | null
     >(null)
+    interface UserData {
+        displayName: string | null
+        email: string
+        uid: string
+        providerData: { providerId: string }[]
+        photoURL: string | null
+    }
+
+    const [userData, setUserData] = useState<UserData | null>(null)
+    // Function to load settings
+    const loadSettings = useCallback(async () => {
+        try {
+            const storedSize = await AsyncStorage.getItem('textSize')
+            const storedBold = await AsyncStorage.getItem('isBold')
+            const storedUserData = await AsyncStorage.getItem('user')
+
+            if (storedSize) {
+                setTextSize(parseInt(storedSize))
+            }
+
+            if (storedBold) {
+                setIsBold(storedBold === 'true')
+            }
+
+            if (storedUserData) {
+                setUserData(JSON.parse(storedUserData))
+            }
+        } catch (error) {
+            console.error('Error loading settings:', error)
+        }
+    }, [])
+    // Load settings when the screen is focused
+    useFocusEffect(
+        useCallback(() => {
+            loadSettings()
+        }, [loadSettings])
+    )
 
     useEffect(() => {
         const checkPermissions = async (): Promise<void> => {
@@ -108,6 +150,13 @@ const Settings = (): React.JSX.Element => {
         }
         loadSettings()
     }, [])
+    useEffect(() => {
+        const saveSettings = async () => {
+            await AsyncStorage.setItem('textSize', textSize.toString())
+            await AsyncStorage.setItem('isBold', isBold.toString())
+        }
+        saveSettings()
+    }, [textSize, isBold])
 
     return (
         <ScrollView style={{ flex: 1 }}>
