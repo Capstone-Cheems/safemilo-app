@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useRouter } from 'expo-router'
+import { useFocusEffect } from '@react-navigation/native'
 
 type Course = {
   id: string
@@ -23,43 +24,48 @@ const CompletedCoursesScreen = (): JSX.Element => {
   const [completedCourses, setCompletedCourses] = useState<Course[]>([])
   const router = useRouter()
 
-  useEffect(() => {
-    const loadCompleted = async (): Promise<void> => {
-      try {
-        const keys = await AsyncStorage.getAllKeys()
-        const completedKeys = keys.filter((key) =>
-          key.startsWith('completedModule_')
-        )
+  const loadCompleted = useCallback(async (): Promise<void> => {
+    try {
+      console.log('Fetching completed courses...')
+      const keys = await AsyncStorage.getAllKeys()
+      const completedKeys = keys.filter((key) =>
+        key.startsWith('completedModule_')
+      )
 
-        const completedIds = completedKeys.map((key) =>
-          key.replace('completedModule_', '')
-        )
+      const completedIds = completedKeys.map((key) =>
+        key.replace('completedModule_', '')
+      )
 
-        const completed: Course[] = []
+      const completed: Course[] = []
 
-        for (const id of completedIds) {
-          const courseMeta = defaultCourses.find((c) => c.id === id)
-          if (!courseMeta) continue
+      for (const id of completedIds) {
+        const courseMeta = defaultCourses.find((c) => c.id === id)
+        if (!courseMeta) continue
 
-          const progress = await AsyncStorage.getItem(`quizProgress_${id}`)
-          const score = await AsyncStorage.getItem(`quizScore_${id}`)
+        const progress = await AsyncStorage.getItem(`quizProgress_${id}`)
+        const score = await AsyncStorage.getItem(`quizScore_${id}`)
 
-          completed.push({
-            id,
-            title: courseMeta.title,
-            progress: progress ? parseInt(progress) : 100,
-            score: score ? parseInt(score) : 0
-          })
-        }
-
-        setCompletedCourses(completed)
-      } catch (err) {
-        console.error('Failed to load completed modules:', err)
+        completed.push({
+          id,
+          title: courseMeta.title,
+          progress: progress ? parseInt(progress) : 100,
+          score: score ? parseInt(score) : 0
+        })
       }
-    }
 
-    loadCompleted()
+      console.log('Updated Completed Courses:', completed)
+      setCompletedCourses(completed)
+    } catch (err) {
+      console.error('Failed to load completed modules:', err)
+    }
   }, [])
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('Refreshing completed courses on focus...')
+      loadCompleted()
+    }, [])
+  )
 
   return (
     <View className="flex-1 bg-white p-4">
@@ -69,7 +75,7 @@ const CompletedCoursesScreen = (): JSX.Element => {
         data={completedCourses}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View className="bg-gray-100 rounded-xl mb-4 p-4">
+          <View className="bg-gray-100 rounded-xl mb-4 p-4 shadow-md">
             <View className="flex-row items-center">
               <Image
                 source={require('../../../assets/images/learn-card1.png')}

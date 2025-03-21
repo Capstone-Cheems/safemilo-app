@@ -1,59 +1,41 @@
-/* eslint-disable prettier/prettier */
+import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useRouter, useLocalSearchParams } from 'expo-router'
-import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import ModuleCompletionAnimation from '../../../components/ModuleCompleteAnimation'
+
+// ✅ Ensure this path is correct and the animation file exists
+import ModuleCompleteAnimation from '@/components/ModuleCompleteAnimation'
 
 const ReviewScreen = (): JSX.Element => {
     const router = useRouter()
-    const { courseId, totalScore } = useLocalSearchParams<{ courseId?: string; totalScore?: string }>()
-    const [loading, setLoading] = useState<boolean>(true)
-
-    useEffect((): void => {
-        const saveCompletion = async (): Promise<void> => {
-            try {
-                if (courseId && totalScore) {
-                    // Save module as completed in AsyncStorage
-                    await AsyncStorage.setItem(`completedModule_${courseId}`, 'true')
-                    await AsyncStorage.setItem(`quizScore_${courseId}`, totalScore)
-                    console.log(`Saved completion for course ${courseId}`)
-                }
-            } catch (err) {
-                console.error('Error saving quiz result:', err)
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        saveCompletion()
-    }, [courseId, totalScore])
-
-    if (loading) {
-        return (
-            <View className="flex-1 bg-blue-300 items-center justify-center">
-                <ActivityIndicator size="large" color="white" />
-            </View>
-        )
-    }
+    const { totalScore } = useLocalSearchParams<{ totalScore?: string }>()
 
     return (
-        <View className="flex-1 bg-blue-300 items-center justify-center p-6">
-            {/* Milo Animation */}
-            <ModuleCompletionAnimation />
+        <View className="flex-1 bg-[#3B82F6] items-center justify-center px-6">
+            {/* ✅ Animation */}
+            <ModuleCompleteAnimation style={{ width: 200, height: 200 }} />
 
-            {/* Completion Message */}
-            <View className="bg-white rounded-xl p-6 mt-4 items-center shadow-md">
-                <Text className="text-xl font-bold">Woohoo! Module Completed!</Text>
-                <Text className="text-3xl font-bold text-blue-900 mt-2">+{totalScore} Points Earned</Text>
+            {/* ✅ Speech Bubble */}
+            <View className="bg-white px-6 py-3 rounded-2xl shadow-lg mt-4">
+                <Text className="text-xl font-bold text-center">
+                    Woohoo! Module Completed!
+                </Text>
             </View>
 
-            {/* Continue Learning Button */}
+            {/* ✅ Points Earned */}
+            <View className="bg-white rounded-xl p-6 mt-6 w-64 items-center shadow-md">
+                <Text className="text-3xl font-bold text-blue-900">
+                    +{totalScore || 0} Points Earned
+                </Text>
+            </View>
+
+            {/* ✅ Continue Learning Button */}
             <TouchableOpacity
-                className="mt-6 bg-blue-900 px-6 py-3 rounded-lg"
-                onPress={(): void => router.replace('/learning/LearnDashboard')}
+                className="mt-6 bg-blue-900 px-6 py-3 rounded-lg w-64"
+                onPress={() => router.replace('/(tabs)/learn')}
             >
-                <Text className="text-white text-lg font-semibold">Continue Learning</Text>
+                <Text className="text-white text-lg font-semibold text-center">
+                    Continue Learning
+                </Text>
             </TouchableOpacity>
         </View>
     )
