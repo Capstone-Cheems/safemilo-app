@@ -407,11 +407,53 @@ const commonStyles = StyleSheet.create({
     },
     //Profile Section
     largeformButton: {
-        backgroundColor: 'grey',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 0.2,
+        borderColor: '#000000',
         padding: 10,
         width: '100%',
-        marginTop: 10,
-        borderRadius: 10
+        backgroundColor: 'white'
+    },
+    toplargeformButton: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 0.3,
+        borderColor: '#000000',
+        padding: 10,
+        width: '100%',
+        backgroundColor: 'white',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    bottomlargeformButton: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 0.2,
+        borderColor: '#000000',
+        padding: 10,
+        width: '100%',
+        backgroundColor: 'white',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20
+    },
+    ptext: {
+        color: 'black',
+        fontSize: 28,
+        textAlign: 'left'
+    },
+    ltext: {
+        color: 'black',
+        fontSize: 28,
+        padding: 30,
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     Logout: {
         backgroundColor: '#000000',
@@ -439,12 +481,20 @@ const commonStyles = StyleSheet.create({
         fontSize: 28,
         alignItems: 'flex-start',
         textAlign: 'left',
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: 10
     },
     popupText: {
         fontSize: 16,
         textAlign: 'center',
         marginBottom: 10
+    },
+    profilecontainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#E0E0E7',
+        padding: 20
     },
     //Saved Posts
     removeButton: {
@@ -489,8 +539,9 @@ const commonStyles = StyleSheet.create({
         fontWeight: 'bold'
     },
     browseButton: {
-        backgroundColor: '#007BFF',
+        backgroundColor: '#0A2941',
         padding: 10,
+        width: '100%',
         borderRadius: 5,
         alignItems: 'center',
         marginVertical: 10
@@ -551,6 +602,43 @@ const commonStyles = StyleSheet.create({
         borderRadius: 4,
         fontSize: 14,
         minHeight: 100
+    },
+    modalView: {
+        margin: 20,
+
+        backgroundColor: 'white',
+
+        borderRadius: 20,
+
+        padding: 35,
+
+        alignItems: 'center',
+
+        shadowColor: '#000',
+
+        shadowOffset: {
+            width: 0,
+
+            height: 2
+        },
+
+        shadowOpacity: 0.25,
+
+        shadowRadius: 4,
+
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+
+        textAlign: 'center'
+    },
+    modalButton: {
+        borderRadius: 20,
+
+        padding: 10,
+
+        elevation: 2
     }
 })
 
