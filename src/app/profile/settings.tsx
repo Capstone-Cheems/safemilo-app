@@ -11,6 +11,7 @@ import Slider from '@react-native-community/slider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Contacts from 'expo-contacts'
 import * as SMS from 'expo-sms'
+import * as Notifications from 'expo-notifications'
 import { Audio } from 'expo-av'
 import commonStyles from '../../styles/commonStyles'
 
@@ -26,6 +27,12 @@ const Settings = (): React.JSX.Element => {
         'granted' | 'denied' | null
     >(null)
     const [microphonePermission, setMicrophonePermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
+    const [callPermission, setCallPermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
+    const [notificationPermission, setNotificationPermission] = useState<
         'granted' | 'denied' | null
     >(null)
 
@@ -44,10 +51,26 @@ const Settings = (): React.JSX.Element => {
             setMicrophonePermission(
                 mic.status === 'granted' ? 'granted' : 'denied'
             )
+
+            // Check Phone Permission (Placeholder, update with proper API if needed)
+            const call = await Audio.getPermissionsAsync() // Update with phone call API if needed
+            setCallPermission(call.status === 'granted' ? 'granted' : 'denied')
+
+            // Check Notification Permission
+            const notificationStatus = await Notifications.getPermissionsAsync()
+            setNotificationPermission(
+                notificationStatus.status === 'granted' ? 'granted' : 'denied'
+            )
         }
 
         checkPermissions()
     }, [])
+
+    // Request Call Permission (Placeholder, update with proper API if needed)
+    const requestCallPermission = async () => {
+        const { status } = await Audio.requestPermissionsAsync() // Update with specific phone call permission API
+        setCallPermission(status === 'granted' ? 'granted' : 'denied')
+    }
 
     const requestContactsPermission = async () => {
         const { status } = await Contacts.requestPermissionsAsync()
@@ -68,6 +91,11 @@ const Settings = (): React.JSX.Element => {
     const requestMicrophonePermission = async () => {
         const { status } = await Audio.requestPermissionsAsync()
         setMicrophonePermission(status === 'granted' ? 'granted' : 'denied')
+    }
+
+    const requestNotificationPermission = async () => {
+        const { status } = await Notifications.requestPermissionsAsync()
+        setNotificationPermission(status === 'granted' ? 'granted' : 'denied')
     }
 
     useEffect(() => {
@@ -233,9 +261,30 @@ const Settings = (): React.JSX.Element => {
                     />
                 </TouchableOpacity>
 
-                {/* Contacts Access */}
+                {/* Call Access */}
                 <TouchableOpacity
                     style={commonStyles.largeformButton}
+                    onPress={requestCallPermission}
+                >
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
+                        Call Access
+                    </Text>
+                    <Switch
+                        value={callPermission === 'granted'}
+                        onValueChange={requestCallPermission}
+                    />
+                </TouchableOpacity>
+                {/* Contacts Access */}
+                <TouchableOpacity
+                    style={commonStyles.bottomlargeformButton}
                     onPress={requestContactsPermission}
                 >
                     <Text
@@ -255,9 +304,21 @@ const Settings = (): React.JSX.Element => {
                     />
                 </TouchableOpacity>
 
+                <Text
+                    style={[
+                        commonStyles.leftText,
+                        {
+                            fontSize: textSize,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
+                    ]}
+                >
+                    SMS & Notifications
+                </Text>
+
                 {/* SMS Access */}
                 <TouchableOpacity
-                    style={commonStyles.bottomlargeformButton}
+                    style={commonStyles.toplargeformButton}
                     onPress={requestMessagesPermission}
                 >
                     <Text
@@ -274,6 +335,28 @@ const Settings = (): React.JSX.Element => {
                     <Switch
                         value={messagesPermission === 'granted'}
                         onValueChange={requestMessagesPermission}
+                    />
+                </TouchableOpacity>
+
+                {/* Notification Access */}
+                <TouchableOpacity
+                    style={commonStyles.bottomlargeformButton}
+                    onPress={requestNotificationPermission}
+                >
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
+                        Notification Access
+                    </Text>
+                    <Switch
+                        value={notificationPermission === 'granted'}
+                        onValueChange={requestNotificationPermission}
                     />
                 </TouchableOpacity>
             </View>
