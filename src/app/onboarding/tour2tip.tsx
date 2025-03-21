@@ -46,7 +46,7 @@ const Tour2tip = (): React.JSX.Element => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={commonStyles.button}
+                    style={commonStyles.dialogButton}
                     onPress={handleNext}
                 >
                     <Text style={commonStyles.buttonText}>Next</Text>
