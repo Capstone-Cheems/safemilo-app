@@ -1,22 +1,26 @@
-import React, { ReactNode, useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tabs, useRouter } from 'expo-router'
-import { BellIcon, Icon } from '@/components/ui/icon'
+import { TouchableOpacity, Animated, ImageURISource } from 'react-native'
 import {
     Avatar,
     AvatarBadge,
     AvatarFallbackText,
     AvatarImage
+    // eslint-disable-next-line import/no-unresolved
 } from '@/components/ui/avatar'
+// eslint-disable-next-line import/no-unresolved
 import { HStack } from '@/components/ui/hstack'
+// eslint-disable-next-line import/no-unresolved
+import { BellIcon, Icon } from '@/components/ui/icon'
+// eslint-disable-next-line import/no-unresolved
 import { useAuth } from '@/src/shared'
-import { TouchableOpacity, Image, ImageURISource, Animated } from 'react-native'
 
 type IconSource = {
     active: ImageURISource
     inactive: ImageURISource
 }
 
-export default function TabLayout(): ReactNode {
+const BottomTab = () => {
     const { user } = useAuth()
     const router = useRouter()
 
@@ -27,21 +31,21 @@ export default function TabLayout(): ReactNode {
     useEffect(() => {
         setHomeIcon({
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            active: require('../../../assets/images/home-active.png'),
+            active: require('../../assets/images/home-active.png'),
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            inactive: require('../../../assets/images/home.png')
+            inactive: require('../../assets/images/home.png')
         })
         setLearnIcon({
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            active: require('../../../assets/images/learn-active.png'),
+            active: require('../../assets/images/learn-active.png'),
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            inactive: require('../../../assets/images/learn.png')
+            inactive: require('../../assets/images/learn.png')
         })
         setChatIcon({
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            active: require('../../../assets/images/chat-active.png'),
+            active: require('../../assets/images/chat-active.png'),
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            inactive: require('../../../assets/images/Chat.png')
+            inactive: require('../../assets/images/Chat.png')
         })
     }, [])
 
@@ -110,7 +114,9 @@ export default function TabLayout(): ReactNode {
                     >
                         <TouchableOpacity
                             onPress={() =>
-                                router.push('/notification/notification')
+                                router.push(
+                                    '../src/app/notification/notification'
+                                )
                             }
                         >
                             <Icon
@@ -119,7 +125,11 @@ export default function TabLayout(): ReactNode {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => router.push('/profile/profile')}
+                            onPress={() =>
+                                router.push(
+                                    '../src/app/notification/notification'
+                                )
+                            }
                         >
                             <Avatar size="sm">
                                 <AvatarFallbackText>
@@ -139,22 +149,12 @@ export default function TabLayout(): ReactNode {
                 )
             }}
         >
-            {/* <Tabs.Screen name="profile" options={{ title: 'Profile' }} /> */}
             <Tabs.Screen
                 name="home"
                 options={{
                     tabBarIcon: ({ focused }) =>
                         homeIcon &&
-                        renderTabIcon(
-                            focused,
-                            homeIcon,
-                            75, // Active width
-                            45, // Inactive width
-                            58, // Active height
-                            50, // Inactive height
-                            -5, // Active top (moves up)
-                            5 // Inactive top
-                        )
+                        renderTabIcon(focused, homeIcon, 75, 45, 58, 50, -5, 5)
                 }}
             />
 
@@ -163,16 +163,7 @@ export default function TabLayout(): ReactNode {
                 options={{
                     tabBarIcon: ({ focused }) =>
                         learnIcon &&
-                        renderTabIcon(
-                            focused,
-                            learnIcon,
-                            80, // Active width
-                            45, // Inactive width
-                            65, // Active height
-                            50, // Inactive height
-                            -5, // Active top (moves up)
-                            5 // Inactive top
-                        )
+                        renderTabIcon(focused, learnIcon, 80, 45, 65, 50, -5, 5)
                 }}
             />
 
@@ -181,18 +172,11 @@ export default function TabLayout(): ReactNode {
                 options={{
                     tabBarIcon: ({ focused }) =>
                         chatIcon &&
-                        renderTabIcon(
-                            focused,
-                            chatIcon,
-                            75, // Active width
-                            65, // Inactive width
-                            60, // Active height
-                            50, // Inactive height
-                            -5, // Active top (moves up)
-                            5 // Inactive top
-                        )
+                        renderTabIcon(focused, chatIcon, 75, 65, 60, 50, -5, 5)
                 }}
             />
         </Tabs>
     )
 }
+
+export default BottomTab

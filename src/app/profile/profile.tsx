@@ -13,6 +13,7 @@ import { getAuth, signOut, updateProfile } from 'firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import commonStyles from '../../styles/commonStyles'
+// eslint-disable-next-line import/no-unresolved
 import { useAuth } from '@/src/shared'
 import { WebView } from 'react-native-webview'
 
@@ -79,27 +80,24 @@ const Profile = (): React.JSX.Element => {
 
     const handleDisplayNameChange = async () => {
         try {
-            if (auth.currentUser) {
-                await updateProfile(auth.currentUser, {
-                    displayName: newDisplayName
-                })
+            if (!auth.currentUser) return
 
-                const updatedUserData = {
-                    ...userData,
-                    displayName: newDisplayName,
-                    email: userData?.email || '',
-                    uid: userData?.uid || '',
-                    providerData: userData?.providerData || [],
-                    photoURL: userData?.photoURL || null
-                }
+            await updateProfile(auth.currentUser, {
+                displayName: newDisplayName
+            })
 
-                setUserData(updatedUserData)
-                await AsyncStorage.setItem(
-                    'user',
-                    JSON.stringify(updatedUserData)
-                )
-                Alert.alert('Success', 'Display name updated!')
+            const updatedUser = auth.currentUser
+            const updatedUserData: UserData = {
+                displayName: updatedUser.displayName,
+                email: updatedUser.email || '',
+                uid: updatedUser.uid,
+                providerData: updatedUser.providerData,
+                photoURL: updatedUser.photoURL
             }
+
+            setUserData(updatedUserData)
+            await AsyncStorage.setItem('user', JSON.stringify(updatedUserData))
+            Alert.alert('Success', 'Display name updated!')
         } catch (error) {
             Alert.alert('Error', 'Could not update display name.')
         }
@@ -110,30 +108,66 @@ const Profile = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.container}>
-            <View style={styles.container}>
-                <Image
-                    // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/milo-mascot.png')}
-                    style={styles.image}
-                />
-            </View>
-            <Text
-                style={[
-                    { fontSize: textSize + 4 },
-                    { fontWeight: isBold ? 'bold' : 'normal' }
-                ]}
+        <View style={commonStyles.profilecontainer}>
+            {/* Profile text hooked to the top-left */}
+            <View
+                style={{ position: 'absolute', top: 0, left: 0, padding: 10 }}
             >
-                Profile
-            </Text>
+                <Text
+                    style={{
+                        fontSize: textSize + 10,
+                        fontWeight: isBold ? 'bold' : 'normal'
+                    }}
+                >
+                    Profile
+                </Text>
+            </View>
+
+            <View style={styles.container}>
+                {userData?.displayName && (
+                    <View
+                        style={{
+                            marginTop: 60,
+                            backgroundColor: 'white',
+                            borderRadius: 60, // Circular shape
+                            padding: 30,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: 120, // Fixed width
+                            height: 120, // Ensure height matches width
+                            aspectRatio: 1, // Maintain a 1:1 ratio for circle
+                            borderWidth: 0.5, // Set the border thickness
+                            borderColor: 'black' // Set the border color
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: textSize + 4,
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                color: 'black' // Text color for contrast
+                            }}
+                        >
+                            {userData.displayName
+                                .split(' ')
+                                .map((name, index, arr) =>
+                                    index === 0 || index === arr.length - 1
+                                        ? name.charAt(0).toUpperCase()
+                                        : ''
+                                )
+                                .join('')}
+                        </Text>
+                    </View>
+                )}
+            </View>
+
             {userData?.displayName ? (
                 <Text
-                    style={[
-                        { fontWeight: isBold ? 'bold' : 'normal' },
-                        { fontSize: textSize }
-                    ]}
+                    style={{
+                        fontSize: textSize + 6,
+                        fontWeight: isBold ? 'bold' : 'normal'
+                    }}
                 >
-                    Welcome, {userData.displayName}!
+                    {userData.displayName}
                 </Text>
             ) : (
                 <View>
@@ -158,26 +192,36 @@ const Profile = (): React.JSX.Element => {
             )}
 
             <Text
-                style={[
-                    { fontWeight: isBold ? 'bold' : 'normal' },
-                    { fontSize: textSize - 8 }
-                ]}
+                style={{
+                    fontSize: textSize - 7,
+                    fontWeight: isBold ? 'bold' : 'normal',
+                    marginBottom: 10
+                }}
             >
                 {userData ? userData.email : 'Guest'}
             </Text>
 
+            {/* Buttons */}
             <TouchableOpacity
                 onPress={() => navigateTo('./settings')}
-                style={commonStyles.largeformButton}
+                style={commonStyles.toplargeformButton}
             >
                 <Text
                     style={[
-                        commonStyles.buttonText,
-                        { fontWeight: isBold ? 'bold' : 'normal' }
+                        commonStyles.ptext,
+                        {
+                            fontSize: textSize - 3,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
                     ]}
                 >
                     Settings
                 </Text>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/profile-arrow.png')}
+                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => navigateTo('./saved-posts')}
@@ -185,12 +229,20 @@ const Profile = (): React.JSX.Element => {
             >
                 <Text
                     style={[
-                        commonStyles.buttonText,
-                        { fontWeight: isBold ? 'bold' : 'normal' }
+                        commonStyles.ptext,
+                        {
+                            fontSize: textSize - 3,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
                     ]}
                 >
                     Saved Posts
                 </Text>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/profile-arrow.png')}
+                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => navigateTo('./feature-walkthrough')}
@@ -198,12 +250,20 @@ const Profile = (): React.JSX.Element => {
             >
                 <Text
                     style={[
-                        commonStyles.buttonText,
-                        { fontWeight: isBold ? 'bold' : 'normal' }
+                        commonStyles.ptext,
+                        {
+                            fontSize: textSize - 3,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
                     ]}
                 >
-                    Feature WalkThrough
+                    Feature Walkthrough
                 </Text>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/profile-arrow.png')}
+                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => navigateTo('./faq')}
@@ -211,35 +271,51 @@ const Profile = (): React.JSX.Element => {
             >
                 <Text
                     style={[
-                        commonStyles.buttonText,
-                        { fontWeight: isBold ? 'bold' : 'normal' }
+                        commonStyles.ptext,
+                        {
+                            fontSize: textSize - 3,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
                     ]}
                 >
-                    Frequently Asked Questions
+                    FAQ's
                 </Text>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/profile-arrow.png')}
+                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => navigateTo('./report-bug')}
-                style={commonStyles.largeformButton}
+                style={commonStyles.bottomlargeformButton}
             >
                 <Text
                     style={[
-                        commonStyles.buttonText,
-                        { fontWeight: isBold ? 'bold' : 'normal' }
+                        commonStyles.ptext,
+                        {
+                            fontSize: textSize - 3,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
                     ]}
                 >
                     Report a Bug
                 </Text>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/profile-arrow.png')}
+                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                />
             </TouchableOpacity>
 
-            <TouchableOpacity
-                onPress={handleLogout}
-                style={commonStyles.largeformButton}
-            >
+            <TouchableOpacity onPress={handleLogout}>
                 <Text
                     style={[
-                        commonStyles.buttonText,
-                        { fontWeight: isBold ? 'bold' : 'normal' }
+                        commonStyles.ltext,
+                        {
+                            fontSize: textSize - 3,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
                     ]}
                 >
                     Log Out
@@ -255,9 +331,12 @@ const styles = StyleSheet.create({
         marginVertical: 20
     },
     image: {
-        width: 200,
-        height: 200,
-        borderRadius: 50
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        borderWidth: 2,
+        borderColor: '#ccc',
+        marginBottom: 10
     }
 })
 
