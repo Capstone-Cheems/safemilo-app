@@ -39,11 +39,6 @@ const SpecificCategoryScreen = (): JSX.Element => {
 
     return (
         <View className="flex-1 bg-gray-100 p-4">
-            {/* Header Section */}
-            <TouchableOpacity onPress={() => router.back()} className="mb-4">
-                <Text className="text-2xl">{'←'}</Text>
-            </TouchableOpacity>
-
             {/* Category Title */}
             <Text className="text-3xl font-bold text-gray-900">
                 Tech Support Scams
@@ -78,7 +73,7 @@ const SpecificCategoryScreen = (): JSX.Element => {
                                 className="mt-4 bg-blue-900 p-3 rounded-lg items-center"
                                 onPress={() =>
                                     router.push({
-                                        pathname: '/learning/quiz',
+                                        pathname: '/learning/Quiz',
                                         params: { courseId: item.id }
                                     })
                                 }
