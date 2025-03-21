@@ -1,11 +1,22 @@
 import { Box } from '@/components/ui/box'
 import { News, timeAgo } from '@/src/shared'
 import React, { useState, useEffect } from 'react'
-import { Text, TouchableOpacity, Image, ScrollView } from 'react-native'
+import {
+    Text,
+    TouchableOpacity,
+    Image,
+    ScrollView,
+    Modal,
+    View
+} from 'react-native'
 import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
 import { Heading } from '@/components/ui/heading'
-import { BookmarkIcon, BookmarkFilledIcon } from '@/components/ui/icon'
+import {
+    BookmarkIcon,
+    BookmarkFilledIcon,
+    CloseIcon
+} from '@/components/ui/icon'
 import {
     scamTypeImages,
     DEFAULT_SCAM_IMAGE
@@ -18,6 +29,8 @@ export const VieNews: React.FC<{
 }> = ({ news }) => {
     const [isSpeaking, setIsSpeaking] = useState(false)
     const [isSaved, setIsSaved] = useState(false)
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
     useEffect(() => {
         checkIfSaved()
@@ -78,6 +91,16 @@ export const VieNews: React.FC<{
         setIsSpeaking(false)
     }
 
+    const openFullScreenImage = (imageUri: string): void => {
+        setSelectedImage(imageUri)
+        setIsModalVisible(true)
+    }
+
+    const closeFullScreenImage = (): void => {
+        setIsModalVisible(false)
+        setSelectedImage(null)
+    }
+
     const imageSource = scamTypeImages[news.scamTypeTag] || DEFAULT_SCAM_IMAGE
 
     return (
@@ -89,18 +112,18 @@ export const VieNews: React.FC<{
                         source={imageSource}
                         style={{
                             width: '100%',
-                            height: 200,
-                            maxWidth: 320,
-                            maxHeight: 200
+                            height: 240
                         }}
-                        className="aspect-[320/208] max-w-full max-h-full"
+                        className="max-w-full max-h-full"
                         resizeMode="contain"
                         alt="image"
                     />
+                </Box>
 
+                <Box>
                     <TouchableOpacity
                         onPress={toggleSave}
-                        className="absolute top-0 right-2 p-2"
+                        className="absolute top-1 right-2 p-2"
                         style={{
                             elevation: 4,
                             width: 48,
@@ -111,23 +134,29 @@ export const VieNews: React.FC<{
                     </TouchableOpacity>
                 </Box>
 
-                {!isSpeaking ? (
-                    <ButtonWidget
-                        text="Listen"
-                        playIcon={true}
-                        onPress={handleListen}
-                    />
-                ) : (
-                    <ButtonWidget
-                        text="Stop"
-                        stopIcon={true}
-                        onPress={handleStop}
-                    />
-                )}
+                <Box className="flex-row items-center gap-4">
+                    {!isSpeaking ? (
+                        <ButtonWidget
+                            text="Listen"
+                            playIcon={true}
+                            onPress={handleListen}
+                        />
+                    ) : (
+                        <ButtonWidget
+                            text="Stop"
+                            stopIcon={true}
+                            onPress={handleStop}
+                        />
+                    )}
 
-                <Heading>{news.title}</Heading>
+                    <ShareButtonWidget
+                        message={`${news.title}\n#${news.scamTypeTag}\n\n${news.content}\n\nStay safe from scams!\nby SafeMilo🦊`}
+                    />
+                </Box>
 
-                <Box className="flex-row flex-nowrap justify-between">
+                <Heading className="text-3xl">{news.title}</Heading>
+
+                <Box className="flex-row flex-nowrap gap-8">
                     <Text>{news.scamTypeTag}</Text>
                     <Text>{timeAgo(news.createdAt)}</Text>
                 </Box>
@@ -138,31 +167,71 @@ export const VieNews: React.FC<{
 
                 {/* Display Additional Images After Content */}
                 {news.images && news.images.length > 0 && (
-                    <Box>
+                    <Box className="mb-[32px]">
                         <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>
                             Related Images
                         </Text>
                         <ScrollView horizontal>
                             {news.images.map((img, index) => (
-                                <Image
+                                <TouchableOpacity
                                     key={index}
-                                    source={{ uri: img }}
-                                    style={{
-                                        width: 320,
-                                        height: 200,
-                                        marginRight: 10,
-                                        borderRadius: 8
-                                    }}
-                                    resizeMode="contain"
-                                />
+                                    onPress={() => openFullScreenImage(img)}
+                                >
+                                    <Image
+                                        source={{ uri: img }}
+                                        style={{
+                                            width: 320,
+                                            height: 200,
+                                            marginRight: 10,
+                                            borderRadius: 8
+                                        }}
+                                        resizeMode="contain"
+                                    />
+                                </TouchableOpacity>
                             ))}
                         </ScrollView>
                     </Box>
                 )}
 
-                <ShareButtonWidget
-                    message={`${news.title}\n#${news.scamTypeTag}\n\n${news.content}\n\nStay safe from scams!\nby SafeMilo🦊`}
-                />
+                {/* Full-Screen Image Modal */}
+                <Modal
+                    visible={isModalVisible}
+                    transparent={true}
+                    animationType="fade"
+                >
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: 'rgba(0,0,0,0.9)',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        {selectedImage && (
+                            <Image
+                                source={{ uri: selectedImage }}
+                                style={{
+                                    width: '90%',
+                                    height: '80%',
+                                    borderRadius: 10
+                                }}
+                                resizeMode="contain"
+                            />
+                        )}
+                        {/* Close Button */}
+                        <TouchableOpacity
+                            onPress={closeFullScreenImage}
+                            style={{
+                                position: 'absolute',
+                                top: 40,
+                                right: 20,
+                                padding: 10
+                            }}
+                        >
+                            <CloseIcon width={30} height={30} color="#fff" />
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
             </VStack>
         </ScrollView>
     )

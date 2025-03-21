@@ -12,7 +12,7 @@ export const ButtonWidget: React.FC<
 > = ({ text, playIcon, stopIcon, ...rest }) => {
     return (
         <>
-            <Button {...rest}>
+            <Button {...rest} className="bg-[#0D1B2A] w-[134px] rounded-full">
                 {playIcon && <ButtonIcon as={PlayIcon} />}
                 {stopIcon && <ButtonIcon as={CloseCircleIcon} />}
                 <ButtonText>{text}</ButtonText>
