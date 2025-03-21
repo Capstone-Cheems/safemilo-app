@@ -46,7 +46,7 @@ const NewsDetail = (): React.JSX.Element => {
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
-            <ScrollView style={commonStyles.scrollContainer}>
+            <ScrollView style={commonStyles.container}>
                 <Text style={commonStyles.detailContent}>{content}</Text>
             </ScrollView>
         </View>

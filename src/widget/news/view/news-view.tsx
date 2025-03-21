@@ -1,7 +1,7 @@
 import { Box } from '@/components/ui/box'
 import { News, timeAgo } from '@/src/shared'
 import React, { useState, useEffect } from 'react'
-import { Text, TouchableOpacity, Image } from 'react-native'
+import { Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
 import { Heading } from '@/components/ui/heading'
@@ -43,7 +43,6 @@ export const VieNews: React.FC<{
             const savedPosts = savedPostsData ? JSON.parse(savedPostsData) : []
 
             if (isSaved) {
-                // Remove from saved posts
                 const updatedPosts = savedPosts.filter(
                     (post: News) => post.newsID !== news.newsID
                 )
@@ -52,7 +51,6 @@ export const VieNews: React.FC<{
                     JSON.stringify(updatedPosts)
                 )
             } else {
-                // Add to saved posts
                 const updatedPosts = [...savedPosts, news]
                 await AsyncStorage.setItem(
                     'savedPosts',
@@ -83,57 +81,89 @@ export const VieNews: React.FC<{
     const imageSource = scamTypeImages[news.scamTypeTag] || DEFAULT_SCAM_IMAGE
 
     return (
-        <VStack space="md" className="m-4">
-            <Box className="relative">
-                <Image
-                    source={imageSource}
-                    style={{
-                        width: '100%',
-                        height: 200,
-                        maxWidth: 320,
-                        maxHeight: 200
-                    }}
-                    className="aspect-[320/208] max-w-full max-h-full"
-                    resizeMode="contain"
-                    alt="image"
-                />
+        <ScrollView>
+            <VStack space="md" className="m-4">
+                {/* Scam Type Image (Top) */}
+                <Box className="relative">
+                    <Image
+                        source={imageSource}
+                        style={{
+                            width: '100%',
+                            height: 200,
+                            maxWidth: 320,
+                            maxHeight: 200
+                        }}
+                        className="aspect-[320/208] max-w-full max-h-full"
+                        resizeMode="contain"
+                        alt="image"
+                    />
 
-                <TouchableOpacity
-                    onPress={toggleSave}
-                    className="absolute top-0 right-2 p-2"
-                    style={{
-                        elevation: 4,
-                        width: 48,
-                        height: 48
-                    }}
-                >
-                    {isSaved ? <BookmarkFilledIcon /> : <BookmarkIcon />}
-                </TouchableOpacity>
-            </Box>
-            {!isSpeaking ? (
-                <ButtonWidget
-                    text="Listen"
-                    playIcon={true}
-                    onPress={handleListen}
+                    <TouchableOpacity
+                        onPress={toggleSave}
+                        className="absolute top-0 right-2 p-2"
+                        style={{
+                            elevation: 4,
+                            width: 48,
+                            height: 48
+                        }}
+                    >
+                        {isSaved ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+                    </TouchableOpacity>
+                </Box>
+
+                {!isSpeaking ? (
+                    <ButtonWidget
+                        text="Listen"
+                        playIcon={true}
+                        onPress={handleListen}
+                    />
+                ) : (
+                    <ButtonWidget
+                        text="Stop"
+                        stopIcon={true}
+                        onPress={handleStop}
+                    />
+                )}
+
+                <Heading>{news.title}</Heading>
+
+                <Box className="flex-row flex-nowrap justify-between">
+                    <Text>{news.scamTypeTag}</Text>
+                    <Text>{timeAgo(news.createdAt)}</Text>
+                </Box>
+
+                <Box>
+                    <Text>{news.content}</Text>
+                </Box>
+
+                {/* Display Additional Images After Content */}
+                {news.images && news.images.length > 0 && (
+                    <Box>
+                        <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>
+                            Related Images
+                        </Text>
+                        <ScrollView horizontal>
+                            {news.images.map((img, index) => (
+                                <Image
+                                    key={index}
+                                    source={{ uri: img }}
+                                    style={{
+                                        width: 320,
+                                        height: 200,
+                                        marginRight: 10,
+                                        borderRadius: 8
+                                    }}
+                                    resizeMode="contain"
+                                />
+                            ))}
+                        </ScrollView>
+                    </Box>
+                )}
+
+                <ShareButtonWidget
+                    message={`${news.title}\n#${news.scamTypeTag}\n\n${news.content}\n\nStay safe from scams!\nby SafeMilo🦊`}
                 />
-            ) : (
-                <ButtonWidget
-                    text="Stop"
-                    stopIcon={true}
-                    onPress={handleStop}
-                />
-            )}
-            <Heading>{news.title}</Heading>
-            <Box className="flex-row flex-nowrap justify-between">
-                <Text>{news.scamTypeTag}</Text>
-                <Text>{timeAgo(news.createdAt)}</Text>
-            </Box>
-            <Box>
-                <Text>{news.content}</Text>
-            </Box>
-            <ShareButtonWidget
-                message={`${news.title}\n#${news.scamTypeTag}\n\n${news.content}\n\nStay safe from scams!\nby SafeMilo🦊`}
-            />
-        </VStack>
+            </VStack>
+        </ScrollView>
     )
 }

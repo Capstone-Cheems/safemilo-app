@@ -7,11 +7,8 @@ const Tour5chat = (): React.JSX.Element => {
     const router = useRouter()
     const navigation = useNavigation()
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'Walkthrough' })
+        navigation.setOptions({ headerShown: false })
     }, [navigation])
-    const handleBack = (): void => {
-        router.replace('/onboarding/tour4news')
-    }
 
     const handleNext = (): void => {
         router.replace('/home')
@@ -41,16 +38,9 @@ const Tour5chat = (): React.JSX.Element => {
             <View style={commonStyles.buttonContainer}>
                 <TouchableOpacity
                     style={commonStyles.button}
-                    onPress={handleBack}
-                >
-                    <Text style={commonStyles.buttonText}>Back</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={commonStyles.button}
                     onPress={handleNext}
                 >
-                    <Text style={commonStyles.buttonText}>Get Started</Text>
+                    <Text style={commonStyles.buttonText}>Done</Text>
                 </TouchableOpacity>
             </View>
         </View>
