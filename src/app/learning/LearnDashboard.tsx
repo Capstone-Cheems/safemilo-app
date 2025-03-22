@@ -378,7 +378,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                                         }}
                                         onPress={() =>
                                             router.push({
-                                                pathname: '/learning/review',
+                                                pathname: '/learning/Lesson',
                                                 params: { courseId: item.id }
                                             })
                                         }
