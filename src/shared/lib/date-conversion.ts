@@ -1,5 +1,5 @@
 export const timeAgo = (dateString: string): string => {
-    const date = new Date(dateString)
+    const date = new Date(!isNaN(Number(dateString))? Number(dateString): dateString)
     const now = new Date()
     const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
 

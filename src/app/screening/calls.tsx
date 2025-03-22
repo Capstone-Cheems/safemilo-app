@@ -9,6 +9,7 @@ import { VStack } from '@/components/ui/vstack'
 import { HStack } from '@/components/ui/hstack'
 import { Icon, InfoIcon, SlashIcon } from '@/components/ui/icon'
 import { Card } from '@/components/ui/card'
+import { timeAgo } from '@/src/shared'
 
 const { CustomModule } = NativeModules
 
@@ -50,14 +51,14 @@ const Calls = (): React.JSX.Element => {
                                 <Box>
                                     <HStack
                                         space="2xl"
-                                        className="justify-evenly "
+                                        className="justify-between"
                                     >
                                         <Box className="flex flex-row gap-4">
                                             <Icon as={SlashIcon} />
                                             <Text>{item.number}</Text>
                                         </Box>
 
-                                        <Text>{item.timestamp}</Text>
+                                        <Text>{timeAgo(item.timestamp)}</Text>
                                     </HStack>
                                 </Box>
                                 <Box>

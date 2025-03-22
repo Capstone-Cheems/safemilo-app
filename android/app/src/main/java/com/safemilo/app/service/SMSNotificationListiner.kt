@@ -71,7 +71,7 @@ class SMSNotificationListiner : NotificationListenerService() {
                     Message(
                     sender= sender ?: "",
                     description = message,
-                    timestamp = Date().toString()
+                    timestamp = Date().toInstant().toEpochMilli().toString()
 
                 )
                 )
