@@ -13,6 +13,10 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 30
     },
+    dialogText: {
+        fontSize: 24,
+        textAlign: 'center'
+    },
     accent: {
         color: 'black'
     },

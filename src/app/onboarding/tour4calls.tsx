@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, ImageBackground } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 
-const Tour2tip = (): React.JSX.Element => {
+const Tour4calls = (): React.JSX.Element => {
     const router = useRouter()
     const navigation = useNavigation()
     useLayoutEffect(() => {
@@ -14,30 +14,30 @@ const Tour2tip = (): React.JSX.Element => {
     }
 
     const handleNext = (): void => {
-        router.replace('/onboarding/tour3news')
+        router.replace('/onboarding/tour5messages')
     }
 
     return (
         <ImageBackground
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            source={require('../../../assets/images/bg-tip.png')}
+            source={require('../../../assets/images/bg-calls.png')}
             style={{
                 width: '100%',
                 aspectRatio: 390 / 1312,
-                transform: [{ translateY: -100 }]
+                transform: [{ translateY: -180 }]
             }}
             resizeMode="cover"
         >
             <View
                 style={
                     (commonStyles.container,
-                    { position: 'absolute', top: 480, left: 42 })
+                    { position: 'absolute', top: 400, left: 42 })
                 }
             >
                 <View style={commonStyles.dialogBox}>
                     <Text style={commonStyles.dialogText}>
-                        I'll share a quick tip daily to help you spot and avoid
-                        scams.
+                        Track the list of phone numbers that are flagged as
+                        scams
                     </Text>
                     <View style={commonStyles.buttonContainer}>
                         <TouchableOpacity
@@ -62,4 +62,4 @@ const Tour2tip = (): React.JSX.Element => {
     )
 }
 
-export default Tour2tip
+export default Tour4calls
