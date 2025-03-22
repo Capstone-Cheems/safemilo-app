@@ -55,7 +55,7 @@ class PopupService : Service() {
 
 
         stopServiceBtn?.setOnClickListener {
-            Toast.makeText(this, "Button Clicked!", Toast.LENGTH_SHORT).show()
+
             onDestroy()
         }
 

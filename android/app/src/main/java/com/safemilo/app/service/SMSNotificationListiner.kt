@@ -36,7 +36,7 @@ class SMSNotificationListiner : NotificationListenerService() {
     data class Message(
         val sender: String,
         val description: String,
-        val timestamp: String
+        val timestamp: Long
     )
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -71,7 +71,7 @@ class SMSNotificationListiner : NotificationListenerService() {
                     Message(
                     sender= sender ?: "",
                     description = message,
-                    timestamp = Date().toString()
+                    timestamp = Date().toInstant().toEpochMilli()
 
                 )
                 )

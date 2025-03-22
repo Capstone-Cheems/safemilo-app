@@ -4,9 +4,11 @@ import android.content.ClipDescription
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.telecom.Call
 import android.telecom.CallScreeningService
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.facebook.react.bridge.UiThreadUtil.runOnUiThread
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -28,9 +30,10 @@ class SafeMiloCallScreeningService : CallScreeningService() {
     data class SpamNumber(
         val number: String,
         val description: String,
-        val timestamp: String
+        val timestamp: Long
     )
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onScreenCall(callDetails: Call.Details) {
         val incomingNumber = callDetails.handle.schemeSpecificPart
 
@@ -51,7 +54,7 @@ class SafeMiloCallScreeningService : CallScreeningService() {
                         spamNumbers.add(SpamNumber(
                             number=incomingNumber,
                             description = "",
-                            timestamp = Date().toString()
+                            timestamp = Date().toInstant().toEpochMilli()
 
                         ))
 
