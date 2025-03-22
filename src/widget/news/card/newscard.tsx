@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { Box } from '@/components/ui/box'
 import { VStack } from '@/components/ui/vstack'
 import { News, timeAgo } from '@/src/shared'
 import React from 'react'
-import { Text, TouchableOpacity, Image } from 'react-native'
+import { Text, TouchableOpacity, Image, View } from 'react-native'
 import { Card } from '@/components/ui/card'
 import { useRouter } from 'expo-router'
 import {
@@ -10,6 +11,16 @@ import {
     DEFAULT_SCAM_IMAGE
 } from '@/src/shared/ui/image/scam-news-image'
 import commonStyles from '../../../styles/commonStyles'
+import { ImageSourcePropType } from 'react-native'
+
+const organizationAvatars: Record<string, ImageSourcePropType> = {
+    'Vancouver Police Department': require('../../../../assets/images/vancouver-police.jpeg'),
+    'Surrey Police': require('../../../../assets/images/surrey-police.jpeg'),
+    RCMP: require('../../../../assets/images/rcmp.png'),
+    CIBC: require('../../../../assets/images/cibc.jpg'),
+    RBC: require('../../../../assets/images/rbc.jpg'),
+    default: require('../../../../assets/images/icon.png')
+}
 
 export const NewsCard: React.FC<{
     news: News
@@ -43,13 +54,34 @@ export const NewsCard: React.FC<{
                         <Text className="self-end mr-4 mt-3">
                             {timeAgo(news.createdAt)}
                         </Text>
-                        <Text className="text-xl ml-[16px]">
-                            {news.organizationID}
-                        </Text>
+                        <View className="flex-row items-center ml-[16px] mt-1 mb-1 gap-2">
+                            <Image
+                                source={
+                                    organizationAvatars[news.organizationID] ||
+                                    organizationAvatars.default
+                                }
+                                style={{
+                                    width: 32,
+                                    height: 32,
+                                    borderRadius: 16
+                                }}
+                            />
+                            <Text
+                                className="text-3xl"
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                                style={{ maxWidth: 290 }}
+                            >
+                                {news.organizationID}
+                            </Text>
+                        </View>
                         <Text className="color-gray-500 text-2xl ml-[16px]">
                             {news.scamTypeTag}
                         </Text>
-                        <Text className="line-clamp-2 overflow-hidden text-ellipsis text-2xl ml-[16px]">
+                        <Text
+                            className="line-clamp-2 overflow-hidden text-ellipsis text-2xl ml-[16px]"
+                            style={{ maxWidth: 320 }}
+                        >
                             {news.title}
                         </Text>
                         <TouchableOpacity

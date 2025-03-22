@@ -74,7 +74,8 @@ function RootLayoutNav(): ReactNode {
                 <Stack
                     screenOptions={{
                         gestureEnabled: false,
-                        headerTitleAlign: 'center'
+                        headerTitleAlign: 'center',
+                        headerTitle:''
                     }}
                 >
                     <Stack.Screen

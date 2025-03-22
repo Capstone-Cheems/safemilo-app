@@ -2,6 +2,13 @@ import { View, Text, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeModules } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
+import { Box } from '@/components/ui/box'
+import { Heading } from '@/components/ui/heading'
+import { Divider } from '@/components/ui/divider'
+import { VStack } from '@/components/ui/vstack'
+import { HStack } from '@/components/ui/hstack'
+import { Icon, InfoIcon, SlashIcon } from '@/components/ui/icon'
+import { Card } from '@/components/ui/card'
 
 const { CustomModule } = NativeModules
 
@@ -25,34 +32,51 @@ const Calls = (): React.JSX.Element => {
     }, [])
 
     return (
-        <View style={commonStyles.container}>
-            <Text style={commonStyles.boldText}>Notifications</Text>
+        <Box className="bg-white flex-1">
+            <Box className="m-5">
+                <Heading className="pb-2 text-2xl">All Scam Calls</Heading>
+                <Divider />
+            </Box>
             {spamNumbers && spamNumbers.length > 0 ? (
                 <FlatList
                     data={spamNumbers}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <View
-                            style={{
-                                padding: 10,
-                                borderBottomWidth: 1,
-                                borderColor: '#ccc'
-                            }}
+                        <Card
+                            size="md"
+                            className="m-5 bg-[#F9F4F4] rounded-lg outline-2"
                         >
-                            <Text style={{ fontWeight: 'bold' }}>
-                                {item.number}
-                            </Text>
-                            <Text>{item.description}</Text>
-                            <Text style={{ fontSize: 12, color: 'gray' }}>
-                                {new Date(item.timestamp).toLocaleString()}
-                            </Text>
-                        </View>
+                            <VStack space="md" reversed={false}>
+                                <Box>
+                                    <HStack
+                                        space="2xl"
+                                        className="justify-evenly "
+                                    >
+                                        <Box className="flex flex-row gap-4">
+                                            <Icon as={SlashIcon} />
+                                            <Text>{item.number}</Text>
+                                        </Box>
+
+                                        <Text>{item.timestamp}</Text>
+                                    </HStack>
+                                </Box>
+                                <Box>
+                                    <HStack
+                                        space="2xl"
+                                        className="justify-around"
+                                    >
+                                        <Text>Banking Scam</Text>
+                                        <Icon as={InfoIcon} />
+                                    </HStack>
+                                </Box>
+                            </VStack>
+                        </Card>
                     )}
                 />
             ) : (
-                <Text>No Calls yet.</Text>
+                <Box>No Calls yet.</Box>
             )}
-        </View>
+        </Box>
     )
 }
 
