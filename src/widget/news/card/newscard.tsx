@@ -2,7 +2,7 @@ import { Box } from '@/components/ui/box'
 import { VStack } from '@/components/ui/vstack'
 import { News, timeAgo } from '@/src/shared'
 import React from 'react'
-import { Text, TouchableOpacity, Image } from 'react-native'
+import { Text, TouchableOpacity, Image, View } from 'react-native'
 import { Card } from '@/components/ui/card'
 import { useRouter } from 'expo-router'
 import {
@@ -43,13 +43,32 @@ export const NewsCard: React.FC<{
                         <Text className="self-end mr-4 mt-3">
                             {timeAgo(news.createdAt)}
                         </Text>
-                        <Text className="text-xl ml-[16px]">
-                            {news.organizationID}
-                        </Text>
+                        <View className="flex-row items-center ml-[16px] mt-1 mb-1 gap-2">
+                            <Image
+                                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                                source={require('../../../../assets/images/icon.png')}
+                                style={{
+                                    width: 32,
+                                    height: 32,
+                                    borderRadius: 16
+                                }}
+                            />
+                            <Text
+                                className="text-3xl"
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                                style={{ maxWidth: 290 }}
+                            >
+                                {news.organizationID}
+                            </Text>
+                        </View>
                         <Text className="color-gray-500 text-2xl ml-[16px]">
                             {news.scamTypeTag}
                         </Text>
-                        <Text className="line-clamp-2 overflow-hidden text-ellipsis text-2xl ml-[16px]">
+                        <Text
+                            className="line-clamp-2 overflow-hidden text-ellipsis text-2xl ml-[16px]"
+                            style={{ maxWidth: 320 }}
+                        >
                             {news.title}
                         </Text>
                         <TouchableOpacity
