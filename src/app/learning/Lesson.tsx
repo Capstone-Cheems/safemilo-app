@@ -47,19 +47,25 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     video: {
-        width: 320,
-        height: 180
+        width: 340,
+        height: 100,
+        borderRadius: 20
     },
     button: {
-        backgroundColor: '#444',
-        padding: 12,
-        borderRadius: 5,
-        marginTop: 20,
+        backgroundColor: '#0A2941', // dark navy
+        paddingVertical: 15, // more vertical padding
+        paddingHorizontal: 24,
+        borderRadius: 12, // more rounded
+        marginTop: 30,
+        marginBottom: 20,
+        width: '90%',
         alignItems: 'center'
     },
     buttonText: {
-        color: '#FFF',
-        fontSize: 16
+        color: '#FFFFFF',
+        fontSize: 22,
+        fontWeight: 'bold',
+        fontFamily: 'Montserrat'
     }
 })
 

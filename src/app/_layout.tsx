@@ -13,11 +13,9 @@ import { useColorScheme } from '../../components/useColorScheme'
 import { GluestackUIProvider } from '../../components/ui/gluestack-ui-provider'
 import '../../global.css'
 import { AuthProvider, useAuth } from '../shared'
-
-export {
-    // Catch any errors thrown by the Layout component.
-    ErrorBoundary
-} from 'expo-router'
+export const options = {
+    headerShown: false
+}
 
 export const unstable_settings = {
     initialRouteName: '/'

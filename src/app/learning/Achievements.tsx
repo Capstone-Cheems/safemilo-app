@@ -1,290 +1,91 @@
-// /* eslint-disable @typescript-eslint/no-require-imports */
-// import React from 'react'
-// import {
-//     View,
-//     Text,
-//     StyleSheet,
-//     ScrollView,
-//     Image,
-//     TouchableOpacity
-// } from 'react-native'
-// import { ProgressCircle } from 'react-native-svg-charts'
-// import { Feather } from '@expo/vector-icons'
-// import { NavigationProp, ParamListBase } from '@react-navigation/native'
-
-// interface AchievementsScreenProps {
-//     navigation: NavigationProp<ParamListBase>
-// }
-
-// const AchievementsScreen: React.FC<AchievementsScreenProps> = ({
-//     navigation
-// }) => {
-//     const awarenessScore = 367
-
-//     return (
-//         <View style={styles.container}>
-//             <ScrollView contentContainerStyle={styles.scrollContainer}>
-//                 {/* Header */}
-//                 <Text style={styles.heading}>Achievements</Text>
-//                 <Text style={styles.subheading}>Congratulations, Mohit!</Text>
-//                 <Text style={styles.description}>
-//                     See the points you’ve earned and the badges you’ve unlocked
-//                     as you learn to outsmart scammers.
-//                 </Text>
-
-//                 {/* Awareness Points Section */}
-//                 <View style={styles.awarenessCard}>
-//                     <Text style={styles.cardTitle}>Awareness Points</Text>
-//                     <View style={styles.progressContainer}>
-//                         <ProgressCircle
-//                             style={styles.progressCircle}
-//                             progress={awarenessScore / 500}
-//                             progressColor={'#007AFF'}
-//                             backgroundColor={'#E5E5E5'}
-//                             strokeWidth={8}
-//                         />
-//                         <View style={styles.progressTextContainer}>
-//                             <Text style={styles.score}>{awarenessScore}</Text>
-//                             <Text style={styles.scoreLabel}>Fair</Text>
-//                         </View>
-//                     </View>
-//                     <Text style={styles.scoreDescription}>
-//                         Your awareness score shows how prepared you are to
-//                         handle scams. Complete more modules to boost your score!
-//                     </Text>
-//                 </View>
-
-//                 {/* Completed Courses */}
-//                 <View style={styles.completedCoursesCard}>
-//                     <Text style={styles.cardTitle}>Completed Courses</Text>
-//                     <Text style={styles.completedCount}>13</Text>
-//                 </View>
-
-//                 {/* Badges Section */}
-//                 <Text style={styles.badgeTitle}>Your Badges</Text>
-//                 <View style={styles.badgeContainer}>
-//                     <View style={styles.badge}>
-//                         <Image
-//                             source={require('../../../assets/images/cautius-clicker.png')}
-//                             style={styles.badgeIcon}
-//                         />
-//                         <Text style={styles.badgeText}>Cautious Clicker</Text>
-//                     </View>
-//                     <View style={styles.badge}>
-//                         <Image
-//                             source={require('../../../assets/images/fraud-fighter.png')}
-//                             style={styles.badgeIcon}
-//                         />
-//                         <Text style={styles.badgeText}>Fraud Fighter</Text>
-//                     </View>
-//                     <View style={styles.badge}>
-//                         <Image
-//                             source={require('../../../assets/images/fast-learner.png')}
-//                             style={styles.badgeIcon}
-//                         />
-//                         <Text style={styles.badgeText}>Fast Learner</Text>
-//                     </View>
-//                     <View style={styles.badge}>
-//                         <Image
-//                             source={require('../../../assets/images/privacy-pro.png')}
-//                             style={styles.badgeIcon}
-//                         />
-//                         <Text style={styles.badgeText}>Privacy Pro</Text>
-//                     </View>
-//                 </View>
-//             </ScrollView>
-
-//             {/* Bottom Navigation */}
-//             <View style={styles.bottomNav}>
-//                 <TouchableOpacity
-//                     onPress={() => navigation.navigate('Home')}
-//                     style={styles.navItem}
-//                 >
-//                     <Feather name="home" size={24} color="#000" />
-//                 </TouchableOpacity>
-//                 <TouchableOpacity
-//                     onPress={() => navigation.navigate('Learning')}
-//                     style={styles.navItem}
-//                 >
-//                     <Feather name="book-open" size={24} color="#000" />
-//                 </TouchableOpacity>
-//                 <TouchableOpacity
-//                     onPress={() => navigation.navigate('AskMilo')}
-//                     style={styles.navItem}
-//                 >
-//                     <Feather name="message-circle" size={24} color="#000" />
-//                 </TouchableOpacity>
-//             </View>
-//         </View>
-//     )
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#FFE4C7'
-//     },
-//     scrollContainer: {
-//         padding: 16
-//     },
-//     heading: {
-//         fontSize: 24,
-//         fontWeight: 'bold',
-//         textAlign: 'center',
-//         marginTop: 40
-//     },
-//     subheading: {
-//         fontSize: 16,
-//         textAlign: 'center',
-//         marginVertical: 4
-//     },
-//     description: {
-//         fontSize: 14,
-//         textAlign: 'center',
-//         color: '#555',
-//         marginBottom: 20
-//     },
-//     awarenessCard: {
-//         backgroundColor: '#FFF',
-//         borderRadius: 12,
-//         padding: 20,
-//         alignItems: 'center',
-//         marginBottom: 12
-//     },
-//     cardTitle: {
-//         fontSize: 16,
-//         fontWeight: 'bold',
-//         marginBottom: 10
-//     },
-//     progressContainer: {
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         position: 'relative'
-//     },
-//     progressCircle: {
-//         height: 120,
-//         width: 120
-//     },
-//     progressTextContainer: {
-//         position: 'absolute',
-//         alignItems: 'center',
-//         justifyContent: 'center'
-//     },
-//     score: {
-//         fontSize: 24,
-//         fontWeight: 'bold'
-//     },
-//     scoreLabel: {
-//         fontSize: 14,
-//         fontWeight: 'bold',
-//         color: '#555'
-//     },
-//     scoreDescription: {
-//         fontSize: 12,
-//         textAlign: 'center',
-//         color: '#555',
-//         marginTop: 6
-//     },
-//     completedCoursesCard: {
-//         backgroundColor: '#FFF',
-//         borderRadius: 12,
-//         padding: 20,
-//         alignItems: 'center',
-//         marginBottom: 12
-//     },
-//     completedCount: {
-//         fontSize: 24,
-//         fontWeight: 'bold',
-//         marginTop: 6
-//     },
-//     badgeTitle: {
-//         fontSize: 18,
-//         fontWeight: 'bold',
-//         marginTop: 20,
-//         marginBottom: 10
-//     },
-//     badgeContainer: {
-//         flexDirection: 'row',
-//         flexWrap: 'wrap',
-//         justifyContent: 'space-between'
-//     },
-//     badge: {
-//         width: '48%',
-//         backgroundColor: '#FFF',
-//         borderRadius: 12,
-//         alignItems: 'center',
-//         padding: 10,
-//         marginBottom: 12
-//     },
-//     badgeIcon: {
-//         width: 50,
-//         height: 50,
-//         marginBottom: 8
-//     },
-//     badgeText: {
-//         fontSize: 14,
-//         fontWeight: 'bold',
-//         textAlign: 'center'
-//     },
-//     bottomNav: {
-//         flexDirection: 'row',
-//         justifyContent: 'space-around',
-//         paddingVertical: 12,
-//         backgroundColor: '#FFA14A'
-//     },
-//     navItem: {
-//         alignItems: 'center'
-//     }
-// })
-
 // export default AchievementsScreen
-
 /* eslint-disable @typescript-eslint/no-require-imports */
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
+import Svg, { Circle, Defs, RadialGradient, Stop, Path } from 'react-native-svg'
 import {
     View,
     Text,
     StyleSheet,
     ScrollView,
     Image,
-    TouchableOpacity
+    Dimensions
 } from 'react-native'
-import { ProgressCircle } from 'react-native-svg-charts'
-import { Feather } from '@expo/vector-icons'
-import { NavigationProp, ParamListBase } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
-import { useCallback } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-interface AchievementsScreenProps {
-    navigation: NavigationProp<ParamListBase>
-}
+const { width } = Dimensions.get('window')
 
-const AchievementsScreen: React.FC<AchievementsScreenProps> = ({
-    navigation
-}) => {
-    const awarenessScore = 367
+const AchievementsScreen = (): JSX.Element => {
     const [displayName, setDisplayName] = useState<string>('')
+    const [completedCount, setCompletedCount] = useState<number>(0)
+
+    const awarenessScore = completedCount * 50
+    const maxScore = 500
+    const progress = Math.min(awarenessScore / maxScore, 1)
+
+    const getScoreLabel = (): string => {
+        if (awarenessScore >= 400) return 'Excellent'
+        if (awarenessScore >= 300) return 'Good'
+        if (awarenessScore >= 200) return 'Fair'
+        return 'Beginner'
+    }
 
     useFocusEffect(
         useCallback(() => {
             // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-            const fetchUser = async () => {
-                const storedUser = await AsyncStorage.getItem('user')
-                if (storedUser) {
-                    const user = JSON.parse(storedUser)
-                    setDisplayName(user.displayName || '')
+            const fetchUserData = async () => {
+                const user = await AsyncStorage.getItem('user')
+                if (user) {
+                    const parsed = JSON.parse(user)
+                    setDisplayName(parsed.displayName || '')
                 }
+
+                const keys = await AsyncStorage.getAllKeys()
+                const completedKeys = keys.filter(key =>
+                    key.startsWith('completedModule_')
+                )
+                setCompletedCount(completedKeys.length)
             }
 
-            fetchUser()
+            fetchUserData()
         }, [])
     )
+    const badges = [
+        {
+            id: '1',
+            title: 'Cautious Clicker',
+            icon: require('../../../assets/images/cautius-clicker.png')
+        },
+        {
+            id: '2',
+            title: 'Fraud Fighter',
+            icon: require('../../../assets/images/fraud-fighter.png')
+        },
+        {
+            id: '3',
+            title: 'Fast Learner',
+            icon: require('../../../assets/images/fast-learner.png')
+        },
+        {
+            id: '4',
+            title: 'Privacy Pro',
+            icon: require('../../../assets/images/privacy-pro.png')
+        }
+    ]
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                {/* Header */}
+            {/* Wavy Background */}
+            <View style={styles.wavyBackground}>
+                <Svg height="160" width={width} viewBox={`0 0 ${width} 160`}>
+                    <Path
+                        d={`M0,0 Q${width / 2},160 ${width},0 L${width},160 L0,160 Z`}
+                        fill="#FFA14A"
+                    />
+                </Svg>
+            </View>
+
+            <ScrollView contentContainerStyle={styles.content}>
                 <Text style={styles.heading}>Achievements</Text>
                 <Text style={styles.subheading}>
                     Congratulations{displayName ? `, ${displayName}` : ''}!
@@ -295,19 +96,30 @@ const AchievementsScreen: React.FC<AchievementsScreenProps> = ({
                 </Text>
 
                 {/* Awareness Points Section */}
-                <View style={styles.awarenessCard}>
+                <View style={styles.card}>
                     <Text style={styles.cardTitle}>Awareness Points</Text>
-                    <View style={styles.progressContainer}>
-                        <ProgressCircle
-                            style={styles.progressCircle}
-                            progress={awarenessScore / 500}
-                            progressColor={'#007AFF'}
-                            backgroundColor={'#E5E5E5'}
-                            strokeWidth={8}
-                        />
-                        <View style={styles.progressTextContainer}>
+                    <View style={styles.arcWrapper}>
+                        <Svg width={200} height={120}>
+                            <Path
+                                d="M10 110 A90 90 0 0 1 190 110"
+                                fill="none"
+                                stroke="#D1D1D1"
+                                strokeWidth={15}
+                            />
+                            <Path
+                                d="M10 110 A90 90 0 0 1 190 110"
+                                fill="none"
+                                stroke="#1980F5"
+                                strokeWidth={15}
+                                strokeDasharray="283"
+                                strokeDashoffset={283 * (1 - progress)}
+                            />
+                        </Svg>
+                        <View style={styles.arcText}>
                             <Text style={styles.score}>{awarenessScore}</Text>
-                            <Text style={styles.scoreLabel}>Fair</Text>
+                            <Text style={styles.scoreLabel}>
+                                {getScoreLabel()}
+                            </Text>
                         </View>
                     </View>
                     <Text style={styles.scoreDescription}>
@@ -318,184 +130,221 @@ const AchievementsScreen: React.FC<AchievementsScreenProps> = ({
 
                 {/* Completed Courses */}
                 <View style={styles.completedCoursesCard}>
-                    <Text style={styles.cardTitle}>Completed Courses</Text>
-                    <Text style={styles.completedCount}>13</Text>
+                    <View style={styles.completedCoursesContent}>
+                        <Text style={styles.completedCoursesLabel}>
+                            Completed{'\n'}Courses
+                        </Text>
+                        <View style={styles.verticalDivider} />
+                        <Text style={styles.completedCount}>
+                            {completedCount}
+                        </Text>
+                    </View>
                 </View>
 
-                {/* Badges Section */}
+                {/* Badges */}
                 <Text style={styles.badgeTitle}>Your Badges</Text>
                 <View style={styles.badgeContainer}>
-                    <View style={styles.badge}>
-                        <Image
-                            source={require('../../../assets/images/cautius-clicker.png')}
-                            style={styles.badgeIcon}
-                        />
-                        <Text style={styles.badgeText}>Cautious Clicker</Text>
-                    </View>
-                    <View style={styles.badge}>
-                        <Image
-                            source={require('../../../assets/images/fraud-fighter.png')}
-                            style={styles.badgeIcon}
-                        />
-                        <Text style={styles.badgeText}>Fraud Fighter</Text>
-                    </View>
-                    <View style={styles.badge}>
-                        <Image
-                            source={require('../../../assets/images/fast-learner.png')}
-                            style={styles.badgeIcon}
-                        />
-                        <Text style={styles.badgeText}>Fast Learner</Text>
-                    </View>
-                    <View style={styles.badge}>
-                        <Image
-                            source={require('../../../assets/images/privacy-pro.png')}
-                            style={styles.badgeIcon}
-                        />
-                        <Text style={styles.badgeText}>Privacy Pro</Text>
-                    </View>
+                    {badges.map(badge => (
+                        <View key={badge.id} style={styles.badgeWrapper}>
+                            <View style={styles.badgeSquare}>
+                                <Image
+                                    source={badge.icon}
+                                    style={styles.badgeIcon}
+                                    resizeMode="contain"
+                                />
+                            </View>
+                            <Text style={styles.badgeLabel}>{badge.title}</Text>
+                        </View>
+                    ))}
+                </View>
+                <View style={styles.topBackground}>
+                    <Svg height="100%" width="100%" viewBox="0 0 100 100">
+                        <Defs>
+                            <RadialGradient id="grad" cx="50%" cy="0%" r="100%">
+                                <Stop
+                                    offset="0%"
+                                    stopColor="#FFD8A9"
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="100%"
+                                    stopColor="#FFE4C7"
+                                    stopOpacity="1"
+                                />
+                            </RadialGradient>
+                        </Defs>
+                        <Circle cx="50" cy="-20" r="100" fill="url(#grad)" />
+                    </Svg>
                 </View>
             </ScrollView>
-
-            {/* Bottom Navigation */}
-            <View style={styles.bottomNav}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Home')}
-                    style={styles.navItem}
-                >
-                    <Feather name="home" size={24} color="#000" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Learning')}
-                    style={styles.navItem}
-                >
-                    <Feather name="book-open" size={24} color="#000" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('AskMilo')}
-                    style={styles.navItem}
-                >
-                    <Feather name="message-circle" size={24} color="#000" />
-                </TouchableOpacity>
-            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFE4C7'
+    wavyBackground: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width,
+        zIndex: -1
     },
-    scrollContainer: {
-        padding: 16
+    content: {
+        padding: 16,
+        paddingTop: 40
     },
     heading: {
         fontSize: 24,
         fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 40
+        textAlign: 'left',
+        marginBottom: 10
     },
     subheading: {
-        fontSize: 16,
-        textAlign: 'center',
+        fontSize: 18,
+        textAlign: 'left',
         marginVertical: 4
     },
     description: {
-        fontSize: 14,
-        textAlign: 'center',
-        color: '#555',
+        fontSize: 16,
+        textAlign: 'left',
+        color: '111',
         marginBottom: 20
     },
-    awarenessCard: {
+    card: {
         backgroundColor: '#FFF',
-        borderRadius: 12,
+        borderRadius: 16,
         padding: 20,
         alignItems: 'center',
-        marginBottom: 12
+        marginBottom: 16
     },
     cardTitle: {
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10
     },
-    progressContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative'
-    },
-    progressCircle: {
-        height: 120,
-        width: 120
-    },
-    progressTextContainer: {
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
     score: {
-        fontSize: 24,
-        fontWeight: 'bold'
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#1C1C1C'
     },
     scoreLabel: {
         fontSize: 14,
-        fontWeight: 'bold',
-        color: '#555'
+        fontWeight: '700',
+        color: '#111',
+        marginTop: -2 // tuck it closer to the score
     },
     scoreDescription: {
-        fontSize: 12,
+        fontSize: 16,
         textAlign: 'center',
-        color: '#555',
-        marginTop: 6
-    },
-    completedCoursesCard: {
-        backgroundColor: '#FFF',
-        borderRadius: 12,
-        padding: 20,
-        alignItems: 'center',
-        marginBottom: 12
-    },
-    completedCount: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginTop: 6
+        color: '#111',
+        marginTop: 10
     },
     badgeTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 20,
-        marginBottom: 10
-    },
-    badgeContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between'
-    },
-    badge: {
-        width: '48%',
-        backgroundColor: '#FFF',
-        borderRadius: 12,
-        alignItems: 'center',
-        padding: 10,
         marginBottom: 12
     },
-    badgeIcon: {
-        width: 50,
-        height: 50,
-        marginBottom: 8
+    badgeBox: {
+        width: '48%',
+        aspectRatio: 1,
+        backgroundColor: '#FFF',
+        borderRadius: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 16
     },
     badgeText: {
         fontSize: 14,
         fontWeight: 'bold',
         textAlign: 'center'
     },
-    bottomNav: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingVertical: 12,
-        backgroundColor: '#FFA14A'
+    arcWrapper: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 12
     },
-    navItem: {
+    arcText: {
+        position: 'absolute',
+        top: 70,
         alignItems: 'center'
+    },
+    completedCoursesCard: {
+        backgroundColor: '#FFF',
+        borderRadius: 16,
+        paddingVertical: 24,
+        paddingHorizontal: 20,
+        marginBottom: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    completedCoursesContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        height: 60
+    },
+    completedCoursesLabel: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#1C1C1C',
+        marginLeft: 30
+    },
+    completedCount: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#1C1C1C',
+        marginRight: 30
+    },
+    verticalDivider: {
+        height: 24,
+        width: 1,
+        backgroundColor: '#D1D1D1',
+        marginHorizontal: 16
+    },
+    badgeContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        marginTop: 12,
+        gap: 20
+    },
+    badgeWrapper: {
+        width: '47%',
+        alignItems: 'center'
+    },
+    badgeSquare: {
+        width: 170,
+        height: 170,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 3
+    },
+    badgeIcon: {
+        width: 100,
+        height: 100
+    },
+    badgeLabel: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 10,
+        color: '#1C1C1C',
+        fontFamily: 'Montserrat'
+    },
+    topBackground: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 370,
+        zIndex: -1
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#FFA14A'
     }
 })
 
