@@ -1,103 +1,283 @@
-import ProgressBar from '@/src/widget/Components/ProgressBar';
-import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+/* eslint-disable @typescript-eslint/no-require-imports */
+// import ProgressBar from '@/src/widget/Components/ProgressBar'
+import { useRouter } from 'expo-router'
+import React, { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type Course = {
-    id: string;
-    title: string;
-    progress: number;
-};
+    id: string
+    title: string
+    progress: number
+}
 
 const defaultCourses: Course[] = [
-    { id: '1', title: 'Scam Awareness Basics', progress: 0 },
-    { id: '2', title: 'Phishing Scams 101', progress: 0 },
-    { id: '3', title: 'Online Shopping Fraud', progress: 0 },
-    { id: '4', title: 'Investment Scams', progress: 0 }
-];
+    { id: '1', title: 'Scam Awareness Basics', progress: 60 },
+    { id: '2', title: 'Phishing Scams 101', progress: 40 },
+    { id: '3', title: 'Online Shopping Fraud', progress: 30 },
+    { id: '4', title: 'Investment Scams', progress: 20 }
+]
 
 const LearnDashboardScreen = (): JSX.Element => {
-    const router = useRouter();
-    const [activeCourses, setActiveCourses] = useState<Course[]>(defaultCourses);
-    const [completedCourses, setCompletedCourses] = useState<Course[]>([]);
+    const router = useRouter()
+    const [activeCourses, setActiveCourses] = useState<Course[]>(defaultCourses)
+    const [completedCourses, setCompletedCourses] = useState<Course[]>([])
 
     useEffect(() => {
         const fetchProgress = async (): Promise<void> => {
             try {
-                const keys = await AsyncStorage.getAllKeys();
-                console.log("Stored AsyncStorage Keys:", keys);
+                const keys = await AsyncStorage.getAllKeys()
+                console.log('Stored AsyncStorage Keys:', keys)
 
-                const completedModules = keys.filter(key => key.startsWith('completedModule_'));
-                console.log("Completed Modules Keys:", completedModules);
+                const completedModules = keys.filter(key =>
+                    key.startsWith('completedModule_')
+                )
+                console.log('Completed Modules Keys:', completedModules)
 
                 const updatedCourses = await Promise.all(
                     defaultCourses.map(async (course): Promise<Course> => {
-                        const storedProgress = await AsyncStorage.getItem(`quizProgress_${course.id}`);
+                        const storedProgress = await AsyncStorage.getItem(
+                            `quizProgress_${course.id}`
+                        )
                         return {
                             ...course,
-                            progress: storedProgress ? JSON.parse(storedProgress) : 0
-                        };
+                            progress: storedProgress
+                                ? JSON.parse(storedProgress)
+                                : 0
+                        }
                     })
-                );
+                )
 
-                console.log("Updated Courses with Progress:", updatedCourses);
+                console.log('Updated Courses with Progress:', updatedCourses)
 
-                setActiveCourses(updatedCourses.filter(course => !completedModules.includes(`completedModule_${course.id}`)));
-                setCompletedCourses(updatedCourses.filter(course => completedModules.includes(`completedModule_${course.id}`)));
+                setActiveCourses(
+                    updatedCourses.filter(
+                        course =>
+                            !completedModules.includes(
+                                `completedModule_${course.id}`
+                            )
+                    )
+                )
+                setCompletedCourses(
+                    updatedCourses.filter(course =>
+                        completedModules.includes(
+                            `completedModule_${course.id}`
+                        )
+                    )
+                )
             } catch (error) {
-                console.error('Error fetching progress:', error);
+                console.error('Error fetching progress:', error)
             }
-        };
+        }
 
-        fetchProgress();
-    }, []);
+        fetchProgress()
+    }, [])
 
     return (
         <View className="flex-1 bg-gray-100 p-4">
             <Text className="text-3xl font-bold">Learn</Text>
             <Text className="text-lg text-gray-600 mb-4">
-                Learn how to spot scams, recognize red flags, and take action in time.
+                Learn how to spot scams, recognize red flags, and take action in
+                time.
             </Text>
 
-            {/* Active Courses Section */}
+            {/* Active Courses Section
             <Text className="text-2xl font-bold mb-2">Active Courses</Text>
             <FlatList
                 data={activeCourses}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={(item) => item.id}
+                keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         className="bg-white shadow-md rounded-2xl w-64 overflow-hidden mr-4"
                         onPress={() =>
-                            router.push({ pathname: '/learning/Lesson', params: { courseId: item.id } })
+                            router.push({
+                                pathname: '/learning/Lesson',
+                                params: { courseId: item.id }
+                            })
                         }
                     >
-                        <View className="bg-orange-200 p-4 flex items-center">
+                        <View
+                            style={{
+                                width: '100%',
+                                height: 160,
+                                overflow: 'hidden',
+                                borderTopLeftRadius: 16,
+                                borderTopRightRadius: 16
+                            }}
+                        >
                             <Image
                                 source={require('../../../assets/images/learn-card1.png')}
-                                className="w-24 h-24"
-                                resizeMode="contain"
+                                style={{ width: '100%', height: '100%' }}
+                                resizeMode="cover"
                             />
                         </View>
 
                         <View className="p-4">
-                            <Text className="text-lg font-bold">{item.title}</Text>
+                            <Text className="text-lg font-bold">
+                                {item.title}
+                            </Text>
                             <View className="flex-row justify-between items-center mt-1">
-                                <Text className="text-sm text-gray-600">Lesson {Math.round(item.progress / 10)}/10</Text>
-                                <Text className="text-sm font-semibold text-gray-800">{item.progress}% Complete</Text>
+                                <Text className="text-sm text-gray-600">
+                                    Lesson {Math.round(item.progress / 10)}/10
+                                </Text>
+                                <Text className="text-sm font-semibold text-gray-800">
+                                    {item.progress}% Complete
+                                </Text>
                             </View>
 
                             <ProgressBar progress={item.progress} />
 
-                            <TouchableOpacity className="mt-3 bg-blue-900 p-3 rounded-lg items-center"
+                            <TouchableOpacity
+                                className="mt-3 bg-blue-900 p-3 rounded-lg items-center"
                                 onPress={() =>
-                                    router.push({ pathname: '/learning/Lesson', params: { courseId: item.id } })
+                                    router.push({
+                                        pathname: '/learning/Lesson',
+                                        params: { courseId: item.id }
+                                    })
                                 }
                             >
                                 <Text className="text-white font-semibold">
-                                    {item.progress > 0 ? 'Continue Learning' : 'Start Learning'}
+                                    {item.progress > 0
+                                        ? 'Continue Learning'
+                                        : 'Start Learning'}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableOpacity>
+                )}
+            /> */}
+            {/* Active Courses Section */}
+            <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 8 }}>
+                Active Courses
+            </Text>
+            <FlatList
+                data={activeCourses}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: '#fff',
+                            borderRadius: 16,
+                            shadowColor: '#000',
+                            shadowOffset: { width: 0, height: 2 },
+                            shadowOpacity: 0.1,
+                            shadowRadius: 4,
+                            elevation: 2,
+                            overflow: 'hidden',
+                            width: 260,
+                            marginRight: 16
+                        }}
+                        onPress={() =>
+                            router.push({
+                                pathname: '/learning/Lesson',
+                                params: { courseId: item.id }
+                            })
+                        }
+                    >
+                        {/* Top Image */}
+                        <View
+                            style={{
+                                width: '100%',
+                                height: 140,
+                                overflow: 'hidden',
+                                borderTopLeftRadius: 16,
+                                borderTopRightRadius: 16
+                            }}
+                        >
+                            <Image
+                                source={require('../../../assets/images/learn-card1.png')}
+                                style={{ width: '100%', height: '100%' }}
+                                resizeMode="cover"
+                            />
+                        </View>
+
+                        {/* Card Content */}
+                        <View style={{ padding: 16 }}>
+                            <Text
+                                style={{
+                                    fontSize: 18,
+                                    fontWeight: 'bold',
+                                    marginBottom: 4
+                                }}
+                            >
+                                {item.title}
+                            </Text>
+
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    marginBottom: 6
+                                }}
+                            >
+                                <Text
+                                    style={{ fontSize: 14, color: '#6B7280' }}
+                                >
+                                    Lesson {Math.round(item.progress / 10)}
+                                    /10
+                                </Text>
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        fontWeight: '600',
+                                        color: '#1F2937'
+                                    }}
+                                >
+                                    {item.progress || 0}% Complete
+                                </Text>
+                            </View>
+
+                            {/* Progress Bar */}
+                            <View
+                                style={{
+                                    height: 15,
+                                    width: '100%',
+                                    backgroundColor: '#D1D1D1',
+                                    borderRadius: 12,
+                                    overflow: 'hidden',
+                                    marginTop: 8,
+                                    marginBottom: 12
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        height: '100%',
+                                        width: `${item.progress || 0}%`, // ✅ Use progress or default to 0
+                                        backgroundColor: '#1980F5',
+                                        borderRadius: 12
+                                    }}
+                                />
+                            </View>
+
+                            {/* Button */}
+                            <TouchableOpacity
+                                style={{
+                                    backgroundColor: '#0A2941',
+                                    paddingVertical: 15,
+                                    borderRadius: 10,
+                                    alignItems: 'center'
+                                }}
+                                onPress={() =>
+                                    router.push({
+                                        pathname: '/learning/Lesson',
+                                        params: { courseId: item.id }
+                                    })
+                                }
+                            >
+                                <Text
+                                    style={{
+                                        color: '#fff',
+                                        fontWeight: 'bold',
+                                        fontSize: 20
+                                    }}
+                                >
+                                    {item.progress > 0
+                                        ? 'Continue Learning'
+                                        : 'Start Learning'}
                                 </Text>
                             </TouchableOpacity>
                         </View>
@@ -108,32 +288,110 @@ const LearnDashboardScreen = (): JSX.Element => {
             {/* Completed Courses Section */}
             {completedCourses.length > 0 && (
                 <>
-                    <Text className="text-2xl font-bold mb-2 mt-6">Completed Courses</Text>
+                    <Text
+                        style={{
+                            fontSize: 24,
+                            fontWeight: 'bold',
+                            marginTop: 24,
+                            marginBottom: 8
+                        }}
+                    >
+                        Completed Courses
+                    </Text>
                     <FlatList
                         data={completedCourses}
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        keyExtractor={(item) => item.id}
+                        keyExtractor={item => item.id}
                         renderItem={({ item }) => (
-                            <TouchableOpacity className="bg-gray-300 shadow-md rounded-2xl w-64 overflow-hidden mr-4">
-                                <View className="bg-gray-400 p-4 flex items-center">
+                            <TouchableOpacity
+                                style={{
+                                    backgroundColor: '#fff',
+                                    borderRadius: 16,
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.1,
+                                    shadowRadius: 4,
+                                    elevation: 2,
+                                    overflow: 'hidden',
+                                    width: 260,
+                                    marginRight: 16
+                                }}
+                                onPress={() =>
+                                    router.push({
+                                        pathname: '/learning/Lesson',
+                                        params: { courseId: item.id }
+                                    })
+                                }
+                            >
+                                {/* Image Section */}
+                                <View
+                                    style={{
+                                        width: '100%',
+                                        height: 140,
+                                        overflow: 'hidden',
+                                        borderTopLeftRadius: 16,
+                                        borderTopRightRadius: 16
+                                    }}
+                                >
                                     <Image
                                         source={require('../../../assets/images/learn-card1.png')}
-                                        className="w-24 h-24"
-                                        resizeMode="contain"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%'
+                                        }}
+                                        resizeMode="cover"
                                     />
                                 </View>
 
-                                <View className="p-4">
-                                    <Text className="text-lg font-bold">{item.title}</Text>
-                                    <Text className="text-sm text-gray-600 mt-1">Completed</Text>
+                                {/* Text Section */}
+                                <View style={{ padding: 16 }}>
+                                    <Text
+                                        style={{
+                                            fontSize: 18,
+                                            fontWeight: 'bold',
+                                            color: '#1C1C1C',
+                                            marginBottom: 6
+                                        }}
+                                    >
+                                        {item.title}
+                                    </Text>
 
-                                    <TouchableOpacity className="mt-3 bg-green-600 p-3 rounded-lg items-center"
+                                    <Text
+                                        style={{
+                                            fontSize: 14,
+                                            color: '#6B7280',
+                                            marginBottom: 16,
+                                            lineHeight: 20
+                                        }}
+                                    >
+                                        You've completed this course! Tap below
+                                        to review.
+                                    </Text>
+
+                                    <TouchableOpacity
+                                        style={{
+                                            backgroundColor: '#0A2941', // 🔵 Matching Start Learning button
+                                            paddingVertical: 15,
+                                            borderRadius: 10,
+                                            alignItems: 'center'
+                                        }}
                                         onPress={() =>
-                                            router.push({ pathname: '/learning/review', params: { courseId: item.id } })
+                                            router.push({
+                                                pathname: '/learning/review',
+                                                params: { courseId: item.id }
+                                            })
                                         }
                                     >
-                                        <Text className="text-white font-semibold">Review</Text>
+                                        <Text
+                                            style={{
+                                                color: '#fff',
+                                                fontWeight: 'bold',
+                                                fontSize: 20
+                                            }}
+                                        >
+                                            Review
+                                        </Text>
                                     </TouchableOpacity>
                                 </View>
                             </TouchableOpacity>
@@ -153,11 +411,17 @@ const LearnDashboardScreen = (): JSX.Element => {
                     resizeMode="contain"
                 />
                 <View className="flex-1 gap-2 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
-                    <Text className="text-lg font-bold">Browse Scam Categories</Text>
-                    <Text className="text-sm text-gray-600">Explore more modules!</Text>
+                    <Text className="text-3xl  font-bold">
+                        Browse Scam Categories
+                    </Text>
+                    <Text className="text-l text-gray-600">
+                        Explore more modules!
+                    </Text>
 
-                    <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-10 h-10 items-center justify-center">
-                        <Text className="text-lg font-bold text-gray-800">→</Text>
+                    <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-20 h-15 items-center justify-center">
+                        <Text className="text-lg font-bold text-gray-800">
+                            →
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>
@@ -173,23 +437,23 @@ const LearnDashboardScreen = (): JSX.Element => {
                     resizeMode="contain"
                 />
                 <View className="flex-1 gap-2 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
-                    <Text className="text-lg font-bold">Check out Your Achievements</Text>
-                    <Text className="text-sm text-gray-600">
-                        Your current score: <Text className="font-bold">376</Text>
+                    <Text className="text-3xl font-bold">
+                        Check out Your Achievements
+                    </Text>
+                    <Text className="text-l text-gray-600">
+                        Your current score:{' '}
+                        <Text className="font-bold">376</Text>
                     </Text>
 
-                    <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-10 h-10 items-center justify-center">
-                        <Text className="text-lg font-bold text-gray-800">→</Text>
+                    <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-20 h-15 items-center justify-center">
+                        <Text className="text-lg font-bold text-gray-800">
+                            →
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>
         </View>
-    );
-};
+    )
+}
 
-export default LearnDashboardScreen;
-
-
-
-
-
+export default LearnDashboardScreen

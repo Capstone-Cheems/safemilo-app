@@ -7,7 +7,7 @@ type Course = {
     id: string
     title: string
     description: string
-    image: any
+    image: number
 }
 
 const courses: Course[] = [
@@ -73,7 +73,7 @@ const SpecificCategoryScreen = (): JSX.Element => {
                                 className="mt-4 bg-blue-900 p-3 rounded-lg items-center"
                                 onPress={() =>
                                     router.push({
-                                        pathname: '/learning/Quiz',
+                                        pathname: '/learning/Lesson',
                                         params: { courseId: item.id }
                                     })
                                 }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+// /* eslint-disable @typescript-eslint/no-require-imports */
 // import React from 'react'
 // import {
 //     View,
@@ -35,25 +35,15 @@
 //                 {/* Awareness Points Section */}
 //                 <View style={styles.awarenessCard}>
 //                     <Text style={styles.cardTitle}>Awareness Points</Text>
-//                     <View
-//                         style={{
-//                             alignItems: 'center',
-//                             justifyContent: 'center'
-//                         }}
-//                     >
+//                     <View style={styles.progressContainer}>
 //                         <ProgressCircle
-//                             style={{ height: 120, width: 120 }}
+//                             style={styles.progressCircle}
 //                             progress={awarenessScore / 500}
 //                             progressColor={'#007AFF'}
 //                             backgroundColor={'#E5E5E5'}
 //                             strokeWidth={8}
 //                         />
-//                         <View
-//                             style={{
-//                                 position: 'absolute',
-//                                 alignItems: 'center'
-//                             }}
-//                         >
+//                         <View style={styles.progressTextContainer}>
 //                             <Text style={styles.score}>{awarenessScore}</Text>
 //                             <Text style={styles.scoreLabel}>Fair</Text>
 //                         </View>
@@ -74,7 +64,6 @@
 //                 <Text style={styles.badgeTitle}>Your Badges</Text>
 //                 <View style={styles.badgeContainer}>
 //                     <View style={styles.badge}>
-//                         {/* eslint-disable-next-line @typescript-eslint/no-require-imports */}
 //                         <Image
 //                             source={require('../../../assets/images/cautius-clicker.png')}
 //                             style={styles.badgeIcon}
@@ -82,7 +71,6 @@
 //                         <Text style={styles.badgeText}>Cautious Clicker</Text>
 //                     </View>
 //                     <View style={styles.badge}>
-//                         {/* eslint-disable-next-line @typescript-eslint/no-require-imports */}
 //                         <Image
 //                             source={require('../../../assets/images/fraud-fighter.png')}
 //                             style={styles.badgeIcon}
@@ -90,16 +78,13 @@
 //                         <Text style={styles.badgeText}>Fraud Fighter</Text>
 //                     </View>
 //                     <View style={styles.badge}>
-//                         {/* eslint-disable-next-line @typescript-eslint/no-require-imports */}
 //                         <Image
-//                             // eslint-disable-next-line @typescript-eslint/no-require-imports
 //                             source={require('../../../assets/images/fast-learner.png')}
 //                             style={styles.badgeIcon}
 //                         />
 //                         <Text style={styles.badgeText}>Fast Learner</Text>
 //                     </View>
 //                     <View style={styles.badge}>
-//                         {/* eslint-disable-next-line @typescript-eslint/no-require-imports */}
 //                         <Image
 //                             source={require('../../../assets/images/privacy-pro.png')}
 //                             style={styles.badgeIcon}
@@ -111,16 +96,21 @@
 
 //             {/* Bottom Navigation */}
 //             <View style={styles.bottomNav}>
-//                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+//                 <TouchableOpacity
+//                     onPress={() => navigation.navigate('Home')}
+//                     style={styles.navItem}
+//                 >
 //                     <Feather name="home" size={24} color="#000" />
 //                 </TouchableOpacity>
 //                 <TouchableOpacity
 //                     onPress={() => navigation.navigate('Learning')}
+//                     style={styles.navItem}
 //                 >
 //                     <Feather name="book-open" size={24} color="#000" />
 //                 </TouchableOpacity>
 //                 <TouchableOpacity
 //                     onPress={() => navigation.navigate('AskMilo')}
+//                     style={styles.navItem}
 //                 >
 //                     <Feather name="message-circle" size={24} color="#000" />
 //                 </TouchableOpacity>
@@ -136,12 +126,6 @@
 //     },
 //     scrollContainer: {
 //         padding: 16
-//     },
-//     backButton: {
-//         position: 'absolute',
-//         top: 20,
-//         left: 16,
-//         zIndex: 10
 //     },
 //     heading: {
 //         fontSize: 24,
@@ -172,9 +156,19 @@
 //         fontWeight: 'bold',
 //         marginBottom: 10
 //     },
+//     progressContainer: {
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         position: 'relative'
+//     },
 //     progressCircle: {
 //         height: 120,
-//         marginBottom: 10
+//         width: 120
+//     },
+//     progressTextContainer: {
+//         position: 'absolute',
+//         alignItems: 'center',
+//         justifyContent: 'center'
 //     },
 //     score: {
 //         fontSize: 24,
@@ -237,13 +231,16 @@
 //         justifyContent: 'space-around',
 //         paddingVertical: 12,
 //         backgroundColor: '#FFA14A'
+//     },
+//     navItem: {
+//         alignItems: 'center'
 //     }
 // })
 
 // export default AchievementsScreen
 
 /* eslint-disable @typescript-eslint/no-require-imports */
-import React from 'react'
+import React, { useState } from 'react'
 import {
     View,
     Text,
@@ -255,6 +252,9 @@ import {
 import { ProgressCircle } from 'react-native-svg-charts'
 import { Feather } from '@expo/vector-icons'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
+import { useCallback } from 'react'
 
 interface AchievementsScreenProps {
     navigation: NavigationProp<ParamListBase>
@@ -264,13 +264,31 @@ const AchievementsScreen: React.FC<AchievementsScreenProps> = ({
     navigation
 }) => {
     const awarenessScore = 367
+    const [displayName, setDisplayName] = useState<string>('')
+
+    useFocusEffect(
+        useCallback(() => {
+            // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+            const fetchUser = async () => {
+                const storedUser = await AsyncStorage.getItem('user')
+                if (storedUser) {
+                    const user = JSON.parse(storedUser)
+                    setDisplayName(user.displayName || '')
+                }
+            }
+
+            fetchUser()
+        }, [])
+    )
 
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 {/* Header */}
                 <Text style={styles.heading}>Achievements</Text>
-                <Text style={styles.subheading}>Congratulations, Mohit!</Text>
+                <Text style={styles.subheading}>
+                    Congratulations{displayName ? `, ${displayName}` : ''}!
+                </Text>
                 <Text style={styles.description}>
                     See the points you’ve earned and the badges you’ve unlocked
                     as you learn to outsmart scammers.
