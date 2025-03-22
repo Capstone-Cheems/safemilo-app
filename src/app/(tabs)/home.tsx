@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { ScrollView, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Box } from '@/components/ui/box'
 import { useRouter } from 'expo-router'
-
+import commonStyles from '../../styles/commonStyles'
+import { useAuth } from '@/src/shared'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const tips = [
     'Never share One Time Password or codes with anyone, not even your bank!',
     'Be cautious of emails asking for personal information, phishing scams are common.',
@@ -11,35 +13,48 @@ const tips = [
 ]
 
 const Home = (): React.JSX.Element => {
+    const [textSize, setTextSize] = useState<number>(20) // Default text size
+    const [isBold, setIsBold] = useState<boolean>(true) // Default bold state
     const router = useRouter()
     const [randomTip, setRandomTip] = useState<string>('')
+    const { user } = useAuth()
+
+    const loadSettings = useCallback(async () => {
+        try {
+            const storedSize = await AsyncStorage.getItem('textSize')
+            if (storedSize) setTextSize(parseInt(storedSize)) // Set size if exists
+        } catch (error) {
+            console.error('Error loading settings:', error)
+        }
+        try {
+            const storedBold = await AsyncStorage.getItem('isBold')
+            if (storedBold) setIsBold(storedBold === 'true') // Convert string to boolean
+        } catch (error) {
+            console.error('Error loading settings:', error)
+        }
+    }, [])
 
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * tips.length)
         setRandomTip(tips[randomIndex])
     }, [])
 
-    const checkProfile = (): void => {
-        router.push('/profile')
-    }
-
-    const checkNotification = (): void => {
-        router.push('/notification')
-    }
-
     return (
-        <ScrollView className="p-4 bg-white">
+        <ScrollView className="p-4 bg-gray-100">
             {/* Welcome Message */}
-            {/*<View className="mb-4 flex-row justify-between items-center">
+            <View className="mb-4 flex-row justify-between items-center">
                 <View>
-                    <Text className="text-[1.5rem] font-semibold">
-                        Welcome,{user?.email}
+                    <Text
+                        className="text-[1.5rem] font-semibold"
+                        style={{ fontSize: textSize + 6 }}
+                    >
+                        Welcome,{user?.displayName}
                     </Text>
                 </View>
-            </View>*/}
+            </View>
 
             {/* Tip of the Day */}
-            <Box className="bg-gray-100 rounded-2xl px-4 py-8 mb-6">
+            <Box className="bg-white rounded-2xl px-4 py-8 mb-6">
                 <View className="flex-col items-center gap-4">
                     <View className="flex-row items-center w-[100%]">
                         <Image
@@ -48,75 +63,135 @@ const Home = (): React.JSX.Element => {
                             className="w-20 h-22 mr-4"
                             resizeMode="contain"
                         />
-                        <Text className="text-[24px] font-bold">
+                        <Text
+                            style={{
+                                fontSize: textSize + 5,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }}
+                        >
                             Milo’s Tip of the Day
                         </Text>
                     </View>
-                    <Text className="text-[16px] mx-4">{randomTip}</Text>
+                    <Text
+                        style={{
+                            fontSize: textSize - 4,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }}
+                    >
+                        {randomTip}
+                    </Text>
                 </View>
             </Box>
 
             {/* Main Section */}
             <View className="flex-col gap-8 mb-8">
-                <TouchableOpacity
-                    className="flex-row bg-yellow-100 rounded-2xl"
-                    onPress={() => router.push('/news/news')}
-                >
+                <View className="flex-row bg-yellow-100 rounded-2xl">
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-news.png')}
-                        className="w-30 h-36"
-                        style={{ bottom: -14 }}
+                        className="w-30 h-max rounded-tl-2xl rounded-bl-2xl"
                         resizeMode="contain"
                     />
-                    <View className="flex-1 gap-4 bg-gray-100 p-4 rounded-tr-2xl rounded-br-2xl">
-                        <Text className="text-[24px] font-bold">News</Text>
-                        <Text className="text-[16px]">
+                    <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
+                        <Text
+                            style={{
+                                fontSize: textSize + 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }}
+                        >
+                            News
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: textSize - 4,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }}
+                        >
                             Read the scam-related news from verified authorities
                         </Text>
-                        <Text className="text-[16px]">Read News {'>'}</Text>
-                    </View>
-                </TouchableOpacity>
 
-                <TouchableOpacity
-                    className="flex-row bg-orange-100 rounded-2xl"
-                    onPress={() => router.push('/screening/calls')}
-                >
+                        <TouchableOpacity
+                            style={commonStyles.longButton}
+                            onPress={() => router.push('/news/news')}
+                        >
+                            <Text style={commonStyles.buttonText}>
+                                Read News
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                <View className="flex-row bg-orange-100 rounded-2xl">
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-call.png')}
-                        className="w-30 h-36"
-                        style={{ bottom: -10 }}
+                        className="w-30 h-max rounded-tl-2xl rounded-bl-2xl"
                         resizeMode="contain"
                     />
-                    <View className="flex-1 gap-4 bg-gray-100 p-4 rounded-tr-2xl rounded-br-2xl">
-                        <Text className="text-[24px] font-bold">Calls</Text>
-                        <Text className="text-[16px]">
+                    <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
+                        <Text
+                            style={{
+                                fontSize: textSize + 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }}
+                        >
+                            Calls
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: textSize - 4,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }}
+                        >
                             For the list of phone numbers identified as scams
                         </Text>
-                        <Text className="text-[16px]">View More {'>'}</Text>
-                    </View>
-                </TouchableOpacity>
 
-                <TouchableOpacity
-                    className="flex-row bg-blue-100 rounded-2xl"
-                    onPress={() => router.push('/screening/messages')}
-                >
+                        <TouchableOpacity
+                            style={commonStyles.longButton}
+                            onPress={() => router.push('/screening/calls')}
+                        >
+                            <Text style={commonStyles.buttonText}>
+                                View More
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                <View className="flex-row bg-blue-100 rounded-2xl">
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-message.png')}
-                        className="w-44 h-36"
-                        style={{ bottom: -16 }}
+                        className="w-30 h-max rounded-tl-2xl rounded-bl-2xl"
                         resizeMode="contain"
                     />
-                    <View className="flex-1 gap-4 bg-gray-100 p-4 rounded-tr-2xl rounded-br-2xl">
-                        <Text className="text-[24px] font-bold">Message</Text>
-                        <Text className="text-[16px]">
+                    <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
+                        <Text
+                            style={{
+                                fontSize: textSize + 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }}
+                        >
+                            Message
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: textSize - 4,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }}
+                        >
                             For the list of messages flagged as scams
                         </Text>
-                        <Text className="text-[16px]">View More {'>'}</Text>
+
+                        <TouchableOpacity
+                            style={commonStyles.longButton}
+                            onPress={() => router.push('/screening/messages')}
+                        >
+                            <Text style={commonStyles.buttonText}>
+                                View More
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
+                </View>
             </View>
         </ScrollView>
     )

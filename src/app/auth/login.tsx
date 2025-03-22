@@ -4,7 +4,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    Image
 } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
@@ -46,6 +47,8 @@ const Login = (): React.JSX.Element => {
 
         try {
             await signInWithEmailAndPassword(getAuth(), email, password)
+
+            router.replace('/')
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(err.message || 'Login failed. Please try again.')
@@ -57,26 +60,45 @@ const Login = (): React.JSX.Element => {
         }
     }
 
+    const handleBack = (): void => {
+        router.replace('/welcome')
+    }
+
     return (
-        <View style={commonStyles.container}>
-            <Text style={commonStyles.boldText}>Login</Text>
+        <View style={commonStyles.authContainer}>
+            <TouchableOpacity
+                style={commonStyles.backButton}
+                onPress={handleBack}
+            >
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/dark-back-button.png')}
+                    style={commonStyles.backIcon}
+                />
+            </TouchableOpacity>
 
-            <TextInput
-                style={commonStyles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                keyboardType="email-address"
-            />
+            <View style={commonStyles.authInputContainer}>
+                <Text style={commonStyles.authInputLabel}>Your Email</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                />
+            </View>
 
-            <TextInput
-                style={commonStyles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+            <View style={commonStyles.authInputContainer}>
+                <Text style={commonStyles.authInputLabel}>Your Password</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
+            </View>
 
             {error && <Text style={commonStyles.errorText}>{error}</Text>}
 
@@ -92,6 +114,36 @@ const Login = (): React.JSX.Element => {
                 )}
             </TouchableOpacity>
 
+            <View style={commonStyles.dividerContainer}>
+                <View style={commonStyles.dividerLine} />
+                <Text style={commonStyles.dividerText}>or</Text>
+                <View style={commonStyles.dividerLine} />
+            </View>
+
+            <TouchableOpacity style={commonStyles.longButtonWhite}>
+                <View style={commonStyles.iconButtonContainer}>
+                    <Text style={commonStyles.buttonTextWhite}>
+                        Continue with
+                    </Text>
+                    <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
+                        source={require('../../../assets/images/Google-icon.png')}
+                        style={commonStyles.googleIcon}
+                    />
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={commonStyles.longButton}>
+                <View style={commonStyles.iconButtonContainer}>
+                    <Text style={commonStyles.buttonText}>Continue with</Text>
+                    <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
+                        source={require('../../../assets/images/light-Apple-icon.png')}
+                        style={commonStyles.appleIcon}
+                    />
+                </View>
+            </TouchableOpacity>
+
             <TouchableOpacity
                 onPress={() => router.replace('/auth/signup')}
                 style={commonStyles.link}
@@ -99,26 +151,6 @@ const Login = (): React.JSX.Element => {
                 <Text style={commonStyles.textRow}>
                     <Text>Don't have an account?</Text>
                     <Text style={commonStyles.linkText}> Sign up</Text>
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={commonStyles.longButton}>
-                <Text style={commonStyles.buttonText}>Continue with Apple</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={commonStyles.longButton}>
-                <Text style={commonStyles.buttonText}>
-                    Continue with Google
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                onPress={() => router.replace('/auth/loginOrganization')}
-                style={commonStyles.link}
-            >
-                <Text style={commonStyles.textRow}>
-                    <Text>Organizational User?</Text>
-                    <Text style={commonStyles.linkText}> Click here</Text>
                 </Text>
             </TouchableOpacity>
         </View>

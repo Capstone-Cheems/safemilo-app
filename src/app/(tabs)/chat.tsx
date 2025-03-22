@@ -1,5 +1,8 @@
+import { Avatar, AvatarFallbackText, AvatarImage } from '@/components/ui/avatar'
 import { Box } from '@/components/ui/box'
+import { HStack } from '@/components/ui/hstack'
 import { ArrowUpIcon, Icon } from '@/components/ui/icon'
+import { VStack } from '@/components/ui/vstack'
 import { useAuth, useFetchData } from '@/src/shared'
 import { Message } from '@/src/widget/chat/types'
 import { useNavigation } from 'expo-router'
@@ -39,11 +42,6 @@ export default function Chat(): ReactNode {
             id: Date.now().toString(),
             text: `${randomTip} Do you need assistance?`,
             sender: 'bot'
-        },
-        {
-            id: Date.now().toString(),
-            text: `${randomTip} Do you need assistance?`,
-            sender: 'user'
         }
     ])
 
@@ -102,39 +100,50 @@ export default function Chat(): ReactNode {
     }, [data])
 
     return (
-        <View className="bg-[#83D1FF] flex flex-1 p-5">
+        <Box className="bg-[#83D1FF] flex-1  p-5">
             <StatusBar style="light" />
             <ScrollView>
+                <VStack space="md" reversed={false}>
                 {messages.map(msg => (
-                    <Box
-                        className={`flex flex-row gap-1 items-center ${msg.sender === 'user' ? 'self-start' : 'self-end'} grow`}
+                    <Box key={msg.id}
+                        className={`  ${msg.sender === 'user' ? 'self-start' : 'self-end'}`}
                     >
+                        <HStack space="md" reversed={false} className="justify-items-center items-center">
                         {msg.sender !== 'user' && (
-                            <Image
-                                // eslint-disable-next-line @typescript-eslint/no-require-imports
-                                source={require('../../../assets/images/ChatIcon.png')}
-                                className="max-w-10 max-h-10"
-                            />
+                            <Box>
+                                <Image
+                                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                                    source={require('../../../assets/images/ChatIcon.png')}
+                                    className="max-w-10 max-h-10"
+                                />
+                            </Box>
                         )}
-                        <View
-                            key={msg.id}
-                            className={`p-5 rounded-3xl  bg-white`}
+                        <Box
+                            
+                            className={`p-5 rounded-3xl bg-white max-w-80`}
                         >
                             <Markdown>{msg.text}</Markdown>
-                        </View>
+                        </Box>
                         {msg.sender === 'user' && (
-                            <Image
-                                source={{
-                                    uri:
-                                        getAuth().currentUser?.photoURL ||
-                                        'path_to_default_image'
-                                }}
-                            />
+                            <Box >
+                                <Avatar size="md">
+                                    <AvatarFallbackText>
+                                        {getAuth().currentUser?.displayName}
+                                    </AvatarFallbackText>
+                                    <AvatarImage
+                                        source={{
+                                            uri: getAuth().currentUser?.photoURL ?? ''
+                                        }}
+                                    />
+                                </Avatar>
+                            </Box>
                         )}
+                        </HStack>
                     </Box>
                 ))}
                 {loading && <ActivityIndicator size="small" color="#007AFF" />}
                 {error && <Text style={styles.errorText}>{error}</Text>}
+                </VStack>
             </ScrollView>
 
             <View style={styles.inputContainer}>
@@ -153,12 +162,11 @@ export default function Chat(): ReactNode {
                     <Icon as={ArrowUpIcon} size="xl" />
                 </TouchableOpacity>
             </View>
-        </View>
+        </Box>
     )
 }
 
 const styles = StyleSheet.create({
-    messageText: { fontSize: 16, color: '#fff' },
     errorText: { color: 'red', textAlign: 'center', marginTop: 10 },
     inputContainer: {
         flexDirection: 'row',

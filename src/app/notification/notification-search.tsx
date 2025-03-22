@@ -15,7 +15,7 @@ const NotificationSearch: React.FC<{ type: string }> = ({ type }) => {
                 const notificationsArray: Notification[] = data
                     ? JSON.parse(data)
                     : []
-                if (type === 'ALL') {
+                if (type === 'All') {
                     setNotifications(notificationsArray)
                 } else if (type === 'News') {
                     setNotifications(

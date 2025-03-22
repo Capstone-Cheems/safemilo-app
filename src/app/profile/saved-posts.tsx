@@ -22,7 +22,27 @@ type NewsItem = {
 const SavedPosts = (): React.JSX.Element => {
     const [savedPosts, setSavedPosts] = useState<NewsItem[]>([])
     const [loading, setLoading] = useState(true)
+    const [textSize, setTextSize] = useState(20)
+    const [isBold, setIsBold] = useState(true)
     const router = useRouter()
+
+    const loadSettings = useCallback(async () => {
+        try {
+            const storedSize = await AsyncStorage.getItem('textSize')
+            const storedBold = await AsyncStorage.getItem('isBold')
+
+            if (storedSize) setTextSize(parseInt(storedSize))
+            if (storedBold) setIsBold(storedBold === 'true')
+        } catch (error) {
+            console.error('Error loading settings:', error)
+        }
+    }, [])
+
+    useFocusEffect(
+        useCallback(() => {
+            loadSettings()
+        }, [loadSettings])
+    )
 
     const fetchSavedPosts = async (): Promise<void> => {
         try {
@@ -89,78 +109,131 @@ const SavedPosts = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.container}>
-            <Text style={commonStyles.header}>Saved Posts</Text>
-
-            {/* Browse Posts Button */}
-            <TouchableOpacity
-                onPress={() => router.push('./browsePost')}
-                style={commonStyles.browseButton}
+        <View style={commonStyles.pcontainer}>
+            <Text
+                style={{
+                    fontSize: textSize + 6,
+                    fontWeight: isBold ? 'bold' : 'normal',
+                    marginBottom: 10
+                }}
             >
-                <Text style={commonStyles.browseButtonText}>Browse Posts</Text>
-            </TouchableOpacity>
-
-            {savedPosts.length === 0 ? (
-                <View style={commonStyles.noSavedPosts}>
-                    <Text>No saved posts! Browse and save some.</Text>
-                </View>
-            ) : (
-                <>
-                    <TouchableOpacity
-                        onPress={handleRemoveAllPosts}
-                        style={commonStyles.removeAllButton}
-                    >
-                        <Text style={commonStyles.removeAllButtonText}>
-                            Remove All
+                Saved Posts
+            </Text>
+            <View style={commonStyles.mcontainer}>
+                {savedPosts.length === 0 ? (
+                    <View style={commonStyles.noSavedPosts}>
+                        <Text
+                            style={{ fontWeight: 'bold', fontSize: textSize }}
+                        >
+                            No saved posts yet!
                         </Text>
-                    </TouchableOpacity>
-
-                    <FlatList
-                        data={savedPosts}
-                        keyExtractor={item => item.newsID}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => handlePostClick(item)}
-                                style={commonStyles.savedPostItem}
-                            >
-                                <Text
-                                    style={commonStyles.cardTitle}
-                                    numberOfLines={1}
-                                    ellipsizeMode="tail"
-                                >
-                                    {item.title}
-                                </Text>
-                                <Text
-                                    style={commonStyles.content}
-                                    numberOfLines={2}
-                                    ellipsizeMode="tail"
-                                >
-                                    {item.content}
-                                </Text>
-                                <Text style={commonStyles.tag}>
-                                    #{item.scamTypeTag}
-                                </Text>
-                                <Text style={commonStyles.date}>
-                                    Saved on:{' '}
-                                    {new Date(item.createdAt).toDateString()}
-                                </Text>
-
-                                {/* Remove saved post button */}
-                                <TouchableOpacity
-                                    onPress={() =>
-                                        handleRemovePost(item.newsID)
+                        <Text
+                            style={{
+                                fontSize: textSize - 3
+                            }}
+                        >
+                            Start saving your favorite posts for easy access
+                            later.
+                        </Text>
+                    </View>
+                ) : (
+                    <>
+                        <TouchableOpacity
+                            onPress={handleRemoveAllPosts}
+                            style={commonStyles.removeAllButton}
+                        >
+                            <Text
+                                style={[
+                                    { fontSize: textSize - 6 },
+                                    {
+                                        ...commonStyles.removeAllButtonText,
+                                        fontWeight: isBold ? 'bold' : 'normal',
+                                        marginBottom: -20
                                     }
-                                    style={commonStyles.removeButton}
+                                ]}
+                            >
+                                Remove All
+                            </Text>
+                        </TouchableOpacity>
+
+                        <FlatList
+                            data={savedPosts}
+                            keyExtractor={item => item.newsID}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    onPress={() => handlePostClick(item)}
+                                    style={commonStyles.savedPostItem}
                                 >
-                                    <Text style={commonStyles.removeButtonText}>
-                                        X
+                                    <Text
+                                        style={{
+                                            fontSize: textSize,
+                                            marginTop: 5,
+                                            fontWeight: isBold
+                                                ? 'bold'
+                                                : 'normal'
+                                        }}
+                                        numberOfLines={1}
+                                        ellipsizeMode="tail"
+                                    >
+                                        {item.title}
                                     </Text>
+                                    <Text
+                                        style={{
+                                            marginTop: 5,
+                                            marginBottom: 5,
+                                            fontSize: textSize - 7,
+                                            fontWeight: isBold
+                                                ? 'bold'
+                                                : 'normal'
+                                        }}
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        {item.content}
+                                    </Text>
+                                    <Text style={commonStyles.tag}>
+                                        #{item.scamTypeTag}
+                                    </Text>
+                                    <Text style={commonStyles.date}>
+                                        Saved on:{' '}
+                                        {new Date(
+                                            item.createdAt
+                                        ).toDateString()}
+                                    </Text>
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            handleRemovePost(item.newsID)
+                                        }
+                                        style={commonStyles.removeButton}
+                                    >
+                                        <Text
+                                            style={
+                                                commonStyles.removeButtonText
+                                            }
+                                        >
+                                            X
+                                        </Text>
+                                    </TouchableOpacity>
                                 </TouchableOpacity>
-                            </TouchableOpacity>
-                        )}
-                    />
-                </>
-            )}
+                            )}
+                        />
+                    </>
+                )}
+                <TouchableOpacity
+                    onPress={() => router.push('./browsePost')}
+                    style={commonStyles.browseButton}
+                >
+                    <Text
+                        style={[
+                            commonStyles.browseButtonText,
+                            { fontSize: textSize - 4 },
+                            { fontWeight: 'bold' }
+                        ]}
+                    >
+                        Browse Posts
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

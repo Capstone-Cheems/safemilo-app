@@ -1,268 +1,26 @@
-// import React, { useState, useEffect } from 'react'
-// import { View, Text, TouchableOpacity, Switch, Alert } from 'react-native'
-// import Slider from '@react-native-community/slider'
-// import AsyncStorage from '@react-native-async-storage/async-storage'
-// import * as Contacts from 'expo-contacts'
-// import * as SMS from 'expo-sms'
-// import { Audio } from 'expo-av'
-// import commonStyles from '../../styles/commonStyles'
+import React, { useState, useEffect, useCallback } from 'react'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Switch,
+    ScrollView,
+    Alert
+} from 'react-native'
 
-// const Settings = (): React.JSX.Element => {
-//     // Load text size from storage
-//     const [textSize, setTextSize] = useState(20) // Default text size
-//     const [showSlider, setShowSlider] = useState(false)
-//     const [isBold, setIsBold] = useState(true)
-
-//     //Mobile Permissions
-
-//     const [contactsPermission, setContactsPermission] = useState<
-//         'granted' | 'denied' | null
-//     >(null)
-//     const [messagesPermission, setMessagesPermission] = useState<
-//         'granted' | 'denied' | null
-//     >(null)
-//     const [microphonePermission, setMicrophonePermission] = useState<
-//         'granted' | 'denied' | null
-//     >(null)
-
-//     useEffect(() => {
-//         const checkPermissions = async (): Promise<void> => {
-//             const contacts = await Contacts.getPermissionsAsync()
-//             setContactsPermission(
-//                 contacts.status as 'granted' | 'denied' | null
-//             )
-
-//             const messages = await SMS.isAvailableAsync()
-//             setMessagesPermission(messages ? 'granted' : 'denied')
-
-//             const mic = await Audio.getPermissionsAsync()
-//             setMicrophonePermission(
-//                 mic.status === 'granted' ? 'granted' : 'denied'
-//             )
-//         }
-
-//         checkPermissions()
-//     }, [])
-
-//     const handlePermissionRequest = async (
-//         type: 'contacts' | 'messages' | 'microphone'
-//     ) => {
-//         let status: 'granted' | 'denied' = 'denied'
-
-//         if (type === 'contacts') {
-//             const { status: newStatus } =
-//                 await Contacts.requestPermissionsAsync()
-//             status = newStatus === 'granted' ? 'granted' : 'denied'
-//             setContactsPermission(status)
-//             await AsyncStorage.setItem('contactsPermission', status)
-//         } else if (type === 'messages') {
-//             const available = await SMS.isAvailableAsync()
-//             status = available ? 'granted' : 'denied'
-//             setMessagesPermission(status)
-//             await AsyncStorage.setItem('messagesPermission', status)
-//         } else if (type === 'microphone') {
-//             const { status: newStatus } = await Audio.requestPermissionsAsync()
-//             status = newStatus === 'granted' ? 'granted' : 'denied'
-//             setMicrophonePermission(status)
-//             await AsyncStorage.setItem('microphonePermission', status)
-//         }
-
-//         Alert.alert(
-//             status === 'granted' ? 'Permission Granted' : 'Permission Denied',
-//             `You ${status === 'granted' ? 'can' : 'cannot'} use ${type}.`
-//         )
-//     }
-//     // Load font settings from storage
-//     useEffect(() => {
-//         const Settings = async () => {
-//             const storedSize = await AsyncStorage.getItem('textSize')
-//             if (storedSize) {
-//                 setTextSize(parseInt(storedSize))
-//             }
-//             const storedBold = await AsyncStorage.getItem('isBold')
-//             if (storedBold) {
-//                 setIsBold(storedBold === 'true')
-//             }
-//         }
-//         Settings()
-//     }, [])
-
-//     const handleTextSizeChange = async (size: number) => {
-//         setTextSize(size)
-//         await AsyncStorage.setItem('textSize', size.toString())
-//     }
-//     //  Setting text as bold
-//     const toggleBold = async () => {
-//         const newBoldState = !isBold
-//         setIsBold(newBoldState)
-//         await AsyncStorage.setItem('isBold', newBoldState.toString())
-//     }
-
-//     //Returning componrnts
-//     return (
-//         <View style={commonStyles.container}>
-//             <Text
-//                 style={[
-//                     commonStyles.leftText,
-//                     {
-//                         fontSize: textSize,
-//                         fontWeight: isBold ? 'bold' : 'normal'
-//                     }
-//                 ]}
-//             >
-//                 Settings
-//             </Text>
-//             <Text
-//                 style={[
-//                     commonStyles.leftText,
-//                     {
-//                         fontSize: textSize,
-//                         fontWeight: isBold ? 'bold' : 'normal'
-//                     }
-//                 ]}
-//             >
-//                 Accessibility
-//             </Text>
-//             <TouchableOpacity
-//                 onPress={() => setShowSlider(!showSlider)}
-//                 style={commonStyles.largeformButton}
-//             >
-//                 <Text style={commonStyles.buttonText}>Adjust Text Size</Text>
-//             </TouchableOpacity>
-
-//             {showSlider && (
-//                 <Slider
-//                     style={{ width: 200, height: 40 }}
-//                     minimumValue={20}
-//                     maximumValue={40}
-//                     value={textSize}
-//                     onValueChange={handleTextSizeChange}
-//                     minimumTrackTintColor="#FFFFFF"
-//                     maximumTrackTintColor="#000000"
-//                 />
-//             )}
-
-//             <TouchableOpacity
-//                 style={commonStyles.largeformButton}
-//                 onPress={toggleBold}
-//             >
-//                 <View
-//                     style={{
-//                         flexDirection: 'row',
-//                         alignItems: 'center',
-//                         justifyContent: 'space-between'
-//                     }}
-//                 >
-//                     <Text style={commonStyles.buttonText}>
-//                         {isBold ? 'Bold Text' : 'Normal Text'}
-//                     </Text>
-//                     <Switch value={isBold} onValueChange={toggleBold} />
-//                 </View>
-//             </TouchableOpacity>
-
-//             {/* Contacts Permission */}
-//             <TouchableOpacity
-//                 style={commonStyles.largeformButton}
-//                 onPress={() => handlePermissionRequest('contacts')}
-//             >
-//                 <View
-//                     style={{
-//                         flexDirection: 'row',
-//                         alignItems: 'center',
-//                         justifyContent: 'space-between'
-//                     }}
-//                 >
-//                     <Text style={commonStyles.buttonText}>
-//                         {contactsPermission === 'granted'
-//                             ? 'Contacts Access On'
-//                             : 'Contacts Access Off'}
-//                     </Text>
-//                     <Switch
-//                         value={contactsPermission === 'granted'}
-//                         onValueChange={() =>
-//                             handlePermissionRequest('contacts')
-//                         }
-//                     />
-//                 </View>
-//             </TouchableOpacity>
-
-//             {/* Messages Permission */}
-//             <TouchableOpacity
-//                 style={commonStyles.largeformButton}
-//                 onPress={() => handlePermissionRequest('messages')}
-//             >
-//                 <View
-//                     style={{
-//                         flexDirection: 'row',
-//                         alignItems: 'center',
-//                         justifyContent: 'space-between'
-//                     }}
-//                 >
-//                     <Text style={commonStyles.buttonText}>
-//                         {messagesPermission === 'granted'
-//                             ? 'SMS Access On'
-//                             : 'SMS Access Off'}
-//                     </Text>
-//                     <Switch
-//                         value={messagesPermission === 'granted'}
-//                         onValueChange={() =>
-//                             handlePermissionRequest('messages')
-//                         }
-//                     />
-//                 </View>
-//             </TouchableOpacity>
-
-//             {/* Microphone Permission */}
-//             <TouchableOpacity
-//                 style={commonStyles.largeformButton}
-//                 onPress={() => handlePermissionRequest('microphone')}
-//             >
-//                 <View
-//                     style={{
-//                         flexDirection: 'row',
-//                         alignItems: 'center',
-//                         justifyContent: 'space-between'
-//                     }}
-//                 >
-//                     <Text style={commonStyles.buttonText}>
-//                         {microphonePermission === 'granted'
-//                             ? 'Microphone Access On'
-//                             : 'Microphone Access Off'}
-//                     </Text>
-//                     <Switch
-//                         value={microphonePermission === 'granted'}
-//                         onValueChange={() =>
-//                             handlePermissionRequest('microphone')
-//                         }
-//                     />
-//                 </View>
-//             </TouchableOpacity>
-//         </View>
-//     )
-// }
-
-// export default Settings
-import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, Switch, Alert } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
+import Slider from '@react-native-community/slider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Contacts from 'expo-contacts'
 import * as SMS from 'expo-sms'
+import * as Notifications from 'expo-notifications'
 import { Audio } from 'expo-av'
 import commonStyles from '../../styles/commonStyles'
-import {
-    Slider,
-    SliderFilledTrack,
-    SliderThumb,
-    SliderTrack
-} from '@/components/ui/slider'
 
 const Settings = (): React.JSX.Element => {
-    // Load text size from storage
-    const [textSize, setTextSize] = useState(20) // Default text size
+    const [textSize, setTextSize] = useState(20)
     const [showSlider, setShowSlider] = useState(false)
     const [isBold, setIsBold] = useState(true)
-
-    //Mobile Permissions
 
     const [contactsPermission, setContactsPermission] = useState<
         'granted' | 'denied' | null
@@ -273,246 +31,382 @@ const Settings = (): React.JSX.Element => {
     const [microphonePermission, setMicrophonePermission] = useState<
         'granted' | 'denied' | null
     >(null)
+    const [callPermission, setCallPermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
+    const [notificationPermission, setNotificationPermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
+    interface UserData {
+        displayName: string | null
+        email: string
+        uid: string
+        providerData: { providerId: string }[]
+        photoURL: string | null
+    }
 
-    //Mobile Permissions
+    const [userData, setUserData] = useState<UserData | null>(null)
+    // Function to load settings
+    const loadSettings = useCallback(async () => {
+        try {
+            const storedSize = await AsyncStorage.getItem('textSize')
+            const storedBold = await AsyncStorage.getItem('isBold')
+            const storedUserData = await AsyncStorage.getItem('user')
+
+            if (storedSize) {
+                setTextSize(parseInt(storedSize))
+            }
+
+            if (storedBold) {
+                setIsBold(storedBold === 'true')
+            }
+
+            if (storedUserData) {
+                setUserData(JSON.parse(storedUserData))
+            }
+        } catch (error) {
+            console.error('Error loading settings:', error)
+        }
+    }, [])
+    // Load settings when the screen is focused
+    useFocusEffect(
+        useCallback(() => {
+            loadSettings()
+        }, [loadSettings])
+    )
+
     useEffect(() => {
         const checkPermissions = async (): Promise<void> => {
+            // Check Contacts Permission
             const contacts = await Contacts.getPermissionsAsync()
-            setContactsPermission(
-                contacts.status as 'granted' | 'denied' | null
-            )
+            setContactsPermission(contacts.status as 'granted' | 'denied')
 
+            // Check SMS Permission
             const messages = await SMS.isAvailableAsync()
             setMessagesPermission(messages ? 'granted' : 'denied')
 
+            // Check Microphone Permission
             const mic = await Audio.getPermissionsAsync()
             setMicrophonePermission(
                 mic.status === 'granted' ? 'granted' : 'denied'
+            )
+
+            // Check Phone Permission (Placeholder, update with proper API if needed)
+            const call = await Audio.getPermissionsAsync() // Update with phone call API if needed
+            setCallPermission(call.status === 'granted' ? 'granted' : 'denied')
+
+            // Check Notification Permission
+            const notificationStatus = await Notifications.getPermissionsAsync()
+            setNotificationPermission(
+                notificationStatus.status === 'granted' ? 'granted' : 'denied'
             )
         }
 
         checkPermissions()
     }, [])
-    // // Handeling Permissions
-    // const handlePermissionRequest = async (
-    //     type: 'contacts' | 'messages' | 'microphone'
-    // ) => {
-    //     let status: 'granted' | 'denied' = 'denied'
 
-    //     if (type === 'contacts') {
-    //         const { status: newStatus } =
-    //             await Contacts.requestPermissionsAsync()
-    //         status = newStatus === 'granted' ? 'granted' : 'denied'
-    //         setContactsPermission(status)
-    //         await AsyncStorage.setItem('contactsPermission', status)
-    //     } else if (type === 'messages') {
-    //         const available = await SMS.isAvailableAsync()
-    //         status = available ? 'granted' : 'denied'
-    //         setMessagesPermission(status)
-    //         await AsyncStorage.setItem('messagesPermission', status)
-    //     } else if (type === 'microphone') {
-    //         const { status: newStatus } = await Audio.requestPermissionsAsync()
-    //         status = newStatus === 'granted' ? 'granted' : 'denied'
-    //         setMicrophonePermission(status)
-    //         await AsyncStorage.setItem('microphonePermission', status)
-    //     }
-
-    //     Alert.alert(
-    //         status === 'granted' ? 'Permission Granted' : 'Permission Denied',
-    //         `You ${status === 'granted' ? 'can' : 'cannot'} use ${type}.`
-    //     )
-    // }
-    const handlePermissionToggle = async (
-        type: 'contacts' | 'messages' | 'microphone'
-    ) => {
-        let newStatus: 'granted' | 'denied' = 'denied'
-
-        if (type === 'contacts') {
-            newStatus = contactsPermission === 'granted' ? 'denied' : 'granted'
-            setContactsPermission(newStatus)
-            await AsyncStorage.setItem('contactsPermission', newStatus)
-        } else if (type === 'messages') {
-            newStatus = messagesPermission === 'granted' ? 'denied' : 'granted'
-            setMessagesPermission(newStatus)
-            await AsyncStorage.setItem('messagesPermission', newStatus)
-        } else if (type === 'microphone') {
-            newStatus =
-                microphonePermission === 'granted' ? 'denied' : 'granted'
-            setMicrophonePermission(newStatus)
-            await AsyncStorage.setItem('microphonePermission', newStatus)
-        }
-
-        Alert.alert(
-            newStatus === 'granted'
-                ? 'Permission Enabled'
-                : 'Permission Disabled',
-            `You have ${newStatus === 'granted' ? 'enabled' : 'disabled'} ${type} access.`
-        )
+    // Request Call Permission (Placeholder, update with proper API if needed)
+    const requestCallPermission = async () => {
+        const { status } = await Audio.requestPermissionsAsync() // Update with specific phone call permission API
+        setCallPermission(status === 'granted' ? 'granted' : 'denied')
     }
 
-    // Load font settings from storage
+    const requestContactsPermission = async () => {
+        const { status } = await Contacts.requestPermissionsAsync()
+        setContactsPermission(status as 'granted' | 'denied')
+    }
+
+    const requestMessagesPermission = async () => {
+        if (!messagesPermission) {
+            const available = await SMS.isAvailableAsync()
+            if (available) {
+                setMessagesPermission('granted')
+            } else {
+                Alert.alert('SMS not supported on this device')
+            }
+        }
+    }
+
+    const requestMicrophonePermission = async () => {
+        const { status } = await Audio.requestPermissionsAsync()
+        setMicrophonePermission(status === 'granted' ? 'granted' : 'denied')
+    }
+
+    const requestNotificationPermission = async () => {
+        const { status } = await Notifications.requestPermissionsAsync()
+        setNotificationPermission(status === 'granted' ? 'granted' : 'denied')
+    }
+
     useEffect(() => {
-        const Settings = async () => {
+        const loadSettings = async () => {
             const storedSize = await AsyncStorage.getItem('textSize')
-            if (storedSize) {
-                setTextSize(parseInt(storedSize))
-            }
+            if (storedSize) setTextSize(parseInt(storedSize))
+
             const storedBold = await AsyncStorage.getItem('isBold')
-            if (storedBold) {
-                setIsBold(storedBold === 'true')
-            }
+            if (storedBold) setIsBold(storedBold === 'true')
         }
-        Settings()
+        loadSettings()
     }, [])
+    useEffect(() => {
+        const saveSettings = async () => {
+            await AsyncStorage.setItem('textSize', textSize.toString())
+            await AsyncStorage.setItem('isBold', isBold.toString())
+        }
+        saveSettings()
+    }, [textSize, isBold])
 
-    const handleTextSizeChange = async (size: number) => {
-        setTextSize(size)
-        await AsyncStorage.setItem('textSize', size.toString())
-    }
-    //  Setting text as bold
-    const toggleBold = async () => {
-        const newBoldState = !isBold
-        setIsBold(newBoldState)
-        await AsyncStorage.setItem('isBold', newBoldState.toString())
-    }
-
-    //Returning componrnts
     return (
-        <View style={commonStyles.container}>
-            <Text
-                style={[
-                    commonStyles.leftText,
-                    {
-                        fontSize: textSize,
-                        fontWeight: isBold ? 'bold' : 'normal'
-                    }
-                ]}
-            >
-                Settings
-            </Text>
-            <Text
-                style={[
-                    commonStyles.leftText,
-                    {
-                        fontSize: textSize,
-                        fontWeight: isBold ? 'bold' : 'normal'
-                    }
-                ]}
-            >
-                Accessibility
-            </Text>
-            <TouchableOpacity
-                onPress={() => setShowSlider(!showSlider)}
-                style={commonStyles.largeformButton}
-            >
-                <Text style={commonStyles.buttonText}>Adjust Text Size</Text>
-            </TouchableOpacity>
-
-            {showSlider && (
-                <Slider
-                    style={{ width: 200, height: 40 }}
-                    value={textSize}
-                    onChange={handleTextSizeChange}
+        <ScrollView style={{ flex: 1 }}>
+            <View style={commonStyles.container}>
+                <Text
+                    style={[
+                        commonStyles.leftText,
+                        {
+                            fontSize: textSize + 5,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
+                    ]}
                 >
-                    <SliderTrack>
-                        <SliderFilledTrack />
-                    </SliderTrack>
-                    <SliderThumb />
-                </Slider>
-            )}
+                    Settings
+                </Text>
 
-            <TouchableOpacity
-                style={commonStyles.largeformButton}
-                onPress={toggleBold}
-            >
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                    }}
+                <TouchableOpacity
+                    onPress={() => setShowSlider(!showSlider)}
+                    style={commonStyles.toplargeformButton}
                 >
-                    <Text style={commonStyles.buttonText}>
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
+                        Adjust Text Size
+                    </Text>
+                </TouchableOpacity>
+
+                {showSlider && (
+                    <View
+                        style={[
+                            commonStyles.dividerContainer,
+                            { marginTop: 10 }
+                        ]}
+                    >
+                        <Text
+                            style={[
+                                commonStyles.ptext,
+                                {
+                                    fontSize: textSize - 6,
+                                    fontWeight: isBold ? 'bold' : 'normal',
+                                    marginRight: 5,
+                                    marginLeft: -20
+                                }
+                            ]}
+                        >
+                            aA
+                        </Text>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}
+                        >
+                            <View style={{ position: 'absolute', left: 0 }}>
+                                <Text style={{ fontSize: textSize - 7 }}>
+                                    20
+                                </Text>
+                            </View>
+                            <View style={{ position: 'absolute', left: '33%' }}>
+                                <Text style={{ fontSize: textSize - 5 }}>
+                                    25
+                                </Text>
+                            </View>
+                            <View style={{ position: 'absolute', left: '66%' }}>
+                                <Text style={{ fontSize: textSize }}>30</Text>
+                            </View>
+
+                            <Slider
+                                style={{ width: 250, height: 40 }}
+                                minimumValue={20}
+                                maximumValue={30}
+                                value={textSize}
+                                onValueChange={setTextSize}
+                            />
+                        </View>
+
+                        <Text
+                            style={[
+                                commonStyles.ptext,
+                                {
+                                    fontSize: textSize,
+                                    fontWeight: isBold ? 'bold' : 'normal',
+                                    marginLeft: 10
+                                }
+                            ]}
+                        >
+                            aA
+                        </Text>
+                    </View>
+                )}
+
+                <TouchableOpacity
+                    style={commonStyles.bottomlargeformButton}
+                    onPress={() => setIsBold(!isBold)}
+                >
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
                         {isBold ? 'Bold Text' : 'Normal Text'}
                     </Text>
-                    <Switch value={isBold} onValueChange={toggleBold} />
-                </View>
-            </TouchableOpacity>
-
-            {/* Contacts Permission */}
-            <TouchableOpacity
-                style={commonStyles.largeformButton}
-                onPress={() => handlePermissionToggle('contacts')}
-            >
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                    }}
-                >
-                    <Text style={commonStyles.buttonText}>
-                        {contactsPermission === 'granted'
-                            ? 'Contacts Access On'
-                            : 'Contacts Access Off'}
-                    </Text>
                     <Switch
-                        value={contactsPermission === 'granted'}
-                        onValueChange={() => handlePermissionToggle('contacts')}
+                        value={isBold}
+                        onValueChange={() => setIsBold(!isBold)}
                     />
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
 
-            {/* Messages Permission */}
-            <TouchableOpacity
-                style={commonStyles.largeformButton}
-                onPress={() => handlePermissionToggle('messages')}
-            >
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                    }}
+                <Text
+                    style={[
+                        commonStyles.leftText,
+                        {
+                            fontSize: textSize,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
+                    ]}
                 >
-                    <Text style={commonStyles.buttonText}>
-                        {messagesPermission === 'granted'
-                            ? 'SMS Access On'
-                            : 'SMS Access Off'}
-                    </Text>
-                    <Switch
-                        value={messagesPermission === 'granted'}
-                        onValueChange={() => handlePermissionToggle('messages')}
-                    />
-                </View>
-            </TouchableOpacity>
+                    App Permissions
+                </Text>
 
-            {/* Microphone Permission */}
-            <TouchableOpacity
-                style={commonStyles.largeformButton}
-                onPress={() => handlePermissionToggle('microphone')}
-            >
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                    }}
+                {/* Microphone Access */}
+                <TouchableOpacity
+                    style={commonStyles.toplargeformButton}
+                    onPress={requestMicrophonePermission}
                 >
-                    <Text style={commonStyles.buttonText}>
-                        {microphonePermission === 'granted'
-                            ? 'Microphone Access On'
-                            : 'Microphone Access Off'}
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
+                        Microphone Access
                     </Text>
                     <Switch
                         value={microphonePermission === 'granted'}
-                        onValueChange={() =>
-                            handlePermissionToggle('microphone')
-                        }
+                        onValueChange={requestMicrophonePermission}
                     />
-                </View>
-            </TouchableOpacity>
-        </View>
+                </TouchableOpacity>
+
+                {/* Call Access */}
+                <TouchableOpacity
+                    style={commonStyles.largeformButton}
+                    onPress={requestCallPermission}
+                >
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
+                        Call Access
+                    </Text>
+                    <Switch
+                        value={callPermission === 'granted'}
+                        onValueChange={requestCallPermission}
+                    />
+                </TouchableOpacity>
+                {/* Contacts Access */}
+                <TouchableOpacity
+                    style={commonStyles.bottomlargeformButton}
+                    onPress={requestContactsPermission}
+                >
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
+                        Contacts Access
+                    </Text>
+                    <Switch
+                        value={contactsPermission === 'granted'}
+                        onValueChange={requestContactsPermission}
+                    />
+                </TouchableOpacity>
+
+                <Text
+                    style={[
+                        commonStyles.leftText,
+                        {
+                            fontSize: textSize,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }
+                    ]}
+                >
+                    SMS & Notifications
+                </Text>
+
+                {/* SMS Access */}
+                <TouchableOpacity
+                    style={commonStyles.toplargeformButton}
+                    onPress={requestMessagesPermission}
+                >
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
+                        SMS Access
+                    </Text>
+                    <Switch
+                        value={messagesPermission === 'granted'}
+                        onValueChange={requestMessagesPermission}
+                    />
+                </TouchableOpacity>
+
+                {/* Notification Access */}
+                <TouchableOpacity
+                    style={commonStyles.bottomlargeformButton}
+                    onPress={requestNotificationPermission}
+                >
+                    <Text
+                        style={[
+                            commonStyles.ptext,
+                            {
+                                fontSize: textSize - 3,
+                                fontWeight: isBold ? 'bold' : 'normal'
+                            }
+                        ]}
+                    >
+                        Notification Access
+                    </Text>
+                    <Switch
+                        value={notificationPermission === 'granted'}
+                        onValueChange={requestNotificationPermission}
+                    />
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
     )
 }
 

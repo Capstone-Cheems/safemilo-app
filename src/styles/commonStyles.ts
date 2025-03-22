@@ -2,10 +2,20 @@ import { StyleSheet } from 'react-native'
 
 const commonStyles = StyleSheet.create({
     // Onboarding
+    appLogo: {
+        width: 290,
+        height: 200,
+        marginBottom: 120,
+        alignSelf: 'center'
+    },
     messageText: {
         fontSize: 24,
         textAlign: 'center',
         marginBottom: 30
+    },
+    dialogText: {
+        fontSize: 24,
+        textAlign: 'center'
     },
     accent: {
         color: 'black'
@@ -22,11 +32,35 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center',
         padding: 20
     },
+    authContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#fbede5'
+    },
+    authInputContainer: {
+        width: '100%',
+        marginBottom: 16,
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    authInputLabel: {
+        alignSelf: 'flex-start',
+        marginLeft: 32
+    },
     viewContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f8f1eb'
+        backgroundColor: '#30a8fd'
+    },
+    viewDeniedContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#30a8fd',
+        paddingTop: 110
     },
     dialogBox: {
         backgroundColor: 'white',
@@ -60,27 +94,77 @@ const commonStyles = StyleSheet.create({
     },
     longButton: {
         backgroundColor: '#0d1b2a',
-        padding: 15,
-        borderRadius: 8,
+        padding: 13.5,
+        borderRadius: 16,
         marginTop: 10,
         marginBottom: 10,
-        width: '80%'
+        width: '80%',
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid',
+        alignSelf: 'center'
+    },
+    longButtonWhite: {
+        backgroundColor: '#FFFFFF',
+        padding: 13.5,
+        borderRadius: 16,
+        marginTop: 10,
+        marginBottom: 10,
+        width: '80%',
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid',
+        alignSelf: 'center'
     },
     button: {
+        backgroundColor: '#0A2941',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        width: '100%',
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
+    },
+    dialogButton: {
         backgroundColor: '#0d1b2a',
         paddingVertical: 10,
         paddingHorizontal: 30,
-        borderRadius: 8,
-        marginTop: 10
+        width: '100%',
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
+    },
+    buttonWhite: {
+        backgroundColor: '#FFFFFF',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid'
     },
     buttonText: {
         color: 'white',
         fontSize: 22,
         textAlign: 'center'
     },
+    PbuttonText: {
+        color: 'white',
+        textAlign: 'center'
+    },
+    buttonTextWhite: {
+        color: '#0d1b2a',
+        fontSize: 22,
+        textAlign: 'center'
+    },
     backButton: {
         position: 'absolute',
-        top: 20,
+        top: 50,
         left: 20,
         padding: 10
     },
@@ -88,9 +172,67 @@ const commonStyles = StyleSheet.create({
         width: 30,
         height: 30
     },
+    iconButtonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center', // Centers both icon & text
+        width: '100%'
+    },
+    googleIcon: {
+        width: 24,
+        height: 24,
+        marginLeft: 8
+    },
+    appleIcon: {
+        width: 30,
+        height: 30,
+        marginLeft: 8
+    },
+    dividerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 16,
+        width: '80%',
+        alignSelf: 'center'
+    },
+    dividerLine: {
+        flex: 1,
+        height: 2,
+        backgroundColor: '#D3D3D3'
+    },
+    dividerText: {
+        marginHorizontal: 10,
+        fontSize: 16,
+        color: '#333',
+        fontWeight: '500'
+    },
     mascotImage: {
-        width: 200,
-        height: 200,
+        width: 250,
+        height: 250,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
+    jumpWaveLoopAnimation: {
+        width: 350,
+        height: 350,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
+    lookPhoneAnimation: {
+        width: 420,
+        height: 280,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: 30,
+        resizeMode: 'contain'
+    },
+    moduleCompleteAnimation: {
+        width: 320,
+        height: 320,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: -60,
@@ -111,19 +253,26 @@ const commonStyles = StyleSheet.create({
         borderRightColor: 'transparent',
         borderTopColor: 'white'
     },
+    permissionIcon: {
+        width: 40,
+        height: 40
+    },
     // Auth
     link: {
         marginTop: 20
     },
     linkText: {
-        color: 'blue'
+        color: 'white'
     },
     input: {
         width: '80%',
-        padding: 10,
+        padding: 13.5,
         margin: 10,
+        borderRadius: 16,
+        backgroundColor: '#FFFFFF',
         borderWidth: 1,
-        borderRadius: 5
+        borderColor: '#7b7b7b',
+        borderStyle: 'solid'
     },
     errorText: {
         color: 'red',
@@ -136,16 +285,15 @@ const commonStyles = StyleSheet.create({
         gap: 20
     },
     formButton: {
-        backgroundColor: '#000000',
-        padding: 10,
-        borderRadius: 5,
-        marginTop: 20
+        backgroundColor: '#0d1b2a',
+        padding: 15,
+        borderRadius: 16,
+        width: '80%'
     },
     // Scam news (Post)
     header: {
         fontSize: 24,
         fontWeight: 'bold',
-        textAlign: 'center',
         marginBottom: 10
     },
     loadingContainer: {
@@ -208,10 +356,10 @@ const commonStyles = StyleSheet.create({
     postContainer: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#f5f5f5'
     },
     postnewsItem: {
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#ffffff',
         padding: 15,
         marginBottom: 10,
         borderRadius: 10,
@@ -258,7 +406,8 @@ const commonStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
-        marginBottom: 10
+        marginBottom: 10,
+        backgroundColor: '#ffffff'
     },
     buttonDisabled: {
         backgroundColor: 'gray'
@@ -278,13 +427,58 @@ const commonStyles = StyleSheet.create({
         color: '#555',
         maxWidth: '80%'
     },
+    newsInputLabel: {
+        color: '#000'
+    },
     //Profile Section
     largeformButton: {
-        backgroundColor: 'grey',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 0.2,
+        borderColor: '#000000',
         padding: 10,
         width: '100%',
-        marginTop: 10,
-        borderRadius: 10
+        backgroundColor: 'white'
+    },
+    toplargeformButton: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 0.3,
+        borderColor: '#000000',
+        padding: 10,
+        width: '100%',
+        backgroundColor: 'white',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    bottomlargeformButton: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 0.2,
+        borderColor: '#000000',
+        padding: 10,
+        width: '100%',
+        backgroundColor: 'white',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20
+    },
+    ptext: {
+        color: 'black',
+        fontSize: 28,
+        textAlign: 'left'
+    },
+    ltext: {
+        color: 'black',
+        fontSize: 28,
+        padding: 30,
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     Logout: {
         backgroundColor: '#000000',
@@ -312,12 +506,20 @@ const commonStyles = StyleSheet.create({
         fontSize: 28,
         alignItems: 'flex-start',
         textAlign: 'left',
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: 10
     },
     popupText: {
         fontSize: 16,
         textAlign: 'center',
         marginBottom: 10
+    },
+    profilecontainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#E0E0E7',
+        padding: 20
     },
     //Saved Posts
     removeButton: {
@@ -344,8 +546,8 @@ const commonStyles = StyleSheet.create({
     savedPostItem: {
         position: 'relative',
         marginBottom: 10,
-        padding: 10,
-        backgroundColor: '#f5f5f5',
+        padding: 6,
+        backgroundColor: 'white',
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#ddd'
@@ -362,34 +564,74 @@ const commonStyles = StyleSheet.create({
         fontWeight: 'bold'
     },
     browseButton: {
-        backgroundColor: '#007BFF',
-        padding: 10,
-        borderRadius: 5,
+        backgroundColor: '#0A2941',
+        padding: 16,
+        width: '80%',
+        borderRadius: 16,
         alignItems: 'center',
-        marginVertical: 10
+        marginVertical: 10,
+        marginTop: 20
     },
     browseButtonText: {
-        color: 'white'
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    pcontainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20
+    },
+    mcontainer: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+        borderRadius: 0
     },
     //FAQS
-    faqItem: {
-        backgroundColor: '#f5f5f5',
+    faqcontainer: {
         padding: 15,
-        marginVertical: 5,
+        paddingBottom: 30,
+        backgroundColor: '#F9FAFB'
+    },
+    faqheader: {
+        fontSize: 28,
+        fontWeight: '700',
+        textAlign: 'center',
+        color: '#4A4A4A',
+        marginBottom: 20
+    },
+    faqItem: {
+        backgroundColor: '#FFFFFF',
+        padding: 15,
+        marginBottom: 10,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: '#ddd'
+        borderColor: '#E2E8F0',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 3
+    },
+    expandedItem: {
+        backgroundColor: '#F0F4F8' // Light grey for expanded items
     },
     faqQuestion: {
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontSize: 18,
+        fontWeight: '600',
         color: '#333'
     },
     faqAnswer: {
-        marginTop: 5,
-        fontSize: 14,
-        color: '#555'
+        marginTop: 10,
+        fontSize: 16,
+        color: '#555',
+        lineHeight: 24
     },
+    //Features
     featureSection: {
         marginBottom: 20
     },
@@ -403,14 +645,15 @@ const commonStyles = StyleSheet.create({
         color: '#555'
     },
     featureLink: {
-        backgroundColor: '#007BFF',
+        backgroundColor: '#0A2941',
         paddingVertical: 8,
         paddingHorizontal: 12,
         borderRadius: 4
     },
     //Report a bug
     inputSection: {
-        marginBottom: 20
+        marginBottom: 20,
+        width: '100%'
     },
     inputLabel: {
         fontSize: 16,
@@ -418,12 +661,97 @@ const commonStyles = StyleSheet.create({
         marginBottom: 8
     },
     buginput: {
-        borderColor: '#ccc',
+        borderColor: '#0A2941',
         borderWidth: 1,
         padding: 10,
-        borderRadius: 4,
+        borderRadius: 10,
         fontSize: 14,
-        minHeight: 100
+        minHeight: 200
+    },
+    scrollViewContainer: {
+        alignItems: 'center', // Example style, adjust as needed
+        justifyContent: 'center' // Example style, adjust as needed
+        // Any other styles for the ScrollView container
+    },
+
+    // Modals
+    modalView: {
+        margin: 20,
+
+        backgroundColor: 'white',
+
+        borderRadius: 20,
+
+        padding: 35,
+
+        alignItems: 'center',
+
+        shadowColor: '#000',
+
+        shadowOffset: {
+            width: 0,
+
+            height: 2
+        },
+
+        shadowOpacity: 0.25,
+
+        shadowRadius: 4,
+
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+
+        textAlign: 'center'
+    },
+    modalButton: {
+        borderRadius: 20,
+
+        padding: 10,
+
+        elevation: 2
+    },
+
+    modalBackground: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)' // Semi-transparent background
+    },
+    modalContainer: {
+        width: '80%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+        elevation: 5 // For Android
+    },
+    modalTitle: {
+        fontSize: 20,
+        fontWeight: '600',
+        marginBottom: 15,
+        color: '#0A2941'
+    },
+    modalContent: {
+        fontSize: 16,
+        color: '#333',
+        lineHeight: 24,
+        marginBottom: 20
+    },
+    closeButton: {
+        backgroundColor: '#0A2941',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 25,
+        alignItems: 'center'
+    },
+    closeButtonText: {
+        color: 'white',
+        fontWeight: '500'
     }
 })
 

@@ -27,7 +27,7 @@ const ViewNewsPage = (): ReactNode => {
             ) : error ? (
                 <Text> Error loading.. ${error}</Text>
             ) : data ? (
-                <VieNews news={data} coverImage={id}></VieNews>
+                <VieNews news={data} />
             ) : (
                 <Text>No data found</Text>
             )}

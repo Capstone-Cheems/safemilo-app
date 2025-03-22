@@ -1,6 +1,23 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    ScrollView,
+    LayoutAnimation,
+    UIManager,
+    Platform
+} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import commonStyles from '../../styles/commonStyles'
+
+// Enable animation for Android (iOS works by default)
+if (
+    Platform.OS === 'android' &&
+    UIManager.setLayoutAnimationEnabledExperimental
+) {
+    UIManager.setLayoutAnimationEnabledExperimental(true)
+}
 
 const faqs = [
     {
@@ -19,6 +36,7 @@ const faqs = [
         question: 'How can I report a scam?',
         answer: 'You can report a scam directly through the app by navigating to the "Report Scam" section and filling out the necessary details.'
     },
+
     {
         question: 'How do I protect myself from scams?',
         answer: 'Always verify the source of messages and calls, avoid sharing personal information, and use Safe Milo’s scam alerts to stay updated on trending scams.'
@@ -28,41 +46,165 @@ const faqs = [
         answer: 'Yes! Safe Milo allows you to set preferences for the types of scams you want to be alerted about, ensuring you stay informed about the scams most relevant to you.'
     },
     {
-        question: 'Is Safe Milo available in all countries?',
-        answer: 'Safe Milo is currently available in multiple countries and regions, but some features may be restricted in certain areas due to local regulations.'
-    },
-    {
-        question: 'How do I update the app?',
-        answer: 'You can update Safe Milo through the App Store (iOS) or Google Play Store (Android) whenever a new version is available.'
-    },
-    {
         question: 'Is my data secure in Safe Milo?',
         answer: 'Yes! Safe Milo prioritizes your privacy. All data is encrypted, and we do not share your personal information with third parties without your consent.'
     }
 ]
 
+const alerts = [
+    {
+        title: 'New Scam Alert: Fake Tech Support Call',
+        description:
+            'A new scam targeting users claiming to offer tech support services. Do not share any personal information with them.'
+    },
+    {
+        title: 'Urgent: SMS Phishing Attack',
+        description:
+            'Be cautious of SMS messages claiming to be from your bank. Do not click on any links in these messages.'
+    }
+]
+
 const FAQ = (): React.JSX.Element => {
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+    const [expandedAlertIndex, setExpandedAlertIndex] = useState<number | null>(
+        null
+    )
+    const [textSize, setTextSize] = useState(20) // Default text size
+    const [isBold, setIsBold] = useState(true)
+
+    // Load settings from AsyncStorage
+    useEffect(() => {
+        const loadSettings = async () => {
+            try {
+                const savedTextSize = await AsyncStorage.getItem('textSize')
+                const savedIsBold = await AsyncStorage.getItem('isBold')
+                if (savedTextSize) {
+                    setTextSize(Number(savedTextSize))
+                }
+                if (savedIsBold) {
+                    setIsBold(savedIsBold === 'true')
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error)
+            }
+        }
+
+        loadSettings()
+    }, [])
+
+    // Save settings to AsyncStorage
+    useEffect(() => {
+        const saveSettings = async () => {
+            try {
+                await AsyncStorage.setItem('textSize', textSize.toString())
+                await AsyncStorage.setItem('isBold', isBold.toString())
+            } catch (error) {
+                console.error('Error saving settings:', error)
+            }
+        }
+
+        saveSettings()
+    }, [textSize, isBold])
 
     const toggleFAQ = (index: number) => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
         setExpandedIndex(expandedIndex === index ? null : index)
     }
 
-    return (
-        <ScrollView
-            contentContainerStyle={commonStyles.container} // Fix here
-        >
-            <Text style={commonStyles.header}>Safe Milo - FAQ's</Text>
+    const toggleAlert = (index: number) => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+        setExpandedAlertIndex(expandedAlertIndex === index ? null : index)
+    }
 
+    return (
+        <ScrollView contentContainerStyle={commonStyles.faqcontainer}>
+            <Text
+                style={[
+                    commonStyles.faqheader,
+                    {
+                        fontSize: textSize + 2, // Adjust for header size
+                        fontWeight: isBold ? 'bold' : 'normal'
+                    }
+                ]}
+            >
+                Safe Milo - FAQ's
+            </Text>
+
+            {/* FAQ Section */}
             {faqs.map((faq, index) => (
                 <TouchableOpacity
                     key={index}
                     onPress={() => toggleFAQ(index)}
-                    style={commonStyles.faqItem}
+                    style={[
+                        commonStyles.faqItem,
+                        expandedIndex === index && commonStyles.expandedItem
+                    ]}
                 >
-                    <Text style={commonStyles.faqQuestion}>{faq.question}</Text>
+                    <Text
+                        style={{
+                            fontSize: textSize - 3, // Use the dynamic text size
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }}
+                    >
+                        {faq.question}
+                    </Text>
                     {expandedIndex === index && (
-                        <Text style={commonStyles.faqAnswer}>{faq.answer}</Text>
+                        <View style={commonStyles.faqcontainer}>
+                            <Text
+                                style={{
+                                    fontSize: textSize - 5, // Slightly smaller for the answer
+                                    fontWeight: isBold ? 'bold' : 'normal'
+                                }}
+                            >
+                                {faq.answer}
+                            </Text>
+                        </View>
+                    )}
+                </TouchableOpacity>
+            ))}
+
+            {/* Alerts Section */}
+            <Text
+                style={[
+                    commonStyles.faqheader,
+                    {
+                        fontSize: textSize + 2,
+                        fontWeight: isBold ? 'bold' : 'normal'
+                    }
+                ]}
+            >
+                Latest Scam Alerts
+            </Text>
+
+            {alerts.map((alert, index) => (
+                <TouchableOpacity
+                    key={index}
+                    onPress={() => toggleAlert(index)}
+                    style={[
+                        commonStyles.faqItem,
+                        expandedAlertIndex === index &&
+                            commonStyles.expandedItem
+                    ]}
+                >
+                    <Text
+                        style={{
+                            fontSize: textSize,
+                            fontWeight: isBold ? 'bold' : 'normal'
+                        }}
+                    >
+                        {alert.title}
+                    </Text>
+                    {expandedAlertIndex === index && (
+                        <View style={commonStyles.faqcontainer}>
+                            <Text
+                                style={{
+                                    fontSize: textSize - 2, // Slightly smaller for description
+                                    fontWeight: isBold ? 'bold' : 'normal'
+                                }}
+                            >
+                                {alert.description}
+                            </Text>
+                        </View>
                     )}
                 </TouchableOpacity>
             ))}

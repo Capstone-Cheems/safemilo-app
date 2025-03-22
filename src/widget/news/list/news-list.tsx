@@ -5,15 +5,9 @@ import { VStack } from '@/components/ui/vstack'
 export const NewsList: React.FC<{ news: News[] }> = ({ news }) => {
     return (
         <>
-            <VStack space="md" className="m-2">
+            <VStack>
                 {news.map((item, index) => {
-                    return (
-                        <NewsCard
-                            coverImage={item.newsID}
-                            news={item}
-                            key={index}
-                        ></NewsCard>
-                    )
+                    return <NewsCard news={item} key={index} />
                 })}
             </VStack>
         </>

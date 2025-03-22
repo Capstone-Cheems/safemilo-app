@@ -2,6 +2,7 @@ import React, { useLayoutEffect } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
+import RequestDeniedAnimation from '@/components/RequestDeniedAnimation'
 
 const CallPermissionDenied = (): React.JSX.Element => {
     const router = useRouter()
@@ -18,14 +19,14 @@ const CallPermissionDenied = (): React.JSX.Element => {
     }
 
     return (
-        <View style={commonStyles.viewContainer}>
+        <View style={commonStyles.viewDeniedContainer}>
             <TouchableOpacity
                 style={commonStyles.backButton}
                 onPress={handleBack}
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/light-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
@@ -40,15 +41,14 @@ const CallPermissionDenied = (): React.JSX.Element => {
                     style={commonStyles.longButton}
                     onPress={handleContinue}
                 >
-                    <Text style={commonStyles.buttonText}>Continue</Text>
+                    <Text style={commonStyles.buttonText}>Next</Text>
                 </TouchableOpacity>
 
                 <View style={commonStyles.triangle} />
             </View>
-            <Image
-                // eslint-disable-next-line @typescript-eslint/no-require-imports
-                source={require('../../../assets/images/onBoardingMascotImage.png')}
-                style={commonStyles.mascotImage}
+
+            <RequestDeniedAnimation
+                style={commonStyles.moduleCompleteAnimation}
             />
         </View>
     )

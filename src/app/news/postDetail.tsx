@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
+import ActionSheet from 'react-native-action-sheet'
 
 const PostDetail = (): React.JSX.Element => {
     const { newsID, title, content, scamTypeTag, createdAt } =
@@ -12,7 +13,7 @@ const PostDetail = (): React.JSX.Element => {
         router.replace('/(organization)/createdPost')
     }
 
-    /* const handleOpenMenu = (): void => {
+    const handleOpenMenu = (): void => {
         ActionSheet.showActionSheetWithOptions(
             {
                 options: ['Cancel', 'Edit'],
@@ -24,7 +25,7 @@ const PostDetail = (): React.JSX.Element => {
                 }
             }
         )
-    }*/
+    }
 
     const handleEdit = (): void => {
         router.push({
@@ -46,14 +47,14 @@ const PostDetail = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/dark-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={commonStyles.moreButton}
-                /*onPress={handleOpenMenu}*/
+                style={commonStyles.backIcon}
+                onPress={handleOpenMenu}
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -67,7 +68,7 @@ const PostDetail = (): React.JSX.Element => {
                 Posted on {new Date(createdAt as string).toDateString()}
             </Text>
             <Text style={commonStyles.detailTag}>#{scamTypeTag}</Text>
-            <ScrollView style={commonStyles.scrollContainer}>
+            <ScrollView style={commonStyles.container}>
                 <Text style={commonStyles.detailContent}>{content}</Text>
             </ScrollView>
         </View>

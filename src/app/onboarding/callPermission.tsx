@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, Alert } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import * as Contacts from 'expo-contacts'
 import commonStyles from '../../styles/commonStyles'
+import LookPhoneCallAnimation from '../../../components/LookPhoneCallAnimation'
 
 const CallPermission = (): React.JSX.Element => {
     const router = useRouter()
@@ -55,12 +56,17 @@ const CallPermission = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/raw-circle-arrow-left.png')}
+                    source={require('../../../assets/images/light-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
 
             <View style={commonStyles.dialogBox}>
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/call-permission-icon.png')}
+                    style={commonStyles.permissionIcon}
+                />
                 <Text style={commonStyles.title}>
                     Allow Access to your Calls
                 </Text>
@@ -71,14 +77,14 @@ const CallPermission = (): React.JSX.Element => {
 
                 <View style={commonStyles.buttonContainer}>
                     <TouchableOpacity
-                        style={commonStyles.button}
+                        style={commonStyles.buttonWhite}
                         onPress={handleDeny}
                     >
-                        <Text style={commonStyles.buttonText}>Deny</Text>
+                        <Text style={commonStyles.buttonTextWhite}>Deny</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={commonStyles.button}
+                        style={commonStyles.dialogButton}
                         onPress={requestPermission}
                     >
                         <Text style={commonStyles.buttonText}>Allow</Text>
@@ -87,11 +93,8 @@ const CallPermission = (): React.JSX.Element => {
 
                 <View style={commonStyles.triangle} />
             </View>
-            <Image
-                // eslint-disable-next-line @typescript-eslint/no-require-imports
-                source={require('../../../assets/images/onBoardingMascotImage.png')}
-                style={commonStyles.mascotImage}
-            />
+
+            <LookPhoneCallAnimation style={commonStyles.lookPhoneAnimation} />
         </View>
     )
 }
