@@ -32,6 +32,9 @@ const Tour5messages = (): React.JSX.Element => {
                 }
             >
                 <View style={commonStyles.dialogBox}>
+                    <View style={commonStyles.progressBarContainer}>
+                        <View style={commonStyles.progressBarFill100} />
+                    </View>
                     <Text style={commonStyles.dialogText}>
                         Track the messages that are flagged as scams
                     </Text>

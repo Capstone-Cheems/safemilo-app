@@ -35,6 +35,9 @@ const Tour3news = (): React.JSX.Element => {
                 }
             >
                 <View style={commonStyles.dialogBox}>
+                    <View style={commonStyles.progressBarContainer}>
+                        <View style={commonStyles.progressBarFill50} />
+                    </View>
                     <Text style={commonStyles.dialogText}>
                         Get real-time scam news from official srouces - stay
                         ahead!

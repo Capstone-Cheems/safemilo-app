@@ -35,6 +35,9 @@ const Tour2tip = (): React.JSX.Element => {
                 }
             >
                 <View style={commonStyles.dialogBox}>
+                    <View style={commonStyles.progressBarContainer}>
+                        <View style={commonStyles.progressBarFill25} />
+                    </View>
                     <Text style={commonStyles.dialogText}>
                         I'll share a quick tip daily to help you spot and avoid
                         scams.

@@ -35,6 +35,9 @@ const Tour4calls = (): React.JSX.Element => {
                 }
             >
                 <View style={commonStyles.dialogBox}>
+                    <View style={commonStyles.progressBarContainer}>
+                        <View style={commonStyles.progressBarFill75} />
+                    </View>
                     <Text style={commonStyles.dialogText}>
                         Track the list of phone numbers that are flagged as
                         scams
