@@ -13,6 +13,10 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 30
     },
+    dialogText: {
+        fontSize: 24,
+        textAlign: 'center'
+    },
     accent: {
         color: 'black'
     },
@@ -247,6 +251,38 @@ const commonStyles = StyleSheet.create({
     permissionIcon: {
         width: 40,
         height: 40
+    },
+    progressBarContainer: {
+        width: '100%',
+        height: 10,
+        backgroundColor: '#D1D1D1',
+        borderRadius: 4,
+        marginBottom: 12,
+        overflow: 'hidden'
+    },
+    progressBarFill25: {
+        width: '25%',
+        height: '100%',
+        backgroundColor: '#1980F5',
+        borderRadius: 4
+    },
+    progressBarFill50: {
+        width: '50%',
+        height: '100%',
+        backgroundColor: '#1980F5',
+        borderRadius: 4
+    },
+    progressBarFill75: {
+        width: '75%',
+        height: '100%',
+        backgroundColor: '#1980F5',
+        borderRadius: 4
+    },
+    progressBarFill100: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#1980F5',
+        borderRadius: 4
     },
     // Auth
     link: {
