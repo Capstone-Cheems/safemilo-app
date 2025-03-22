@@ -5,7 +5,6 @@ import { useAuth } from '@/src/shared'
 import { VStack } from '@/components/ui/vstack'
 import { Box } from '@/components/ui/box'
 import { Heading } from '@/components/ui/heading'
-import { ShareButtonWidget } from '@/src/widget/button'
 import { timeAgo } from '@/src/shared'
 import {
     scamTypeImages,
@@ -71,10 +70,10 @@ const OrganizationNewsDetail = (): React.JSX.Element => {
     return (
         <ScrollView>
             <VStack space="md" className="m-4">
-                <Heading>{title}</Heading>
+                <Heading className="text-3xl">{title}</Heading>
                 <Box className="flex-row flex-nowrap justify-between">
                     <Text>{scamTypeTag}</Text>
-                    <Text>{timeAgo(createdAt)}</Text>
+                    <Text>Posted: {timeAgo(createdAt)}</Text>
                 </Box>
                 <Box>
                     <Text>{content}</Text>
@@ -111,11 +110,6 @@ const OrganizationNewsDetail = (): React.JSX.Element => {
                         />
                     )}
                 </Box>
-
-                {/* Share Button */}
-                <ShareButtonWidget
-                    message={`${title}\n#${scamTypeTag}\n\n${content}\n\nStay safe from scams!\nby SafeMilo 🦊`}
-                />
             </VStack>
         </ScrollView>
     )
