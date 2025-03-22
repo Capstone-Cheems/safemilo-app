@@ -13,21 +13,21 @@ type Course = {
 const courses: Course[] = [
     {
         id: '1',
-        title: 'Fake Pop-Ups',
+        title: 'Scam Awareness Basics',
         description:
             'A pop-up warns of a virus, urging you to call a number or download software.',
         image: require('../../../assets/images/specific-cat-fake.png')
     },
     {
         id: '2',
-        title: 'Cold Calls from “Tech Support”',
+        title: 'Phishing Scams 101”',
         description:
             'A caller claims your device has a problem from a trusted company.',
         image: require('../../../assets/images/specific-cat-cold.png')
     },
     {
         id: '3',
-        title: 'Search Engine Scams',
+        title: 'Online Shopping Fraud',
         description:
             'Scammers create fake support sites, tricking you into paying or granting device access.',
         image: require('../../../assets/images/specific-cat-search.png')
