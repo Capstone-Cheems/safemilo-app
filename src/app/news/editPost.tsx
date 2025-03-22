@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import {
     View,
     Text,
@@ -10,7 +10,7 @@ import {
     Dimensions
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
-import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
 import Constants from 'expo-constants'
@@ -20,6 +20,10 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 const IMAGE_SIZE = (SCREEN_WIDTH - 48) / 3
 
 const EditPost = (): React.JSX.Element => {
+    const navigation = useNavigation()
+    useLayoutEffect(() => {
+        navigation.setOptions({ title: 'Edit Post' })
+    }, [navigation])
     const router = useRouter()
     const { user } = useAuth()
     const {
@@ -230,7 +234,7 @@ const EditPost = (): React.JSX.Element => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={() => (
                 <View style={commonStyles.postContainer}>
-                    <Text style={commonStyles.header}>Edit Post</Text>
+                   {/* <Text style={commonStyles.header}>Edit Post</Text>*/}
 
                     <Text style={commonStyles.newsInputLabel}>News Title</Text>
                     <TextInput

@@ -356,7 +356,7 @@ const AchievementsScreen: React.FC<AchievementsScreenProps> = ({
                 </View>
             </ScrollView>
 
-            {/* Bottom Navigation */}
+            {/* Bottom Navigation 
             <View style={styles.bottomNav}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Home')}
@@ -376,7 +376,7 @@ const AchievementsScreen: React.FC<AchievementsScreenProps> = ({
                 >
                     <Feather name="message-circle" size={24} color="#000" />
                 </TouchableOpacity>
-            </View>
+            </View>*/}
         </View>
     )
 }

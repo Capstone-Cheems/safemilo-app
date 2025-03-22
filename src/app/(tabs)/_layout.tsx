@@ -144,6 +144,7 @@ export default function TabLayout(): ReactNode {
             <Tabs.Screen
                 name="home"
                 options={{
+                    title:'Home',
                     tabBarIcon: ({ focused }) =>
                         homeIcon &&
                         renderTabIcon(
@@ -162,6 +163,7 @@ export default function TabLayout(): ReactNode {
             <Tabs.Screen
                 name="learn"
                 options={{
+                    title: 'Learn',
                     tabBarIcon: ({ focused }) =>
                         learnIcon &&
                         renderTabIcon(
@@ -180,6 +182,7 @@ export default function TabLayout(): ReactNode {
             <Tabs.Screen
                 name="chat"
                 options={{
+                    title: 'Chat',
                     tabBarIcon: ({ focused }) =>
                         chatIcon &&
                         renderTabIcon(

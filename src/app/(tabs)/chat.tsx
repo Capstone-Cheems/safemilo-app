@@ -5,9 +5,9 @@ import { ArrowUpIcon, Icon } from '@/components/ui/icon'
 import { VStack } from '@/components/ui/vstack'
 import { useAuth, useFetchData } from '@/src/shared'
 import { Message } from '@/src/widget/chat/types'
+import { getAuth } from '@react-native-firebase/auth'
 import { useNavigation } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import { getAuth } from 'firebase/auth'
 import React, { ReactNode, useState, useEffect, useLayoutEffect } from 'react'
 import {
     View,
