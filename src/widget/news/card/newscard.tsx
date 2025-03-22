@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { Box } from '@/components/ui/box'
 import { VStack } from '@/components/ui/vstack'
 import { News, timeAgo } from '@/src/shared'
@@ -10,6 +11,16 @@ import {
     DEFAULT_SCAM_IMAGE
 } from '@/src/shared/ui/image/scam-news-image'
 import commonStyles from '../../../styles/commonStyles'
+import { ImageSourcePropType } from 'react-native'
+
+const organizationAvatars: Record<string, ImageSourcePropType> = {
+    'Vancouver Police Department': require('../../../../assets/images/vancouver-police.jpeg'),
+    'Surrey Police': require('../../../../assets/images/surrey-police.jpeg'),
+    RCMP: require('../../../../assets/images/rcmp.png'),
+    CIBC: require('../../../../assets/images/cibc.jpg'),
+    RBC: require('../../../../assets/images/rbc.jpg'),
+    default: require('../../../../assets/images/icon.png')
+}
 
 export const NewsCard: React.FC<{
     news: News
@@ -45,8 +56,10 @@ export const NewsCard: React.FC<{
                         </Text>
                         <View className="flex-row items-center ml-[16px] mt-1 mb-1 gap-2">
                             <Image
-                                // eslint-disable-next-line @typescript-eslint/no-require-imports
-                                source={require('../../../../assets/images/icon.png')}
+                                source={
+                                    organizationAvatars[news.organizationID] ||
+                                    organizationAvatars.default
+                                }
                                 style={{
                                     width: 32,
                                     height: 32,
