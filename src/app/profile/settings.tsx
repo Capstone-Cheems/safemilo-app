@@ -9,13 +9,18 @@ import {
 } from 'react-native'
 
 import { useFocusEffect } from '@react-navigation/native'
-import Slider from '@react-native-community/slider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Contacts from 'expo-contacts'
 import * as SMS from 'expo-sms'
 import * as Notifications from 'expo-notifications'
 import { Audio } from 'expo-av'
 import commonStyles from '../../styles/commonStyles'
+import {
+    Slider,
+    SliderFilledTrack,
+    SliderThumb,
+    SliderTrack
+} from '@/components/ui/slider'
 
 const Settings = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20)
@@ -214,27 +219,24 @@ const Settings = (): React.JSX.Element => {
                                 justifyContent: 'space-between'
                             }}
                         >
-                            <View style={{ position: 'absolute', left: 0 }}>
-                                <Text style={{ fontSize: textSize - 7 }}>
-                                    20
-                                </Text>
-                            </View>
-                            <View style={{ position: 'absolute', left: '33%' }}>
-                                <Text style={{ fontSize: textSize - 5 }}>
-                                    25
-                                </Text>
-                            </View>
-                            <View style={{ position: 'absolute', left: '66%' }}>
-                                <Text style={{ fontSize: textSize }}>30</Text>
-                            </View>
+                        
 
                             <Slider
-                                style={{ width: 250, height: 40 }}
-                                minimumValue={20}
-                                maximumValue={30}
+                                minValue={20}
+                                maxValue={30}
                                 value={textSize}
-                                onValueChange={setTextSize}
-                            />
+                                onChange={setTextSize}
+                                size="md"
+                                orientation="horizontal"
+                                isDisabled={false}
+                                isReversed={false}
+                                step={2}
+                            >
+                                <SliderTrack>
+                                    <SliderFilledTrack />
+                                </SliderTrack>
+                                <SliderThumb />
+                            </Slider>
                         </View>
 
                         <Text
