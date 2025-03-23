@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity,Image } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import {

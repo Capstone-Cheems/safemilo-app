@@ -36,7 +36,7 @@ const Messages = (): React.JSX.Element => {
     return (
         <Box className="bg-white flex-1">
             <Box className="m-5">
-                <Heading className="pb-2 text-2xl">All Scam Calls</Heading>
+                <Heading className="pb-2 text-2xl">All Scam Messages</Heading>
                 <Divider />
             </Box>
             {messages && messages.length > 0 ? (

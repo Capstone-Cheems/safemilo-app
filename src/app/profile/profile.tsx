@@ -15,17 +15,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // eslint-disable-next-line import/no-unresolved
 import { useAuth } from '@/src/shared'
-import { getAuth, signOut, updateProfile } from '@react-native-firebase/auth'
+import { getAuth, updateProfile } from '@react-native-firebase/auth'
+import {
+    Avatar,
+    AvatarBadge,
+    AvatarFallbackText,
+    AvatarImage
+} from '@/components/ui/avatar'
 
 const Profile = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20) // Default text size
     const [isBold, setIsBold] = useState(true)
-    const [userData, setUserData] = useState<UserData | null>(null)
-    const [newDisplayName, setNewDisplayName] = useState<string>('')
 
     const navigation = useNavigation()
     const router = useRouter()
-    const auth = getAuth()
     const { logout } = useAuth()
 
     interface UserData {
@@ -41,7 +44,6 @@ const Profile = (): React.JSX.Element => {
         try {
             const storedSize = await AsyncStorage.getItem('textSize')
             const storedBold = await AsyncStorage.getItem('isBold')
-            const storedUserData = await AsyncStorage.getItem('user')
 
             if (storedSize) {
                 setTextSize(parseInt(storedSize))
@@ -49,10 +51,6 @@ const Profile = (): React.JSX.Element => {
 
             if (storedBold) {
                 setIsBold(storedBold === 'true')
-            }
-
-            if (storedUserData) {
-                setUserData(JSON.parse(storedUserData))
             }
         } catch (error) {
             console.error('Error loading settings:', error)
@@ -69,39 +67,12 @@ const Profile = (): React.JSX.Element => {
     const handleLogout = async () => {
         try {
             logout()
-            await AsyncStorage.removeItem('user') // Clear stored user data
-            await signOut(auth)
             Alert.alert('Success', 'You have been logged out!')
-            router.replace('/auth/login')
         } catch (error) {
             Alert.alert('Logout Failed', (error as Error).message)
         }
     }
 
-    const handleDisplayNameChange = async () => {
-        try {
-            if (!auth.currentUser) return
-
-            await updateProfile(auth.currentUser, {
-                displayName: newDisplayName
-            })
-
-            const updatedUser = auth.currentUser
-            const updatedUserData: UserData = {
-                displayName: updatedUser.displayName,
-                email: updatedUser.email || '',
-                uid: updatedUser.uid,
-                providerData: updatedUser.providerData,
-                photoURL: updatedUser.photoURL
-            }
-
-            setUserData(updatedUserData)
-            await AsyncStorage.setItem('user', JSON.stringify(updatedUserData))
-            Alert.alert('Success', 'Display name updated!')
-        } catch (error) {
-            Alert.alert('Error', 'Could not update display name.')
-        }
-    }
 
     const navigateTo = (path: string) => {
         router.push(path)
@@ -124,72 +95,27 @@ const Profile = (): React.JSX.Element => {
             </View>
 
             <View style={styles.container}>
-                {userData?.displayName && (
-                    <View
-                        style={{
-                            marginTop: 60,
-                            backgroundColor: 'white',
-                            borderRadius: 60, // Circular shape
-                            padding: 30,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: 120, // Fixed width
-                            height: 120, // Ensure height matches width
-                            aspectRatio: 1, // Maintain a 1:1 ratio for circle
-                            borderWidth: 0.5, // Set the border thickness
-                            borderColor: 'black' // Set the border color
+                <Avatar size="2xl">
+                    <AvatarFallbackText>
+                        {getAuth()?.currentUser?.displayName}
+                    </AvatarFallbackText>
+                    <AvatarImage
+                        source={{
+                            uri: getAuth().currentUser?.photoURL ?? ''
                         }}
-                    >
-                        <Text
-                            style={{
-                                fontSize: textSize + 4,
-                                fontWeight: isBold ? 'bold' : 'normal',
-                                color: 'black' // Text color for contrast
-                            }}
-                        >
-                            {userData.displayName
-                                .split(' ')
-                                .map((name, index, arr) =>
-                                    index === 0 || index === arr.length - 1
-                                        ? name.charAt(0).toUpperCase()
-                                        : ''
-                                )
-                                .join('')}
-                        </Text>
-                    </View>
-                )}
+                    />
+                    <AvatarBadge />
+                </Avatar>
             </View>
 
-            {userData?.displayName ? (
-                <Text
-                    style={{
-                        fontSize: textSize + 6,
-                        fontWeight: isBold ? 'bold' : 'normal'
-                    }}
-                >
-                    {userData.displayName}
-                </Text>
-            ) : (
-                <View>
-                    <Text style={commonStyles.boldText}>
-                        Set your Display Name
-                    </Text>
-                    <TextInput
-                        style={commonStyles.input}
-                        value={newDisplayName}
-                        onChangeText={setNewDisplayName}
-                        placeholder="Enter Display Name"
-                    />
-                    <TouchableOpacity
-                        onPress={handleDisplayNameChange}
-                        style={commonStyles.largeformButton}
-                    >
-                        <Text style={commonStyles.buttonText}>
-                            Set Display Name
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            )}
+            <Text
+                style={{
+                    fontSize: textSize + 6,
+                    fontWeight: isBold ? 'bold' : 'normal'
+                }}
+            >
+                {getAuth().currentUser?.displayName}
+            </Text>
 
             <Text
                 style={{
@@ -198,7 +124,7 @@ const Profile = (): React.JSX.Element => {
                     marginBottom: 10
                 }}
             >
-                {userData ? userData.email : 'Guest'}
+                {getAuth() ? getAuth().currentUser?.email : 'Guest'}
             </Text>
 
             {/* Buttons */}
