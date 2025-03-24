@@ -8,10 +8,10 @@ import { Message } from '@/src/widget/chat/types'
 import { getAuth } from '@react-native-firebase/auth'
 import { useNavigation } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import { Text } from '@/components/ui/text'
 import React, { ReactNode, useState, useEffect, useLayoutEffect } from 'react'
 import {
     View,
-    Text,
     TextInput,
     TouchableOpacity,
     ScrollView,
@@ -103,46 +103,47 @@ export default function Chat(): ReactNode {
         <Box className="bg-[#83D1FF] flex-1  p-5">
             <StatusBar style="light" />
             <ScrollView>
-                <VStack space="md" reversed={false}>
-                {messages.map(msg => (
-                    <Box key={msg.id}
-                        className={`  ${msg.sender === 'user' ? 'self-start' : 'self-end'}`}
-                    >
-                        <HStack space="md" reversed={false} className="justify-items-center items-center">
-                        {msg.sender !== 'user' && (
-                            <Box>
-                                <Image
-                                    // eslint-disable-next-line @typescript-eslint/no-require-imports
-                                    source={require('../../../assets/images/ChatIcon.png')}
-                                    className="max-w-10 max-h-10"
-                                />
-                            </Box>
-                        )}
-                        <Box
-                            
-                            className={`p-5 rounded-3xl bg-white max-w-80`}
+                <VStack
+                    space="md"
+                    reversed={false}
+                >
+                    {messages.map(msg => (
+                        <HStack
+                            space="sm"
+                            reversed={false}
+                            className="justify-items-center items-center"
+                            key={msg.id}
                         >
-                            <Markdown>{msg.text}</Markdown>
-                        </Box>
-                        {msg.sender === 'user' && (
-                            <Box >
+                            {msg.sender !== 'user' && (
+                                <Avatar size="md" className=''>
+                                    <AvatarImage
+                                        source={require('../../../assets/images/ChatIcon.png')}
+                                    />
+                                </Avatar>
+                            )}
+                            <Box className={`p-2 rounded-3xl bg-white grow shrink `}>
+                                <Markdown>{msg.text}</Markdown>
+                            </Box>
+                            {msg.sender === 'user' && (
                                 <Avatar size="md">
                                     <AvatarFallbackText>
                                         {getAuth().currentUser?.displayName}
                                     </AvatarFallbackText>
                                     <AvatarImage
                                         source={{
-                                            uri: getAuth().currentUser?.photoURL ?? ''
+                                            uri:
+                                                getAuth().currentUser
+                                                    ?.photoURL ?? ''
                                         }}
                                     />
                                 </Avatar>
-                            </Box>
-                        )}
+                            )}
                         </HStack>
-                    </Box>
-                ))}
-                {loading && <ActivityIndicator size="small" color="#007AFF" />}
-                {error && <Text style={styles.errorText}>{error}</Text>}
+                    ))}
+                    {loading && (
+                        <ActivityIndicator size="small" color="#007AFF" />
+                    )}
+                    {error && <Text style={styles.errorText}>{error}</Text>}
                 </VStack>
             </ScrollView>
 
@@ -179,5 +180,10 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         elevation: 5
     },
-    input: { flex: 1, fontSize: 16, padding: 10 }
+    input: { flex: 1, fontSize: 16, padding: 10 },
+    scrollViewContent: {
+        flexGrow: 1,
+
+        overflow: 'visible'
+    }
 })
