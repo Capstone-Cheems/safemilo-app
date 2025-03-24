@@ -19,7 +19,7 @@ const OnboardingScreen = (): React.JSX.Element => {
     return (
         <View style={commonStyles.viewContainer}>
             <View style={commonStyles.dialogBox}>
-                <Text style={commonStyles.title}>Hi! I’m Mylo,</Text>
+                <Text style={commonStyles.title}>Hi! I’m Milo,</Text>
                 <Text style={commonStyles.description}>
                     Your scam-free buddy. I’ll help you stay safe from online
                     scams.
@@ -36,10 +36,7 @@ const OnboardingScreen = (): React.JSX.Element => {
                 <View style={commonStyles.triangle} />
             </View>
 
-            <JumpWaveLoopAnimation
-                style={commonStyles.jumpWaveLoopAnimation}
-                frameRate={40}
-            />
+            <JumpWaveLoopAnimation style={commonStyles.jumpWaveLoopAnimation} />
         </View>
     )
 }
