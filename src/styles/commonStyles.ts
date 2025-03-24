@@ -131,7 +131,6 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#0d1b2a',
         paddingVertical: 10,
         paddingHorizontal: 30,
-        width: '100%',
         borderRadius: 16,
         marginTop: 10,
         borderWidth: 2,
