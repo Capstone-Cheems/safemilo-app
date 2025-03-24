@@ -69,6 +69,12 @@ export default {
                 {
                     launchMode: 'most-recent'
                 }
+            ],
+            [
+                'expo-font',
+                {
+                    "fonts" : ["./assets/fonts/Montserrat-Regular.ttf"]
+                }
             ]
         ],
         extra: {

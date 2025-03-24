@@ -23,7 +23,7 @@ const LessonScreen = (): JSX.Element => {
                     () =>
                         router.push({
                             pathname: '/learning/Quiz',
-                            params: { lessonId: '1' }
+                            params: { courseId: '1' }
                         }) // Correct navigation
                 }
             >
