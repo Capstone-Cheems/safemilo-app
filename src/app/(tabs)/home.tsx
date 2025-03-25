@@ -9,7 +9,11 @@ const tips = [
     'Never share One Time Password or codes with anyone, not even your bank!',
     'Be cautious of emails asking for personal information, phishing scams are common.',
     'If a deal sounds too good to be true, it probably is a scam!',
-    'Avoid clicking on unknown links in messages or emails.'
+    'Avoid clicking on unknown links in messages or emails.',
+    'Always verify the legitimacy of a website before entering your payment details.',
+    'Never give out personal information unless you are sure of the requester’s identity.',
+    'If you’re not sure about a phone call or email, it’s okay to hang up or delete it and check back with the company or person directly.',
+    'If you receive a call from someone claiming to be from a government agency or a company, hang up and call them back using an official number.'
 ]
 
 const Home = (): React.JSX.Element => {

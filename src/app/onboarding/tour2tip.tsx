@@ -24,7 +24,7 @@ const Tour2tip = (): React.JSX.Element => {
             style={{
                 width: '100%',
                 aspectRatio: 390 / 1312,
-                transform: [{ translateY: -100 }]
+                transform: [{ translateY: -110 }]
             }}
             resizeMode="cover"
         >
