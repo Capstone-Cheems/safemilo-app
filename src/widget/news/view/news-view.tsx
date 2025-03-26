@@ -107,15 +107,21 @@ export const VieNews: React.FC<{
         <ScrollView>
             <VStack space="md" className="m-4">
                 {/* Scam Type Image (Top) */}
-                <Box className="relative">
+                <Box
+                    className="relative"
+                    style={{
+                        height: 150,
+                        overflow: 'hidden'
+                    }}
+                >
                     <Image
                         source={imageSource}
                         style={{
                             width: '100%',
-                            height: 240
+                            height: '100%'
                         }}
                         className="max-w-full max-h-full"
-                        resizeMode="contain"
+                        resizeMode="cover"
                         alt="image"
                     />
                 </Box>
@@ -138,7 +144,8 @@ export const VieNews: React.FC<{
                     {!isSpeaking ? (
                         <ButtonWidget
                             text="Listen"
-                            playIcon={true}
+                            // eslint-disable-next-line @typescript-eslint/no-require-imports
+                            imageIcon={require('../../../../assets/images/listen-icon.png')}
                             onPress={handleListen}
                         />
                     ) : (
