@@ -34,11 +34,11 @@ export const NewsCard: React.FC<{
                     pathname: `/news/${news.newsID}`
                 })
             }
-            className="bg-[#F5F5F5] items-center"
+            className="bg-[#DADADA] items-center"
+            activeOpacity={1}
         >
-            <Card className="bg-[#F5F5F5]">
+            <Card className="bg-[#DADADA]">
                 <VStack>
-                    <Text className="text-3xl my-4 font-semibold">News</Text>
                     <Box>
                         <Image
                             source={imageSource}

@@ -44,7 +44,7 @@ const Home = (): React.JSX.Element => {
     }, [])
 
     return (
-        <ScrollView className="p-4 bg-gray-100">
+        <ScrollView className="p-4 bg-[#DADADA]">
             {/* Welcome Message */}
             <View className="mb-4 flex-row justify-between items-center">
                 <View>

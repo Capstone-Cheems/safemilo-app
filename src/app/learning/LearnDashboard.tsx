@@ -74,7 +74,7 @@ const LearnDashboardScreen = (): JSX.Element => {
     }, [])
 
     return (
-        <View className="flex-1 bg-gray-100 p-4">
+        <View className="flex-1 bg-gray-100 p-4 bg-[#DADADA]">
             <Text className="text-3xl font-bold">Learn</Text>
             <Text className="text-lg text-gray-600 mb-4">
                 Learn how to spot scams, recognize red flags, and take action in

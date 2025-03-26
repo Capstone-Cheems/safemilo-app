@@ -104,8 +104,8 @@ export const VieNews: React.FC<{
     const imageSource = scamTypeImages[news.scamTypeTag] || DEFAULT_SCAM_IMAGE
 
     return (
-        <ScrollView>
-            <VStack space="md" className="m-4">
+        <ScrollView className="bg-[#FFFFFF]">
+            <VStack space="md" className="m-4 bg-[#FFFFFF]">
                 {/* Scam Type Image (Top) */}
                 <Box
                     className="relative"
