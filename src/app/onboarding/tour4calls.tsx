@@ -31,7 +31,7 @@ const Tour4calls = (): React.JSX.Element => {
             <View
                 style={
                     (commonStyles.container,
-                    { position: 'absolute', top: 400, left: 42 })
+                    { position: 'absolute', top: 460, left: 8 })
                 }
             >
                 <View style={commonStyles.dialogBox}>
@@ -59,6 +59,8 @@ const Tour4calls = (): React.JSX.Element => {
                             <Text style={commonStyles.buttonText}>Next</Text>
                         </TouchableOpacity>
                     </View>
+
+                    <View style={commonStyles.triangle} />
                 </View>
             </View>
         </ImageBackground>

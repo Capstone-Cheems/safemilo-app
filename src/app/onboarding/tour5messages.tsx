@@ -28,7 +28,7 @@ const Tour5messages = (): React.JSX.Element => {
             <View
                 style={
                     (commonStyles.container,
-                    { position: 'absolute', top: 650, left: 42 })
+                    { position: 'absolute', top: 750, left: 12 })
                 }
             >
                 <View style={commonStyles.dialogBox}>
@@ -46,6 +46,8 @@ const Tour5messages = (): React.JSX.Element => {
                             <Text style={commonStyles.buttonText}>Done</Text>
                         </TouchableOpacity>
                     </View>
+
+                    <View style={commonStyles.triangle} />
                 </View>
             </View>
         </ImageBackground>

@@ -41,10 +41,10 @@ const Tour1start = (): React.JSX.Element => {
                     <Text style={commonStyles.buttonTextWhite}>Skip</Text>
                 </TouchableOpacity>
 
-                <View style={commonStyles.triangle} />
+                <View style={commonStyles.triangle2} />
             </View>
 
-            <TourStartAnimation style={commonStyles.moduleCompleteAnimation} />
+            <TourStartAnimation style={commonStyles.tourStartAnimation} />
         </View>
     )
 }

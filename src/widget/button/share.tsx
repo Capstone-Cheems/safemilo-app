@@ -1,4 +1,4 @@
-import { Button, ButtonText, ButtonIcon } from '@/components/ui/button'
+import { Button, ButtonIcon } from '@/components/ui/button'
 import { ShareIcon } from '@/components/ui/icon'
 import React from 'react'
 import { Share, Alert } from 'react-native'
@@ -26,10 +26,17 @@ export const ShareButtonWidget: React.FC<ShareButtonProps> = ({ message }) => {
     return (
         <Button
             onPress={handleShare}
-            className="bg-[#0D1B2A] w-[134px] rounded-full"
+            className="bg-transparent w-auto h-auto p-0 m-0"
+            style={{
+                backgroundColor: 'transparent',
+                elevation: 0
+            }}
         >
-            <ButtonIcon as={ShareIcon} />
-            <ButtonText className="text-white font-bold">Share</ButtonText>
+            <ButtonIcon
+                as={ShareIcon}
+                style={{ width: 28, height: 28 }}
+                color="#0D1B2A"
+            />
         </Button>
     )
 }

@@ -52,7 +52,7 @@ const Home = (): React.JSX.Element => {
                         className="text-[1.5rem] font-semibold"
                         style={{ fontSize: textSize + 6 }}
                     >
-                        Welcome,{user?.displayName}
+                        Welcome, {user?.displayName}
                     </Text>
                 </View>
             </View>
@@ -88,7 +88,7 @@ const Home = (): React.JSX.Element => {
             </Box>
 
             {/* Main Section */}
-            <View className="flex-col gap-8 mb-8">
+            <View className="flex-col gap-8 mb-32">
                 <View className="flex-row bg-yellow-100 rounded-2xl">
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports

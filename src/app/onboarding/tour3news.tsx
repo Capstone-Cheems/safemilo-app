@@ -31,10 +31,12 @@ const Tour3news = (): React.JSX.Element => {
             <View
                 style={
                     (commonStyles.container,
-                    { position: 'absolute', top: 680, left: 42 })
+                    { position: 'absolute', top: 645, left: 22 })
                 }
             >
                 <View style={commonStyles.dialogBox}>
+                    <View style={commonStyles.invertedTriangle} />
+
                     <View style={commonStyles.progressBarContainer}>
                         <View style={commonStyles.progressBarFill50} />
                     </View>

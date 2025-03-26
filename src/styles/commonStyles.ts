@@ -71,7 +71,7 @@ const commonStyles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        width: 300,
+        width: 360,
         position: 'relative'
     },
     title: {
@@ -217,16 +217,40 @@ const commonStyles = StyleSheet.create({
         width: 350,
         height: 350,
         marginTop: 10,
-        marginBottom: 30,
+        marginBottom: 15,
         marginLeft: -60,
         resizeMode: 'contain'
     },
-    lookPhoneAnimation: {
+    lookPhoneMessageAnimation: {
         width: 420,
         height: 280,
         marginTop: 10,
-        marginBottom: 30,
+        marginBottom: 5,
         marginLeft: 30,
+        resizeMode: 'contain'
+    },
+    lookPhoneCallAnimation: {
+        width: 420,
+        height: 280,
+        marginTop: 10,
+        marginBottom: 5,
+        marginLeft: 30,
+        resizeMode: 'contain'
+    },
+    permissionDeniedAnimation: {
+        width: 320,
+        height: 320,
+        marginTop: 10,
+        marginBottom: -5,
+        marginLeft: -100,
+        resizeMode: 'contain'
+    },
+    tourStartAnimation: {
+        width: 320,
+        height: 320,
+        marginTop: 10,
+        marginBottom: 0,
+        marginLeft: -60,
         resizeMode: 'contain'
     },
     moduleCompleteAnimation: {
@@ -251,6 +275,36 @@ const commonStyles = StyleSheet.create({
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
         borderTopColor: 'white'
+    },
+    triangle2: {
+        position: 'absolute',
+        bottom: -9,
+        left: '50%',
+        marginLeft: -10,
+        width: 0,
+        height: 0,
+        borderLeftWidth: 10,
+        borderRightWidth: 10,
+        borderTopWidth: 10,
+        borderStyle: 'solid',
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderTopColor: 'white'
+    },
+    invertedTriangle: {
+        position: 'absolute',
+        top: -10,
+        left: '50%',
+        marginLeft: -20,
+        width: 0,
+        height: 0,
+        borderLeftWidth: 10,
+        borderRightWidth: 10,
+        borderBottomWidth: 10,
+        borderStyle: 'solid',
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: 'white'
     },
     permissionIcon: {
         width: 40,
@@ -461,6 +515,16 @@ const commonStyles = StyleSheet.create({
     },
     newsInputLabel: {
         color: '#000'
+    },
+    customIcon: {
+        width: 24,
+        height: 24
+    },
+    widgetButtonText: {
+        fontSize: 26,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingTop: 10
     },
     //Profile Section
     largeformButton: {
