@@ -36,8 +36,9 @@ export const NewsCard: React.FC<{
             }
             className="bg-[#F5F5F5] items-center"
         >
-            <Card className=" bg-[#F5F5F5]">
+            <Card className="bg-[#F5F5F5]">
                 <VStack>
+                    <Text className="text-3xl my-4 font-semibold">News</Text>
                     <Box>
                         <Image
                             source={imageSource}
@@ -50,8 +51,8 @@ export const NewsCard: React.FC<{
                             alt="image"
                         />
                     </Box>
-                    <Box className="flex flex-col flex-nowrap justify-between gap-4 bg-[#FFFFFF] rounded-[16] mt-[-10]">
-                        <Text className="self-end mr-4 mt-3">
+                    <Box className="flex flex-col flex-nowrap justify-between gap-2 bg-[#FFFFFF] rounded-[16] mt-[-10]">
+                        <Text className="self-end mr-4 mt-1">
                             {timeAgo(news.createdAt)}
                         </Text>
                         <View className="flex-row items-center ml-[16px] mt-1 mb-1 gap-2">
@@ -67,7 +68,7 @@ export const NewsCard: React.FC<{
                                 }}
                             />
                             <Text
-                                className="text-3xl"
+                                className="text-3xl font-semibold"
                                 numberOfLines={1}
                                 ellipsizeMode="tail"
                                 style={{ maxWidth: 290 }}
@@ -75,7 +76,7 @@ export const NewsCard: React.FC<{
                                 {news.organizationID}
                             </Text>
                         </View>
-                        <Text className="color-gray-500 text-2xl ml-[16px]">
+                        <Text className="color-black font-semibold text-2xl ml-[16px]">
                             {news.scamTypeTag}
                         </Text>
                         <Text
