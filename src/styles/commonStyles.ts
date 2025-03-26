@@ -268,6 +268,21 @@ const commonStyles = StyleSheet.create({
         borderRightColor: 'transparent',
         borderTopColor: 'white'
     },
+    invertedTriangle: {
+        position: 'absolute',
+        top: -10,
+        left: '50%',
+        marginLeft: -20,
+        width: 0,
+        height: 0,
+        borderLeftWidth: 10,
+        borderRightWidth: 10,
+        borderBottomWidth: 10,
+        borderStyle: 'solid',
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: 'white'
+    },
     permissionIcon: {
         width: 40,
         height: 40

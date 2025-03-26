@@ -31,10 +31,12 @@ const Tour2tip = (): React.JSX.Element => {
             <View
                 style={
                     (commonStyles.container,
-                    { position: 'absolute', top: 480, left: 42 })
+                    { position: 'absolute', top: 380, left: 42 })
                 }
             >
                 <View style={commonStyles.dialogBox}>
+                    <View style={commonStyles.invertedTriangle} />
+
                     <View style={commonStyles.progressBarContainer}>
                         <View style={commonStyles.progressBarFill25} />
                     </View>
