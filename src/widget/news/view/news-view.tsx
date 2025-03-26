@@ -12,11 +12,7 @@ import {
 import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
 import { Heading } from '@/components/ui/heading'
-import {
-    BookmarkIcon,
-    BookmarkFilledIcon,
-    CloseIcon
-} from '@/components/ui/icon'
+import { CloseIcon } from '@/components/ui/icon'
 import {
     scamTypeImages,
     DEFAULT_SCAM_IMAGE
@@ -31,6 +27,10 @@ export const VieNews: React.FC<{
     const [isSaved, setIsSaved] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const Bookmark = require('../../../../assets/images/bookmark-icon.png')
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const BookmarkFilled = require('../../../../assets/images/bookmark-filled-icon.png')
 
     useEffect(() => {
         checkIfSaved()
@@ -126,19 +126,38 @@ export const VieNews: React.FC<{
                     />
                 </Box>
 
-                <Box>
+                <Box
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 24,
+                        backgroundColor: '#FBEDE5',
+                        position: 'absolute',
+                        top: 160,
+                        paddingLeft: 16,
+                        right: 0
+                    }}
+                    className="rounded-full"
+                >
+                    <ShareButtonWidget
+                        message={`${news.title}\n#${news.scamTypeTag}\n\n${news.content}\n\nStay safe from scams!\nby SafeMilo🦊`}
+                    />
+
                     <TouchableOpacity
                         onPress={toggleSave}
-                        className="absolute top-1 right-2 p-2"
                         style={{
                             elevation: 4,
                             width: 48,
                             height: 48,
-                            backgroundColor: 'black',
+                            backgroundColor: 'transparent',
                             marginTop: 8
                         }}
                     >
-                        {isSaved ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+                        <Image
+                            source={isSaved ? BookmarkFilled : Bookmark}
+                            style={{ width: 28, height: 28, marginTop: 6 }}
+                            resizeMode="contain"
+                        />
                     </TouchableOpacity>
                 </Box>
 
@@ -157,10 +176,6 @@ export const VieNews: React.FC<{
                             onPress={handleStop}
                         />
                     )}
-
-                    <ShareButtonWidget
-                        message={`${news.title}\n#${news.scamTypeTag}\n\n${news.content}\n\nStay safe from scams!\nby SafeMilo🦊`}
-                    />
                 </Box>
 
                 <Heading className="text-4xl mt-4">{news.title}</Heading>
