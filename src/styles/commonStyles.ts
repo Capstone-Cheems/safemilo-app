@@ -516,6 +516,16 @@ const commonStyles = StyleSheet.create({
     newsInputLabel: {
         color: '#000'
     },
+    customIcon: {
+        width: 24,
+        height: 24
+    },
+    widgetButtonText: {
+        fontSize: 26,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingTop: 10
+    },
     //Profile Section
     largeformButton: {
         display: 'flex',

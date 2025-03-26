@@ -133,7 +133,9 @@ export const VieNews: React.FC<{
                         style={{
                             elevation: 4,
                             width: 48,
-                            height: 48
+                            height: 48,
+                            backgroundColor: 'black',
+                            marginTop: 8
                         }}
                     >
                         {isSaved ? <BookmarkFilledIcon /> : <BookmarkIcon />}
@@ -161,21 +163,28 @@ export const VieNews: React.FC<{
                     />
                 </Box>
 
-                <Heading className="text-3xl">{news.title}</Heading>
+                <Heading className="text-4xl mt-4">{news.title}</Heading>
 
                 <Box className="flex-row flex-nowrap gap-8">
-                    <Text>{news.scamTypeTag}</Text>
-                    <Text>{timeAgo(news.createdAt)}</Text>
+                    <Text className="text-xl font-semibold">
+                        {news.scamTypeTag}
+                    </Text>
+                    <Text className="text-xl font-semibold">
+                        {timeAgo(news.createdAt)}
+                    </Text>
                 </Box>
 
                 <Box>
-                    <Text>{news.content}</Text>
+                    <Text className="text-xl">{news.content}</Text>
                 </Box>
 
                 {/* Display Additional Images After Content */}
                 {news.images && news.images.length > 0 && (
                     <Box className="mb-[32px]">
-                        <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>
+                        <Text
+                            className="text-3xl"
+                            style={{ fontWeight: 'bold', marginBottom: 8 }}
+                        >
                             Related Images
                         </Text>
                         <ScrollView horizontal>
