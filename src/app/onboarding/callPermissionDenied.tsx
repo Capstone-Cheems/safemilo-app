@@ -48,7 +48,7 @@ const CallPermissionDenied = (): React.JSX.Element => {
             </View>
 
             <RequestDeniedAnimation
-                style={commonStyles.moduleCompleteAnimation}
+                style={commonStyles.permissionDeniedAnimation}
             />
         </View>
     )

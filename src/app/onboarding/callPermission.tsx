@@ -94,7 +94,9 @@ const CallPermission = (): React.JSX.Element => {
                 <View style={commonStyles.triangle} />
             </View>
 
-            <LookPhoneCallAnimation style={commonStyles.lookPhoneAnimation} />
+            <LookPhoneCallAnimation
+                style={commonStyles.lookPhoneCallAnimation}
+            />
         </View>
     )
 }

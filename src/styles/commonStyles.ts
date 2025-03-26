@@ -217,16 +217,32 @@ const commonStyles = StyleSheet.create({
         width: 350,
         height: 350,
         marginTop: 10,
-        marginBottom: 30,
+        marginBottom: 15,
         marginLeft: -60,
         resizeMode: 'contain'
     },
-    lookPhoneAnimation: {
+    lookPhoneMessageAnimation: {
         width: 420,
         height: 280,
         marginTop: 10,
         marginBottom: 30,
         marginLeft: 30,
+        resizeMode: 'contain'
+    },
+    lookPhoneCallAnimation: {
+        width: 420,
+        height: 280,
+        marginTop: 10,
+        marginBottom: 5,
+        marginLeft: 30,
+        resizeMode: 'contain'
+    },
+    permissionDeniedAnimation: {
+        width: 320,
+        height: 320,
+        marginTop: 10,
+        marginBottom: -5,
+        marginLeft: -100,
         resizeMode: 'contain'
     },
     moduleCompleteAnimation: {
