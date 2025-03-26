@@ -28,7 +28,7 @@ const Tour5messages = (): React.JSX.Element => {
             <View
                 style={
                     (commonStyles.container,
-                    { position: 'absolute', top: 730, left: 32 })
+                    { position: 'absolute', top: 750, left: 12 })
                 }
             >
                 <View style={commonStyles.dialogBox}>

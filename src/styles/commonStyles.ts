@@ -71,7 +71,7 @@ const commonStyles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        width: 300,
+        width: 360,
         position: 'relative'
     },
     title: {
@@ -225,7 +225,7 @@ const commonStyles = StyleSheet.create({
         width: 420,
         height: 280,
         marginTop: 10,
-        marginBottom: 30,
+        marginBottom: 5,
         marginLeft: 30,
         resizeMode: 'contain'
     },
@@ -245,6 +245,14 @@ const commonStyles = StyleSheet.create({
         marginLeft: -100,
         resizeMode: 'contain'
     },
+    tourStartAnimation: {
+        width: 320,
+        height: 320,
+        marginTop: 10,
+        marginBottom: 0,
+        marginLeft: -60,
+        resizeMode: 'contain'
+    },
     moduleCompleteAnimation: {
         width: 320,
         height: 320,
@@ -256,6 +264,21 @@ const commonStyles = StyleSheet.create({
     triangle: {
         position: 'absolute',
         bottom: -10,
+        left: '50%',
+        marginLeft: -10,
+        width: 0,
+        height: 0,
+        borderLeftWidth: 10,
+        borderRightWidth: 10,
+        borderTopWidth: 10,
+        borderStyle: 'solid',
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderTopColor: 'white'
+    },
+    triangle2: {
+        position: 'absolute',
+        bottom: -9,
         left: '50%',
         marginLeft: -10,
         width: 0,

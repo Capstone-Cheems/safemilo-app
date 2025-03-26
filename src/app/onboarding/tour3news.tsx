@@ -31,7 +31,7 @@ const Tour3news = (): React.JSX.Element => {
             <View
                 style={
                     (commonStyles.container,
-                    { position: 'absolute', top: 645, left: 42 })
+                    { position: 'absolute', top: 645, left: 22 })
                 }
             >
                 <View style={commonStyles.dialogBox}>

@@ -31,7 +31,7 @@ const Tour4calls = (): React.JSX.Element => {
             <View
                 style={
                     (commonStyles.container,
-                    { position: 'absolute', top: 460, left: 32 })
+                    { position: 'absolute', top: 460, left: 8 })
                 }
             >
                 <View style={commonStyles.dialogBox}>
