@@ -51,7 +51,7 @@ export const NewsCard: React.FC<{
                             alt="image"
                         />
                     </Box>
-                    <Box className="flex flex-col flex-nowrap justify-between gap-2 bg-[#FFFFFF] rounded-[16] mt-[-10]">
+                    <Box className="flex flex-col flex-nowrap justify-between gap-2 bg-[#FFFFFF] rounded-[16] mt-[-10] px-4 pb-1">
                         <Text className="self-end mr-4 mt-1">
                             {timeAgo(news.createdAt)}
                         </Text>
@@ -91,7 +91,7 @@ export const NewsCard: React.FC<{
                                     pathname: `/news/${news.newsID}`
                                 })
                             }
-                            style={commonStyles.longButton}
+                            style={commonStyles.longButtonNew}
                         >
                             <Text style={commonStyles.buttonText}>
                                 Read More
