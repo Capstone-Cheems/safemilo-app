@@ -115,7 +115,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
 
                         <TouchableOpacity
-                            style={commonStyles.longButton}
+                            style={commonStyles.longButtonNew}
                             onPress={() => router.push('/news/news')}
                         >
                             <Text style={commonStyles.buttonText}>
@@ -151,7 +151,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
 
                         <TouchableOpacity
-                            style={commonStyles.longButton}
+                            style={commonStyles.longButtonNew}
                             onPress={() => router.push('/screening/calls')}
                         >
                             <Text style={commonStyles.buttonText}>
@@ -187,7 +187,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
 
                         <TouchableOpacity
-                            style={commonStyles.longButton}
+                            style={commonStyles.longButtonNew}
                             onPress={() => router.push('/screening/messages')}
                         >
                             <Text style={commonStyles.buttonText}>

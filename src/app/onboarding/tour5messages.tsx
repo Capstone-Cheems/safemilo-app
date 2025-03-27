@@ -38,9 +38,9 @@ const Tour5messages = (): React.JSX.Element => {
                     <Text style={commonStyles.dialogText}>
                         Track the messages that are flagged as scams
                     </Text>
-                    <View style={commonStyles.buttonContainer}>
+                    <View style={commonStyles.buttonContainerMid}>
                         <TouchableOpacity
-                            style={commonStyles.dialogButton}
+                            style={commonStyles.dialogButtonMid}
                             onPress={handleNext}
                         >
                             <Text style={commonStyles.buttonText}>Done</Text>
