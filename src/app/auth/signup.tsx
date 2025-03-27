@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity,Image } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import {
@@ -22,7 +22,11 @@ const Signup = (): React.JSX.Element => {
 
     const handleSignup = async (): Promise<void> => {
         try {
-             const userCredential = await createUserWithEmailAndPassword(getAuth(), email, password)
+            const userCredential = await createUserWithEmailAndPassword(
+                getAuth(),
+                email,
+                password
+            )
             const user = userCredential.user
             await updateProfile(user, { displayName })
             router.replace('/onboarding/onboarding')
