@@ -193,7 +193,8 @@ const commonStyles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 22,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Montserrat-Regular'
     },
     PbuttonText: {
         color: 'white',
