@@ -38,7 +38,7 @@ const MessagePermissionDenied = (): React.JSX.Element => {
                 </Text>
 
                 <TouchableOpacity
-                    style={commonStyles.longButton}
+                    style={commonStyles.longButtonNew}
                     onPress={handleContinue}
                 >
                     <Text style={commonStyles.buttonText}>Next</Text>

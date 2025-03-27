@@ -12,7 +12,7 @@ import {
 import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
 import { Heading } from '@/components/ui/heading'
-import { CloseIcon } from '@/components/ui/icon'
+import { CloseCircleIcon } from '@/components/ui/icon'
 import {
     scamTypeImages,
     DEFAULT_SCAM_IMAGE
@@ -104,8 +104,8 @@ export const VieNews: React.FC<{
     const imageSource = scamTypeImages[news.scamTypeTag] || DEFAULT_SCAM_IMAGE
 
     return (
-        <ScrollView>
-            <VStack space="md" className="m-4">
+        <ScrollView className="bg-[#FFFFFF]">
+            <VStack space="md" className="m-4 bg-[#FFFFFF]">
                 {/* Scam Type Image (Top) */}
                 <Box
                     className="relative"
@@ -172,7 +172,8 @@ export const VieNews: React.FC<{
                     ) : (
                         <ButtonWidget
                             text="Stop"
-                            stopIcon={true}
+                            // eslint-disable-next-line @typescript-eslint/no-require-imports
+                            imageIcon={require('../../../../assets/images/stop-icon.png')}
                             onPress={handleStop}
                         />
                     )}
@@ -259,7 +260,11 @@ export const VieNews: React.FC<{
                                 padding: 10
                             }}
                         >
-                            <CloseIcon width={30} height={30} color="#fff" />
+                            <CloseCircleIcon
+                                width={30}
+                                height={30}
+                                color="#fff"
+                            />
                         </TouchableOpacity>
                     </View>
                 </Modal>

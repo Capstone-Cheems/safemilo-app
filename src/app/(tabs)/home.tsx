@@ -44,7 +44,7 @@ const Home = (): React.JSX.Element => {
     }, [])
 
     return (
-        <ScrollView className="p-4 bg-gray-100">
+        <ScrollView className="p-4 bg-[#DADADA]">
             {/* Welcome Message */}
             <View className="mb-4 flex-row justify-between items-center">
                 <View>
@@ -115,7 +115,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
 
                         <TouchableOpacity
-                            style={commonStyles.longButton}
+                            style={commonStyles.longButtonNew}
                             onPress={() => router.push('/news/news')}
                         >
                             <Text style={commonStyles.buttonText}>
@@ -151,7 +151,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
 
                         <TouchableOpacity
-                            style={commonStyles.longButton}
+                            style={commonStyles.longButtonNew}
                             onPress={() => router.push('/screening/calls')}
                         >
                             <Text style={commonStyles.buttonText}>
@@ -187,7 +187,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
 
                         <TouchableOpacity
-                            style={commonStyles.longButton}
+                            style={commonStyles.longButtonNew}
                             onPress={() => router.push('/screening/messages')}
                         >
                             <Text style={commonStyles.buttonText}>

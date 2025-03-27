@@ -88,6 +88,12 @@ const commonStyles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        gap: 16
+    },
+    buttonContainerMid: {
+        flexDirection: 'row',
         justifyContent: 'center',
         width: '100%',
         gap: 16
@@ -104,6 +110,18 @@ const commonStyles = StyleSheet.create({
         borderStyle: 'solid',
         alignSelf: 'center'
     },
+    longButtonNew: {
+        backgroundColor: '#0d1b2a',
+        padding: 13.5,
+        borderRadius: 16,
+        marginTop: 10,
+        marginBottom: 10,
+        width: '100%',
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid',
+        alignSelf: 'center'
+    },
     longButtonWhite: {
         backgroundColor: '#FFFFFF',
         padding: 13.5,
@@ -111,6 +129,18 @@ const commonStyles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         width: '80%',
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid',
+        alignSelf: 'center'
+    },
+    longButtonWhiteNew: {
+        backgroundColor: '#FFFFFF',
+        padding: 13.5,
+        borderRadius: 16,
+        marginTop: 10,
+        marginBottom: 10,
+        width: '100%',
         borderWidth: 2,
         borderColor: '#0d1b2a',
         borderStyle: 'solid',
@@ -135,7 +165,19 @@ const commonStyles = StyleSheet.create({
         marginTop: 10,
         borderWidth: 2,
         borderColor: '#0d1b2a',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        width: '45%'
+    },
+    dialogButtonMid: {
+        backgroundColor: '#0d1b2a',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        borderRadius: 16,
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: '#0d1b2a',
+        borderStyle: 'solid',
+        width: '100%'
     },
     buttonWhite: {
         backgroundColor: '#FFFFFF',
@@ -145,7 +187,8 @@ const commonStyles = StyleSheet.create({
         marginTop: 10,
         borderWidth: 2,
         borderColor: '#0d1b2a',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        width: '45%'
     },
     buttonText: {
         color: 'white',
@@ -521,6 +564,7 @@ const commonStyles = StyleSheet.create({
         height: 24
     },
     widgetButtonText: {
+        color: '#0D1B2A',
         fontSize: 26,
         fontWeight: 'bold',
         textAlign: 'center',

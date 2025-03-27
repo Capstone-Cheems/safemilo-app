@@ -27,7 +27,7 @@ const OnboardingScreen = (): React.JSX.Element => {
                 <Text style={commonStyles.description}>Let’s begin!</Text>
 
                 <TouchableOpacity
-                    style={commonStyles.longButton}
+                    style={commonStyles.longButtonNew}
                     onPress={handleContinue}
                 >
                     <Text style={commonStyles.buttonText}>Next</Text>

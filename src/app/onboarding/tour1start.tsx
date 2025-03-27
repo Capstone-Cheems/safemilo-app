@@ -28,14 +28,14 @@ const Tour1start = (): React.JSX.Element => {
                 </Text>
 
                 <TouchableOpacity
-                    style={commonStyles.longButton}
+                    style={commonStyles.longButtonNew}
                     onPress={handleProceed}
                 >
                     <Text style={commonStyles.buttonText}>Take a tour</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={commonStyles.longButtonWhite}
+                    style={commonStyles.longButtonWhiteNew}
                     onPress={handleDeny}
                 >
                     <Text style={commonStyles.buttonTextWhite}>Skip</Text>
