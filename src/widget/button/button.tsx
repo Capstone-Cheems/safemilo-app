@@ -17,7 +17,7 @@ export const ButtonWidget: React.FC<
     return (
         <Button
             {...rest}
-            className="bg-[#0D1B2A] w-[134px] h-[50px] rounded-full flex-row items-center justify-center"
+            className="bg-[#FFFFFF] border-2 border-[#0D1B2A] w-[134px] h-[50px] rounded-full flex-row items-center justify-center"
         >
             {playIcon && <ButtonIcon as={PlayIcon} />}
             {stopIcon && <ButtonIcon as={CloseCircleIcon} />}

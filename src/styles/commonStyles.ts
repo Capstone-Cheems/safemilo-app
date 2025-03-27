@@ -521,6 +521,7 @@ const commonStyles = StyleSheet.create({
         height: 24
     },
     widgetButtonText: {
+        color: '#0D1B2A',
         fontSize: 26,
         fontWeight: 'bold',
         textAlign: 'center',
