@@ -18,6 +18,7 @@ import { GluestackUIProvider } from '../../components/ui/gluestack-ui-provider'
 import '../../global.css'
 import { AuthProvider, NotificationProvider } from '../shared'
 import * as Notifications from 'expo-notifications'
+import Toast from 'react-native-toast-message'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -96,6 +97,7 @@ function RootLayoutNav(): ReactNode {
                     />
                 </Stack>
             </ThemeProvider>
+            <Toast />
         </GluestackUIProvider>
     )
 }

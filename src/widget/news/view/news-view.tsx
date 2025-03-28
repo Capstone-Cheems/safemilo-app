@@ -11,7 +11,6 @@ import {
 } from 'react-native'
 import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
-import { Heading } from '@/components/ui/heading'
 import { CloseCircleIcon } from '@/components/ui/icon'
 import {
     scamTypeImages,
@@ -19,6 +18,7 @@ import {
 } from '@/src/shared/ui/image/scam-news-image'
 import * as Speech from 'expo-speech'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import CustomToast from '../../Components/CustomToast'
 
 export const VieNews: React.FC<{
     news: News
@@ -31,6 +31,15 @@ export const VieNews: React.FC<{
     const Bookmark = require('../../../../assets/images/bookmark-icon.png')
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const BookmarkFilled = require('../../../../assets/images/bookmark-filled-icon.png')
+
+    const [toastVisible, setToastVisible] = useState(false)
+    const [toastMessage, setToastMessage] = useState('')
+
+    const showToast = (message: string): void => {
+        setToastMessage(message)
+        setToastVisible(true)
+        setTimeout(() => setToastVisible(false), 3000)
+    }
 
     useEffect(() => {
         checkIfSaved()
@@ -63,12 +72,14 @@ export const VieNews: React.FC<{
                     'savedPosts',
                     JSON.stringify(updatedPosts)
                 )
+                showToast('Removed from bookmark')
             } else {
                 const updatedPosts = [...savedPosts, news]
                 await AsyncStorage.setItem(
                     'savedPosts',
                     JSON.stringify(updatedPosts)
                 )
+                showToast('News bookmarked')
             }
             setIsSaved(prev => !prev)
         } catch (error) {
@@ -179,19 +190,45 @@ export const VieNews: React.FC<{
                     )}
                 </Box>
 
-                <Heading className="text-4xl mt-4">{news.title}</Heading>
+                <Text
+                    className="text-3xl mt-4"
+                    style={{
+                        fontFamily: 'Montserrat-SemiBold',
+                        lineHeight: 40
+                    }}
+                >
+                    {news.title}
+                </Text>
 
                 <Box className="flex-row flex-nowrap gap-8">
-                    <Text className="text-xl font-semibold">
+                    <Text
+                        className="text-xl font-semibold"
+                        style={{
+                            fontFamily: 'Montserrat-SemiBold'
+                        }}
+                    >
                         {news.scamTypeTag}
                     </Text>
-                    <Text className="text-xl font-semibold">
+                    <Text
+                        className="text-xl font-semibold"
+                        style={{
+                            fontFamily: 'Montserrat-SemiBold'
+                        }}
+                    >
                         {timeAgo(news.createdAt)}
                     </Text>
                 </Box>
 
                 <Box>
-                    <Text className="text-xl">{news.content}</Text>
+                    <Text
+                        className="text-xl"
+                        style={{
+                            fontFamily: 'Montserrat-Medium',
+                            lineHeight: 30
+                        }}
+                    >
+                        {news.content}
+                    </Text>
                 </Box>
 
                 {/* Display Additional Images After Content */}
@@ -199,7 +236,10 @@ export const VieNews: React.FC<{
                     <Box className="mb-[32px]">
                         <Text
                             className="text-3xl"
-                            style={{ fontWeight: 'bold', marginBottom: 8 }}
+                            style={{
+                                marginBottom: 8,
+                                fontFamily: 'Montserrat-SemiBold'
+                            }}
                         >
                             Related Images
                         </Text>
@@ -269,6 +309,7 @@ export const VieNews: React.FC<{
                     </View>
                 </Modal>
             </VStack>
+            <CustomToast visible={toastVisible} message={toastMessage} />
         </ScrollView>
     )
 }

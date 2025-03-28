@@ -19,6 +19,7 @@ const organizationAvatars: Record<string, ImageSourcePropType> = {
     RCMP: require('../../../../assets/images/rcmp.png'),
     CIBC: require('../../../../assets/images/cibc.jpg'),
     RBC: require('../../../../assets/images/rbc.jpg'),
+    'Canadian Anti-Fraud Centre': require('../../../../assets/images/CAFC.jpg'),
     default: require('../../../../assets/images/icon.png')
 }
 
@@ -44,7 +45,7 @@ export const NewsCard: React.FC<{
                             source={imageSource}
                             style={{
                                 width: '100%',
-                                height: 200
+                                height: 220
                             }}
                             resizeMode="cover"
                             className="aspect-video max-w-full max-h-full rounded-t-[16]"
@@ -52,7 +53,12 @@ export const NewsCard: React.FC<{
                         />
                     </Box>
                     <Box className="flex flex-col flex-nowrap justify-between gap-2 bg-[#FFFFFF] rounded-[16] mt-[-10] px-4 pb-1">
-                        <Text className="self-end mr-4 mt-1">
+                        <Text
+                            className="self-end mt-1"
+                            style={{
+                                fontFamily: 'Montserrat-Regular'
+                            }}
+                        >
                             {timeAgo(news.createdAt)}
                         </Text>
                         <View className="flex-row items-center ml-[16px] mt-1 mb-1 gap-2">
@@ -71,17 +77,28 @@ export const NewsCard: React.FC<{
                                 className="text-3xl font-semibold"
                                 numberOfLines={1}
                                 ellipsizeMode="tail"
-                                style={{ maxWidth: 290 }}
+                                style={{
+                                    maxWidth: 290,
+                                    fontFamily: 'Montserrat-SemiBold'
+                                }}
                             >
                                 {news.organizationID}
                             </Text>
                         </View>
-                        <Text className="color-black font-semibold text-2xl ml-[16px]">
+                        <Text
+                            className="color-black font-semibold text-2xl ml-[16px]"
+                            style={{
+                                fontFamily: 'Montserrat-SemiBold'
+                            }}
+                        >
                             {news.scamTypeTag}
                         </Text>
                         <Text
                             className="line-clamp-2 overflow-hidden text-ellipsis text-2xl ml-[16px]"
-                            style={{ maxWidth: 320 }}
+                            style={{
+                                maxWidth: 320,
+                                fontFamily: 'Montserrat-Medium'
+                            }}
                         >
                             {news.title}
                         </Text>
