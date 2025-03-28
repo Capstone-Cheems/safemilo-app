@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, ScrollView, Modal } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Modal, StyleSheet } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFonts } from 'expo-font'
+import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat'
+import { useRouter } from 'expo-router' // Assuming Expo Router for React Native
 
-const FeatureWalkthrough = (): React.JSX.Element => {
+const FeatureWalkthrough = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [modalContent, setModalContent] = useState('')
     const [modalTitle, setModalTitle] = useState('')
-    const [textSize, setTextSize] = useState(20) // Default text size
-    const [isBold, setIsBold] = useState(true) // Default bold state
+    const [textSize, setTextSize] = useState(20)
+    const [isBold, setIsBold] = useState(true)
+    const router = useRouter() // Get router instance
 
-    // Function to load settings from AsyncStorage
     const loadSettings = async () => {
         try {
             const storedSize = await AsyncStorage.getItem('textSize')
@@ -28,169 +31,94 @@ const FeatureWalkthrough = (): React.JSX.Element => {
         }
     }
 
-    // Load settings on component mount
     useEffect(() => {
         loadSettings()
     }, [])
 
-    const showFeatureDetails = (feature: string) => {
-        let message = ''
-
-        switch (feature) {
-            case 'scamCallDetection':
-                message =
-                    'Safe Milo uses AI-powered scam call detection to identify potential scammers by analyzing incoming calls. It warns you in real-time when a call is suspected to be a scam.'
-                break
-            case 'scamMessageAlerts':
-                message =
-                    'Safe Milo scans your incoming messages for phishing attempts and potential scam texts. You will receive alerts for suspicious messages to protect your personal information.'
-                break
-            case 'scamNewsDatabase':
-                message =
-                    'Stay up to date with the latest scam trends. Safe Milo provides an updated scam news database so you can be informed about emerging threats and learn about recent scams.'
-                break
-            case 'scamReporting':
-                message =
-                    'If you encounter a scam, you can easily report it within the app. The report will help others avoid the same scam, contributing to a safer community.'
-                break
-            case 'scamAlertsPreferences':
-                message =
-                    'Customize your scam alert preferences to suit your needs. You can select which types of scams to be alerted about, allowing you to focus on the ones that matter most to you.'
-                break
-            default:
-                message = 'No details available.'
-                break
-        }
-
-        setModalTitle(feature.replace(/([A-Z])/g, ' $1').trim())
-        setModalContent(message)
-        setIsModalVisible(true)
-    }
+    const [fontsLoaded] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_700Bold,
+        Montserrat_500Medium,
+        Montserrat_300Light,
+        Montserrat_600SemiBold
+    })
 
     const closeModal = () => {
         setIsModalVisible(false)
     }
 
+    // Use router.push for navigation
+    const handleConfirm = () => {
+        setIsModalVisible(false)
+        router.push('../onboarding/tour1start') // Replace with your desired path
+    }
+
     return (
         <ScrollView
             contentContainerStyle={{
-                paddingBottom: 30,
                 paddingHorizontal: 15,
-                paddingTop: 20,
-                flexGrow: 1 // Ensures the ScrollView expands to fit content
+                paddingVertical: 15,
+                flexGrow: 1
             }}
-            style={{ flex: 1 }} // Ensuring ScrollView takes up available space
+            style={{ flex: 1 }}
         >
             <Text
                 style={[
+                    localStyles.header,
                     {
-                        marginTop: 10,
-                        textAlign: 'center',
-                        fontSize: textSize,
-                        fontWeight: isBold ? 'bold' : 'normal',
-                        color: '#4A4A4A'
+                        fontSize: textSize + 4,
+                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                     },
-                    commonStyles.header
                 ]}
             >
                 Feature Walkthrough
             </Text>
-
-            {[
-                {
-                    title: 'Scam Call Detection',
-                    description:
-                        'Safe Milo uses AI-powered scam call detection to warn you when you receive a call from a potential scammer. Stay alert and protect yourself.',
-                    feature: 'scamCallDetection'
-                },
-                {
-                    title: 'Scam Message Alerts',
-                    description:
-                        'Receive notifications about potential scam messages. Safe Milo scans incoming texts and warns you about phishing attempts.',
-                    feature: 'scamMessageAlerts'
-                },
-                {
-                    title: 'Scam News Database',
-                    description:
-                        'Safe Milo features a constantly updated scam news database that helps you stay informed about the latest scam trends.',
-                    feature: 'scamNewsDatabase'
-                },
-                {
-                    title: 'Scam Reporting',
-                    description:
-                        'Quickly report scams you encounter to help others stay safe. You can easily submit a scam report with relevant details.',
-                    feature: 'scamReporting'
-                }
-            ].map(({ title, description, feature }, index) => (
-                <View
-                    key={index}
+            <View style={[commonStyles.faqContainer, { height: 'auto', minHeight: 300, justifyContent: 'space-evenly', alignItems: 'flex-start', paddingHorizontal: 20 }]}>
+                <Text 
                     style={[
-                        commonStyles.featureSection,
+                        localStyles.question,
                         {
-                            backgroundColor: '#F9FAFB',
-                            borderRadius: 10,
-                            padding: 15,
-                            marginBottom: 20,
-                            shadowColor: '#000',
-                            shadowOffset: { width: 0, height: 3 },
-                            shadowOpacity: 0.1,
-                            shadowRadius: 5
+                            fontSize: textSize - 2,
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                            textAlign: 'left',
+                        },
+                    ]}
+                >Start Walkthrough</Text>
+                <Text
+                    style={[
+                        localStyles.question,
+                        {
+                            fontSize: textSize - 5,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                            marginTop: 10,
+                            marginBottom: 10,
+                            lineHeight: 30,
+                            textAlign: 'left',
                         }
                     ]}
+                >Revisiting the Key Features will help you use them better</Text>
+                <TouchableOpacity
+                    style={[commonStyles.button, { alignSelf: 'flex-start' }]}
+                    onPress={() => {
+                        setModalTitle('Feature Walkthrough')
+                        setModalContent('This step will guide you through the key features of the app. You can explore them at your own pace.')
+                        setIsModalVisible(true)
+                    }}
                 >
                     <Text
                         style={[
-                            commonStyles.featureTitle,
                             {
-                                fontSize: textSize + 2,
-                                fontWeight: isBold ? 'bold' : 'normal',
-                                color: '#333'
-                            }
+                                fontSize: textSize - 2,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular',
+                                textAlign: 'left',
+                            },
+                            commonStyles.PbuttonText
                         ]}
-                    >
-                        {index + 1}. {title}
-                    </Text>
-                    <Text
-                        style={[
-                            commonStyles.featureDescription,
-                            {
-                                marginTop: 5,
-                                fontSize: textSize - 6,
-                                color: '#0A2941',
-                                lineHeight: 24,
-                                fontWeight: isBold ? 'bold' : 'normal'
-                            }
-                        ]}
-                    >
-                        {description}
-                    </Text>
-                    <TouchableOpacity
-                        style={[
-                            commonStyles.featureLink,
-                            {
-                                marginTop: 10,
-                                backgroundColor: '#0A2941',
-                                paddingVertical: 8,
-                                paddingHorizontal: 12,
-                                borderRadius: 25
-                            }
-                        ]}
-                        onPress={() => showFeatureDetails(feature)}
-                    >
-                        <Text
-                            style={[
-                                commonStyles.linkText,
-                                { color: '#fff', fontWeight: '500' },
-                                { fontSize: textSize - 3 }
-                            ]}
-                        >
-                            Learn More
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            ))}
+                    >Explore Features</Text>
+                </TouchableOpacity>
+            </View>
 
-            {/* Modal Component */}
+            {/* Modal with Close and Confirm buttons */}
             <Modal
                 visible={isModalVisible}
                 animationType="fade"
@@ -221,19 +149,45 @@ const FeatureWalkthrough = (): React.JSX.Element => {
                         >
                             {modalContent}
                         </Text>
-                        <TouchableOpacity
-                            style={commonStyles.closeButton}
-                            onPress={closeModal}
-                        >
-                            <Text style={commonStyles.closeButtonText}>
-                                Close
-                            </Text>
-                        </TouchableOpacity>
+                        <View style={{ 
+                            flexDirection: 'row', 
+                            justifyContent: 'space-between', 
+                            width: '100%',
+                            marginTop: 20 
+                        }}>
+                            <TouchableOpacity
+                                style={[commonStyles.closeButton, { flex: 1, marginRight: 10 }]}
+                                onPress={closeModal}
+                            >
+                                <Text style={[commonStyles.closeButtonText, { fontSize: textSize - 6}]}>
+                                    Close
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[commonStyles.closeButton, { flex: 1 }]} 
+                                onPress={handleConfirm}
+                            >
+                                <Text style={[commonStyles.closeButtonText, { fontSize: textSize - 6 }]}>
+                                    Confirm
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </Modal>
         </ScrollView>
     )
 }
+
+const localStyles = StyleSheet.create({
+    header: {
+        color: '#4A4A4A',
+        marginVertical: 10,
+    },
+    question: {
+        marginBottom: 4,
+        lineHeight: 25,
+    },
+});
 
 export default FeatureWalkthrough

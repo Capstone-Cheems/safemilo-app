@@ -664,10 +664,11 @@ const commonStyles = StyleSheet.create({
     //Saved Posts
     removeButton: {
         position: 'absolute',
-        top: 10,
-        right: 10,
-        padding: 2,
-        borderRadius: 45
+        top: 5,
+        right: 5,
+        padding: 10,
+        height:25,
+        width:25
     },
     removeButtonText: {
         color: 'red',
@@ -680,8 +681,8 @@ const commonStyles = StyleSheet.create({
         marginTop: 10
     },
     noSavedPosts: {
-        marginTop: 20,
-        alignItems: 'center'
+        marginTop: 25,
+        padding: 20,
     },
     savedPostItem: {
         position: 'relative',
@@ -706,6 +707,7 @@ const commonStyles = StyleSheet.create({
     browseButton: {
         backgroundColor: '#0A2941',
         padding: 16,
+        alignSelf: 'center',
         width: '80%',
         borderRadius: 16,
         alignItems: 'center',
@@ -717,24 +719,27 @@ const commonStyles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-    pcontainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20
-    },
     mcontainer: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
-        borderRadius: 30
+        backgroundColor: 'white',
+        paddingTop: 25,
+        paddingBottom: 25, 
+        borderRadius: 16,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
     },
     //FAQS
-    faqcontainer: {
-        padding: 15,
-        paddingBottom: 30,
-        backgroundColor: '#F9FAFB'
+    faqContainer: {
+        backgroundColor: 'white',
+        padding: 16,
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
     },
     faqheader: {
         fontSize: 28,
@@ -744,17 +749,15 @@ const commonStyles = StyleSheet.create({
         marginBottom: 20
     },
     faqItem: {
-        backgroundColor: '#FFFFFF',
-        padding: 15,
-        marginBottom: 10,
-        borderRadius: 8,
-        borderWidth: 1,
+        marginBottom: 20,
+        paddingBottom: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
         borderColor: '#E2E8F0',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 3,
-        elevation: 3
     },
     expandedItem: {
         backgroundColor: '#F0F4F8' // Light grey for expanded items
@@ -791,7 +794,8 @@ const commonStyles = StyleSheet.create({
     },
     //Report a bug
     inputSection: {
-        marginBottom: 20,
+        marginBottom: 10,
+        marginTop: -20,
         width: '100%'
     },
     inputLabel: {
@@ -808,8 +812,8 @@ const commonStyles = StyleSheet.create({
         minHeight: 200
     },
     scrollViewContainer: {
-        alignItems: 'center', // Example style, adjust as needed
-        justifyContent: 'center' // Example style, adjust as needed
+        // alignItems: 'center', // Example style, adjust as needed
+        // justifyContent: 'center' // Example style, adjust as needed
         // Any other styles for the ScrollView container
     },
 
@@ -881,17 +885,32 @@ const commonStyles = StyleSheet.create({
         lineHeight: 24,
         marginBottom: 20
     },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     closeButton: {
         backgroundColor: '#0A2941',
-        paddingVertical: 10,
+        paddingVertical: 15,
         paddingHorizontal: 20,
-        borderRadius: 25,
-        alignItems: 'center'
+        borderRadius: 15,
+        alignItems: 'center',
+        color: 'white',
+        fontWeight: '500'
     },
     closeButtonText: {
         color: 'white',
         fontWeight: '500'
-    }
+    },
+    modalbuttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '100%',
+        marginTop: 20,
+        gap: 10
+    },
 })
 
 export default commonStyles

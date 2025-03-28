@@ -1,177 +1,31 @@
-// import React, { useState, useCallback } from 'react'
-// import {
-//     View,
-//     Text,
-//     TextInput,
-//     TouchableOpacity,
-//     Alert,
-//     ScrollView
-// } from 'react-native'
-// import axios from 'axios'
-// import commonStyles from '../../styles/commonStyles'
-// import AsyncStorage from '@react-native-async-storage/async-storage'
-// import { useFocusEffect } from 'expo-router'
-// import Constants from 'expo-constants'
-// import { Buffer } from 'buffer' // Import Buffer for Base64 encoding
-
-// const ReportBug = (): React.JSX.Element => {
-//     const JIRA_API_URL = Constants.expoConfig?.extra?.JIRA_API_URL
-//     const JIRA_EMAIL = Constants.expoConfig?.extra?.JIRA_EMAIL
-//     const JIRA_API_TOKEN = Constants.expoConfig?.extra?.JIRA_API_TOKEN
-
-//     const [bugDescription, setBugDescription] = useState('')
-//     const [textSize, setTextSize] = useState(20)
-//     const [isBold, setIsBold] = useState(true)
-
-//     const loadSettings = useCallback(async () => {
-//         try {
-//             const storedSize = await AsyncStorage.getItem('textSize')
-//             const storedBold = await AsyncStorage.getItem('isBold')
-
-//             if (storedSize) setTextSize(parseInt(storedSize))
-//             if (storedBold) setIsBold(storedBold === 'true')
-//         } catch (error) {
-//             console.error('Error loading settings:', error)
-//         }
-//     }, [])
-
-//     useFocusEffect(
-//         useCallback(() => {
-//             loadSettings()
-//         }, [loadSettings])
-//     )
-
-//     const handleReportBug = async () => {
-//         if (!bugDescription) {
-//             Alert.alert('Please describe the bug before submitting.')
-//             return
-//         }
-
-//         const issueData = {
-//             fields: {
-//                 project: { key: 'SCRUM' },
-//                 summary: 'Bug Reported to Jira By Safe Milo User',
-//                 description: {
-//                     type: 'doc',
-//                     version: 1,
-//                     content: [
-//                         {
-//                             type: 'paragraph',
-//                             content: [{ type: 'text', text: bugDescription }]
-//                         }
-//                     ]
-//                 },
-//                 issuetype: { name: 'Bug' }
-//             }
-//         }
-
-//         try {
-//             const authToken = Buffer.from(
-//                 `${JIRA_EMAIL}:${JIRA_API_TOKEN}`
-//             ).toString('base64')
-
-//             const response = await axios.post(JIRA_API_URL, issueData, {
-//                 headers: {
-//                     Authorization: `Basic ${authToken}`,
-//                     'Content-Type': 'application/json',
-//                     Accept: 'application/json'
-//                 }
-//             })
-
-//             if (response.status === 201) {
-//                 Alert.alert(
-//                     'Bug Reported',
-//                     'Thank you for reporting the bug. We will investigate it shortly.'
-//                 )
-//                 setBugDescription('')
-//             }
-//         } catch (error) {
-//             console.error(
-//                 'Error creating Jira ticket:',
-//                 (axios.isAxiosError(error) && error.response?.data) || error
-//             )
-//             Alert.alert('Error', 'Failed to submit the bug report.')
-//         }
-//     }
-
-//     return (
-//         <ScrollView contentContainerStyle={commonStyles.container}>
-//             <Text
-//                 style={{
-//                     fontSize: textSize + 6,
-//                     fontWeight: isBold ? 'bold' : 'normal',
-//                     marginBottom: 20
-//                 }}
-//             >
-//                 Report a Bug
-//             </Text>
-
-//             <View style={commonStyles.inputSection}>
-//                 <Text
-//                     style={{
-//                         fontSize: textSize + 2,
-//                         fontWeight: isBold ? 'bold' : 'normal',
-//                         marginBottom: 5
-//                     }}
-//                 >
-//                     Bug Description
-//                 </Text>
-//                 <TextInput
-//                     style={[commonStyles.buginput, { fontSize: textSize - 6 }]}
-//                     value={bugDescription}
-//                     onChangeText={setBugDescription}
-//                     placeholder="Describe the bug..."
-//                     multiline
-//                     numberOfLines={5}
-//                 />
-//             </View>
-
-//             <TouchableOpacity
-//                 style={commonStyles.button}
-//                 onPress={handleReportBug}
-//             >
-//                 <Text
-//                     style={[
-//                         {
-//                             fontSize: textSize - 2,
-//                             fontWeight: isBold ? 'bold' : 'normal'
-//                         },
-//                         commonStyles.PbuttonText
-//                     ]}
-//                 >
-//                     Submit Report
-//                 </Text>
-//             </TouchableOpacity>
-//         </ScrollView>
-//     )
-// }
-
-// export default ReportBug
-
-
-
 import React, { useState, useCallback } from 'react'
 import {
     View,
     Text,
     TextInput,
     TouchableOpacity,
-    Alert,
-    ScrollView
+    ScrollView,
+    Modal
 } from 'react-native'
 import axios from 'axios'
 import commonStyles from '../../styles/commonStyles'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from 'expo-router'
-import { Buffer } from 'buffer'; // This line is important for Buffer in React Native
+import { Buffer } from 'buffer' // This line is important for Buffer in React Native
 // eslint-disable-next-line import/no-unresolved
 import { JIRA_API_URL, JIRA_EMAIL, JIRA_API_TOKEN } from '@env'
+import { useFonts } from 'expo-font' // Import useFonts hook
+// Removed invalid import statement for Google Fonts URL
+import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat' // Import Montserrat fonts
 
 const ReportBug = (): React.JSX.Element => {
     const [bugDescription, setBugDescription] = useState('')
     const [textSize, setTextSize] = useState(20) // Default text size
     const [isBold, setIsBold] = useState(true)
+    const [isModalVisible, setIsModalVisible] = useState(false) // Confirmation Modal
+    const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false) // Thank You Modal
 
+    // Load settings from AsyncStorage
     const loadSettings = useCallback(async () => {
         try {
             const storedSize = await AsyncStorage.getItem('textSize')
@@ -190,11 +44,31 @@ const ReportBug = (): React.JSX.Element => {
         }, [loadSettings])
     )
 
+    // Load fonts
+    const [fontsLoaded] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_700Bold,
+        Montserrat_500Medium,
+        Montserrat_300Light,
+        Montserrat_600SemiBold
+    })
+
+    if (!fontsLoaded) {
+        return <Text>Loading Fonts...</Text> // Show loading message if fonts are not loaded
+    }
+
     const handleReportBug = async () => {
         if (!bugDescription) {
-            Alert.alert('Please describe the bug before submitting.')
+            setIsModalVisible(false)
             return
         }
+
+        // Show modal for confirmation
+        setIsModalVisible(true)
+    }
+
+    const confirmReportBug = async () => {
+        setIsModalVisible(false)
 
         const issueData = {
             fields: {
@@ -228,54 +102,60 @@ const ReportBug = (): React.JSX.Element => {
             })
 
             if (response.status === 201) {
-                Alert.alert(
-                    'Bug Reported',
-                    'Thank you for reporting the bug. We will investigate it shortly.'
-                )
                 setBugDescription('')
+                setIsThankYouModalVisible(true) // Show Thank You Modal
             }
         } catch (error) {
             console.error(
                 'Error creating Jira ticket:',
                 (axios.isAxiosError(error) && error.response?.data) || error
             )
-            if (axios.isAxiosError(error) && error.response?.data?.message) {
-                Alert.alert('Error', error.response.data.message);
-            } else {
-                Alert.alert('Error', 'Failed to submit the bug report.');
-            }
         }
+    }
+
+    const cancelReportBug = () => {
+        setIsModalVisible(false)
     }
 
     return (
         <ScrollView contentContainerStyle={commonStyles.container}>
-            <Text
-                style={{
-                    fontSize: textSize + 6,
-                    fontWeight: isBold ? 'bold' : 'normal',
-                    marginBottom: 20
-                }}
-            >
-                Report a Bug
-            </Text>
-
-            <View style={commonStyles.inputSection}>
+            {/* Header Text */}
+            <View style={{ position: 'absolute', top: 0, left: 5, padding: 10 }}>
                 <Text
                     style={{
-                        fontSize: textSize + 2,
-                        fontWeight: isBold ? 'bold' : 'normal',
-                        marginBottom: 5
+                        fontSize: textSize + 7,
+                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium', // Conditional font family
+                        marginBottom: 10
                     }}
                 >
-                    Bug Description
+                   Report a Bug
                 </Text>
+                <Text
+                    style={{
+                        fontSize: textSize - 6,
+                        fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_300Light', // Conditional font family
+                    }}
+                >
+                    Encountered an issue? Let us know so we can fix it!
+                </Text>
+            </View>
+
+            <View style={commonStyles.inputSection}>
                 <TextInput
-                    style={[commonStyles.buginput, { fontSize: textSize - 6 }]}
+                    style={[
+                        commonStyles.buginput,
+                        { 
+                            fontSize: textSize - 3, 
+                            textAlignVertical: 'top', 
+                            height: 300,
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium' // Conditional font family
+                        }]
+                    }
                     value={bugDescription}
                     onChangeText={setBugDescription}
-                    placeholder="Describe the bug..."
+                    placeholder="Your Feedback..."
                     multiline
-                    numberOfLines={5}
+                    numberOfLines={7}
                 />
             </View>
 
@@ -287,14 +167,58 @@ const ReportBug = (): React.JSX.Element => {
                     style={[
                         {
                             fontSize: textSize - 2,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular', // Conditional font family
                         },
                         commonStyles.PbuttonText
                     ]}
                 >
-                    Submit Report
+                    Send Report
                 </Text>
             </TouchableOpacity>
+
+            {/* Confirmation Modal */}
+            <Modal
+                visible={isModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={cancelReportBug}
+            >
+                <View style={commonStyles.modalOverlay}>
+                    <View style={commonStyles.modalContainer}>
+                        <Text style={[commonStyles.modalTitle, { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' }]}>Send report?</Text>
+                        <Text>We will look into it as soon as possible.</Text>
+                        <View style={commonStyles.modalbuttonContainer}>
+                            <TouchableOpacity onPress={cancelReportBug}>
+                                <Text style={commonStyles.closeButton}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={confirmReportBug}>
+                                <Text style={commonStyles.closeButton}>Yes</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            {/* Thank You Modal */}
+            <Modal
+                visible={isThankYouModalVisible}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={() => setIsThankYouModalVisible(false)}
+            >
+                <View style={commonStyles.modalOverlay}>
+                    <View style={commonStyles.modalContainer}>
+                        <Text style={[commonStyles.modalTitle, { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' }]}>Thank You!</Text>
+                        <Text>Your report has been sent successfully.</Text>
+                        <TouchableOpacity
+                            onPress={() => setIsThankYouModalVisible(false)}
+                            style={commonStyles.button}
+                        >
+                            <Text style={commonStyles.PbuttonText}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </ScrollView>
     )
 }

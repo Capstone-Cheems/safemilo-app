@@ -162,8 +162,7 @@ const Settings = (): React.JSX.Element => {
 
     return (
         <ScrollView style={{ flex: 1 }}>
-            <View style={commonStyles.container}>
-                <Text
+            <Text
                     style={[
                         commonStyles.leftText,
                         {
@@ -174,7 +173,7 @@ const Settings = (): React.JSX.Element => {
                 >
                     Settings
                 </Text>
-
+            <View style={commonStyles.container}>
                 <TouchableOpacity
                     onPress={() => setShowSlider(!showSlider)}
                     style={commonStyles.toplargeformButton}

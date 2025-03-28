@@ -82,7 +82,7 @@ const Profile = (): React.JSX.Element => {
         <View style={commonStyles.profilecontainer}>
             {/* Profile text hooked to the top-left */}
             <View
-                style={{ position: 'absolute', top: 0, left: 0, padding: 10 }}
+                style={{ position: 'absolute', top: 0, left: 5, padding: 10 }}
             >
                 <Text
                     style={{
