@@ -179,19 +179,43 @@ export const VieNews: React.FC<{
                     )}
                 </Box>
 
-                <Heading className="text-4xl mt-4">{news.title}</Heading>
+                <Text
+                    className="text-3xl mt-4"
+                    style={{
+                        fontFamily: 'Montserrat-SemiBold'
+                    }}
+                >
+                    {news.title}
+                </Text>
 
                 <Box className="flex-row flex-nowrap gap-8">
-                    <Text className="text-xl font-semibold">
+                    <Text
+                        className="text-xl font-semibold"
+                        style={{
+                            fontFamily: 'Montserrat-SemiBold'
+                        }}
+                    >
                         {news.scamTypeTag}
                     </Text>
-                    <Text className="text-xl font-semibold">
+                    <Text
+                        className="text-xl font-semibold"
+                        style={{
+                            fontFamily: 'Montserrat-SemiBold'
+                        }}
+                    >
                         {timeAgo(news.createdAt)}
                     </Text>
                 </Box>
 
                 <Box>
-                    <Text className="text-xl">{news.content}</Text>
+                    <Text
+                        className="text-xl"
+                        style={{
+                            fontFamily: 'Montserrat-Medium'
+                        }}
+                    >
+                        {news.content}
+                    </Text>
                 </Box>
 
                 {/* Display Additional Images After Content */}
@@ -199,7 +223,10 @@ export const VieNews: React.FC<{
                     <Box className="mb-[32px]">
                         <Text
                             className="text-3xl"
-                            style={{ fontWeight: 'bold', marginBottom: 8 }}
+                            style={{
+                                marginBottom: 8,
+                                fontFamily: 'Montserrat-SemiBold'
+                            }}
                         >
                             Related Images
                         </Text>

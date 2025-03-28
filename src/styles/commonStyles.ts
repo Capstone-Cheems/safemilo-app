@@ -15,7 +15,8 @@ const commonStyles = StyleSheet.create({
     },
     dialogText: {
         fontSize: 24,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Montserrat-Medium'
     },
     accent: {
         color: 'black'
@@ -47,7 +48,8 @@ const commonStyles = StyleSheet.create({
     },
     authInputLabel: {
         alignSelf: 'flex-start',
-        marginLeft: 32
+        marginLeft: 32,
+        fontFamily: 'Montserrat-SemiBold'
     },
     viewContainer: {
         flex: 1,
@@ -76,12 +78,13 @@ const commonStyles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-SemiBold',
         textAlign: 'center',
         marginBottom: 20
     },
     description: {
         fontSize: 22,
+        fontFamily: 'Montserrat-Medium',
         textAlign: 'center',
         color: '#000',
         marginBottom: 20
@@ -203,7 +206,8 @@ const commonStyles = StyleSheet.create({
     buttonTextWhite: {
         color: '#0d1b2a',
         fontSize: 22,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Montserrat-SemiBold'
     },
     backButton: {
         position: 'absolute',
@@ -247,7 +251,7 @@ const commonStyles = StyleSheet.create({
         marginHorizontal: 10,
         fontSize: 16,
         color: '#333',
-        fontWeight: '500'
+        fontFamily: 'Montserrat-SemiBold'
     },
     mascotImage: {
         width: 250,
@@ -401,7 +405,8 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
         borderColor: '#7b7b7b',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        fontFamily: 'Montserrat-SemiBold'
     },
     errorText: {
         color: 'red',
@@ -411,7 +416,8 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
-        gap: 20
+        gap: 20,
+        fontFamily: 'Montserrat-SemiBold'
     },
     formButton: {
         backgroundColor: '#0d1b2a',
@@ -567,7 +573,7 @@ const commonStyles = StyleSheet.create({
     widgetButtonText: {
         color: '#0D1B2A',
         fontSize: 26,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-SemiBold',
         textAlign: 'center',
         paddingTop: 10
     },
