@@ -8,7 +8,11 @@ import * as SplashScreen from 'expo-splash-screen'
 import { ReactNode, useEffect } from 'react'
 import 'react-native-reanimated'
 import { Stack } from 'expo-router'
-import SpaceMonoFont from '../../assets/fonts/Montserrat-Regular.ttf'
+import MontserratRegular from '../../assets/fonts/Montserrat-Regular.ttf'
+import MontserratMedium from '../../assets/fonts/Montserrat-Medium.ttf'
+import MontserratSemiBold from '../../assets/fonts/Montserrat-SemiBold.ttf'
+import MontserratBold from '../../assets/fonts/Montserrat-Bold.ttf'
+import MontserratExtraBold from '../../assets/fonts/Montserrat-ExtraBold.ttf'
 import { useColorScheme } from '../../components/useColorScheme'
 import { GluestackUIProvider } from '../../components/ui/gluestack-ui-provider'
 import '../../global.css'
@@ -37,7 +41,11 @@ SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout(): ReactNode {
     const [loaded, error] = useFonts({
-        SpaceMono: SpaceMonoFont
+        'Montserrat-Regular': MontserratRegular,
+        'Montserrat-Medium': MontserratMedium,
+        'Montserrat-SemiBold': MontserratSemiBold,
+        'Montserrat-Bold': MontserratBold,
+        'Montserrat-ExtraBold': MontserratExtraBold
     })
 
     useEffect(() => {
@@ -75,7 +83,7 @@ function RootLayoutNav(): ReactNode {
                     screenOptions={{
                         gestureEnabled: false,
                         headerTitleAlign: 'center',
-                        headerTitle:''
+                        headerTitle: ''
                     }}
                 >
                     <Stack.Screen

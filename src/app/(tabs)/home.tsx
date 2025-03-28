@@ -50,7 +50,10 @@ const Home = (): React.JSX.Element => {
                 <View>
                     <Text
                         className="text-[1.5rem] font-semibold"
-                        style={{ fontSize: textSize + 6 }}
+                        style={{
+                            fontSize: textSize + 6,
+                            fontFamily: 'Montserrat-Bold'
+                        }}
                     >
                         Welcome, {user?.displayName}
                     </Text>

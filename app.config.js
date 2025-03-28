@@ -73,7 +73,13 @@ export default {
             [
                 'expo-font',
                 {
-                    "fonts" : ["./assets/fonts/Montserrat-Regular.ttf"]
+                    fonts: [
+                        './assets/fonts/Montserrat-Regular.ttf',
+                        './assets/fonts/Montserrat-Medium.ttf',
+                        './assets/fonts/Montserrat-SemiBold.ttf',
+                        './assets/fonts/Montserrat-Bold.ttf',
+                        './assets/fonts/Montserrat-ExtraBold.ttf'
+                    ]
                 }
             ]
         ],
