@@ -19,6 +19,7 @@ const organizationAvatars: Record<string, ImageSourcePropType> = {
     RCMP: require('../../../../assets/images/rcmp.png'),
     CIBC: require('../../../../assets/images/cibc.jpg'),
     RBC: require('../../../../assets/images/rbc.jpg'),
+    'Canadian Anti-Fraud Centre': require('../../../../assets/images/CAFC.jpg'),
     default: require('../../../../assets/images/icon.png')
 }
 

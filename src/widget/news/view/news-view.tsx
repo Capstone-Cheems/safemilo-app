@@ -18,7 +18,6 @@ import {
 } from '@/src/shared/ui/image/scam-news-image'
 import * as Speech from 'expo-speech'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Toast from 'react-native-toast-message'
 import CustomToast from '../../Components/CustomToast'
 
 export const VieNews: React.FC<{

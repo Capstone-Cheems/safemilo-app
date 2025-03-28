@@ -591,7 +591,7 @@ const commonStyles = StyleSheet.create({
     },
     toastText: {
         color: '#0D1B2A',
-        fontFamily: 'Montserrat-SemiBold',
+        fontFamily: 'Montserrat-Bold',
         fontSize: 16
     },
     //Profile Section
