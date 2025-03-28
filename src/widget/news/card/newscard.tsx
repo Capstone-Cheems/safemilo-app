@@ -44,7 +44,7 @@ export const NewsCard: React.FC<{
                             source={imageSource}
                             style={{
                                 width: '100%',
-                                height: 200
+                                height: 220
                             }}
                             resizeMode="cover"
                             className="aspect-video max-w-full max-h-full rounded-t-[16]"
