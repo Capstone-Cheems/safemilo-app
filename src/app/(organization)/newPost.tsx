@@ -268,6 +268,19 @@ const NewPost = (): React.JSX.Element => {
                     />
 
                     <TouchableOpacity
+                        style={[
+                            commonStyles.longButton,
+                            loading && commonStyles.buttonDisabled
+                        ]}
+                        onPress={handleSubmit}
+                        disabled={loading}
+                    >
+                        <Text style={commonStyles.buttonText}>
+                            {loading ? 'Loading...' : 'Post'}
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
                         style={commonStyles.longButtonWhite}
                         onPress={() => {
                             setTitle('')
@@ -279,19 +292,6 @@ const NewPost = (): React.JSX.Element => {
                     >
                         <Text style={commonStyles.buttonTextWhite}>
                             Discard
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[
-                            commonStyles.longButton,
-                            loading && commonStyles.buttonDisabled
-                        ]}
-                        onPress={handleSubmit}
-                        disabled={loading}
-                    >
-                        <Text style={commonStyles.buttonText}>
-                            {loading ? 'Loading...' : 'Post'}
                         </Text>
                     </TouchableOpacity>
 

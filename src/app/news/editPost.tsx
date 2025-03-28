@@ -270,17 +270,6 @@ const EditPost = (): React.JSX.Element => {
                     />
 
                     <TouchableOpacity
-                        style={commonStyles.longButtonWhite}
-                        onPress={() =>
-                            router.replace('/(organization)/createdPost')
-                        }
-                    >
-                        <Text style={commonStyles.buttonTextWhite}>
-                            Discard
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
                         style={[
                             commonStyles.longButton,
                             loading && commonStyles.buttonDisabled
@@ -290,6 +279,17 @@ const EditPost = (): React.JSX.Element => {
                     >
                         <Text style={commonStyles.buttonText}>
                             {loading ? 'Updating...' : 'Save'}
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={commonStyles.longButtonWhite}
+                        onPress={() =>
+                            router.replace('/(organization)/createdPost')
+                        }
+                    >
+                        <Text style={commonStyles.buttonTextWhite}>
+                            Discard
                         </Text>
                     </TouchableOpacity>
                 </View>
