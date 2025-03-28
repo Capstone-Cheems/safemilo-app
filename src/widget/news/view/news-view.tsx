@@ -11,7 +11,6 @@ import {
 } from 'react-native'
 import { ButtonWidget, ShareButtonWidget } from '../../button'
 import { VStack } from '@/components/ui/vstack'
-import { Heading } from '@/components/ui/heading'
 import { CloseCircleIcon } from '@/components/ui/icon'
 import {
     scamTypeImages,
@@ -182,7 +181,8 @@ export const VieNews: React.FC<{
                 <Text
                     className="text-3xl mt-4"
                     style={{
-                        fontFamily: 'Montserrat-SemiBold'
+                        fontFamily: 'Montserrat-SemiBold',
+                        lineHeight: 40
                     }}
                 >
                     {news.title}
@@ -211,7 +211,8 @@ export const VieNews: React.FC<{
                     <Text
                         className="text-xl"
                         style={{
-                            fontFamily: 'Montserrat-Medium'
+                            fontFamily: 'Montserrat-Medium',
+                            lineHeight: 30
                         }}
                     >
                         {news.content}
