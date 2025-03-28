@@ -75,8 +75,8 @@ const LearnDashboardScreen = (): JSX.Element => {
 
     return (
         <View className="flex-1 bg-gray-100 p-4 bg-[#DADADA]">
-            <Text className="text-3xl font-bold">Learn</Text>
-            <Text className="text-lg text-gray-600 mb-4">
+            <Text className="text-3xl font-[<Montserrat-Bold>]">Learn</Text>
+            <Text className="text-lg text-gray-600 mb-4 font-[<Montserrat-SemiBold>]">
                 Learn how to spot scams, recognize red flags, and take action in
                 time.
             </Text>
@@ -149,7 +149,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                 )}
             /> */}
             {/* Active Courses Section */}
-            <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 8 }}>
+            <Text style={{ fontSize: 20, fontFamily: 'Montserrat-Bold', marginBottom: 8 }}>
                 Active Courses
             </Text>
             <FlatList
@@ -200,7 +200,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                             <Text
                                 style={{
                                     fontSize: 18,
-                                    fontWeight: 'bold',
+                                    fontFamily: 'Montserrat-Bold',
                                     marginBottom: 4
                                 }}
                             >
@@ -215,7 +215,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                                 }}
                             >
                                 <Text
-                                    style={{ fontSize: 14, color: '#6B7280' }}
+                                    style={{ fontSize: 14, color: '#6B7280', fontFamily: 'Montserrat-SemiBold' }}
                                 >
                                     Lesson {Math.round(item.progress / 10)}
                                     /10
@@ -223,7 +223,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                                 <Text
                                     style={{
                                         fontSize: 14,
-                                        fontWeight: '600',
+                                        fontFamily: 'Montserrat-SemiBold',
                                         color: '#1F2937'
                                     }}
                                 >
@@ -271,7 +271,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                                 <Text
                                     style={{
                                         color: '#fff',
-                                        fontWeight: 'bold',
+                                        fontFamily: 'Montserrat-Bold',
                                         fontSize: 20
                                     }}
                                 >
@@ -290,8 +290,8 @@ const LearnDashboardScreen = (): JSX.Element => {
                 <>
                     <Text
                         style={{
-                            fontSize: 24,
-                            fontWeight: 'bold',
+                            fontSize: 20,
+                            fontFamily: 'Montserrat-Bold',
                             marginTop: 24,
                             marginBottom: 8
                         }}
@@ -349,9 +349,9 @@ const LearnDashboardScreen = (): JSX.Element => {
                                     <Text
                                         style={{
                                             fontSize: 18,
-                                            fontWeight: 'bold',
+                                            fontFamily: 'Montserrat-Bold',
                                             color: '#1C1C1C',
-                                            marginBottom: 6
+                                            marginBottom: -10
                                         }}
                                     >
                                         {item.title}
@@ -361,8 +361,9 @@ const LearnDashboardScreen = (): JSX.Element => {
                                         style={{
                                             fontSize: 14,
                                             color: '#6B7280',
-                                            marginBottom: 16,
-                                            lineHeight: 20
+                                            marginBottom: 20,
+                                            lineHeight: 20,
+                                            fontFamily: 'Montserrat-SemiBold'
                                         }}
                                     >
                                         You've completed this course! Tap below
@@ -371,7 +372,7 @@ const LearnDashboardScreen = (): JSX.Element => {
 
                                     <TouchableOpacity
                                         style={{
-                                            backgroundColor: '#0A2941', // 🔵 Matching Start Learning button
+                                            backgroundColor: '#0A2941',
                                             paddingVertical: 15,
                                             borderRadius: 10,
                                             alignItems: 'center'
@@ -386,7 +387,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                                         <Text
                                             style={{
                                                 color: '#fff',
-                                                fontWeight: 'bold',
+                                                fontFamily: 'Montserrat-Bold',
                                                 fontSize: 20
                                             }}
                                         >
@@ -411,15 +412,15 @@ const LearnDashboardScreen = (): JSX.Element => {
                     resizeMode="contain"
                 />
                 <View className="flex-1 gap-2 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
-                    <Text className="text-3xl  font-bold">
+                    <Text className="text-3xl  font-[<Montserrat-Bold>]">
                         Browse Scam Categories
                     </Text>
-                    <Text className="text-l text-gray-600">
+                    <Text className="text-xl text-gray-600 font-[<Montserrat-SemiBold>]">
                         Explore more modules!
                     </Text>
 
                     <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-20 h-15 items-center justify-center">
-                        <Text className="text-lg font-bold text-gray-800">
+                        <Text className="text-3xl font-bold text-gray-800">
                             →
                         </Text>
                     </TouchableOpacity>
@@ -437,16 +438,16 @@ const LearnDashboardScreen = (): JSX.Element => {
                     resizeMode="contain"
                 />
                 <View className="flex-1 gap-2 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
-                    <Text className="text-3xl font-bold">
+                    <Text className="text-3xl font-[<Montserrat-Bold>]">
                         Check out Your Achievements
                     </Text>
-                    <Text className="text-l text-gray-600">
+                    <Text className="text-xl text-gray-600 font-[<Montserrat-SemiBold] mt-2>]">
                         Your current score:{' '}
-                        <Text className="font-bold">376</Text>
+                        <Text className="text-2xl font-[<Montserrat-Bold>]">50</Text>
                     </Text>
 
                     <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-20 h-15 items-center justify-center">
-                        <Text className="text-lg font-bold text-gray-800">
+                        <Text className="text-3xl font-bold text-gray-800">
                             →
                         </Text>
                     </TouchableOpacity>
