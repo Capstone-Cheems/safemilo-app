@@ -18,6 +18,8 @@ import {
 } from '@/src/shared/ui/image/scam-news-image'
 import * as Speech from 'expo-speech'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Toast from 'react-native-toast-message'
+import CustomToast from '../../Components/CustomToast'
 
 export const VieNews: React.FC<{
     news: News
@@ -30,6 +32,15 @@ export const VieNews: React.FC<{
     const Bookmark = require('../../../../assets/images/bookmark-icon.png')
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const BookmarkFilled = require('../../../../assets/images/bookmark-filled-icon.png')
+
+    const [toastVisible, setToastVisible] = useState(false)
+    const [toastMessage, setToastMessage] = useState('')
+
+    const showToast = (message: string): void => {
+        setToastMessage(message)
+        setToastVisible(true)
+        setTimeout(() => setToastVisible(false), 3000)
+    }
 
     useEffect(() => {
         checkIfSaved()
@@ -62,12 +73,14 @@ export const VieNews: React.FC<{
                     'savedPosts',
                     JSON.stringify(updatedPosts)
                 )
+                showToast('Removed from bookmark')
             } else {
                 const updatedPosts = [...savedPosts, news]
                 await AsyncStorage.setItem(
                     'savedPosts',
                     JSON.stringify(updatedPosts)
                 )
+                showToast('News bookmarked')
             }
             setIsSaved(prev => !prev)
         } catch (error) {
@@ -297,6 +310,7 @@ export const VieNews: React.FC<{
                     </View>
                 </Modal>
             </VStack>
+            <CustomToast visible={toastVisible} message={toastMessage} />
         </ScrollView>
     )
 }

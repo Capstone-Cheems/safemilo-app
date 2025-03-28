@@ -577,6 +577,23 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center',
         paddingTop: 10
     },
+    toastContainer: {
+        position: 'absolute',
+        top: 700,
+        left: 20,
+        right: 20,
+        backgroundColor: '#FBEDE5',
+        padding: 12,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 9999
+    },
+    toastText: {
+        color: '#0D1B2A',
+        fontFamily: 'Montserrat-SemiBold',
+        fontSize: 16
+    },
     //Profile Section
     largeformButton: {
         display: 'flex',
