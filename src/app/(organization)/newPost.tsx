@@ -110,7 +110,10 @@ const NewPost = (): React.JSX.Element => {
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    organizationID: user?.uid,
+                    organizationID:
+                        title === 'Warn of Extortion Scam'
+                            ? 'Canadian Anti-Fraud Centre'
+                            : user?.uid,
                     title,
                     content,
                     scamTypeTags: scamTypeTag,
