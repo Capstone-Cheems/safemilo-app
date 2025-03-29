@@ -103,6 +103,7 @@ export default function Chat(): ReactNode {
     return (
         <Box  className="bg-[#83D1FF] flex-1  p-5">
             <StatusBar style="light" />
+            
             <ScrollView >
                 <VStack
                     space="md"
@@ -172,14 +173,12 @@ const styles = StyleSheet.create({
     errorText: { color: 'red', textAlign: 'center', marginTop: 10 },
     inputContainer: {
         flexDirection: 'row',
-        position: 'absolute',
-        bottom: 10,
-        left: 10,
-        right: 10,
+        
+        marginTop:5,
         backgroundColor: '#fff',
         padding: 10,
         borderRadius: 30,
-        elevation: 5
+        
     },
     input: { flex: 1, fontSize: 16, padding: 10 },
     scrollViewContent: {

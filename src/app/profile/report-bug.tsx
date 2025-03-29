@@ -13,7 +13,6 @@ import commonStyles from '../../styles/commonStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useNavigation } from 'expo-router'; // Add useNavigation (useFocusEffect already imported)
 import { Buffer } from 'buffer';
-import { JIRA_API_URL, JIRA_EMAIL, JIRA_API_TOKEN } from '@env';
 import { useFonts } from 'expo-font';
 import {
     Montserrat_300Light,
@@ -24,6 +23,7 @@ import {
 } from '@expo-google-fonts/montserrat';
 import { white } from 'tailwindcss/colors';
 import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight
+import Constants from 'expo-constants';
 
 const ReportBug = (): React.JSX.Element => {
     const [bugDescription, setBugDescription] = useState('');
@@ -33,6 +33,9 @@ const ReportBug = (): React.JSX.Element => {
     const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false); // Thank You Modal
     const navigation = useNavigation(); // Add navigation hook
 
+    const JIRA_API_URL = Constants.expoConfig?.extra?.JIRA_API_URL
+    const JIRA_EMAIL = Constants.expoConfig?.extra?.JIRA_EMAIL
+    const JIRA_API_TOKEN = Constants.expoConfig?.extra?.JIRA_API_TOKEN
     interface UserData {
         displayName: string | null;
         email: string;

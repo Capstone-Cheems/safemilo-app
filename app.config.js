@@ -94,6 +94,9 @@ export default {
             API_URL: process.env.API_URL,
             S3_IMAGE_URL: process.env.S3_IMAGE_URL,
             S3_NO_IMAGE: process.env.S3_NO_IMAGE,
+            JIRA_API_URL: process.env.JIRA_API_URL,
+            JIRA_EMAIL: process.env.JIRA_EMAIL,
+            JIRA_API_TOKEN: process.env.JIRA_API_TOKEN,
             eas: {
                 projectId: '167efeae-ffda-4722-89c6-a4abff155ed6'
             }
