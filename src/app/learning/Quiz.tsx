@@ -257,7 +257,7 @@ const QuizScreen = (): JSX.Element => {
                 </TouchableOpacity>
 
                 <View className="bg-orange-200 px-4 py-1 rounded-full">
-                    <Text className="text-gray-800 font-bold text-xl">
+                    <Text className="text-gray-800 font-[<Montserrat-Bold>] text-xl">
                         {score} points
                     </Text>
                 </View>
@@ -265,7 +265,7 @@ const QuizScreen = (): JSX.Element => {
 
             {/* Progress Bar */}
             <View className="mt-2">
-                <Text className="text-xl font-semibold">
+                <Text className="text-xl font-[<Montserrat-SemiBold>]">
                     Lesson {currentQuestion + 1}/5
                 </Text>
                 <View className="w-full bg-gray-300 h-4 rounded-full mt-1">
@@ -286,7 +286,9 @@ const QuizScreen = (): JSX.Element => {
                         source={require('../../../assets/images/audio-icon.png')}
                         className="w-5 h-5 mr-2"
                     />
-                    <Text className="text-xl font-semibold">Listen</Text>
+                    <Text className="text-xl font-[<Montserrat-SemiBold>] mt-1 ">
+                        Listen
+                    </Text>
                 </TouchableOpacity>
             </View>
 
@@ -295,7 +297,7 @@ const QuizScreen = (): JSX.Element => {
                 <View className="flex-1 justify-between mt-6">
                     <View>
                         {/* Milo Icon */}
-                        <View className="items-center mb-4">
+                        <View className="items-start mb-4">
                             <View className="bg-blue-500 rounded-full p-2">
                                 <Image
                                     source={require('../../../assets/images/milo-icon.png')}
@@ -306,14 +308,14 @@ const QuizScreen = (): JSX.Element => {
                         </View>
 
                         {/* Feedback */}
-                        <Text className="text-2xl font-bold text-center mb-3 text-gray-900">
+                        <Text className="text-2xl font-[<Montserrat-Bold>] mb-3 text-gray-900">
                             {isCorrect
                                 ? "That's correct, good job!"
                                 : 'Oops! That’s not quite right'}
                         </Text>
 
                         {/* Explanation */}
-                        <Text className="text-2xl text-center text-gray-800 font-semibold mt-10 leading-relaxed">
+                        <Text className="text-2xl  text-gray-800 font-[<Montserrat-Bold>] mt-10 leading-relaxed">
                             {quizQuestions[currentQuestion].explanation}
                         </Text>
                     </View>
@@ -323,7 +325,7 @@ const QuizScreen = (): JSX.Element => {
                         className="bg-[#0A2941] py-4 px-6 rounded-xl items-center mb-6"
                         onPress={handleNext}
                     >
-                        <Text className="text-white text-[20px] font-bold">
+                        <Text className="text-white text-[20px] font-[<Montserrat-Bold>]">
                             Next
                         </Text>
                     </TouchableOpacity>
@@ -332,7 +334,7 @@ const QuizScreen = (): JSX.Element => {
                 <View className="mt-6 flex-1 justify-between">
                     <View>
                         {/* Question */}
-                        <Text className="text-2xl font-bold mb-4">
+                        <Text className="text-2xl font-[<Montserrat-Bold>] mb-4">
                             {quizQuestions[currentQuestion].question}
                         </Text>
 
@@ -352,7 +354,7 @@ const QuizScreen = (): JSX.Element => {
                                     }`}
                                     onPress={() => handleAnswer(option)}
                                 >
-                                    <Text className="text-lg font-semibold text-gray-900">
+                                    <Text className="text-xl font-[<Montserrat-SemiBold>] text-gray-900">
                                         {option}
                                     </Text>
                                 </TouchableOpacity>
@@ -368,7 +370,7 @@ const QuizScreen = (): JSX.Element => {
                         disabled={!selectedAnswer}
                         onPress={handleSubmit}
                     >
-                        <Text className="text-white text-[20px] font-bold text-center">
+                        <Text className="text-white text-[20px] font-[<Montserrat-Bold>] text-center">
                             Submit
                         </Text>
                     </TouchableOpacity>

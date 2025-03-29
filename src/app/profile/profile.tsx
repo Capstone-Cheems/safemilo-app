@@ -73,7 +73,6 @@ const Profile = (): React.JSX.Element => {
         }
     }
 
-
     const navigateTo = (path: string) => {
         router.push(path)
     }

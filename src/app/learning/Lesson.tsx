@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
     header: {
         fontSize: 22,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-Bold',
         marginBottom: 10
     },
     video: {
@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     button: {
-        backgroundColor: '#0A2941', // dark navy
-        paddingVertical: 15, // more vertical padding
+        backgroundColor: '#0A2941',
+        paddingVertical: 15,
         paddingHorizontal: 24,
-        borderRadius: 12, // more rounded
+        borderRadius: 12,
         marginTop: 30,
         marginBottom: 20,
         width: '90%',
@@ -64,8 +64,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#FFFFFF',
         fontSize: 22,
-        fontWeight: 'bold',
-        fontFamily: 'Montserrat'
+        fontFamily: 'Montserrat-Bold'
     }
 })
 

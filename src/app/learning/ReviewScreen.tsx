@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     },
     speechText: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-Bold',
         textAlign: 'center'
     },
     miloWrapper: {
@@ -141,15 +141,15 @@ const styles = StyleSheet.create({
         zIndex: 2
     },
     pointsText: {
-        fontSize: 42,
-        fontWeight: 'bold',
+        fontSize: 60,
+        fontFamily: 'Montserrat-SemiBold',
         color: '#0A2941'
     },
     pointsLabel: {
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '600',
         color: '#0A2941',
-        marginTop: 4
+        fontFamily: 'Montserrat-Bold'
     },
     button: {
         marginTop: 40,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: 'Montserrat-Bold'
     }
 })
 

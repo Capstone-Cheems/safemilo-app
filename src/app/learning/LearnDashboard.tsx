@@ -149,7 +149,13 @@ const LearnDashboardScreen = (): JSX.Element => {
                 )}
             /> */}
             {/* Active Courses Section */}
-            <Text style={{ fontSize: 20, fontFamily: 'Montserrat-Bold', marginBottom: 8 }}>
+            <Text
+                style={{
+                    fontSize: 20,
+                    fontFamily: 'Montserrat-Bold',
+                    marginBottom: 8
+                }}
+            >
                 Active Courses
             </Text>
             <FlatList
@@ -215,7 +221,11 @@ const LearnDashboardScreen = (): JSX.Element => {
                                 }}
                             >
                                 <Text
-                                    style={{ fontSize: 14, color: '#6B7280', fontFamily: 'Montserrat-SemiBold' }}
+                                    style={{
+                                        fontSize: 14,
+                                        color: '#6B7280',
+                                        fontFamily: 'Montserrat-SemiBold'
+                                    }}
                                 >
                                     Lesson {Math.round(item.progress / 10)}
                                     /10
@@ -443,7 +453,9 @@ const LearnDashboardScreen = (): JSX.Element => {
                     </Text>
                     <Text className="text-xl text-gray-600 font-[<Montserrat-SemiBold] mt-2>]">
                         Your current score:{' '}
-                        <Text className="text-2xl font-[<Montserrat-Bold>]">50</Text>
+                        <Text className="text-2xl font-[<Montserrat-Bold>]">
+                            50
+                        </Text>
                     </Text>
 
                     <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-20 h-15 items-center justify-center">

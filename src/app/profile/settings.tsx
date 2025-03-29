@@ -219,8 +219,6 @@ const Settings = (): React.JSX.Element => {
                                 justifyContent: 'space-between'
                             }}
                         >
-                        
-
                             <Slider
                                 minValue={20}
                                 maxValue={30}

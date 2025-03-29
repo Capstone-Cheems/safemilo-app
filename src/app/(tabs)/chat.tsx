@@ -103,10 +103,7 @@ export default function Chat(): ReactNode {
         <Box className="bg-[#83D1FF] flex-1  p-5">
             <StatusBar style="light" />
             <ScrollView>
-                <VStack
-                    space="md"
-                    reversed={false}
-                >
+                <VStack space="md" reversed={false}>
                     {messages.map(msg => (
                         <HStack
                             space="sm"
@@ -115,13 +112,15 @@ export default function Chat(): ReactNode {
                             key={msg.id}
                         >
                             {msg.sender !== 'user' && (
-                                <Avatar size="md" className=''>
+                                <Avatar size="md" className="">
                                     <AvatarImage
                                         source={require('../../../assets/images/ChatIcon.png')}
                                     />
                                 </Avatar>
                             )}
-                            <Box className={`p-2 rounded-3xl bg-white grow shrink `}>
+                            <Box
+                                className={`p-2 rounded-3xl bg-white grow shrink `}
+                            >
                                 <Markdown>{msg.text}</Markdown>
                             </Box>
                             {msg.sender === 'user' && (

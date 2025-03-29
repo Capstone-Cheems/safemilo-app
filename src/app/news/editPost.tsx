@@ -234,7 +234,7 @@ const EditPost = (): React.JSX.Element => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={() => (
                 <View style={commonStyles.postContainer}>
-                   {/* <Text style={commonStyles.header}>Edit Post</Text>*/}
+                    {/* <Text style={commonStyles.header}>Edit Post</Text>*/}
 
                     <Text style={commonStyles.newsInputLabel}>News Title</Text>
                     <TextInput

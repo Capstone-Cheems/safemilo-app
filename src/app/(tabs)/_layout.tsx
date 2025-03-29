@@ -144,7 +144,7 @@ export default function TabLayout(): ReactNode {
             <Tabs.Screen
                 name="home"
                 options={{
-                    title:'Home',
+                    title: 'Home',
                     tabBarIcon: ({ focused }) =>
                         homeIcon &&
                         renderTabIcon(
