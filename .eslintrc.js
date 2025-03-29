@@ -3,7 +3,8 @@ module.exports = {
     extends: [
         'expo',
         'eslint:recommended',
-        'plugin:@typescript-eslint/recommended'
+        'plugin:@typescript-eslint/recommended',
+        '@react-native'
     ],
     ignorePatterns: [
         '/dist/*',
@@ -23,5 +24,20 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         'prettier/prettier': 'error'
-    }
+    },
+    settings: {
+        'import/resolver': {
+            'babel-module': {
+                alias: {
+                    '@': './',
+                },
+            },
+        },
+    },
+    env: {
+        node: true,
+        browser: true,
+        es6: true,
+        jest: true,
+    },
 }
