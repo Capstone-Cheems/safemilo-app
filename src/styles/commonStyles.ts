@@ -576,37 +576,48 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 0.2,
-        borderColor: '#000000',
         padding: 10,
+        marginBottom:.7,
         width: '100%',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2 // For Android shadow
     },
     toplargeformButton: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 0.3,
-        borderColor: '#000000',
+        marginBottom:.7,
         padding: 10,
         width: '100%',
         backgroundColor: 'white',
         borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+        borderTopRightRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2 // For Android shadow
     },
     bottomlargeformButton: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 0.2,
-        borderColor: '#000000',
         padding: 10,
         width: '100%',
         backgroundColor: 'white',
         borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20
+        borderBottomRightRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2 // For Android shadow
     },
     ptext: {
         color: 'black',
@@ -910,6 +921,11 @@ const commonStyles = StyleSheet.create({
         width: '100%',
         marginTop: 20,
         gap: 10
+    },
+    //Setting
+    scontainer: {
+        flex: 1,
+        padding: 15
     },
 })
 

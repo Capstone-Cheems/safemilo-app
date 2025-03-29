@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     Switch,
     ScrollView,
-    Alert
+    Alert,
+    ActivityIndicator
 } from 'react-native'
 
 import { useFocusEffect } from '@react-navigation/native'
@@ -21,6 +22,14 @@ import {
     SliderThumb,
     SliderTrack
 } from '@/components/ui/slider'
+import { useFonts } from 'expo-font';
+import {
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold
+} from '@expo-google-fonts/montserrat';
 
 const Settings = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20)
@@ -79,6 +88,14 @@ const Settings = (): React.JSX.Element => {
             loadSettings()
         }, [loadSettings])
     )
+       const [fontsLoaded] = useFonts({
+            Montserrat_400Regular,
+            Montserrat_700Bold,
+            Montserrat_500Medium,
+            Montserrat_300Light,
+            Montserrat_600SemiBold
+        });
+    
 
     useEffect(() => {
         const checkPermissions = async (): Promise<void> => {
@@ -159,21 +176,43 @@ const Settings = (): React.JSX.Element => {
         }
         saveSettings()
     }, [textSize, isBold])
+    
+    if (!fontsLoaded) {
+        return (
+            <View style={commonStyles.loadingContainer}>
+                <ActivityIndicator size="large" color="#000000" />
+                <Text>{!fontsLoaded ? 'Loading Fonts...' : 'Loading saved posts...'}</Text>
+            </View>
+        );
+    }
 
     return (
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={[{ flex: 1 }]}>
             <Text
                     style={[
-                        commonStyles.leftText,
                         {
-                            fontSize: textSize + 5,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontSize: textSize + 6,
+                            padding: 20,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                          
                         }
                     ]}
                 >
                     Settings
                 </Text>
-            <View style={commonStyles.container}>
+                <Text
+                    style={[
+                        {
+                            fontSize: textSize - 3,
+                            paddingLeft: 20,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                          
+                        }
+                    ]}
+                >
+                    Accessibility
+                </Text>
+            <View style={commonStyles.scontainer}>
                 <TouchableOpacity
                     onPress={() => setShowSlider(!showSlider)}
                     style={commonStyles.toplargeformButton}
@@ -182,8 +221,8 @@ const Settings = (): React.JSX.Element => {
                         style={[
                             commonStyles.ptext,
                             {
-                                fontSize: textSize - 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontSize: textSize - 4,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                             }
                         ]}
                     >
@@ -202,8 +241,8 @@ const Settings = (): React.JSX.Element => {
                             style={[
                                 commonStyles.ptext,
                                 {
-                                    fontSize: textSize - 6,
-                                    fontWeight: isBold ? 'bold' : 'normal',
+                                    fontSize: textSize - 4,
+                                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                                     marginRight: 5,
                                     marginLeft: -20
                                 }
@@ -214,28 +253,29 @@ const Settings = (): React.JSX.Element => {
                         <View
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
                                 justifyContent: 'space-between'
                             }}
                         >
                         
 
-                            <Slider
-                                minValue={20}
-                                maxValue={30}
-                                value={textSize}
-                                onChange={setTextSize}
-                                size="md"
-                                orientation="horizontal"
-                                isDisabled={false}
-                                isReversed={false}
-                                step={2}
-                            >
-                                <SliderTrack>
-                                    <SliderFilledTrack />
-                                </SliderTrack>
-                                <SliderThumb />
-                            </Slider>
+                            <View style={{ width: 230 }}>
+                                <Slider
+                                    minValue={20}
+                                    maxValue={30}
+                                    value={textSize}
+                                    onChange={setTextSize}
+                                    size="md"
+                                    orientation="horizontal"
+                                    isDisabled={false}
+                                    isReversed={false}
+                                    step={2}
+                                >
+                                    <SliderTrack>
+                                        <SliderFilledTrack />
+                                    </SliderTrack>
+                                    <SliderThumb />
+                                </Slider>
+                            </View>
                         </View>
 
                         <Text
@@ -243,7 +283,7 @@ const Settings = (): React.JSX.Element => {
                                 commonStyles.ptext,
                                 {
                                     fontSize: textSize,
-                                    fontWeight: isBold ? 'bold' : 'normal',
+                                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                                     marginLeft: 10
                                 }
                             ]}
@@ -261,8 +301,8 @@ const Settings = (): React.JSX.Element => {
                         style={[
                             commonStyles.ptext,
                             {
-                                fontSize: textSize - 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontSize: textSize - 4,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                             }
                         ]}
                     >
@@ -276,14 +316,17 @@ const Settings = (): React.JSX.Element => {
 
                 <Text
                     style={[
-                        commonStyles.leftText,
                         {
-                            fontSize: textSize,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontSize: textSize - 3,
+                            paddingLeft:5,
+                            paddingTop:20,
+                            paddingBottom:20,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                          
                         }
                     ]}
                 >
-                    App Permissions
+                   App Permissions
                 </Text>
 
                 {/* Microphone Access */}
@@ -293,10 +336,9 @@ const Settings = (): React.JSX.Element => {
                 >
                     <Text
                         style={[
-                            commonStyles.ptext,
                             {
-                                fontSize: textSize - 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontSize: textSize - 4,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                             }
                         ]}
                     >
@@ -317,8 +359,8 @@ const Settings = (): React.JSX.Element => {
                         style={[
                             commonStyles.ptext,
                             {
-                                fontSize: textSize - 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontSize: textSize - 4,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                             }
                         ]}
                     >
@@ -338,8 +380,8 @@ const Settings = (): React.JSX.Element => {
                         style={[
                             commonStyles.ptext,
                             {
-                                fontSize: textSize - 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontSize: textSize - 4,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                             }
                         ]}
                     >
@@ -353,10 +395,13 @@ const Settings = (): React.JSX.Element => {
 
                 <Text
                     style={[
-                        commonStyles.leftText,
                         {
-                            fontSize: textSize,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontSize: textSize - 3,
+                            paddingLeft:5,
+                            paddingTop:20,
+                            paddingBottom:20,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                          
                         }
                     ]}
                 >
@@ -370,10 +415,9 @@ const Settings = (): React.JSX.Element => {
                 >
                     <Text
                         style={[
-                            commonStyles.ptext,
                             {
-                                fontSize: textSize - 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontSize: textSize - 4,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                             }
                         ]}
                     >
@@ -394,8 +438,8 @@ const Settings = (): React.JSX.Element => {
                         style={[
                             commonStyles.ptext,
                             {
-                                fontSize: textSize - 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontSize: textSize - 4,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                             }
                         ]}
                     >
@@ -410,5 +454,10 @@ const Settings = (): React.JSX.Element => {
         </ScrollView>
     )
 }
+
+const styles = {
+    container: {
+    },
+};
 
 export default Settings
