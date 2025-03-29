@@ -455,9 +455,9 @@ const LearnDashboardScreen = (): JSX.Element => {
                     <Text className="text-3xl font-[<Montserrat-Bold>]">
                         Check out Your Achievements
                     </Text>
-                    <Text className="text-xl text-gray-600 font-[<Montserrat-SemiBold] mt-2>]">
+                    <Text className="text-l text-gray-600 font-[<Montserrat-SemiBold] mt-2>]">
                         Your current score:{' '}
-                        <Text className="text-2xl font-[<Montserrat-Bold>]">
+                        <Text className="text-xl font-[<Montserrat-Bold>]">
                             {awarenessScore}
                         </Text>
                     </Text>
