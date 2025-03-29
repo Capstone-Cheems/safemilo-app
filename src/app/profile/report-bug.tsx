@@ -6,12 +6,13 @@ import {
     TouchableOpacity,
     ScrollView,
     Modal,
+    Image,
 } from 'react-native';
 import axios from 'axios';
 import commonStyles from '../../styles/commonStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from 'expo-router';
-import { Buffer } from 'buffer'; // For Buffer in React Native
+import { useFocusEffect, useNavigation } from 'expo-router'; // Add useNavigation (useFocusEffect already imported)
+import { Buffer } from 'buffer';
 import { JIRA_API_URL, JIRA_EMAIL, JIRA_API_TOKEN } from '@env';
 import { useFonts } from 'expo-font';
 import {
@@ -22,6 +23,7 @@ import {
     Montserrat_700Bold,
 } from '@expo-google-fonts/montserrat';
 import { white } from 'tailwindcss/colors';
+import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight
 
 const ReportBug = (): React.JSX.Element => {
     const [bugDescription, setBugDescription] = useState('');
@@ -29,6 +31,7 @@ const ReportBug = (): React.JSX.Element => {
     const [isBold, setIsBold] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false); // Confirmation Modal
     const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false); // Thank You Modal
+    const navigation = useNavigation(); // Add navigation hook
 
     interface UserData {
         displayName: string | null;
@@ -68,6 +71,21 @@ const ReportBug = (): React.JSX.Element => {
         }, [loadSettings])
     );
 
+    // Set the header with HeaderRight
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <HeaderRight />,
+            headerLeft: () => (
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Image
+                        source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
+                        style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
+                    />
+                </TouchableOpacity>
+            ),
+        });
+    }, [navigation]);
+
     // Load fonts
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -78,7 +96,11 @@ const ReportBug = (): React.JSX.Element => {
     });
 
     if (!fontsLoaded) {
-        return <Text>Loading Fonts...</Text>; // Show loading message if fonts are not loaded
+        return (
+            <View style={commonStyles.loadingContainer}>
+                <Text>Loading Fonts...</Text>
+            </View>
+        );
     }
 
     const handleReportBug = async () => {
@@ -169,7 +191,7 @@ const ReportBug = (): React.JSX.Element => {
                         {
                             fontSize: textSize - 3,
                             textAlignVertical: 'top',
-                            backgroundColor:white,
+                            backgroundColor: white,
                             height: 300,
                             fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         },

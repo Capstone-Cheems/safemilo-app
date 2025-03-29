@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { useFonts } from 'expo-font'; // Importing useFonts hook from expo-font
-import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat' // Import Montserrat fonts
+import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font';
+import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 import commonStyles from '../../styles/commonStyles';
+import { useNavigation } from 'expo-router'; // Add useNavigation
+import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight as a named export
 
 const faqs = [
     {
@@ -27,6 +29,7 @@ const faqs = [
 const FAQ = () => {
     const [textSize, setTextSize] = useState(20); // Default text size
     const [isBold, setIsBold] = useState(true); // Whether to use bold font or not
+    const navigation = useNavigation(); // Add navigation hook
 
     // Load settings from AsyncStorage
     useEffect(() => {
@@ -48,18 +51,36 @@ const FAQ = () => {
         loadSettings();
     }, []);
 
+    // Set the header with HeaderRight
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <HeaderRight />,
+            headerLeft: () => (
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Image
+                        source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
+                        style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
+                    />
+                </TouchableOpacity>
+            ),
+        });
+    }, [navigation]);
+
     // Load fonts
-       const [fontsLoaded] = useFonts({
-           Montserrat_400Regular,
-           Montserrat_700Bold,
-           Montserrat_500Medium,
-           Montserrat_300Light,
-           Montserrat_600SemiBold
-       })
-   
+    const [fontsLoaded] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_700Bold,
+        Montserrat_500Medium,
+        Montserrat_300Light,
+        Montserrat_600SemiBold
+    });
 
     if (!fontsLoaded) {
-        return <Text>Loading Fonts...</Text>; // Show loading message if fonts are not loaded
+        return (
+            <View style={commonStyles.loadingContainer}>
+                <Text>Loading Fonts...</Text>
+            </View>
+        );
     }
 
     return (

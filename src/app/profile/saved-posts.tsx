@@ -8,7 +8,7 @@ import {
     StyleSheet,
     Image
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useNavigation, useRouter } from 'expo-router'; // Add useNavigation
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import commonStyles from '../../styles/commonStyles';
@@ -21,6 +21,7 @@ import {
     Montserrat_700Bold
 } from '@expo-google-fonts/montserrat';
 import { Center } from '@/components/ui/center';
+import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight
 
 type NewsItem = {
     newsID: string;
@@ -37,6 +38,7 @@ const SavedPosts = (): React.JSX.Element => {
     const [isBold, setIsBold] = useState(true);
     const [expandedPosts, setExpandedPosts] = useState<Set<string>>(new Set());
     const router = useRouter();
+    const navigation = useNavigation(); // Add navigation hook
 
     const loadSettings = useCallback(async () => {
         try {
@@ -56,6 +58,21 @@ const SavedPosts = (): React.JSX.Element => {
         }, [loadSettings])
     );
 
+    // Set the header with HeaderRight
+      React.useLayoutEffect(() => {
+          navigation.setOptions({
+              headerRight: () => <HeaderRight />,
+              headerLeft: () => (
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                      <Image
+                          source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
+                          style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
+                      />
+                  </TouchableOpacity>
+              ),
+          });
+      }, [navigation]);
+  
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
         Montserrat_700Bold,
@@ -160,21 +177,20 @@ const SavedPosts = (): React.JSX.Element => {
                         Start saving your favorite posts for easy access later.
                     </Text>
                     <TouchableOpacity
-                    onPress={() => router.push('./browsePost')}
-                    style={commonStyles.browseButton}
-                >
-                    <Text
-                        style={[
-                            commonStyles.browseButtonText,
-                            { fontSize: textSize - 3 },
-                            { fontFamily: isBold ? 'Montserrat_500Medium' : 'Montserrat_400Regular'}
-                        ]}
+                        onPress={() => router.push('./browsePost')}
+                        style={commonStyles.browseButton}
                     >
-                        Browse Posts
-                    </Text>
-                </TouchableOpacity>
+                        <Text
+                            style={[
+                                commonStyles.browseButtonText,
+                                { fontSize: textSize - 3 },
+                                { fontFamily: isBold ? 'Montserrat_500Medium' : 'Montserrat_400Regular' }
+                            ]}
+                        >
+                            Browse Posts
+                        </Text>
+                    </TouchableOpacity>
                 </View>
-               
             </View>
         );
     }
@@ -241,12 +257,11 @@ const SavedPosts = (): React.JSX.Element => {
                                 ? 'Montserrat_600SemiBold'
                                 : 'Montserrat_500Medium'
                         }}
-                        numberOfLines={expandedPosts.has(item.newsID) ? 7 : 2}
+                        numberOfLines={expandedPosts.has(item.newsID) ? 10 : 2}
                         ellipsizeMode="tail"
                     >
                         {item.content}
                     </Text>
-                   
                     <Text
                         style={{
                             ...commonStyles.tag,
@@ -290,7 +305,6 @@ const SavedPosts = (): React.JSX.Element => {
                             source={require('../../../assets/images/remove.png')}
                             style={commonStyles.removeButton}
                         />
-                        
                     </TouchableOpacity>
                 </View>
             )}

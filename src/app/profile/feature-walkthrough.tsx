@@ -1,56 +1,80 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, ScrollView, Modal, StyleSheet } from 'react-native'
-import commonStyles from '../../styles/commonStyles'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFonts } from 'expo-font'
-import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat'
-import { useRouter } from 'expo-router' // Assuming Expo Router for React Native
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Modal, StyleSheet, Image } from 'react-native';
+import commonStyles from '../../styles/commonStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFonts } from 'expo-font';
+import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
+import { useNavigation, useRouter } from 'expo-router'; // Add useNavigation
+import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight
 
 const FeatureWalkthrough = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false)
-    const [modalContent, setModalContent] = useState('')
-    const [modalTitle, setModalTitle] = useState('')
-    const [textSize, setTextSize] = useState(20)
-    const [isBold, setIsBold] = useState(true)
-    const router = useRouter() // Get router instance
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [modalContent, setModalContent] = useState('');
+    const [modalTitle, setModalTitle] = useState('');
+    const [textSize, setTextSize] = useState(20);
+    const [isBold, setIsBold] = useState(true);
+    const router = useRouter();
+    const navigation = useNavigation(); // Add navigation hook
 
     const loadSettings = async () => {
         try {
-            const storedSize = await AsyncStorage.getItem('textSize')
-            const storedBold = await AsyncStorage.getItem('isBold')
+            const storedSize = await AsyncStorage.getItem('textSize');
+            const storedBold = await AsyncStorage.getItem('isBold');
 
             if (storedSize) {
-                setTextSize(parseInt(storedSize))
+                setTextSize(parseInt(storedSize));
             }
 
             if (storedBold) {
-                setIsBold(storedBold === 'true')
+                setIsBold(storedBold === 'true');
             }
         } catch (error) {
-            console.error('Error loading settings:', error)
+            console.error('Error loading settings:', error);
         }
-    }
+    };
 
     useEffect(() => {
-        loadSettings()
-    }, [])
+        loadSettings();
+    }, []);
 
+    // Set the header with HeaderRight
+     React.useLayoutEffect(() => {
+         navigation.setOptions({
+             headerRight: () => <HeaderRight />,
+             headerLeft: () => (
+                 <TouchableOpacity onPress={() => navigation.goBack()}>
+                     <Image
+                         source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
+                         style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
+                     />
+                 </TouchableOpacity>
+             ),
+         });
+     }, [navigation]);
+ 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
         Montserrat_700Bold,
         Montserrat_500Medium,
         Montserrat_300Light,
         Montserrat_600SemiBold
-    })
+    });
 
     const closeModal = () => {
-        setIsModalVisible(false)
-    }
+        setIsModalVisible(false);
+    };
 
-    // Use router.push for navigation
     const handleConfirm = () => {
-        setIsModalVisible(false)
-        router.push('../onboarding/tour1start') // Replace with your desired path
+        setIsModalVisible(false);
+        router.push('../onboarding/tour1start');
+    };
+
+    if (!fontsLoaded) {
+        return (
+            <View style={commonStyles.loadingContainer}>
+                <Text>Loading Fonts...</Text>
+            </View>
+        );
     }
 
     return (
@@ -83,7 +107,9 @@ const FeatureWalkthrough = () => {
                             textAlign: 'left',
                         },
                     ]}
-                >Start Walkthrough</Text>
+                >
+                    Start Walkthrough
+                </Text>
                 <Text
                     style={[
                         localStyles.question,
@@ -96,13 +122,15 @@ const FeatureWalkthrough = () => {
                             textAlign: 'left',
                         }
                     ]}
-                >Revisiting the Key Features will help you use them better</Text>
+                >
+                    Revisiting the Key Features will help you use them better
+                </Text>
                 <TouchableOpacity
                     style={[commonStyles.button, { alignSelf: 'flex-start' }]}
                     onPress={() => {
-                        setModalTitle('Feature Walkthrough')
-                        setModalContent('This step will guide you through the key features of the app. You can explore them at your own pace.')
-                        setIsModalVisible(true)
+                        setModalTitle('Feature Walkthrough');
+                        setModalContent('This step will guide you through the key features of the app. You can explore them at your own pace.');
+                        setIsModalVisible(true);
                     }}
                 >
                     <Text
@@ -114,7 +142,9 @@ const FeatureWalkthrough = () => {
                             },
                             commonStyles.PbuttonText
                         ]}
-                    >Explore Features</Text>
+                    >
+                        Explore Features
+                    </Text>
                 </TouchableOpacity>
             </View>
 
@@ -159,7 +189,7 @@ const FeatureWalkthrough = () => {
                                 style={[commonStyles.closeButton, { flex: 1, marginRight: 10 }]}
                                 onPress={closeModal}
                             >
-                                <Text style={[commonStyles.closeButtonText, { fontSize: textSize - 6}]}>
+                                <Text style={[commonStyles.closeButtonText, { fontSize: textSize - 6 }]}>
                                     Close
                                 </Text>
                             </TouchableOpacity>
@@ -176,8 +206,8 @@ const FeatureWalkthrough = () => {
                 </View>
             </Modal>
         </ScrollView>
-    )
-}
+    );
+};
 
 const localStyles = StyleSheet.create({
     header: {
@@ -189,4 +219,4 @@ const localStyles = StyleSheet.create({
     },
 });
 
-export default FeatureWalkthrough
+export default FeatureWalkthrough;
