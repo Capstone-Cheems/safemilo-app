@@ -22,6 +22,7 @@ const LearnDashboardScreen = (): JSX.Element => {
     const router = useRouter()
     const [activeCourses, setActiveCourses] = useState<Course[]>(defaultCourses)
     const [completedCourses, setCompletedCourses] = useState<Course[]>([])
+    const [awarenessScore, setAwarenessScore] = useState<number>(0)
 
     useEffect(() => {
         const fetchProgress = async (): Promise<void> => {
@@ -32,6 +33,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                 const completedModules = keys.filter(key =>
                     key.startsWith('completedModule_')
                 )
+                setAwarenessScore(completedModules.length * 50)
                 console.log('Completed Modules Keys:', completedModules)
 
                 const updatedCourses = await Promise.all(
@@ -456,7 +458,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                     <Text className="text-xl text-gray-600 font-[<Montserrat-SemiBold] mt-2>]">
                         Your current score:{' '}
                         <Text className="text-2xl font-[<Montserrat-Bold>]">
-                            50
+                            {awarenessScore}
                         </Text>
                     </Text>
 
