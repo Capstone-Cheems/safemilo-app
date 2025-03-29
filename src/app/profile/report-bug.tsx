@@ -21,6 +21,7 @@ import {
     Montserrat_600SemiBold,
     Montserrat_700Bold,
 } from '@expo-google-fonts/montserrat';
+import { white } from 'tailwindcss/colors';
 
 const ReportBug = (): React.JSX.Element => {
     const [bugDescription, setBugDescription] = useState('');
@@ -168,6 +169,7 @@ const ReportBug = (): React.JSX.Element => {
                         {
                             fontSize: textSize - 3,
                             textAlignVertical: 'top',
+                            backgroundColor:white,
                             height: 300,
                             fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         },

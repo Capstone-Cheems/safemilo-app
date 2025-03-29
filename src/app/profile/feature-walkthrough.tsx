@@ -181,7 +181,6 @@ const FeatureWalkthrough = () => {
 
 const localStyles = StyleSheet.create({
     header: {
-        color: '#4A4A4A',
         marginVertical: 10,
     },
     question: {

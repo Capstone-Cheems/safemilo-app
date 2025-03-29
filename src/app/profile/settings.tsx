@@ -465,9 +465,4 @@ const Settings = (): React.JSX.Element => {
     )
 }
 
-const styles = {
-    container: {
-    },
-};
-
 export default Settings

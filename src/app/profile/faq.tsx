@@ -111,7 +111,7 @@ const FAQ = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 16,
-        backgroundColor: '#F2F2F2',
+        // backgroundColor: '#DADADA',
     },
     header: {
         fontSize: 24,
