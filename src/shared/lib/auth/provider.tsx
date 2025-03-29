@@ -26,7 +26,12 @@ export const AuthProvider = ({ children }: Props): JSX.Element => {
             if (user) {
                 const token = await getAuth().currentUser?.getIdToken()
                 CustomModule.setToken(token)
-                router.replace('/home')
+                if(getAuth().currentUser?.email?.includes('organization')){
+                    router.replace('/(organization)/createdPost')
+                }else{
+                    router.replace('/home')
+                }
+                
             } else {
                 CustomModule.setToken('')
                 router.replace('/auth/login')

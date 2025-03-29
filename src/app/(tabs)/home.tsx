@@ -73,7 +73,8 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize + 5,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                fontFamily: isBold? 'Montserrat-Bold' : 'Montserrat-Regular'
                             }}
                         >
                             Milo’s Tip of the Day
@@ -82,7 +83,8 @@ const Home = (): React.JSX.Element => {
                     <Text
                         style={{
                             fontSize: textSize - 4,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontWeight: isBold ? 'bold' : 'normal',
+                            fontFamily: isBold? 'Montserrat-Bold' : 'Montserrat-Regular'
                         }}
                     >
                         {randomTip}
@@ -103,7 +105,8 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize + 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                fontFamily: isBold? 'Montserrat-Bold' : 'Montserrat-Regular'
                             }}
                         >
                             News
@@ -111,7 +114,8 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize - 4,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                fontFamily: isBold ? 'Montserrat-Bold' : 'Montserrat-Regular'
                             }}
                         >
                             Read the scam-related news from verified authorities
@@ -139,7 +143,8 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize + 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                fontFamily: isBold? 'Montserrat-Bold' : 'Montserrat-Regular'
                             }}
                         >
                             Calls
@@ -147,7 +152,8 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize - 4,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                fontFamily: isBold? 'Montserrat-Bold' : 'Montserrat-Regular'
                             }}
                         >
                             For the list of phone numbers identified as scams
@@ -175,7 +181,8 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize + 3,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                fontFamily: isBold? 'Montserrat-Bold' : 'Montserrat-Regular'
                             }}
                         >
                             Message
@@ -183,7 +190,8 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize - 4,
-                                fontWeight: isBold ? 'bold' : 'normal'
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                fontFamily: isBold? 'Montserrat-Bold' : 'Montserrat-Regular'
                             }}
                         >
                             For the list of messages flagged as scams
