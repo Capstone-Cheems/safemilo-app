@@ -428,9 +428,9 @@ const commonStyles = StyleSheet.create({
     // Scam news (Post)
     header: {
         fontSize: 24,
-        fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: 'Montserrat-SemiBold'
     },
     loadingContainer: {
         flex: 1,
@@ -464,18 +464,21 @@ const commonStyles = StyleSheet.create({
     tag: {
         fontSize: 12,
         color: '#007AFF',
-        marginTop: 5
+        marginTop: 5,
+        fontFamily: 'Montserrat-Medium'
     },
     date: {
         fontSize: 12,
         color: '#888',
-        marginTop: 5
+        marginTop: 5,
+        fontFamily: 'Montserrat-Medium'
     },
     noNewsText: {
         textAlign: 'center',
         fontSize: 16,
         color: 'gray',
-        marginTop: 20
+        marginTop: 20,
+        fontFamily: 'Montserrat-SemiBold'
     },
     editButton: {
         backgroundColor: '#0d1b2a',
@@ -487,7 +490,7 @@ const commonStyles = StyleSheet.create({
     editButtonText: {
         color: 'white',
         fontSize: 14,
-        fontWeight: 'bold'
+        fontFamily: 'Montserrat-SemiBold'
     },
     postContainer: {
         flex: 1,
@@ -512,7 +515,7 @@ const commonStyles = StyleSheet.create({
     },
     postTitle: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-SemiBold',
         maxWidth: '80%'
     },
     detailContainer: {
@@ -543,7 +546,8 @@ const commonStyles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 5,
         marginBottom: 10,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        fontFamily: 'Montserrat-SemiBold'
     },
     buttonDisabled: {
         backgroundColor: 'gray'
@@ -561,10 +565,12 @@ const commonStyles = StyleSheet.create({
         fontSize: 14,
         marginTop: 5,
         color: '#555',
-        maxWidth: '80%'
+        maxWidth: '80%',
+        fontFamily: 'Montserrat-Medium'
     },
     newsInputLabel: {
-        color: '#000'
+        color: '#000',
+        fontFamily: 'Montserrat-SemiBold'
     },
     customIcon: {
         width: 24,
