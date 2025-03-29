@@ -6,7 +6,8 @@ import {
     Switch,
     ScrollView,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    Image
 } from 'react-native'
 
 import { useFocusEffect } from '@react-navigation/native'
@@ -30,6 +31,7 @@ import {
     Montserrat_600SemiBold,
     Montserrat_700Bold
 } from '@expo-google-fonts/montserrat';
+
 
 const Settings = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20)
@@ -226,8 +228,16 @@ const Settings = (): React.JSX.Element => {
                             }
                         ]}
                     >
-                        Adjust Text Size
+                         Adjust Text Size
                     </Text>
+                        <Image source={require('../../../assets/images/profile-arrow.png')}
+                                style={{
+                                    width: textSize - 4,
+                                    height: textSize - 4,
+                                    marginRight: 16,
+                                }}
+                                                />
+                    
                 </TouchableOpacity>
 
                 {showSlider && (

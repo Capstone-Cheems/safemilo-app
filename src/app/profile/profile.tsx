@@ -6,12 +6,21 @@ import {
     Alert,
     TextInput,
     Image,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from 'react-native'
 import { useNavigation, useRouter } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 import commonStyles from '../../styles/commonStyles'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFonts } from 'expo-font';
+import {
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold
+} from '@expo-google-fonts/montserrat';
 
 // eslint-disable-next-line import/no-unresolved
 import { useAuth } from '@/src/shared'
@@ -39,6 +48,7 @@ const Profile = (): React.JSX.Element => {
         photoURL: string | null
     }
 
+    
     // Function to load settings
     const loadSettings = useCallback(async () => {
         try {
@@ -64,6 +74,21 @@ const Profile = (): React.JSX.Element => {
         }, [loadSettings])
     )
 
+    const [fontsLoaded] = useFonts({
+            Montserrat_400Regular,
+            Montserrat_700Bold,
+            Montserrat_500Medium,
+            Montserrat_300Light,
+            Montserrat_600SemiBold
+    });
+    if (!fontsLoaded) {
+        return (
+            <View style={commonStyles.loadingContainer}>
+                <ActivityIndicator size="large" color="#000000" />
+                <Text>{!fontsLoaded ? 'Loading Fonts...' : 'Loading saved posts...'}</Text>
+            </View>
+        );
+    }
     const handleLogout = async () => {
         try {
             logout()
@@ -87,7 +112,7 @@ const Profile = (): React.JSX.Element => {
                 <Text
                     style={{
                         fontSize: textSize + 10,
-                        fontWeight: isBold ? 'bold' : 'normal'
+                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium'
                     }}
                 >
                     Profile
@@ -111,7 +136,7 @@ const Profile = (): React.JSX.Element => {
             <Text
                 style={{
                     fontSize: textSize + 6,
-                    fontWeight: isBold ? 'bold' : 'normal'
+                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium'
                 }}
             >
                 {getAuth().currentUser?.displayName}
@@ -120,7 +145,7 @@ const Profile = (): React.JSX.Element => {
             <Text
                 style={{
                     fontSize: textSize - 7,
-                    fontWeight: isBold ? 'bold' : 'normal',
+                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                     marginBottom: 10
                 }}
             >
@@ -137,7 +162,7 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         }
                     ]}
                 >
@@ -158,7 +183,7 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         }
                     ]}
                 >
@@ -179,7 +204,7 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         }
                     ]}
                 >
@@ -200,7 +225,7 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                           fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         }
                     ]}
                 >
@@ -221,7 +246,7 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium'
                         }
                     ]}
                 >
@@ -239,8 +264,8 @@ const Profile = (): React.JSX.Element => {
                     style={[
                         commonStyles.ltext,
                         {
-                            fontSize: textSize - 3,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontSize: textSize + 3,
+                           fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold'
                         }
                     ]}
                 >
