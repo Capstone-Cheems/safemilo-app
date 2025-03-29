@@ -1,152 +1,282 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react';
 import {
     View,
     Text,
     TextInput,
     TouchableOpacity,
-    Alert,
-    ScrollView
-} from 'react-native'
-import axios from 'axios'
-import commonStyles from '../../styles/commonStyles'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFocusEffect } from 'expo-router'
-
-const JIRA_API_URL =
-    'https://mylangara-team-2502.atlassian.net/rest/api/3/issue'
-const JIRA_AUTH = btoa(
-    'h279@mylangara.ca:ATATT3xFfGF08xUFn3TkvstKVg-tmLlvxPBbPQvgbV33e5ncQU6VyObo9k-lUZINjdID4S_nDXGJgszcvBp6-8FmsdyHywoJGE2o2oW0_yCH6VwoTF6gkMiVDhA82a2rrtmOTMgHMMLh_AG0Da6i7j6Wz_LSnmbEK_SDAH2Co9QX8-yqEr6R0uU=00A7B451'
-) // Base64 encode email:API Token
+    ScrollView,
+    Modal,
+    Image,
+} from 'react-native';
+import axios from 'axios';
+import commonStyles from '../../styles/commonStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect, useNavigation } from 'expo-router'; // Add useNavigation (useFocusEffect already imported)
+import { Buffer } from 'buffer';
+import { JIRA_API_URL, JIRA_EMAIL, JIRA_API_TOKEN } from '@env';
+import { useFonts } from 'expo-font';
+import {
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
+} from '@expo-google-fonts/montserrat';
+import { white } from 'tailwindcss/colors';
+import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight
 
 const ReportBug = (): React.JSX.Element => {
-    const [bugDescription, setBugDescription] = useState('')
-    const [textSize, setTextSize] = useState(20) // Default text size
-    const [isBold, setIsBold] = useState(true)
+    const [bugDescription, setBugDescription] = useState('');
+    const [textSize, setTextSize] = useState(20); // Default text size
+    const [isBold, setIsBold] = useState(true);
+    const [isModalVisible, setIsModalVisible] = useState(false); // Confirmation Modal
+    const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false); // Thank You Modal
+    const navigation = useNavigation(); // Add navigation hook
 
-    // Function to load settings
+    interface UserData {
+        displayName: string | null;
+        email: string;
+        uid: string;
+        providerData: { providerId: string }[];
+        photoURL: string | null;
+    }
+    const [userData, setUserData] = useState<UserData | null>(null);
+
+    // Load settings and user data from AsyncStorage
     const loadSettings = useCallback(async () => {
         try {
-            const storedSize = await AsyncStorage.getItem('textSize')
-            const storedBold = await AsyncStorage.getItem('isBold')
+            const storedSize = await AsyncStorage.getItem('textSize');
+            const storedBold = await AsyncStorage.getItem('isBold');
+            const storedUserData = await AsyncStorage.getItem('user');
 
-            if (storedSize) {
-                setTextSize(parseInt(storedSize))
-            }
+            console.log('Stored User Data:', storedUserData); // Debug log
 
-            if (storedBold) {
-                setIsBold(storedBold === 'true')
+            if (storedSize) setTextSize(parseInt(storedSize));
+            if (storedBold) setIsBold(storedBold === 'true');
+            if (storedUserData) {
+                const parsedUserData = JSON.parse(storedUserData);
+                console.log('Parsed User Data:', parsedUserData); // Debug log
+                setUserData(parsedUserData);
+            } else {
+                console.log('No user data found in AsyncStorage');
             }
         } catch (error) {
-            console.error('Error loading settings:', error)
+            console.error('Error loading settings:', error);
         }
-    }, [])
+    }, []);
 
-    // Load settings when the screen is focused
     useFocusEffect(
         useCallback(() => {
-            loadSettings()
+            loadSettings();
         }, [loadSettings])
-    )
+    );
+
+    // Set the header with HeaderRight
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <HeaderRight />,
+            headerLeft: () => (
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Image
+                        source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
+                        style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
+                    />
+                </TouchableOpacity>
+            ),
+        });
+    }, [navigation]);
+
+    // Load fonts
+    const [fontsLoaded] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_700Bold,
+        Montserrat_500Medium,
+        Montserrat_300Light,
+        Montserrat_600SemiBold,
+    });
+
+    if (!fontsLoaded) {
+        return (
+            <View style={commonStyles.loadingContainer}>
+                <Text>Loading Fonts...</Text>
+            </View>
+        );
+    }
 
     const handleReportBug = async () => {
         if (!bugDescription) {
-            Alert.alert('Please describe the bug before submitting.')
-            return
+            setIsModalVisible(false);
+            return;
         }
+
+        // Show modal for confirmation
+        setIsModalVisible(true);
+    };
+
+    const confirmReportBug = async () => {
+        setIsModalVisible(false);
+
         const issueData = {
             fields: {
                 project: { key: 'SCRUM' },
-                summary: 'Bug Reported to Jira By Safe Milo User',
+                summary: `Bug Reported to Jira By Safe Milo User${userData?.displayName ? `: ${userData.displayName}` : ''}`,
                 description: {
                     type: 'doc',
                     version: 1,
                     content: [
                         {
                             type: 'paragraph',
-                            content: [{ type: 'text', text: bugDescription }]
-                        }
-                    ]
+                            content: [{ type: 'text', text: bugDescription }],
+                        },
+                    ],
                 },
-                issuetype: { name: 'Bug' }
-            }
-        }
+                issuetype: { name: 'Bug' },
+            },
+        };
 
         try {
+            const authToken = Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString('base64');
+
             const response = await axios.post(JIRA_API_URL, issueData, {
                 headers: {
-                    Authorization: `Basic ${JIRA_AUTH}`,
+                    Authorization: `Basic ${authToken}`,
                     'Content-Type': 'application/json',
-                    Accept: 'application/json' // Ensure the API accepts JSON
-                }
-            })
+                    Accept: 'application/json',
+                },
+            });
 
             if (response.status === 201) {
-                Alert.alert(
-                    'Bug Reported',
-                    'Thank you for reporting the bug. We will investigate it shortly.'
-                )
-                setBugDescription('')
+                setBugDescription('');
+                setIsThankYouModalVisible(true); // Show Thank You Modal
             }
         } catch (error) {
             console.error(
                 'Error creating Jira ticket:',
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (error as any).response?.data || error
-            )
-            Alert.alert('Error', 'Failed to submit the bug report.')
+                (axios.isAxiosError(error) && error.response?.data) || error
+            );
         }
-    }
+    };
+
+    const cancelReportBug = () => {
+        setIsModalVisible(false);
+    };
 
     return (
         <ScrollView contentContainerStyle={commonStyles.container}>
-            <Text
-                style={{
-                    fontSize: textSize + 6,
-                    fontWeight: isBold ? 'bold' : 'normal',
-                    marginBottom: 20
-                }}
-            >
-                Report a Bug
-            </Text>
-
-            <View style={commonStyles.inputSection}>
+            {/* Header Text */}
+            <View style={{ position: 'absolute', top: 0, left: 5, padding: 10 }}>
                 <Text
                     style={{
-                        fontSize: textSize + 2,
-                        fontWeight: isBold ? 'bold' : 'normal',
-                        marginBottom: 5
+                        fontSize: textSize + 7,
+                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                        marginBottom: 10,
                     }}
                 >
-                    Bug Description
+                    Report a Bug
                 </Text>
+                <Text
+                    style={{
+                        fontSize: textSize - 6,
+                        fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_300Light',
+                    }}
+                >
+                    Encountered an issue? Let us know so we can fix it!
+                </Text>
+            </View>
+
+            <View style={commonStyles.inputSection}>
                 <TextInput
-                    style={[commonStyles.buginput, { fontSize: textSize - 6 }]}
+                    style={[
+                        commonStyles.buginput,
+                        {
+                            fontSize: textSize - 3,
+                            textAlignVertical: 'top',
+                            backgroundColor: white,
+                            height: 300,
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                        },
+                    ]}
                     value={bugDescription}
                     onChangeText={setBugDescription}
-                    placeholder="Describe the bug..."
+                    placeholder="Your Feedback..."
                     multiline
-                    numberOfLines={5}
+                    numberOfLines={7}
                 />
             </View>
 
-            <TouchableOpacity
-                style={commonStyles.button}
-                onPress={handleReportBug}
-            >
+            <TouchableOpacity style={commonStyles.button} onPress={handleReportBug}>
                 <Text
                     style={[
                         {
                             fontSize: textSize - 2,
-                            fontWeight: isBold ? 'bold' : 'normal'
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular',
                         },
-                        commonStyles.PbuttonText
+                        commonStyles.PbuttonText,
                     ]}
                 >
-                    Submit Report
+                    Send Report
                 </Text>
             </TouchableOpacity>
-        </ScrollView>
-    )
-}
 
-export default ReportBug
+            {/* Confirmation Modal */}
+            <Modal
+                visible={isModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={cancelReportBug}
+            >
+                <View style={commonStyles.modalOverlay}>
+                    <View style={commonStyles.modalContainer}>
+                        <Text
+                            style={[
+                                commonStyles.modalTitle,
+                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' },
+                            ]}
+                        >
+                            Send report?
+                        </Text>
+                        <Text>We will look into it as soon as possible.</Text>
+                        <View style={commonStyles.modalbuttonContainer}>
+                            <TouchableOpacity onPress={cancelReportBug}>
+                                <Text style={commonStyles.closeButton}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={confirmReportBug}>
+                                <Text style={commonStyles.closeButton}>Yes</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            {/* Thank You Modal */}
+            <Modal
+                visible={isThankYouModalVisible}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={() => setIsThankYouModalVisible(false)}
+            >
+                <View style={commonStyles.modalOverlay}>
+                    <View style={commonStyles.modalContainer}>
+                        <Text
+                            style={[
+                                commonStyles.modalTitle,
+                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' },
+                            ]}
+                        >
+                            Thank You!
+                        </Text>
+                        <Text>Your report has been sent successfully.</Text>
+                        <TouchableOpacity
+                            onPress={() => setIsThankYouModalVisible(false)}
+                            style={commonStyles.button}
+                        >
+                            <Text style={commonStyles.PbuttonText}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+        </ScrollView>
+    );
+};
+
+export default ReportBug;

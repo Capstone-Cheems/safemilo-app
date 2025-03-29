@@ -1,215 +1,151 @@
-import React, { useState, useEffect } from 'react'
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    ScrollView,
-    LayoutAnimation,
-    UIManager,
-    Platform
-} from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import commonStyles from '../../styles/commonStyles'
-
-// Enable animation for Android (iOS works by default)
-if (
-    Platform.OS === 'android' &&
-    UIManager.setLayoutAnimationEnabledExperimental
-) {
-    UIManager.setLayoutAnimationEnabledExperimental(true)
-}
+import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font';
+import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
+import commonStyles from '../../styles/commonStyles';
+import { useNavigation } from 'expo-router'; // Add useNavigation
+import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight as a named export
 
 const faqs = [
     {
-        question: 'What is Safe Milo?',
-        answer: 'Safe Milo is a scam protection app that helps you detect fraudulent calls, messages, and news. It provides real-time alerts and educational resources to keep you safe.'
+        question: 'How does this app help protect me from scams?',
+        answer: 'The app checks calls, emails, messages for signs of scams and alerts you through notifications to avoid them.'
     },
     {
-        question: 'How does Safe Milo detect scams?',
-        answer: 'Safe Milo uses AI-powered scam detection, a scam database, and user reports to identify suspicious activities. It also warns you about known scam patterns.'
+        question: 'Is my personal information safe while using this app?',
+        answer: 'Yes, your personal information is safe. We don’t collect or store it.'
     },
     {
-        question: 'What should I do if I receive a scam call or message?',
-        answer: 'Do not respond or click on any links. Report the scam using Safe Milo’s reporting feature, block the sender, and alert your bank if financial information is involved.'
+        question: 'What should I do if I suspect an email is a scam?',
+        answer: 'Don’t click any links. Use the app to check if it’s a scam.'
     },
     {
-        question: 'How can I report a scam?',
-        answer: 'You can report a scam directly through the app by navigating to the "Report Scam" section and filling out the necessary details.'
-    },
-
-    {
-        question: 'How do I protect myself from scams?',
-        answer: 'Always verify the source of messages and calls, avoid sharing personal information, and use Safe Milo’s scam alerts to stay updated on trending scams.'
-    },
-    {
-        question: 'Can I customize the scam alerts?',
-        answer: 'Yes! Safe Milo allows you to set preferences for the types of scams you want to be alerted about, ensuring you stay informed about the scams most relevant to you.'
-    },
-    {
-        question: 'Is my data secure in Safe Milo?',
-        answer: 'Yes! Safe Milo prioritizes your privacy. All data is encrypted, and we do not share your personal information with third parties without your consent.'
+        question: 'Will the app prevent all scams?',
+        answer: 'While it helps a lot, always be cautious with emails, as no app is 100% perfect.'
     }
-]
+];
 
-const alerts = [
-    {
-        title: 'New Scam Alert: Fake Tech Support Call',
-        description:
-            'A new scam targeting users claiming to offer tech support services. Do not share any personal information with them.'
-    },
-    {
-        title: 'Urgent: SMS Phishing Attack',
-        description:
-            'Be cautious of SMS messages claiming to be from your bank. Do not click on any links in these messages.'
-    }
-]
-
-const FAQ = (): React.JSX.Element => {
-    const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
-    const [expandedAlertIndex, setExpandedAlertIndex] = useState<number | null>(
-        null
-    )
-    const [textSize, setTextSize] = useState(20) // Default text size
-    const [isBold, setIsBold] = useState(true)
+const FAQ = () => {
+    const [textSize, setTextSize] = useState(20); // Default text size
+    const [isBold, setIsBold] = useState(true); // Whether to use bold font or not
+    const navigation = useNavigation(); // Add navigation hook
 
     // Load settings from AsyncStorage
     useEffect(() => {
         const loadSettings = async () => {
             try {
-                const savedTextSize = await AsyncStorage.getItem('textSize')
-                const savedIsBold = await AsyncStorage.getItem('isBold')
+                const savedTextSize = await AsyncStorage.getItem('textSize');
+                const savedIsBold = await AsyncStorage.getItem('isBold');
                 if (savedTextSize) {
-                    setTextSize(Number(savedTextSize))
+                    setTextSize(Number(savedTextSize));
                 }
                 if (savedIsBold) {
-                    setIsBold(savedIsBold === 'true')
+                    setIsBold(savedIsBold === 'true');
                 }
             } catch (error) {
-                console.error('Error loading settings:', error)
+                console.error('Error loading settings:', error);
             }
-        }
+        };
 
-        loadSettings()
-    }, [])
+        loadSettings();
+    }, []);
 
-    // Save settings to AsyncStorage
-    useEffect(() => {
-        const saveSettings = async () => {
-            try {
-                await AsyncStorage.setItem('textSize', textSize.toString())
-                await AsyncStorage.setItem('isBold', isBold.toString())
-            } catch (error) {
-                console.error('Error saving settings:', error)
-            }
-        }
+    // Set the header with HeaderRight
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <HeaderRight />,
+            headerLeft: () => (
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Image
+                        source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
+                        style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
+                    />
+                </TouchableOpacity>
+            ),
+        });
+    }, [navigation]);
 
-        saveSettings()
-    }, [textSize, isBold])
+    // Load fonts
+    const [fontsLoaded] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_700Bold,
+        Montserrat_500Medium,
+        Montserrat_300Light,
+        Montserrat_600SemiBold
+    });
 
-    const toggleFAQ = (index: number) => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-        setExpandedIndex(expandedIndex === index ? null : index)
-    }
-
-    const toggleAlert = (index: number) => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-        setExpandedAlertIndex(expandedAlertIndex === index ? null : index)
+    if (!fontsLoaded) {
+        return (
+            <View style={commonStyles.loadingContainer}>
+                <Text>Loading Fonts...</Text>
+            </View>
+        );
     }
 
     return (
-        <ScrollView contentContainerStyle={commonStyles.faqcontainer}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text
                 style={[
-                    commonStyles.faqheader,
+                    styles.header,
                     {
-                        fontSize: textSize + 2, // Adjust for header size
-                        fontWeight: isBold ? 'bold' : 'normal'
-                    }
+                        fontSize: textSize + 4, // Slightly larger for header
+                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium', // Conditional font family
+                    },
                 ]}
             >
-                Safe Milo - FAQ's
+                FAQ's
             </Text>
 
-            {/* FAQ Section */}
-            {faqs.map((faq, index) => (
-                <TouchableOpacity
-                    key={index}
-                    onPress={() => toggleFAQ(index)}
-                    style={[
-                        commonStyles.faqItem,
-                        expandedIndex === index && commonStyles.expandedItem
-                    ]}
-                >
-                    <Text
-                        style={{
-                            fontSize: textSize - 3, // Use the dynamic text size
-                            fontWeight: isBold ? 'bold' : 'normal'
-                        }}
-                    >
-                        {faq.question}
-                    </Text>
-                    {expandedIndex === index && (
-                        <View style={commonStyles.faqcontainer}>
-                            <Text
-                                style={{
-                                    fontSize: textSize - 5, // Slightly smaller for the answer
-                                    fontWeight: isBold ? 'bold' : 'normal'
-                                }}
-                            >
-                                {faq.answer}
-                            </Text>
-                        </View>
-                    )}
-                </TouchableOpacity>
-            ))}
-
-            {/* Alerts Section */}
-            <Text
-                style={[
-                    commonStyles.faqheader,
-                    {
-                        fontSize: textSize + 2,
-                        fontWeight: isBold ? 'bold' : 'normal'
-                    }
-                ]}
-            >
-                Latest Scam Alerts
-            </Text>
-
-            {alerts.map((alert, index) => (
-                <TouchableOpacity
-                    key={index}
-                    onPress={() => toggleAlert(index)}
-                    style={[
-                        commonStyles.faqItem,
-                        expandedAlertIndex === index &&
-                            commonStyles.expandedItem
-                    ]}
-                >
-                    <Text
-                        style={{
-                            fontSize: textSize,
-                            fontWeight: isBold ? 'bold' : 'normal'
-                        }}
-                    >
-                        {alert.title}
-                    </Text>
-                    {expandedAlertIndex === index && (
-                        <View style={commonStyles.faqcontainer}>
-                            <Text
-                                style={{
-                                    fontSize: textSize - 2, // Slightly smaller for description
-                                    fontWeight: isBold ? 'bold' : 'normal'
-                                }}
-                            >
-                                {alert.description}
-                            </Text>
-                        </View>
-                    )}
-                </TouchableOpacity>
-            ))}
+            <View style={commonStyles.faqContainer}>
+                {faqs.map((faq, index) => (
+                    <View key={index} style={commonStyles.faqItem}>
+                        <Text
+                            style={[
+                                styles.question,
+                                {
+                                    fontSize: textSize - 4, // Apply stored font size
+                                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold', // Conditional font family
+                                },
+                            ]}
+                        >
+                            {index + 1}. {faq.question}
+                        </Text>
+                        <Text
+                            style={[
+                                styles.answer,
+                                {
+                                    fontSize: textSize - 9, // Slightly smaller for answers
+                                    fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular', // Conditional font family
+                                },
+                            ]}
+                        >
+                            {faq.answer}
+                        </Text>
+                    </View>
+                ))}
+            </View>
         </ScrollView>
-    )
-}
+    );
+};
 
-export default FAQ
+const styles = StyleSheet.create({
+    container: {
+        padding: 16,
+        // backgroundColor: '#DADADA',
+    },
+    header: {
+        fontSize: 24,
+        marginBottom: 16,
+    },
+    question: {
+        marginBottom: 4,
+        lineHeight: 25,
+    },
+    answer: {
+        color: '#0A2941',
+        lineHeight: 25,
+    },
+});
+
+export default FAQ;

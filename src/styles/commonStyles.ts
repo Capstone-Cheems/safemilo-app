@@ -15,8 +15,7 @@ const commonStyles = StyleSheet.create({
     },
     dialogText: {
         fontSize: 24,
-        textAlign: 'center',
-        fontFamily: 'Montserrat-Medium'
+        textAlign: 'center'
     },
     accent: {
         color: 'black'
@@ -48,8 +47,7 @@ const commonStyles = StyleSheet.create({
     },
     authInputLabel: {
         alignSelf: 'flex-start',
-        marginLeft: 32,
-        fontFamily: 'Montserrat-SemiBold'
+        marginLeft: 32
     },
     viewContainer: {
         flex: 1,
@@ -78,13 +76,12 @@ const commonStyles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
-        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20
     },
     description: {
         fontSize: 22,
-        fontFamily: 'Montserrat-Medium',
         textAlign: 'center',
         color: '#000',
         marginBottom: 20
@@ -196,8 +193,7 @@ const commonStyles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 22,
-        textAlign: 'center',
-        fontFamily: 'Montserrat-SemiBold'
+        textAlign: 'center'
     },
     PbuttonText: {
         color: 'white',
@@ -206,8 +202,7 @@ const commonStyles = StyleSheet.create({
     buttonTextWhite: {
         color: '#0d1b2a',
         fontSize: 22,
-        textAlign: 'center',
-        fontFamily: 'Montserrat-SemiBold'
+        textAlign: 'center'
     },
     backButton: {
         position: 'absolute',
@@ -251,7 +246,7 @@ const commonStyles = StyleSheet.create({
         marginHorizontal: 10,
         fontSize: 16,
         color: '#333',
-        fontFamily: 'Montserrat-SemiBold'
+        fontWeight: '500'
     },
     mascotImage: {
         width: 250,
@@ -265,7 +260,7 @@ const commonStyles = StyleSheet.create({
         width: 350,
         height: 350,
         marginTop: 10,
-        marginBottom: -10,
+        marginBottom: 15,
         marginLeft: -60,
         resizeMode: 'contain'
     },
@@ -281,7 +276,7 @@ const commonStyles = StyleSheet.create({
         width: 420,
         height: 280,
         marginTop: 10,
-        marginBottom: -20,
+        marginBottom: 5,
         marginLeft: 30,
         resizeMode: 'contain'
     },
@@ -289,7 +284,7 @@ const commonStyles = StyleSheet.create({
         width: 320,
         height: 320,
         marginTop: 10,
-        marginBottom: -35,
+        marginBottom: -5,
         marginLeft: -100,
         resizeMode: 'contain'
     },
@@ -297,7 +292,7 @@ const commonStyles = StyleSheet.create({
         width: 320,
         height: 320,
         marginTop: 10,
-        marginBottom: 15,
+        marginBottom: 0,
         marginLeft: -60,
         resizeMode: 'contain'
     },
@@ -405,8 +400,7 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
         borderColor: '#7b7b7b',
-        borderStyle: 'solid',
-        fontFamily: 'Montserrat-SemiBold'
+        borderStyle: 'solid'
     },
     errorText: {
         color: 'red',
@@ -416,8 +410,7 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
-        gap: 20,
-        fontFamily: 'Montserrat-SemiBold'
+        gap: 20
     },
     formButton: {
         backgroundColor: '#0d1b2a',
@@ -428,9 +421,9 @@ const commonStyles = StyleSheet.create({
     // Scam news (Post)
     header: {
         fontSize: 24,
+        fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 10,
-        fontFamily: 'Montserrat-SemiBold'
+        marginBottom: 10
     },
     loadingContainer: {
         flex: 1,
@@ -464,21 +457,18 @@ const commonStyles = StyleSheet.create({
     tag: {
         fontSize: 12,
         color: '#007AFF',
-        marginTop: 5,
-        fontFamily: 'Montserrat-Medium'
+        marginTop: 5
     },
     date: {
         fontSize: 12,
         color: '#888',
-        marginTop: 5,
-        fontFamily: 'Montserrat-Medium'
+        marginTop: 5
     },
     noNewsText: {
         textAlign: 'center',
         fontSize: 16,
         color: 'gray',
-        marginTop: 20,
-        fontFamily: 'Montserrat-SemiBold'
+        marginTop: 20
     },
     editButton: {
         backgroundColor: '#0d1b2a',
@@ -490,7 +480,7 @@ const commonStyles = StyleSheet.create({
     editButtonText: {
         color: 'white',
         fontSize: 14,
-        fontFamily: 'Montserrat-SemiBold'
+        fontWeight: 'bold'
     },
     postContainer: {
         flex: 1,
@@ -515,7 +505,7 @@ const commonStyles = StyleSheet.create({
     },
     postTitle: {
         fontSize: 18,
-        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: 'bold',
         maxWidth: '80%'
     },
     detailContainer: {
@@ -546,8 +536,7 @@ const commonStyles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 5,
         marginBottom: 10,
-        backgroundColor: '#ffffff',
-        fontFamily: 'Montserrat-SemiBold'
+        backgroundColor: '#ffffff'
     },
     buttonDisabled: {
         backgroundColor: 'gray'
@@ -565,12 +554,10 @@ const commonStyles = StyleSheet.create({
         fontSize: 14,
         marginTop: 5,
         color: '#555',
-        maxWidth: '80%',
-        fontFamily: 'Montserrat-Medium'
+        maxWidth: '80%'
     },
     newsInputLabel: {
-        color: '#000',
-        fontFamily: 'Montserrat-SemiBold'
+        color: '#000'
     },
     customIcon: {
         width: 24,
@@ -579,26 +566,9 @@ const commonStyles = StyleSheet.create({
     widgetButtonText: {
         color: '#0D1B2A',
         fontSize: 26,
-        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: 'bold',
         textAlign: 'center',
         paddingTop: 10
-    },
-    toastContainer: {
-        position: 'absolute',
-        top: 700,
-        left: 20,
-        right: 20,
-        backgroundColor: '#FBEDE5',
-        padding: 12,
-        borderRadius: 12,
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 9999
-    },
-    toastText: {
-        color: '#0D1B2A',
-        fontFamily: 'Montserrat-Bold',
-        fontSize: 16
     },
     //Profile Section
     largeformButton: {
@@ -606,37 +576,48 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 0.2,
-        borderColor: '#000000',
         padding: 10,
+        marginBottom:.7,
         width: '100%',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2 // For Android shadow
     },
     toplargeformButton: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 0.3,
-        borderColor: '#000000',
+        marginBottom:.7,
         padding: 10,
         width: '100%',
         backgroundColor: 'white',
         borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+        borderTopRightRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2 // For Android shadow
     },
     bottomlargeformButton: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 0.2,
-        borderColor: '#000000',
         padding: 10,
         width: '100%',
         backgroundColor: 'white',
         borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20
+        borderBottomRightRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2 // For Android shadow
     },
     ptext: {
         color: 'black',
@@ -688,16 +669,16 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#E0E0E7',
         padding: 20
     },
     //Saved Posts
     removeButton: {
         position: 'absolute',
-        top: 10,
-        right: 10,
-        padding: 2,
-        borderRadius: 45
+        top: 5,
+        right: 5,
+        padding: 10,
+        height:25,
+        width:25
     },
     removeButtonText: {
         color: 'red',
@@ -710,8 +691,8 @@ const commonStyles = StyleSheet.create({
         marginTop: 10
     },
     noSavedPosts: {
-        marginTop: 20,
-        alignItems: 'center'
+        marginTop: 25,
+        padding: 20,
     },
     savedPostItem: {
         position: 'relative',
@@ -736,6 +717,7 @@ const commonStyles = StyleSheet.create({
     browseButton: {
         backgroundColor: '#0A2941',
         padding: 16,
+        alignSelf: 'center',
         width: '80%',
         borderRadius: 16,
         alignItems: 'center',
@@ -747,24 +729,27 @@ const commonStyles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-    pcontainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20
-    },
     mcontainer: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
-        borderRadius: 30
+        backgroundColor: 'white',
+        paddingTop: 25,
+        paddingBottom: 25, 
+        borderRadius: 16,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
     },
     //FAQS
-    faqcontainer: {
-        padding: 15,
-        paddingBottom: 30,
-        backgroundColor: '#F9FAFB'
+    faqContainer: {
+        backgroundColor: 'white',
+        padding: 16,
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
     },
     faqheader: {
         fontSize: 28,
@@ -774,17 +759,15 @@ const commonStyles = StyleSheet.create({
         marginBottom: 20
     },
     faqItem: {
-        backgroundColor: '#FFFFFF',
-        padding: 15,
-        marginBottom: 10,
-        borderRadius: 8,
-        borderWidth: 1,
+        marginBottom: 20,
+        paddingBottom: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
         borderColor: '#E2E8F0',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 3,
-        elevation: 3
     },
     expandedItem: {
         backgroundColor: '#F0F4F8' // Light grey for expanded items
@@ -821,7 +804,8 @@ const commonStyles = StyleSheet.create({
     },
     //Report a bug
     inputSection: {
-        marginBottom: 20,
+        marginBottom: 10,
+        marginTop: -20,
         width: '100%'
     },
     inputLabel: {
@@ -838,8 +822,8 @@ const commonStyles = StyleSheet.create({
         minHeight: 200
     },
     scrollViewContainer: {
-        alignItems: 'center', // Example style, adjust as needed
-        justifyContent: 'center' // Example style, adjust as needed
+        // alignItems: 'center', // Example style, adjust as needed
+        // justifyContent: 'center' // Example style, adjust as needed
         // Any other styles for the ScrollView container
     },
 
@@ -911,17 +895,42 @@ const commonStyles = StyleSheet.create({
         lineHeight: 24,
         marginBottom: 20
     },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     closeButton: {
         backgroundColor: '#0A2941',
-        paddingVertical: 10,
+        paddingVertical: 15,
         paddingHorizontal: 20,
-        borderRadius: 25,
-        alignItems: 'center'
+        borderRadius: 15,
+        alignItems: 'center',
+        color: 'white',
+        fontWeight: '500'
     },
     closeButtonText: {
         color: 'white',
         fontWeight: '500'
-    }
+    },
+    modalbuttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '100%',
+        marginTop: 20,
+        gap: 10
+    },
+    //Setting
+    scontainer: {
+        flex: 1,
+        padding: 15
+    },
+    //  home
+     homebuttonText: {
+        color: 'white',
+        textAlign: 'center'
+    },
 })
 
 export default commonStyles
