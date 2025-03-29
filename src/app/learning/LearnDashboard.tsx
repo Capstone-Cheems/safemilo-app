@@ -74,7 +74,7 @@ const LearnDashboardScreen = (): JSX.Element => {
     }, [])
 
     return (
-        <View className="flex-1 bg-gray-100 p-4 bg-[#DADADA]">
+        <View className="flex-1 bg-gray-100 p-4">
             <Text className="text-3xl font-[<Montserrat-Bold>]">Learn</Text>
             <Text className="text-lg text-gray-600 mb-4 font-[<Montserrat-SemiBold>]">
                 Learn how to spot scams, recognize red flags, and take action in
@@ -429,11 +429,13 @@ const LearnDashboardScreen = (): JSX.Element => {
                         Explore more modules!
                     </Text>
 
-                    <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-20 h-15 items-center justify-center">
-                        <Text className="text-3xl font-bold text-gray-800">
-                            →
-                        </Text>
-                    </TouchableOpacity>
+                    <Image
+                        source={require('../../../assets/images/Card-Navigation.png')}
+                        style={{
+                            marginTop: 20
+                        }}
+                        resizeMode="cover"
+                    />
                 </View>
             </TouchableOpacity>
 
@@ -458,11 +460,13 @@ const LearnDashboardScreen = (): JSX.Element => {
                         </Text>
                     </Text>
 
-                    <TouchableOpacity className="mt-2 bg-orange-200 p-2 rounded-full w-20 h-15 items-center justify-center">
-                        <Text className="text-3xl font-bold text-gray-800">
-                            →
-                        </Text>
-                    </TouchableOpacity>
+                    <Image
+                        source={require('../../../assets/images/Card-Navigation.png')}
+                        style={{
+                            marginTop: 20
+                        }}
+                        resizeMode="cover"
+                    />
                 </View>
             </TouchableOpacity>
         </View>
