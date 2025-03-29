@@ -115,7 +115,7 @@ const QuizScreen = (): JSX.Element => {
             setShowExplanation(false)
             setIsCorrect(null)
         } else {
-            const finalScore: number = score + (isCorrect ? 20 : 0)
+            const finalScore: number = score
             try {
                 if (courseId) {
                     await AsyncStorage.setItem(

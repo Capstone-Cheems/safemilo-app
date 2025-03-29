@@ -17,7 +17,10 @@ const defaultCourses = [
   { id: '1', title: 'Scam Awareness Basics' },
   { id: '2', title: 'Phishing Scams 101' },
   { id: '3', title: 'Online Shopping Fraud' },
-  { id: '4', title: 'Investment Scams' }
+  { id: '4', title: 'Investment Scams' },
+  { id: '5', title: 'Fake Pop-Ups' },
+  { id: '6', title: 'Cold Calls From "Tech Support"' },
+  { id: '7', title: 'Search Engine Scams' }
 ]
 
 const CompletedCoursesScreen = (): JSX.Element => {

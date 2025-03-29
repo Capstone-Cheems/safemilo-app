@@ -11,6 +11,24 @@ type Course = {
     progress: number
 }
 
+const resetCourseData = async (): Promise<void> => {
+    try {
+        const keys = await AsyncStorage.getAllKeys()
+        const relevantKeys = keys.filter(
+            key =>
+                key.startsWith('quizProgress_') ||
+                key.startsWith('quizScore_') ||
+                key.startsWith('completedModule_')
+        )
+        await AsyncStorage.multiRemove(relevantKeys)
+        console.log('✅ Course & Quiz data cleared!')
+        alert('Progress reset successfully!')
+    } catch (err) {
+        console.error('❌ Failed to reset course data:', err)
+        alert('Error resetting progress.')
+    }
+}
+
 const defaultCourses: Course[] = [
     { id: '1', title: 'Scam Awareness Basics', progress: 60 },
     { id: '2', title: 'Phishing Scams 101', progress: 40 },
@@ -22,6 +40,7 @@ const LearnDashboardScreen = (): JSX.Element => {
     const router = useRouter()
     const [activeCourses, setActiveCourses] = useState<Course[]>(defaultCourses)
     const [completedCourses, setCompletedCourses] = useState<Course[]>([])
+    const [awarenessScore, setAwarenessScore] = useState<number>(0)
 
     useEffect(() => {
         const fetchProgress = async (): Promise<void> => {
@@ -32,6 +51,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                 const completedModules = keys.filter(key =>
                     key.startsWith('completedModule_')
                 )
+                setAwarenessScore(completedModules.length * 50)
                 console.log('Completed Modules Keys:', completedModules)
 
                 const updatedCourses = await Promise.all(
@@ -360,8 +380,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                                         style={{
                                             fontSize: 18,
                                             fontFamily: 'Montserrat-Bold',
-                                            color: '#1C1C1C',
-                                            marginBottom: -10
+                                            color: '#1C1C1C'
                                         }}
                                     >
                                         {item.title}
@@ -371,7 +390,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                                         style={{
                                             fontSize: 14,
                                             color: '#6B7280',
-                                            marginBottom: 20,
+                                            marginBottom: 12,
                                             lineHeight: 20,
                                             fontFamily: 'Montserrat-SemiBold'
                                         }}
@@ -456,7 +475,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                     <Text className="text-xl text-gray-600 font-[<Montserrat-SemiBold] mt-2>]">
                         Your current score:{' '}
                         <Text className="text-2xl font-[<Montserrat-Bold>]">
-                            50
+                            {awarenessScore}
                         </Text>
                     </Text>
 
@@ -469,6 +488,29 @@ const LearnDashboardScreen = (): JSX.Element => {
                     />
                 </View>
             </TouchableOpacity>
+            {__DEV__ && (
+                <TouchableOpacity
+                    onPress={resetCourseData}
+                    style={{
+                        marginTop: 20,
+                        paddingVertical: 12,
+                        paddingHorizontal: 24,
+                        backgroundColor: '#DC2626', // red tone
+                        borderRadius: 10,
+                        alignSelf: 'center'
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: '#fff',
+                            fontFamily: 'Montserrat-Bold',
+                            fontSize: 16
+                        }}
+                    >
+                        Reset Progress (Dev)
+                    </Text>
+                </TouchableOpacity>
+            )}
         </View>
     )
 }
