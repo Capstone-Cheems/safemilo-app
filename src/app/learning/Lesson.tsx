@@ -2,9 +2,11 @@ import { useRouter } from 'expo-router'
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { WebView } from 'react-native-webview'
+import { useLocalSearchParams } from 'expo-router'
 
 const LessonScreen = (): JSX.Element => {
     const router = useRouter()
+    const { courseId } = useLocalSearchParams()
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Lesson Video</Text>
@@ -23,7 +25,7 @@ const LessonScreen = (): JSX.Element => {
                     () =>
                         router.push({
                             pathname: '/learning/Quiz',
-                            params: { courseId: '1' }
+                            params: { courseId }
                         }) // Correct navigation
                 }
             >

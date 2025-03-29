@@ -22,6 +22,7 @@ const LearnDashboardScreen = (): JSX.Element => {
     const router = useRouter()
     const [activeCourses, setActiveCourses] = useState<Course[]>(defaultCourses)
     const [completedCourses, setCompletedCourses] = useState<Course[]>([])
+    const [awarenessScore, setAwarenessScore] = useState<number>(0)
 
     useEffect(() => {
         const fetchProgress = async (): Promise<void> => {
@@ -32,6 +33,7 @@ const LearnDashboardScreen = (): JSX.Element => {
                 const completedModules = keys.filter(key =>
                     key.startsWith('completedModule_')
                 )
+                setAwarenessScore(completedModules.length * 50)
                 console.log('Completed Modules Keys:', completedModules)
 
                 const updatedCourses = await Promise.all(
@@ -446,17 +448,17 @@ const LearnDashboardScreen = (): JSX.Element => {
             >
                 <Image
                     source={require('../../../assets/images/learn-achieve.png')}
-                    className="w-30 h-max rounded-tl-2xl rounded-bl-2xl"
+                    className="w-30 h-full rounded-tl-2xl rounded-bl-2xl"
                     resizeMode="contain"
                 />
                 <View className="flex-1 gap-2 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                     <Text className="text-3xl font-[<Montserrat-Bold>]">
                         Check out Your Achievements
                     </Text>
-                    <Text className="text-xl text-gray-600 font-[<Montserrat-SemiBold] mt-2>]">
+                    <Text className="text-lg text-gray-600 font-[<Montserrat-SemiBold] mt-2>]">
                         Your current score:{' '}
-                        <Text className="text-2xl font-[<Montserrat-Bold>]">
-                            50
+                        <Text className="text-xl font-[<Montserrat-Bold>]">
+                        {awarenessScore}
                         </Text>
                     </Text>
 

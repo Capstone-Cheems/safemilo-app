@@ -26,11 +26,12 @@ const ReviewScreen = (): JSX.Element => {
             {/* Speech Bubble */}
             <View style={styles.speechBubble}>
                 <Text style={styles.speechText}>Woohoo! Module Completed!</Text>
+                <View style={styles.triangle} />
             </View>
 
             {/* Milo Animation positioned above Score Card */}
             <View style={styles.miloWrapper}>
-                <ModuleCompleteAnimation style={{ width: 150, height: 180 }} />
+                <ModuleCompleteAnimation style={styles.moduleCompleteAnimation} />
             </View>
 
             {/* Score Box */}
@@ -93,7 +94,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 40,
         alignItems: 'center',
         width: 300,
-        zIndex: 2
+        zIndex: 2,
+        position: 'absolute',
+        bottom: 260
     },
     pointsText: {
         fontSize: 60,
@@ -113,12 +116,37 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         borderRadius: 12,
         width: 300,
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 160
     },
     buttonText: {
         color: 'white',
         fontSize: 18,
         fontFamily: 'Montserrat-Bold'
+    },
+    triangle: {
+        position: 'absolute',
+        bottom: -10,
+        left: '30%',
+        marginLeft: -10,
+        width: 0,
+        height: 0,
+        borderLeftWidth: 10,
+        borderRightWidth: 10,
+        borderTopWidth: 10,
+        borderStyle: 'solid',
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderTopColor: 'white'
+    },
+    moduleCompleteAnimation: {
+        width: 280,
+        height: 280,
+        marginTop: -20,
+        marginBottom: 30,
+        marginLeft: -130,
+        resizeMode: 'contain'
     }
 })
 
