@@ -4,12 +4,15 @@ import {
     Text,
     FlatList,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
+import { getAuth, signOut } from 'firebase/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type NewsItem = {
     newsID: string
@@ -58,8 +61,34 @@ const CreatedPost = (): React.JSX.Element => {
         }, [user])
     )
 
+    const handleLogout = async (): Promise<void> => {
+        try {
+            await signOut(getAuth())
+            await AsyncStorage.removeItem('user')
+            router.replace('/auth/login') // or your welcome screen
+        } catch (error) {
+            console.error('Error logging out:', error)
+        }
+    }
+
     return (
         <View style={commonStyles.postContainer}>
+            <TouchableOpacity
+                onPress={handleLogout}
+                style={{
+                    position: 'absolute',
+                    top: 20,
+                    right: 20,
+                    zIndex: 10
+                }}
+            >
+                <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
+                    source={require('../../../assets/images/logout-icon.png')}
+                    style={{ width: 28, height: 28 }}
+                    resizeMode="contain"
+                />
+            </TouchableOpacity>
             <Text style={commonStyles.header}>Your Scam News</Text>
             {loading ? (
                 <ActivityIndicator size="large" color="#000000" />
