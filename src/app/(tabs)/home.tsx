@@ -71,7 +71,7 @@ const Home = (): React.JSX.Element => {
                 <View style={{ marginLeft: -150}}>
                     <Text
                         style={{
-                            fontSize: textSize ,
+                            fontSize: textSize + 1,
                             fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                         }}
                     >
@@ -79,7 +79,7 @@ const Home = (): React.JSX.Element => {
                     </Text>
                     <Text
                         style={{
-                            fontSize: textSize - 4,
+                            fontSize: textSize - 3,
                             fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_400Regular',
                         }}
                     >
@@ -109,7 +109,7 @@ const Home = (): React.JSX.Element => {
                         />
                         <Text
                             style={{
-                                fontSize: textSize - 5,
+                                fontSize: textSize - 4,
                                 fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                             }}
                         >
@@ -118,7 +118,7 @@ const Home = (): React.JSX.Element => {
                     </View>
                     <Text
                         style={{
-                            fontSize: textSize - 7,
+                            fontSize: textSize - 6,
                             fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_Medium',
                         }}
                     >
@@ -147,7 +147,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 8,
+                                fontSize: textSize - 7,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
@@ -159,7 +159,7 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/news/news')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 8,
+                                fontSize: textSize - 7,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }]}>
                                 Read News
@@ -186,7 +186,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 8,
+                                fontSize: textSize - 7,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
@@ -198,7 +198,7 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/screening/calls')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 8,
+                                fontSize: textSize - 7,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }]}>
                                 View More
@@ -225,7 +225,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 8,
+                                fontSize: textSize - 7,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
@@ -237,7 +237,7 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/screening/messages')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 8,
+                                fontSize: textSize - 7,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }]}>
                                 View More
