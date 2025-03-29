@@ -36,7 +36,8 @@ const Messages = (): React.JSX.Element => {
     return (
         <Box className="bg-white flex-1">
             <Box className="m-5">
-                <Heading className="pb-2 text-2xl">All Scam Messages</Heading>
+                <Heading style={{fontFamily: 'Montserrat-Bold',
+                    fontSize: 18}} className="pb-2" >All Scam Messages</Heading>
                 <Divider />
             </Box>
             {messages && messages.length > 0 ? (
@@ -56,14 +57,17 @@ const Messages = (): React.JSX.Element => {
                                     >
                                         <Box className="flex flex-row gap-1">
                                             <Icon as={SlashIcon} />
-                                            <Text>{item.sender}</Text>
+                                            <Text style={{fontFamily: 'Montserrat-Regular',
+                    fontSize: 18}}>{item.sender}</Text>
                                         </Box>
 
-                                        <Text>{timeAgo(item.timestamp)}</Text>
+                                        <Text style={{fontFamily: 'Montserrat-Regular',
+                    fontSize: 18}}>{timeAgo(item.timestamp)}</Text>
                                     </HStack>
                                 </Box>
                                 <Box>
-                                    <Text>{item.description}</Text>
+                                    <Text style={{fontFamily: 'Montserrat-Regular',
+                    fontSize: 18}}>{item.description}</Text>
                                 </Box>
                             </VStack>
                         </Card>

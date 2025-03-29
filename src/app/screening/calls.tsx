@@ -35,7 +35,8 @@ const Calls = (): React.JSX.Element => {
     return (
         <Box className="bg-white flex-1">
             <Box className="m-5">
-                <Heading className="pb-2 text-2xl">All Scam Calls</Heading>
+                <Heading className="pb-2 text-2xl" style={{fontFamily: 'Montserrat-Bold',
+                    fontSize: 18}}>All Scam Calls</Heading>
                 <Divider />
             </Box>
             {spamNumbers && spamNumbers.length > 0 ? (
@@ -55,10 +56,11 @@ const Calls = (): React.JSX.Element => {
                                     >
                                         <Box className="flex flex-row gap-4">
                                             <Icon as={SlashIcon} />
-                                            <Text>{item.number}</Text>
+                                            <Text style={{fontFamily:"Montserrat-Regular"}}>{item.number}</Text>
                                         </Box>
 
-                                        <Text>{timeAgo(item.timestamp)}</Text>
+                                        <Text style={{fontFamily: 'Montserrat-Regular',
+                    fontSize: 18}}>{timeAgo(item.timestamp)}</Text>
                                     </HStack>
                                 </Box>
                                 <Box>
@@ -66,7 +68,8 @@ const Calls = (): React.JSX.Element => {
                                         space="2xl"
                                         className="justify-around"
                                     >
-                                        <Text>Banking Scam</Text>
+                                        <Text style={{fontFamily: 'Montserrat-Regular',
+                    fontSize: 18}}>Banking Scam</Text>
                                         <Icon as={InfoIcon} />
                                     </HStack>
                                 </Box>

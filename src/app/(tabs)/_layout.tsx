@@ -91,6 +91,10 @@ export default function TabLayout(): ReactNode {
         <Tabs
             screenOptions={{
                 headerTitleAlign: 'center',
+                headerTitleStyle:{
+                    fontFamily: 'Montserrat-Bold',
+                    fontSize: 18
+                },
                 tabBarShowLabel: false,
                 tabBarItemStyle: {
                     paddingBottom: 10,

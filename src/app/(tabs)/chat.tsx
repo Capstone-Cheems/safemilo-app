@@ -48,7 +48,7 @@ export default function Chat(): ReactNode {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerStyle: {
-                backgroundColor: '#0A2941' // Change to your desired color
+                backgroundColor: '#0A2941' 
             },
             headerTintColor: '#F9F4F4',
             headerTitleAlign: 'left',
@@ -59,7 +59,8 @@ export default function Chat(): ReactNode {
                         source={require('../../../assets/images/ChatIcon.png')}
                         className="max-w-10 max-h-10"
                     />
-                    <Text className="font-bold text-[#F9F4F4]">
+                    <Text className="font-bold text-[#F9F4F4]" style={{fontFamily: 'Montserrat-Bold',
+                    fontSize: 18}}>
                         Chat with Milo
                     </Text>
                 </Box>
@@ -100,9 +101,9 @@ export default function Chat(): ReactNode {
     }, [data])
 
     return (
-        <Box className="bg-[#83D1FF] flex-1  p-5">
+        <Box  className="bg-[#83D1FF] flex-1  p-5">
             <StatusBar style="light" />
-            <ScrollView>
+            <ScrollView >
                 <VStack
                     space="md"
                     reversed={false}
@@ -122,7 +123,7 @@ export default function Chat(): ReactNode {
                                 </Avatar>
                             )}
                             <Box className={`p-2 rounded-3xl bg-white grow shrink `}>
-                                <Markdown>{msg.text}</Markdown>
+                                <Markdown style={markdownStyles}>{msg.text}</Markdown>
                             </Box>
                             {msg.sender === 'user' && (
                                 <Avatar size="md">
@@ -187,3 +188,12 @@ const styles = StyleSheet.create({
         overflow: 'visible'
     }
 })
+
+const markdownStyles = StyleSheet.create({
+    // Apply fontFamily to TextStyle
+    
+    text:{
+      fontFamily: 'Montserrat-Regular',
+      fontSize: 18,
+    }
+  });
