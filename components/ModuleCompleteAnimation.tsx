@@ -20,7 +20,7 @@ const ModuleCompleteAnimation: React.FC<ModuleCompleteAnimationProps> = ({
             <LottieView
                 ref={animationRef}
                 source={require('../assets/lottie/ModuleComplete.json')}
-                loop={false}
+                loop
                 autoPlay
                 style={StyleSheet.absoluteFill}
             />
