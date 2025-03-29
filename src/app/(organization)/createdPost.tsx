@@ -11,8 +11,6 @@ import { useRouter } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
-import { getAuth, signOut } from 'firebase/auth'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type NewsItem = {
     newsID: string
@@ -24,7 +22,7 @@ type NewsItem = {
 }
 
 const CreatedPost = (): React.JSX.Element => {
-    const { user } = useAuth()
+    const { user, logout } = useAuth()
     const router = useRouter()
     const [news, setNews] = useState<NewsItem[]>([])
     const [loading, setLoading] = useState(true)
@@ -34,6 +32,14 @@ const CreatedPost = (): React.JSX.Element => {
         fetchNews()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
+
+    useFocusEffect(
+        useCallback(() => {
+            if (!user) return
+            fetchNews()
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [user])
+    )
 
     const fetchNews = async (): Promise<void> => {
         try {
@@ -53,28 +59,10 @@ const CreatedPost = (): React.JSX.Element => {
         }
     }
 
-    useFocusEffect(
-        useCallback(() => {
-            if (!user) return
-            fetchNews()
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [user])
-    )
-
-    const handleLogout = async (): Promise<void> => {
-        try {
-            await signOut(getAuth())
-            await AsyncStorage.removeItem('user')
-            router.replace('/auth/login') // or your welcome screen
-        } catch (error) {
-            console.error('Error logging out:', error)
-        }
-    }
-
     return (
         <View style={commonStyles.postContainer}>
             <TouchableOpacity
-                onPress={handleLogout}
+                onPress={logout}
                 style={{
                     position: 'absolute',
                     top: 20,
@@ -89,7 +77,9 @@ const CreatedPost = (): React.JSX.Element => {
                     resizeMode="contain"
                 />
             </TouchableOpacity>
+
             <Text style={commonStyles.header}>Your Scam News</Text>
+
             {loading ? (
                 <ActivityIndicator size="large" color="#000000" />
             ) : !news || news.length === 0 ? (
