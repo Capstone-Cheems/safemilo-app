@@ -265,7 +265,7 @@ const commonStyles = StyleSheet.create({
         width: 350,
         height: 350,
         marginTop: 10,
-        marginBottom: 15,
+        marginBottom: -10,
         marginLeft: -60,
         resizeMode: 'contain'
     },
@@ -281,7 +281,7 @@ const commonStyles = StyleSheet.create({
         width: 420,
         height: 280,
         marginTop: 10,
-        marginBottom: 5,
+        marginBottom: -20,
         marginLeft: 30,
         resizeMode: 'contain'
     },
@@ -289,7 +289,7 @@ const commonStyles = StyleSheet.create({
         width: 320,
         height: 320,
         marginTop: 10,
-        marginBottom: -5,
+        marginBottom: -35,
         marginLeft: -100,
         resizeMode: 'contain'
     },
@@ -297,7 +297,7 @@ const commonStyles = StyleSheet.create({
         width: 320,
         height: 320,
         marginTop: 10,
-        marginBottom: 0,
+        marginBottom: 15,
         marginLeft: -60,
         resizeMode: 'contain'
     },
