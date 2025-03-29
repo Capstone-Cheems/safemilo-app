@@ -90,12 +90,13 @@ const styles = StyleSheet.create({
     },
     header: {
         fontSize: 28,
-        fontWeight: 'bold'
+        fontFamily: 'Montserrat-Bold'
     },
     subHeader: {
         fontSize: 16,
         color: '#666',
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: 'Montserrat-SemiBold'
     },
     searchContainer: {
         flexDirection: 'row',
@@ -113,7 +114,8 @@ const styles = StyleSheet.create({
     searchInput: {
         flex: 1,
         fontSize: 16,
-        color: '#333'
+        color: '#333',
+        fontFamily: 'Montserrat-Medium'
     },
     searchIcon: {
         width: 20,
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-Bold',
         textAlign: 'center'
     }
 })

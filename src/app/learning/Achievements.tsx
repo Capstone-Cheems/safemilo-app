@@ -194,21 +194,23 @@ const styles = StyleSheet.create({
         paddingTop: 40
     },
     heading: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontSize: 28,
         textAlign: 'left',
-        marginBottom: 10
+        marginBottom: 0,
+        fontFamily: 'Montserrat-Bold'
     },
     subheading: {
         fontSize: 18,
         textAlign: 'left',
-        marginVertical: 4
+        marginVertical: 0,
+        fontFamily: 'Montserrat-SemiBold'
     },
     description: {
         fontSize: 16,
         textAlign: 'left',
         color: '111',
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: 'Montserrat-Medium'
     },
     card: {
         backgroundColor: '#FFF',
@@ -219,30 +221,31 @@ const styles = StyleSheet.create({
     },
     cardTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-Bold',
         marginBottom: 10
     },
     score: {
         fontSize: 28,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-Bold',
         color: '#1C1C1C'
     },
     scoreLabel: {
         fontSize: 14,
-        fontWeight: '700',
+        fontFamily: 'Montserrat-Bold',
         color: '#111',
-        marginTop: -2 // tuck it closer to the score
+        marginTop: -2
     },
     scoreDescription: {
         fontSize: 16,
         textAlign: 'center',
         color: '#111',
-        marginTop: 10
+        marginTop: 10,
+        fontFamily: 'Montserrat-SemiBold'
     },
     badgeTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 12
+        fontSize: 24,
+        marginBottom: 12,
+        fontFamily: 'Montserrat-Bold'
     },
     badgeBox: {
         width: '48%',
@@ -255,8 +258,8 @@ const styles = StyleSheet.create({
     },
     badgeText: {
         fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Montserrat-Bold'
     },
     arcWrapper: {
         alignItems: 'center',
@@ -286,13 +289,13 @@ const styles = StyleSheet.create({
     },
     completedCoursesLabel: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-Bold',
         color: '#1C1C1C',
         marginLeft: 30
     },
     completedCount: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-Bold',
         color: '#1C1C1C',
         marginRight: 30
     },
@@ -328,11 +331,10 @@ const styles = StyleSheet.create({
     },
     badgeLabel: {
         fontSize: 14,
-        fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 10,
         color: '#1C1C1C',
-        fontFamily: 'Montserrat'
+        fontFamily: 'Montserrat-SemiBold'
     },
     topBackground: {
         position: 'absolute',

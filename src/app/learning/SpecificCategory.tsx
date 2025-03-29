@@ -40,10 +40,10 @@ const SpecificCategoryScreen = (): JSX.Element => {
     return (
         <View className="flex-1 bg-gray-100 p-4">
             {/* Category Title */}
-            <Text className="text-3xl font-bold text-gray-900">
+            <Text className="text-3xl font-[<Montserrat-Bold>] text-gray-900">
                 Tech Support Scams
             </Text>
-            <Text className="text-lg text-gray-600 mt-2">
+            <Text className="text-lg text-gray-600 mt-2 font-[<Montserrat-SemiBold>]">
                 Scammers pose as tech support, claiming a virus and tricking you
                 into paying, installing malware, or granting access.
             </Text>
@@ -61,10 +61,10 @@ const SpecificCategoryScreen = (): JSX.Element => {
 
                         {/* Text Content Section */}
                         <View className="p-4 rounded-b-2xl bg-white">
-                            <Text className="text-xl font-bold text-gray-900">
+                            <Text className="text-xl font-[<Montserrat-Bold>] text-gray-900">
                                 {item.title}
                             </Text>
-                            <Text className="text-sm text-gray-600 mt-2">
+                            <Text className="text-sm text-gray-600 mt-2 font-[<Montserrat-SemiBold>]">
                                 {item.description}
                             </Text>
 
@@ -78,7 +78,7 @@ const SpecificCategoryScreen = (): JSX.Element => {
                                     })
                                 }
                             >
-                                <Text className="text-white font-semibold">
+                                <Text className="text-white font-[<Montserrat-Bold] text-xl">
                                     Start Learning
                                 </Text>
                             </TouchableOpacity>

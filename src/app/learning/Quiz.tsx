@@ -64,16 +64,36 @@ const QuizScreen = (): JSX.Element => {
     const progressPercentage: number =
         ((currentQuestion + 1) / quizQuestions.length) * 100
 
+    // useEffect((): void => {
+    //     const loadCourseProgress = async (): Promise<void> => {
+    //         if (!courseId) return
+    //         const savedScore = await AsyncStorage.getItem(
+    //             `quizScore_${courseId}`
+    //         )
+    //         if (savedScore) setScore(parseInt(savedScore))
+    //     }
+    //     loadCourseProgress()
+    // }, [courseId])
     useEffect((): void => {
-        const loadCourseProgress = async (): Promise<void> => {
+        const initializeQuiz = async (): Promise<void> => {
             if (!courseId) return
-            const savedScore = await AsyncStorage.getItem(
-                `quizScore_${courseId}`
+
+            const isCompleted = await AsyncStorage.getItem(
+                `completedModule_${courseId}`
             )
-            if (savedScore) setScore(parseInt(savedScore))
+
+            if (isCompleted) {
+                // User is retaking the quiz, reset progress
+                await AsyncStorage.removeItem(`quizScore_${courseId}`)
+                await AsyncStorage.removeItem(`quizProgress_${courseId}`)
+                await AsyncStorage.removeItem(`completedModule_${courseId}`)
+            }
+
+            setScore(0)
         }
-        loadCourseProgress()
-    }, [courseId]) // ✅ Added missing dependency to `useEffect`
+
+        initializeQuiz()
+    }, [courseId])
 
     const handleAnswer = (answer: string): void => {
         setSelectedAnswer(answer)
@@ -128,122 +148,6 @@ const QuizScreen = (): JSX.Element => {
     const handleListen = (): void => {
         Speech.speak(quizQuestions[currentQuestion].question)
     }
-
-    // return (
-    //     <View className="flex-1 bg-gray-100 px-4 py-6">
-    //         {/* Header: Listen Button + Score */}
-    //         <View className="flex-row justify-between items-center">
-    //             {/* Listen Button */}
-    //             <TouchableOpacity
-    //                 className="flex-row items-center border border-gray-500 rounded-lg px-4 py-2"
-    //                 onPress={handleListen}
-    //             >
-    //                 <Image
-    //                     source={require('../../../assets/images/audio-icon.png')}
-    //                     className="w-5 h-5 mr-2"
-    //                 />
-    //                 <Text className="text-lg font-semibold">Listen</Text>
-    //             </TouchableOpacity>
-
-    //             {/* Score */}
-    //             <View className="bg-orange-200 px-4 py-2 rounded-full">
-    //                 <Text className="text-gray-800 font-bold">
-    //                     {score} points
-    //                 </Text>
-    //             </View>
-    //         </View>
-
-    //         {/* Progress Bar */}
-    //         <View className="mt-4">
-    //             <Text className="text-lg font-semibold">
-    //                 Lesson {currentQuestion + 1}/5
-    //             </Text>
-    //             <View className="w-full bg-gray-300 h-2 rounded-full mt-1">
-    //                 <View
-    //                     className="bg-blue-500 h-2 rounded-full"
-    //                     style={{ width: `${progressPercentage}%` }}
-    //                 />
-    //             </View>
-    //         </View>
-
-    //         {/* Question & Options */}
-    //         {showExplanation ? (
-    //             <View className="mt-6">
-    //                 {/* Milo Icon */}
-    //                 <Image
-    //                     source={require('../../../assets/images/milo-icon.png')}
-    //                     className="w-12 h-12 mb-2"
-    //                     resizeMode="contain"
-    //                 />
-
-    //                 {/* Explanation Text */}
-    //                 <Text className="text-lg font-bold">
-    //                     {isCorrect
-    //                         ? "✅ That's correct, good job!"
-    //                         : '❌ Oops! That’s not quite right'}
-    //                 </Text>
-    //                 <Text className="text-gray-700 mt-2">
-    //                     {quizQuestions[currentQuestion].explanation}
-    //                 </Text>
-
-    //                 {/* Next Button */}
-    //                 <TouchableOpacity
-    //                     className="mt-4 bg-blue-900 py-3 px-4 rounded-lg"
-    //                     onPress={handleNext}
-    //                 >
-    //                     <Text className="text-white text-center font-semibold">
-    //                         {currentQuestion + 1 === quizQuestions.length
-    //                             ? 'Finish'
-    //                             : 'Next'}
-    //                     </Text>
-    //                 </TouchableOpacity>
-    //             </View>
-    //         ) : (
-    //             <View className="mt-6">
-    //                 {/* Question */}
-    //                 <Text className="text-lg font-bold mb-4">
-    //                     {quizQuestions[currentQuestion].question}
-    //                 </Text>
-
-    //                 {/* Options */}
-    //                 {quizQuestions[currentQuestion].options.map(
-    //                     (option, index) => (
-    //                         <TouchableOpacity
-    //                             key={index}
-    //                             className={`p-3 mb-2 rounded-lg text-3xl ${
-    //                                 selectedAnswer === option
-    //                                     ? option ===
-    //                                       quizQuestions[currentQuestion]
-    //                                           .correctAnswer
-    //                                         ? 'bg-orange-500'
-    //                                         : 'bg-orange-200'
-    //                                     : 'bg-orange-100'
-    //                             }`}
-    //                             onPress={() => handleAnswer(option)}
-    //                         >
-    //                             <Text className="text-lg font-semibold">
-    //                                 {option}
-    //                             </Text>
-    //                         </TouchableOpacity>
-    //                     )
-    //                 )}
-
-    //                 {/* Submit Button */}
-    //                 <TouchableOpacity
-    //                     className={`mt-8 mb-5 py-4 px-6 rounded-xl w-[100%] items-center ${
-    //                         selectedAnswer ? 'bg-[#0A2941]' : 'bg-gray-400'
-    //                     }`}
-    //                     disabled={!selectedAnswer}
-    //                     onPress={handleSubmit}
-    //                 >
-    //                     <Text className="text-white text-[22px] font-bold text-center">
-    //                         Submit
-    //                     </Text>
-    //                 </TouchableOpacity>
-    //             </View>
-    //         )}
-    //     </View>
-    // )
     return (
         <View className="flex-1 bg-[#F3F3F3] px-4 pt-6">
             {/* Top Header */}
@@ -257,7 +161,7 @@ const QuizScreen = (): JSX.Element => {
                 </TouchableOpacity>
 
                 <View className="bg-orange-200 px-4 py-1 rounded-full">
-                    <Text className="text-gray-800 font-bold text-xl">
+                    <Text className="text-gray-800 font-[<Montserrat-Bold>] text-xl">
                         {score} points
                     </Text>
                 </View>
@@ -265,7 +169,7 @@ const QuizScreen = (): JSX.Element => {
 
             {/* Progress Bar */}
             <View className="mt-2">
-                <Text className="text-xl font-semibold">
+                <Text className="text-xl font-[<Montserrat-SemiBold>]">
                     Lesson {currentQuestion + 1}/5
                 </Text>
                 <View className="w-full bg-gray-300 h-4 rounded-full mt-1">
@@ -286,7 +190,9 @@ const QuizScreen = (): JSX.Element => {
                         source={require('../../../assets/images/audio-icon.png')}
                         className="w-5 h-5 mr-2"
                     />
-                    <Text className="text-xl font-semibold">Listen</Text>
+                    <Text className="text-xl font-[<Montserrat-SemiBold>] mt-1 ">
+                        Listen
+                    </Text>
                 </TouchableOpacity>
             </View>
 
@@ -295,7 +201,7 @@ const QuizScreen = (): JSX.Element => {
                 <View className="flex-1 justify-between mt-6">
                     <View>
                         {/* Milo Icon */}
-                        <View className="items-center mb-4">
+                        <View className="items-start mb-4">
                             <View className="bg-blue-500 rounded-full p-2">
                                 <Image
                                     source={require('../../../assets/images/milo-icon.png')}
@@ -306,14 +212,14 @@ const QuizScreen = (): JSX.Element => {
                         </View>
 
                         {/* Feedback */}
-                        <Text className="text-2xl font-bold text-center mb-3 text-gray-900">
+                        <Text className="text-2xl font-[<Montserrat-Bold>] mb-3 text-gray-900">
                             {isCorrect
                                 ? "That's correct, good job!"
                                 : 'Oops! That’s not quite right'}
                         </Text>
 
                         {/* Explanation */}
-                        <Text className="text-2xl text-center text-gray-800 font-semibold mt-10 leading-relaxed">
+                        <Text className="text-2xl  text-gray-800 font-[<Montserrat-Bold>] mt-10 leading-relaxed">
                             {quizQuestions[currentQuestion].explanation}
                         </Text>
                     </View>
@@ -323,7 +229,7 @@ const QuizScreen = (): JSX.Element => {
                         className="bg-[#0A2941] py-4 px-6 rounded-xl items-center mb-6"
                         onPress={handleNext}
                     >
-                        <Text className="text-white text-[20px] font-bold">
+                        <Text className="text-white text-[20px] font-[<Montserrat-Bold>]">
                             Next
                         </Text>
                     </TouchableOpacity>
@@ -332,7 +238,7 @@ const QuizScreen = (): JSX.Element => {
                 <View className="mt-6 flex-1 justify-between">
                     <View>
                         {/* Question */}
-                        <Text className="text-2xl font-bold mb-4">
+                        <Text className="text-2xl font-[<Montserrat-Bold>] mb-4">
                             {quizQuestions[currentQuestion].question}
                         </Text>
 
@@ -352,7 +258,7 @@ const QuizScreen = (): JSX.Element => {
                                     }`}
                                     onPress={() => handleAnswer(option)}
                                 >
-                                    <Text className="text-lg font-semibold text-gray-900">
+                                    <Text className="text-xl font-[<Montserrat-SemiBold>] text-gray-900">
                                         {option}
                                     </Text>
                                 </TouchableOpacity>
@@ -368,7 +274,7 @@ const QuizScreen = (): JSX.Element => {
                         disabled={!selectedAnswer}
                         onPress={handleSubmit}
                     >
-                        <Text className="text-white text-[20px] font-bold text-center">
+                        <Text className="text-white text-[20px] font-[<Montserrat-Bold>] text-center">
                             Submit
                         </Text>
                     </TouchableOpacity>
