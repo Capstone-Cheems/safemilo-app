@@ -1,26 +1,19 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import React, { useEffect, useState } from 'react'
 import { Tabs, useRouter } from 'expo-router'
-import { TouchableOpacity, Animated, ImageURISource } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import {
     Avatar,
     AvatarBadge,
     AvatarFallbackText,
     AvatarImage
-    // eslint-disable-next-line import/no-unresolved
 } from '@/components/ui/avatar'
-// eslint-disable-next-line import/no-unresolved
 import { HStack } from '@/components/ui/hstack'
-// eslint-disable-next-line import/no-unresolved
 import { BellIcon, Icon } from '@/components/ui/icon'
-// eslint-disable-next-line import/no-unresolved
 import { useAuth } from '@/src/shared'
+import TabBarIcon, { IconSource } from '@/components/TabBarIcon'
 
-type IconSource = {
-    active: ImageURISource
-    inactive: ImageURISource
-}
-
-const BottomTab = () => {
+const BottomTab = (): React.JSX.Element => {
     const { user } = useAuth()
     const router = useRouter()
 
@@ -30,66 +23,18 @@ const BottomTab = () => {
 
     useEffect(() => {
         setHomeIcon({
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
             active: require('../../assets/images/home-active.png'),
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
             inactive: require('../../assets/images/home.png')
         })
         setLearnIcon({
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
             active: require('../../assets/images/learn-active.png'),
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
             inactive: require('../../assets/images/learn.png')
         })
         setChatIcon({
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
             active: require('../../assets/images/chat-active.png'),
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
             inactive: require('../../assets/images/Chat.png')
         })
     }, [])
-
-    const renderTabIcon = (
-        focused: boolean,
-        icons: IconSource,
-        activeWidth: number,
-        inactiveWidth: number,
-        activeHeight: number,
-        inactiveHeight: number,
-        activeTop: number,
-        inactiveTop: number
-    ) => {
-        const scaleAnim = new Animated.Value(focused ? 1 : 0)
-
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useEffect(() => {
-            Animated.timing(scaleAnim, {
-                toValue: focused ? 1 : 0,
-                duration: 200,
-                useNativeDriver: false
-            }).start()
-        }, [focused])
-
-        const width = scaleAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [inactiveWidth, activeWidth]
-        })
-        const height = scaleAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [inactiveHeight, activeHeight]
-        })
-        const top = scaleAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [inactiveTop, activeTop]
-        })
-
-        return (
-            <Animated.Image
-                source={focused ? icons.active : icons.inactive}
-                style={{ width, height, position: 'absolute', top }}
-            />
-        )
-    }
 
     return (
         <Tabs
@@ -153,8 +98,18 @@ const BottomTab = () => {
                 name="home"
                 options={{
                     tabBarIcon: ({ focused }) =>
-                        homeIcon &&
-                        renderTabIcon(focused, homeIcon, 75, 45, 58, 50, -5, 5)
+                        homeIcon && (
+                            <TabBarIcon
+                                focused={focused}
+                                icons={homeIcon}
+                                activeWidth={75}
+                                inactiveWidth={45}
+                                activeHeight={58}
+                                inactiveHeight={50}
+                                activeTop={-5}
+                                inactiveTop={5}
+                            />
+                        )
                 }}
             />
 
@@ -162,8 +117,18 @@ const BottomTab = () => {
                 name="learn"
                 options={{
                     tabBarIcon: ({ focused }) =>
-                        learnIcon &&
-                        renderTabIcon(focused, learnIcon, 80, 45, 65, 50, -5, 5)
+                        learnIcon && (
+                            <TabBarIcon
+                                focused={focused}
+                                icons={learnIcon}
+                                activeWidth={80}
+                                inactiveWidth={45}
+                                activeHeight={65}
+                                inactiveHeight={50}
+                                activeTop={-5}
+                                inactiveTop={5}
+                            />
+                        )
                 }}
             />
 
@@ -171,8 +136,18 @@ const BottomTab = () => {
                 name="chat"
                 options={{
                     tabBarIcon: ({ focused }) =>
-                        chatIcon &&
-                        renderTabIcon(focused, chatIcon, 75, 65, 60, 50, -5, 5)
+                        chatIcon && (
+                            <TabBarIcon
+                                focused={focused}
+                                icons={chatIcon}
+                                activeWidth={75}
+                                inactiveWidth={65}
+                                activeHeight={60}
+                                inactiveHeight={50}
+                                activeTop={-5}
+                                inactiveTop={5}
+                            />
+                        )
                 }}
             />
         </Tabs>
