@@ -83,7 +83,7 @@ const FAQ = () => {
                             style={[
                                 styles.question,
                                 {
-                                    fontSize: textSize, // Apply stored font size
+                                    fontSize: textSize - 4, // Apply stored font size
                                     fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold', // Conditional font family
                                 },
                             ]}
@@ -94,8 +94,8 @@ const FAQ = () => {
                             style={[
                                 styles.answer,
                                 {
-                                    fontSize: textSize - 8, // Slightly smaller for answers
-                                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular', // Conditional font family
+                                    fontSize: textSize - 9, // Slightly smaller for answers
+                                    fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular', // Conditional font family
                                 },
                             ]}
                         >

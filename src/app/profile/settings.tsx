@@ -234,7 +234,7 @@ const Settings = (): React.JSX.Element => {
                                 style={{
                                     width: textSize - 4,
                                     height: textSize - 4,
-                                    marginRight: 16,
+                                    marginRight: 5,
                                 }}
                                                 />
                     
@@ -271,7 +271,7 @@ const Settings = (): React.JSX.Element => {
                             <View style={{ width: 230 }}>
                                 <Slider
                                     minValue={20}
-                                    maxValue={30}
+                                    maxValue={29}
                                     value={textSize}
                                     onChange={setTextSize}
                                     size="md"

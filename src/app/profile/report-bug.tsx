@@ -1,48 +1,71 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react';
 import {
     View,
     Text,
     TextInput,
     TouchableOpacity,
     ScrollView,
-    Modal
-} from 'react-native'
-import axios from 'axios'
-import commonStyles from '../../styles/commonStyles'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFocusEffect } from 'expo-router'
-import { Buffer } from 'buffer' // This line is important for Buffer in React Native
-// eslint-disable-next-line import/no-unresolved
-import { JIRA_API_URL, JIRA_EMAIL, JIRA_API_TOKEN } from '@env'
-import { useFonts } from 'expo-font' // Import useFonts hook
-// Removed invalid import statement for Google Fonts URL
-import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat' // Import Montserrat fonts
+    Modal,
+} from 'react-native';
+import axios from 'axios';
+import commonStyles from '../../styles/commonStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from 'expo-router';
+import { Buffer } from 'buffer'; // For Buffer in React Native
+import { JIRA_API_URL, JIRA_EMAIL, JIRA_API_TOKEN } from '@env';
+import { useFonts } from 'expo-font';
+import {
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
+} from '@expo-google-fonts/montserrat';
 
 const ReportBug = (): React.JSX.Element => {
-    const [bugDescription, setBugDescription] = useState('')
-    const [textSize, setTextSize] = useState(20) // Default text size
-    const [isBold, setIsBold] = useState(true)
-    const [isModalVisible, setIsModalVisible] = useState(false) // Confirmation Modal
-    const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false) // Thank You Modal
+    const [bugDescription, setBugDescription] = useState('');
+    const [textSize, setTextSize] = useState(20); // Default text size
+    const [isBold, setIsBold] = useState(true);
+    const [isModalVisible, setIsModalVisible] = useState(false); // Confirmation Modal
+    const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false); // Thank You Modal
 
-    // Load settings from AsyncStorage
+    interface UserData {
+        displayName: string | null;
+        email: string;
+        uid: string;
+        providerData: { providerId: string }[];
+        photoURL: string | null;
+    }
+    const [userData, setUserData] = useState<UserData | null>(null);
+
+    // Load settings and user data from AsyncStorage
     const loadSettings = useCallback(async () => {
         try {
-            const storedSize = await AsyncStorage.getItem('textSize')
-            const storedBold = await AsyncStorage.getItem('isBold')
+            const storedSize = await AsyncStorage.getItem('textSize');
+            const storedBold = await AsyncStorage.getItem('isBold');
+            const storedUserData = await AsyncStorage.getItem('user');
 
-            if (storedSize) setTextSize(parseInt(storedSize))
-            if (storedBold) setIsBold(storedBold === 'true')
+            console.log('Stored User Data:', storedUserData); // Debug log
+
+            if (storedSize) setTextSize(parseInt(storedSize));
+            if (storedBold) setIsBold(storedBold === 'true');
+            if (storedUserData) {
+                const parsedUserData = JSON.parse(storedUserData);
+                console.log('Parsed User Data:', parsedUserData); // Debug log
+                setUserData(parsedUserData);
+            } else {
+                console.log('No user data found in AsyncStorage');
+            }
         } catch (error) {
-            console.error('Error loading settings:', error)
+            console.error('Error loading settings:', error);
         }
-    }, [])
+    }, []);
 
     useFocusEffect(
         useCallback(() => {
-            loadSettings()
+            loadSettings();
         }, [loadSettings])
-    )
+    );
 
     // Load fonts
     const [fontsLoaded] = useFonts({
@@ -50,72 +73,70 @@ const ReportBug = (): React.JSX.Element => {
         Montserrat_700Bold,
         Montserrat_500Medium,
         Montserrat_300Light,
-        Montserrat_600SemiBold
-    })
+        Montserrat_600SemiBold,
+    });
 
     if (!fontsLoaded) {
-        return <Text>Loading Fonts...</Text> // Show loading message if fonts are not loaded
+        return <Text>Loading Fonts...</Text>; // Show loading message if fonts are not loaded
     }
 
     const handleReportBug = async () => {
         if (!bugDescription) {
-            setIsModalVisible(false)
-            return
+            setIsModalVisible(false);
+            return;
         }
 
         // Show modal for confirmation
-        setIsModalVisible(true)
-    }
+        setIsModalVisible(true);
+    };
 
     const confirmReportBug = async () => {
-        setIsModalVisible(false)
+        setIsModalVisible(false);
 
         const issueData = {
             fields: {
                 project: { key: 'SCRUM' },
-                summary: 'Bug Reported to Jira By Safe Milo User',
+                summary: `Bug Reported to Jira By Safe Milo User${userData?.displayName ? `: ${userData.displayName}` : ''}`,
                 description: {
                     type: 'doc',
                     version: 1,
                     content: [
                         {
                             type: 'paragraph',
-                            content: [{ type: 'text', text: bugDescription }]
-                        }
-                    ]
+                            content: [{ type: 'text', text: bugDescription }],
+                        },
+                    ],
                 },
-                issuetype: { name: 'Bug' }
-            }
-        }
+                issuetype: { name: 'Bug' },
+            },
+        };
 
         try {
-            const authToken = Buffer.from(
-                `${JIRA_EMAIL}:${JIRA_API_TOKEN}`
-            ).toString('base64')
+            const authToken = Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString('base64');
 
             const response = await axios.post(JIRA_API_URL, issueData, {
                 headers: {
                     Authorization: `Basic ${authToken}`,
                     'Content-Type': 'application/json',
-                    Accept: 'application/json'
-                }
-            })
+                    Accept: 'application/json',
+                },
+            });
 
             if (response.status === 201) {
-                setBugDescription('')
-                setIsThankYouModalVisible(true) // Show Thank You Modal
+                setBugDescription('');
+                setIsThankYouModalVisible(true); // Show Thank You Modal
             }
         } catch (error) {
             console.error(
                 'Error creating Jira ticket:',
                 (axios.isAxiosError(error) && error.response?.data) || error
-            )
+            );
         }
-    }
+    };
 
     const cancelReportBug = () => {
-        setIsModalVisible(false)
-    }
+        setIsModalVisible(false);
+    };
 
     return (
         <ScrollView contentContainerStyle={commonStyles.container}>
@@ -124,16 +145,16 @@ const ReportBug = (): React.JSX.Element => {
                 <Text
                     style={{
                         fontSize: textSize + 7,
-                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium', // Conditional font family
-                        marginBottom: 10
+                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                        marginBottom: 10,
                     }}
                 >
-                   Report a Bug
+                    Report a Bug
                 </Text>
                 <Text
                     style={{
                         fontSize: textSize - 6,
-                        fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_300Light', // Conditional font family
+                        fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_300Light',
                     }}
                 >
                     Encountered an issue? Let us know so we can fix it!
@@ -144,13 +165,13 @@ const ReportBug = (): React.JSX.Element => {
                 <TextInput
                     style={[
                         commonStyles.buginput,
-                        { 
-                            fontSize: textSize - 3, 
-                            textAlignVertical: 'top', 
+                        {
+                            fontSize: textSize - 3,
+                            textAlignVertical: 'top',
                             height: 300,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium' // Conditional font family
-                        }]
-                    }
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                        },
+                    ]}
                     value={bugDescription}
                     onChangeText={setBugDescription}
                     placeholder="Your Feedback..."
@@ -159,17 +180,14 @@ const ReportBug = (): React.JSX.Element => {
                 />
             </View>
 
-            <TouchableOpacity
-                style={commonStyles.button}
-                onPress={handleReportBug}
-            >
+            <TouchableOpacity style={commonStyles.button} onPress={handleReportBug}>
                 <Text
                     style={[
                         {
                             fontSize: textSize - 2,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular', // Conditional font family
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular',
                         },
-                        commonStyles.PbuttonText
+                        commonStyles.PbuttonText,
                     ]}
                 >
                     Send Report
@@ -185,7 +203,14 @@ const ReportBug = (): React.JSX.Element => {
             >
                 <View style={commonStyles.modalOverlay}>
                     <View style={commonStyles.modalContainer}>
-                        <Text style={[commonStyles.modalTitle, { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' }]}>Send report?</Text>
+                        <Text
+                            style={[
+                                commonStyles.modalTitle,
+                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' },
+                            ]}
+                        >
+                            Send report?
+                        </Text>
                         <Text>We will look into it as soon as possible.</Text>
                         <View style={commonStyles.modalbuttonContainer}>
                             <TouchableOpacity onPress={cancelReportBug}>
@@ -208,7 +233,14 @@ const ReportBug = (): React.JSX.Element => {
             >
                 <View style={commonStyles.modalOverlay}>
                     <View style={commonStyles.modalContainer}>
-                        <Text style={[commonStyles.modalTitle, { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' }]}>Thank You!</Text>
+                        <Text
+                            style={[
+                                commonStyles.modalTitle,
+                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' },
+                            ]}
+                        >
+                            Thank You!
+                        </Text>
                         <Text>Your report has been sent successfully.</Text>
                         <TouchableOpacity
                             onPress={() => setIsThankYouModalVisible(false)}
@@ -220,7 +252,7 @@ const ReportBug = (): React.JSX.Element => {
                 </View>
             </Modal>
         </ScrollView>
-    )
-}
+    );
+};
 
-export default ReportBug
+export default ReportBug;

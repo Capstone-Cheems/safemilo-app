@@ -166,8 +166,8 @@ const SavedPosts = (): React.JSX.Element => {
                     <Text
                         style={[
                             commonStyles.browseButtonText,
-                            { fontSize: textSize - 4 },
-                            { fontWeight: 'bold' }
+                            { fontSize: textSize - 3 },
+                            { fontFamily: isBold ? 'Montserrat_500Medium' : 'Montserrat_400Regular'}
                         ]}
                     >
                         Browse Posts

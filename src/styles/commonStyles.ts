@@ -927,6 +927,11 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         padding: 15
     },
+    //  home
+     homebuttonText: {
+        color: 'white',
+        textAlign: 'center'
+    },
 })
 
 export default commonStyles
