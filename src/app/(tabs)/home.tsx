@@ -133,8 +133,8 @@ const Home = (): React.JSX.Element => {
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-news.png')}
-                        className="w-30 h-max rounded-tl-2xl rounded-bl-2xl"
-                        resizeMode="contain"
+                        className="w-30 h-full rounded-tl-2xl rounded-bl-2xl"
+                        resizeMode="cover"
                     />
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
@@ -172,8 +172,8 @@ const Home = (): React.JSX.Element => {
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-call.png')}
-                        className="w-30 h-max rounded-tl-2xl rounded-bl-2xl"
-                        resizeMode="contain"
+                        className="w-30 h-full rounded-tl-2xl rounded-bl-2xl"
+                        resizeMode="cover"
                     />
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
@@ -211,8 +211,8 @@ const Home = (): React.JSX.Element => {
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-message.png')}
-                        className="w-30 h-max rounded-tl-2xl rounded-bl-2xl"
-                        resizeMode="contain"
+                        className="w-30 h-full rounded-tl-2xl rounded-bl-2xl"
+                        resizeMode="cover"
                     />
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
