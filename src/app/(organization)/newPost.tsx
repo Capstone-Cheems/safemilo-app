@@ -217,7 +217,7 @@ const NewPost = (): React.JSX.Element => {
     const handleAutoFill = (): void => {
         setTitle('Warn of Extortion Scam')
         setContent(
-            'The Canadian Anti-Fraud Centre is receiving reports of extortion letters being sent by email. The extortion letters have your full name, personal telephone number, personal residential address and a screenshot from search engines. The letter claims that you have visited explicit websites and threatens to send a copy of a video to your contact list unless you pay them using cryptocurrency. Some letters may also use a QR Code. This is a scam! Do not send money under pressure and do not repy to threatening messages. Report it to your local police.'
+            'The Canadian Anti-Fraud Centre is receiving reports of extortion letters being sent by email. The extortion letters have your full name, personal telephone number, personal residential address and a screenshot from search engines. The letter claims that you have visited explicit websites and threatens to send a copy of a video to your contact list unless you pay them using cryptocurrency. Some letters may also use a QR Code. This is a scam! Do not send money under pressure and do not reply to threatening messages. Report it to your local police.'
         )
         setScamTypeTag('Fraud, Extortion')
     }
@@ -265,7 +265,21 @@ const NewPost = (): React.JSX.Element => {
                         numColumns={3}
                         columnWrapperStyle={{ justifyContent: 'flex-start' }}
                         renderItem={renderImageItem}
+                        className="mb-16"
                     />
+
+                    <TouchableOpacity
+                        style={[
+                            commonStyles.longButton,
+                            loading && commonStyles.buttonDisabled
+                        ]}
+                        onPress={handleSubmit}
+                        disabled={loading}
+                    >
+                        <Text style={commonStyles.buttonText}>
+                            {loading ? 'Loading...' : 'Post'}
+                        </Text>
+                    </TouchableOpacity>
 
                     <TouchableOpacity
                         style={commonStyles.longButtonWhite}
@@ -279,19 +293,6 @@ const NewPost = (): React.JSX.Element => {
                     >
                         <Text style={commonStyles.buttonTextWhite}>
                             Discard
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[
-                            commonStyles.longButton,
-                            loading && commonStyles.buttonDisabled
-                        ]}
-                        onPress={handleSubmit}
-                        disabled={loading}
-                    >
-                        <Text style={commonStyles.buttonText}>
-                            {loading ? 'Loading...' : 'Post'}
                         </Text>
                     </TouchableOpacity>
 

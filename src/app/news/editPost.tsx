@@ -234,7 +234,7 @@ const EditPost = (): React.JSX.Element => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={() => (
                 <View style={commonStyles.postContainer}>
-                   {/* <Text style={commonStyles.header}>Edit Post</Text>*/}
+                    {/* <Text style={commonStyles.header}>Edit Post</Text>*/}
 
                     <Text style={commonStyles.newsInputLabel}>News Title</Text>
                     <TextInput
@@ -271,18 +271,8 @@ const EditPost = (): React.JSX.Element => {
                         numColumns={3}
                         columnWrapperStyle={{ justifyContent: 'flex-start' }}
                         renderItem={renderImageItem}
+                        className="mb-16"
                     />
-
-                    <TouchableOpacity
-                        style={commonStyles.longButtonWhite}
-                        onPress={() =>
-                            router.replace('/(organization)/createdPost')
-                        }
-                    >
-                        <Text style={commonStyles.buttonTextWhite}>
-                            Discard
-                        </Text>
-                    </TouchableOpacity>
 
                     <TouchableOpacity
                         style={[
@@ -294,6 +284,17 @@ const EditPost = (): React.JSX.Element => {
                     >
                         <Text style={commonStyles.buttonText}>
                             {loading ? 'Updating...' : 'Save'}
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={commonStyles.longButtonWhite}
+                        onPress={() =>
+                            router.replace('/(organization)/createdPost')
+                        }
+                    >
+                        <Text style={commonStyles.buttonTextWhite}>
+                            Discard
                         </Text>
                     </TouchableOpacity>
                 </View>
