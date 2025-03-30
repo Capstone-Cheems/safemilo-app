@@ -25,13 +25,21 @@ const tips = [
 ]
 
 const Home = (): React.JSX.Element => {
-    const [textSize, setTextSize] = useState<number>(20)
+    const [textSize, setTextSize] = useState<number>(25)
     const [isBold, setIsBold] = useState<boolean>(true)
     const [loading, setLoading] = useState(true)
     const router = useRouter()
     const navigation = useNavigation()
     const [randomTip, setRandomTip] = useState<string>('')
     const { user } = useAuth()
+
+    interface UserData {
+        displayName: string | null;
+        email: string;
+        uid: string;
+        providerData: { providerId: string }[];
+        photoURL: string | null;
+    }
 
      const loadSettings = useCallback(async () => {
         try {
@@ -109,16 +117,20 @@ const Home = (): React.JSX.Element => {
                         />
                         <Text
                             style={{
-                                fontSize: textSize - 4,
+                                fontSize: textSize - 2,
                                 fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                                flexShrink: 1,
+                                textAlign: 'center',
                             }}
+                            numberOfLines={2}
+                            ellipsizeMode="tail"
                         >
                             Milo’s Tip of the Day
                         </Text>
                     </View>
                     <Text
                         style={{
-                            fontSize: textSize - 6,
+                            fontSize: textSize - 3,
                             fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_Medium',
                         }}
                     >
@@ -139,7 +151,7 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize - 4,
+                                fontSize: textSize - 1,
                                 fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                             }}
                         >
@@ -147,7 +159,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 7,
+                                fontSize: textSize - 3,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
@@ -159,7 +171,7 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/news/news')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 7,
+                                fontSize: textSize - 3,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }]}>
                                 Read News
@@ -178,7 +190,7 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize - 4 ,
+                                fontSize: textSize - 1 ,
                                 fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                             }}
                         >
@@ -186,7 +198,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 7,
+                                fontSize: textSize - 3,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
@@ -198,7 +210,7 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/screening/calls')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 7,
+                                fontSize: textSize - 3,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }]}>
                                 View More
@@ -217,7 +229,7 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize - 4 ,
+                                fontSize: textSize - 1 ,
                                 fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                             }}
                         >
@@ -225,7 +237,7 @@ const Home = (): React.JSX.Element => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 7,
+                                fontSize: textSize - 3,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
@@ -237,7 +249,7 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/screening/messages')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 7,
+                                fontSize: textSize - 3,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }]}>
                                 View More
