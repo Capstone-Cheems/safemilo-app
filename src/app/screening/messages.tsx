@@ -2,7 +2,6 @@ import { View, Text, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import { NativeModules } from 'react-native'
-import commonStyles from '../../styles/commonStyles'
 import { Box } from '@/components/ui/box'
 import { Heading } from '@/components/ui/heading'
 import { Divider } from '@/components/ui/divider'
@@ -36,7 +35,6 @@ const Messages = (): React.JSX.Element => {
     return (
         <Box className="bg-white flex-1">
             <Box className="m-5">
-                <Heading style={{fontFamily: 'Montserrat-Bold',
                 <Heading
                     size="2xl"
                     style={{ fontFamily: 'Montserrat-Bold', fontSize: 32 }}
