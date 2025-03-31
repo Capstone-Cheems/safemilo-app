@@ -129,7 +129,7 @@ const Home = (): React.JSX.Element => {
                     </View>
                     <Text
                         style={{
-                            fontSize: textSize - 4,
+                            fontSize: textSize - 3,
                             fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                         }}
                     >
