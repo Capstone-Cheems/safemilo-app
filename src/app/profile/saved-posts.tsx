@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import {
     View,
-    Text,
     FlatList,
     ActivityIndicator,
     TouchableOpacity,
@@ -22,6 +21,7 @@ import {
 } from '@expo-google-fonts/montserrat';
 import { Center } from '@/components/ui/center';
 import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight
+import { Text } from '@/components/ui/text';
 
 type NewsItem = {
     newsID: string;
@@ -34,7 +34,7 @@ type NewsItem = {
 const SavedPosts = (): React.JSX.Element => {
     const [savedPosts, setSavedPosts] = useState<NewsItem[]>([]);
     const [loading, setLoading] = useState(true);
-    const [textSize, setTextSize] = useState(20);
+    const [textSize, setTextSize] = useState(28);
     const [isBold, setIsBold] = useState(true);
     const [expandedPosts, setExpandedPosts] = useState<Set<string>>(new Set());
     const router = useRouter();
@@ -149,30 +149,34 @@ const SavedPosts = (): React.JSX.Element => {
             <View style={[styles.container]}>
                 <Text
                     style={{
-                        fontSize: textSize + 6,
-                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                        fontSize: textSize + 4,
+                        fontFamily: 'Montserrat_700Bold',
                         marginBottom: 10
                     }}
+                    className='pt-5 color-[#1C1C1C]'
                 >
                     Saved Posts
                 </Text>
                 <View style={commonStyles.faqContainer}>
-                    <Text
+                    <Text className='color-[#191919]'
                         style={{
-                            fontSize: textSize - 2,
-                            padding: 0,
+                            fontSize: textSize - 4,
+                            padding: 2,
                             textAlign: 'left',
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium'
+                            fontFamily:  'Montserrat_700Bold',
                         }}
                     >
                         No saved posts yet!
                     </Text>
                     <Text
                         style={{
-                            fontSize: textSize - 6,
-                            fontFamily: isBold ? 'Montserrat_500Medium' : 'Montserrat_400Regular',
-                            marginTop: 5
+                            fontSize: textSize - 4,
+                            fontFamily: isBold ? 'Montserrat_Regular' : 'Montserrat_400Regular',
+                            marginTop: 5,
+                            padding:2,
+                            lineHeight:25
                         }}
+                        className='color-[#191919]'
                     >
                         Start saving your favorite posts for easy access later.
                     </Text>
@@ -184,8 +188,9 @@ const SavedPosts = (): React.JSX.Element => {
                             style={[
                                 commonStyles.browseButtonText,
                                 { fontSize: textSize - 3 },
-                                { fontFamily: isBold ? 'Montserrat_500Medium' : 'Montserrat_400Regular' }
+                                { fontFamily: isBold ? 'Montserrat_Regular' : 'Montserrat_400Regular' }
                             ]}
+                            className='p-2'
                         >
                             Browse Posts
                         </Text>
@@ -204,10 +209,11 @@ const SavedPosts = (): React.JSX.Element => {
                 <View>
                     <Text
                         style={{
-                            fontSize: textSize + 6,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                            fontSize: textSize + 4,
+                            fontFamily:  'Montserrat_700Bold',
                             marginBottom: 10
                         }}
+                        className='p-5 color-[##1C1C1C]'
                     >
                         Saved Posts
                     </Text>
@@ -227,6 +233,7 @@ const SavedPosts = (): React.JSX.Element => {
                                     textAlign: 'left'
                                 }
                             ]}
+                            className='pt-2'
                         >
                             Delete All
                         </Text>
@@ -239,12 +246,10 @@ const SavedPosts = (): React.JSX.Element => {
                         style={{
                             fontSize: textSize,
                             marginTop: 5,
-                            fontFamily: isBold
-                                ? 'Montserrat_700Bold'
-                                : 'Montserrat_500Medium'
+                            fontFamily:'Montserrat_700Bold',
+                            lineHeight:30
                         }}
-                        numberOfLines={3}
-                        ellipsizeMode="tail"
+                        className='pt-2 color-[##1C1C1C]'
                     >
                         {item.title}
                     </Text>
@@ -252,13 +257,14 @@ const SavedPosts = (): React.JSX.Element => {
                         style={{
                             marginTop: 5,
                             marginBottom: 5,
-                            fontSize: textSize - 7,
+                            fontSize: textSize - 10,
                             fontFamily: isBold
                                 ? 'Montserrat_600SemiBold'
-                                : 'Montserrat_500Medium'
+                                : 'Montserrat_Regular'
                         }}
                         numberOfLines={expandedPosts.has(item.newsID) ? 10 : 2}
                         ellipsizeMode="tail"
+                        className='pt-2 color-[##1C1C1C]'
                     >
                         {item.content}
                     </Text>
@@ -267,7 +273,7 @@ const SavedPosts = (): React.JSX.Element => {
                             ...commonStyles.tag,
                             fontFamily: isBold
                                 ? 'Montserrat_700Bold'
-                                : 'Montserrat_500Medium'
+                                : 'Montserrat_Regular'
                         }}
                     >
                         Scam Type: #{item.scamTypeTag}
@@ -282,11 +288,9 @@ const SavedPosts = (): React.JSX.Element => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                             <Text
                                 style={{
-                                    fontSize: textSize - 7,
-                                    color: '#4A4A4A',
-                                    fontFamily: isBold
-                                        ? 'Montserrat_700Bold'
-                                        : 'Montserrat_600SemiBold'
+                                    fontSize: textSize - 4,
+                                    color: '#0A2941',
+                                    fontFamily: 'Montserrat_700Bold'
                                 }}
                             >
                                 {expandedPosts.has(item.newsID) ? 'Show Less' : 'Read More'}

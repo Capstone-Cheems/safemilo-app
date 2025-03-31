@@ -58,7 +58,7 @@ export default function TabLayout(): ReactNode {
                 },
                 headerRight: () => (
                     <HStack
-                        space="lg"
+                        space="2xl"
                         className="pr-2 justify-center items-center"
                     >
                         <TouchableOpacity
@@ -68,13 +68,16 @@ export default function TabLayout(): ReactNode {
                         >
                             <Icon
                                 as={BellIcon}
-                                className="text-typography-800"
+                                color='#161616'
+                                size='xl'
+                                fill='#161616'
+                                stroke='#161616'
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => router.push('/profile/profile')}
                         >
-                            <Avatar size="sm">
+                            <Avatar size="md">
                                 <AvatarFallbackText>
                                     {user?.email}
                                 </AvatarFallbackText>

@@ -461,14 +461,14 @@ const commonStyles = StyleSheet.create({
         color: '#555'
     },
     tag: {
-        fontSize: 12,
+        fontSize: 16,
         color: '#007AFF',
         marginTop: 5,
         fontFamily: 'Montserrat-Medium'
     },
     date: {
-        fontSize: 12,
-        color: '#888',
+        fontSize: 16,
+        color: '#191919',
         marginTop: 5,
         fontFamily: 'Montserrat-Medium'
     },

@@ -11,7 +11,7 @@ const FeatureWalkthrough = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalContent, setModalContent] = useState('');
     const [modalTitle, setModalTitle] = useState('');
-    const [textSize, setTextSize] = useState(20);
+    const [textSize, setTextSize] = useState(28);
     const [isBold, setIsBold] = useState(true);
     const router = useRouter();
     const navigation = useNavigation(); // Add navigation hook
@@ -91,7 +91,7 @@ const FeatureWalkthrough = () => {
                     localStyles.header,
                     {
                         fontSize: textSize + 4,
-                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                        fontFamily: 'Montserrat_700Bold',
                     },
                 ]}
             >
@@ -102,8 +102,8 @@ const FeatureWalkthrough = () => {
                     style={[
                         localStyles.question,
                         {
-                            fontSize: textSize - 2,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                            fontSize: textSize - 4,
+                            fontFamily:  'Montserrat_700Bold',
                             textAlign: 'left',
                         },
                     ]}
@@ -114,7 +114,7 @@ const FeatureWalkthrough = () => {
                     style={[
                         localStyles.question,
                         {
-                            fontSize: textSize - 5,
+                            fontSize: textSize - 4,
                             fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             marginTop: 10,
                             marginBottom: 10,
@@ -136,8 +136,8 @@ const FeatureWalkthrough = () => {
                     <Text
                         style={[
                             {
-                                fontSize: textSize - 2,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular',
+                                fontSize: textSize - 4,
+                                fontFamily:  'Montserrat_700Bold',
                                 textAlign: 'left',
                             },
                             commonStyles.PbuttonText

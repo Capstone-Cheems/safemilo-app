@@ -32,7 +32,7 @@ import {
 } from '@/components/ui/avatar';
 
 const Profile = (): React.JSX.Element => {
-    const [textSize, setTextSize] = useState(20); // Default text size
+    const [textSize, setTextSize] = useState(28); // Default text size
     const [isBold, setIsBold] = useState(false);
 
     const navigation = useNavigation();

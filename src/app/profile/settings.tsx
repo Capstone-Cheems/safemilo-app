@@ -30,10 +30,11 @@ import {
     Montserrat_600SemiBold,
     Montserrat_700Bold
 } from '@expo-google-fonts/montserrat';
+
 import { HeaderRight } from '../../../components/HeaderRight';
 
 const Settings = (): React.JSX.Element => {
-    const [textSize, setTextSize] = useState(20);
+    const [textSize, setTextSize] = useState(28);
     const [showSlider, setShowSlider] = useState(false);
     const [isBold, setIsBold] = useState(true);
 
@@ -60,6 +61,7 @@ const Settings = (): React.JSX.Element => {
             const storedBold = await AsyncStorage.getItem('isBold');
             const storedUserData = await AsyncStorage.getItem('user');
 
+           alert(storedSize)
             if (storedSize) setTextSize(parseInt(storedSize));
             if (storedBold) setIsBold(storedBold === 'true');
             if (storedUserData) setUserData(JSON.parse(storedUserData));
@@ -82,6 +84,7 @@ const Settings = (): React.JSX.Element => {
             //     </TouchableOpacity>
             // ),
         });
+        
     }, [navigation]);
 
     const [fontsLoaded] = useFonts({
@@ -172,9 +175,10 @@ const Settings = (): React.JSX.Element => {
             <Text
                 style={[
                     {
-                        fontSize: textSize + 6,
+                        fontSize: textSize + 4,
                         padding: 20,
-                        fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                        fontFamily:  'Montserrat_600SemiBold',
+                         color:'#191919'
                     }
                 ]}
             >
@@ -183,9 +187,10 @@ const Settings = (): React.JSX.Element => {
             <Text
                 style={[
                     {
-                        fontSize: textSize - 3,
+                        fontSize: textSize - 2,
                         paddingLeft: 20,
-                        fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                        fontFamily: 'Montserrat_600SemiBold' ,
+                         color:'#191919'
                     }
                 ]}
             >
@@ -202,6 +207,7 @@ const Settings = (): React.JSX.Element => {
                             {
                                 fontSize: textSize - 4,
                                 fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                 color:'#191919'
                             }
                         ]}
                     >
@@ -209,7 +215,7 @@ const Settings = (): React.JSX.Element => {
                     </Text>
                     <Image
                         source={require('../../../assets/images/profile-arrow.png')}
-                        style={{ width: textSize - 4, height: textSize - 4, marginRight: 5 }}
+                        style={{ width: textSize - 12, height: textSize - 12, marginRight: 5 }}
                     />
                 </TouchableOpacity>
 
@@ -225,14 +231,15 @@ const Settings = (): React.JSX.Element => {
                                     marginLeft: -20
                                 }
                             ]}
+                            className='color-[#191919]'
                         >
                             aA
                         </Text>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ width: 230 }}>
                                 <Slider
-                                    minValue={20}
-                                    maxValue={29}
+                                    minValue={24}
+                                    maxValue={35}
                                     value={textSize}
                                     onChange={setTextSize}
                                     size="md"
@@ -257,6 +264,7 @@ const Settings = (): React.JSX.Element => {
                                     marginLeft: 10
                                 }
                             ]}
+                            className='color-[#191919]'
                         >
                             aA
                         </Text>
@@ -284,13 +292,15 @@ const Settings = (): React.JSX.Element => {
                 <Text
                     style={[
                         {
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 2,
                             paddingLeft: 5,
                             paddingTop: 20,
                             paddingBottom: 20,
-                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                            fontFamily: 'Montserrat_600SemiBold',
+                            color:'#191919'
                         }
                     ]}
+                    
                 >
                     App Permissions
                 </Text>
@@ -360,11 +370,11 @@ const Settings = (): React.JSX.Element => {
                 <Text
                     style={[
                         {
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 2,
                             paddingLeft: 5,
                             paddingTop: 20,
                             paddingBottom: 20,
-                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                            fontFamily:  'Montserrat_600SemiBold',
                         }
                     ]}
                 >

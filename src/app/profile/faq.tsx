@@ -27,7 +27,7 @@ const faqs = [
 ];
 
 const FAQ = () => {
-    const [textSize, setTextSize] = useState(20); // Default text size
+    const [textSize, setTextSize] = useState(28); // Default text size
     const [isBold, setIsBold] = useState(true); // Whether to use bold font or not
     const navigation = useNavigation(); // Add navigation hook
 

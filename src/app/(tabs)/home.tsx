@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { ScrollView, Text, View, TouchableOpacity, Image } from 'react-native'
+import { ScrollView, View, TouchableOpacity, Image } from 'react-native'
 import { Box } from '@/components/ui/box'
 import { useFocusEffect, useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
@@ -13,6 +13,7 @@ import {
     Montserrat_600SemiBold,
     Montserrat_700Bold
 } from '@expo-google-fonts/montserrat';
+import { Text } from '@/components/ui/text'
 const tips = [
     'Never share One Time Password or codes with anyone, not even your bank!',
     'Be cautious of emails asking for personal information, phishing scams are common.',
@@ -25,7 +26,7 @@ const tips = [
 ]
 
 const Home = (): React.JSX.Element => {
-    const [textSize, setTextSize] = useState<number>(25)
+    const [textSize, setTextSize] = useState<number>(28)
     const [isBold, setIsBold] = useState<boolean>(false)
     const [loading, setLoading] = useState(true)
     const router = useRouter()
@@ -76,24 +77,28 @@ const Home = (): React.JSX.Element => {
     useEffect(() => {
         navigation.setOptions({
             headerTitle: () => (
-                <View style={{ marginLeft: -150}}>
+                <Box style={{ marginLeft: -150, padding:2}}>
                     <Text
                         style={{
-                            fontSize: textSize + 1,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                            fontSize: textSize - 4,
+                            fontFamily: 'Montserrat_700Bold',
+                            paddingTop:15,
+                            color: '#0A2941'
                         }}
                     >
                         Welcome,
                     </Text>
                     <Text
                         style={{
-                            fontSize: textSize - 2,
-                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                            fontSize: textSize - 8,
+                            fontFamily:  'Montserrat_600SemiBold',
+                            paddingTop:2,
+                            color:'#0A2941'
                         }}
                     >
                         {user?.displayName || 'User'}
                     </Text>
-                </View>
+                </Box>
             ),
             headerStyle: { backgroundColor: 'white' },
         })
@@ -109,29 +114,27 @@ const Home = (): React.JSX.Element => {
             {/* Tip of the Day */}
             <Box className="bg-white rounded-2xl px-4 py-8 mb-6">
                 <View className="flex-col items-center gap-4">
-                    <View className="flex-row items-center w-[100%]">
+                    <View className="flex-row items-center">
                         <Image
                             source={require('../../../assets/images/home-tip.png')}
-                            className="w-20 h-22 mr-4"
                             resizeMode="contain"
                         />
                         <Text
                             style={{
                                 fontSize: textSize - 2,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
-                                flexShrink: 1,
+                                fontFamily:  'Montserrat_700Bold',
                             }}
-                            numberOfLines={3}
-                            ellipsizeMode="tail"
+                           className='p-2 color-[#1C1C1C]'
                         >
                             Milo’s Tip of the Day
                         </Text>
                     </View>
                     <Text
                         style={{
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 8,
                             fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                         }}
+                        className='color-[#000000]'
                     >
                         {randomTip}
                     </Text>
@@ -150,17 +153,19 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize - 1,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                                fontSize: textSize,
+                                fontFamily: 'Montserrat_700Bold' ,
                             }}
+                            className='p-2 color-[#1C1C1C]'
                         >
                             News
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 3,
+                                fontSize: textSize - 10,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                             }}
+                            className='color-[#1C1C1C]'
                         >
                             Read the scam-related news from verified authorities
                         </Text>
@@ -170,10 +175,10 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/news/news')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 3,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                                fontSize: textSize - 8,
+                                fontFamily: 'Montserrat_600SemiBold',
                             }]}>
-                                Read News
+                                Read news
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -189,17 +194,19 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize - 1 ,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                                fontSize: textSize ,
+                                fontFamily:  'Montserrat_700Bold',
                             }}
+                            className='p-2 color-[#1C1C1C]'
                         >
                             Calls
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 3,
+                                fontSize: textSize - 10,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                             }}
+                            className='color-[#1C1C1C]'
                         >
                             For the list of phone numbers identified as scams
                         </Text>
@@ -209,10 +216,10 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/screening/calls')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 3,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                                fontSize: textSize - 8,
+                                fontFamily: 'Montserrat_600SemiBold',
                             }]}>
-                                View More
+                                View more
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -228,17 +235,19 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize - 1 ,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                                fontSize: textSize ,
+                                fontFamily: 'Montserrat_700Bold',
                             }}
+                            className='p-2 color-[#1C1C1C]'
                         >
                             Message
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 3,
+                                fontSize: textSize - 10,
                                 fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                             }}
+                            className=' color-[#1C1C1C]'
                         >
                             For the list of messages flagged as scams
                         </Text>
@@ -248,10 +257,10 @@ const Home = (): React.JSX.Element => {
                             onPress={() => router.push('/screening/messages')}
                         >
                             <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 3,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                                fontSize: textSize - 8,
+                                fontFamily:  'Montserrat_600SemiBold',
                             }]}>
-                                View More
+                                View more
                             </Text>
                         </TouchableOpacity>
                     </View>

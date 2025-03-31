@@ -54,7 +54,7 @@ const ReportBug = (): React.JSX.Element => {
 
             console.log('Stored User Data:', storedUserData); // Debug log
 
-            if (storedSize) setTextSize(parseInt(storedSize));
+            if (storedSize) setTextSize(parseInt(storedSize)-8);
             if (storedBold) setIsBold(storedBold === 'true');
             if (storedUserData) {
                 const parsedUserData = JSON.parse(storedUserData);
