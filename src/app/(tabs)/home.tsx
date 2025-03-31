@@ -87,8 +87,8 @@ const Home = (): React.JSX.Element => {
                     </Text>
                     <Text
                         style={{
-                            fontSize: textSize - 3,
-                            fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_400Regular',
+                            fontSize: textSize - 2,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                         }}
                     >
                         {user?.displayName || 'User'}
@@ -120,9 +120,8 @@ const Home = (): React.JSX.Element => {
                                 fontSize: textSize - 2,
                                 fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                                 flexShrink: 1,
-                                textAlign: 'center',
                             }}
-                            numberOfLines={2}
+                            numberOfLines={3}
                             ellipsizeMode="tail"
                         >
                             Milo’s Tip of the Day
@@ -130,8 +129,8 @@ const Home = (): React.JSX.Element => {
                     </View>
                     <Text
                         style={{
-                            fontSize: textSize - 3,
-                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_Medium',
+                            fontSize: textSize - 4,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                         }}
                     >
                         {randomTip}
@@ -160,7 +159,7 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize - 3,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                             }}
                         >
                             Read the scam-related news from verified authorities
@@ -172,7 +171,7 @@ const Home = (): React.JSX.Element => {
                         >
                             <Text style={[commonStyles.homebuttonText, {
                                 fontSize: textSize - 3,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                             }]}>
                                 Read News
                             </Text>
@@ -199,7 +198,7 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize - 3,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                             }}
                         >
                             For the list of phone numbers identified as scams
@@ -238,7 +237,7 @@ const Home = (): React.JSX.Element => {
                         <Text
                             style={{
                                 fontSize: textSize - 3,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                             }}
                         >
                             For the list of messages flagged as scams

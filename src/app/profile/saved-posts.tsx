@@ -61,15 +61,15 @@ const SavedPosts = (): React.JSX.Element => {
     // Set the header with HeaderRight
       React.useLayoutEffect(() => {
           navigation.setOptions({
-              headerRight: () => <HeaderRight />,
-              headerLeft: () => (
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                      <Image
-                          source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
-                          style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
-                      />
-                  </TouchableOpacity>
-              ),
+              headerRight: () => <HeaderRight />
+            //   headerLeft: () => (
+            //       <TouchableOpacity onPress={() => navigation.goBack()}>
+            //           <Image
+            //               source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
+            //               style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
+            //           />
+            //       </TouchableOpacity>
+            //   ),
           });
       }, [navigation]);
   

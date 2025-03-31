@@ -115,7 +115,7 @@ const commonStyles = StyleSheet.create({
     longButtonNew: {
         backgroundColor: '#0d1b2a',
         padding: 13.5,
-        borderRadius: 16,
+        borderRadius: 10,
         marginTop: 10,
         marginBottom: 10,
         width: '100%',
