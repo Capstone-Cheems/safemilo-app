@@ -1,10 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { ScrollView, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Box } from '@/components/ui/box'
-import { useRouter } from 'expo-router'
+import { useFocusEffect, useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFonts } from 'expo-font';
+import {
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold
+} from '@expo-google-fonts/montserrat';
 const tips = [
     'Never share One Time Password or codes with anyone, not even your bank!',
     'Be cautious of emails asking for personal information, phishing scams are common.',
@@ -17,26 +25,79 @@ const tips = [
 ]
 
 const Home = (): React.JSX.Element => {
-    const [textSize, setTextSize] = useState<number>(20) // Default text size
-    const [isBold, setIsBold] = useState<boolean>(true) // Default bold state
+    const [textSize, setTextSize] = useState<number>(25)
+    const [isBold, setIsBold] = useState<boolean>(true)
+    const [loading, setLoading] = useState(true)
     const router = useRouter()
+    const navigation = useNavigation()
     const [randomTip, setRandomTip] = useState<string>('')
     const { user } = useAuth()
 
-    const loadSettings = useCallback(async () => {
+    interface UserData {
+        displayName: string | null;
+        email: string;
+        uid: string;
+        providerData: { providerId: string }[];
+        photoURL: string | null;
+    }
+
+     const loadSettings = useCallback(async () => {
         try {
             const storedSize = await AsyncStorage.getItem('textSize')
-            if (storedSize) setTextSize(parseInt(storedSize)) // Set size if exists
+            if (storedSize) setTextSize(parseInt(storedSize))
         } catch (error) {
             console.error('Error loading settings:', error)
         }
         try {
             const storedBold = await AsyncStorage.getItem('isBold')
-            if (storedBold) setIsBold(storedBold === 'true') // Convert string to boolean
+            if (storedBold) setIsBold(storedBold === 'true')
         } catch (error) {
             console.error('Error loading settings:', error)
         }
     }, [])
+
+      // Load settings when the screen is focused
+        useFocusEffect(
+            useCallback(() => {
+                loadSettings()
+            }, [loadSettings])
+        )
+
+     const [fontsLoaded] = useFonts({
+                Montserrat_400Regular,
+                Montserrat_700Bold,
+                Montserrat_500Medium,
+                Montserrat_300Light,
+                Montserrat_600SemiBold
+            });
+        
+
+    // Set the navigation title
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: () => (
+                <View style={{ marginLeft: -150}}>
+                    <Text
+                        style={{
+                            fontSize: textSize + 1,
+                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                        }}
+                    >
+                        Welcome,
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: textSize - 3,
+                            fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_400Regular',
+                        }}
+                    >
+                        {user?.displayName || 'User'}
+                    </Text>
+                </View>
+            ),
+            headerStyle: { backgroundColor: 'white' },
+        })
+    }, [navigation, user?.displayName, textSize, isBold])
 
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * tips.length)
@@ -45,48 +106,32 @@ const Home = (): React.JSX.Element => {
 
     return (
         <ScrollView className="p-4 bg-[#DADADA]">
-            {/* Welcome Message */}
-            <View className="mb-4 flex-row justify-between items-center">
-                <View>
-                    <Text
-                        className="text-[1.5rem] font-semibold"
-                        style={{
-                            fontSize: textSize + 6,
-                            fontFamily: 'Montserrat-Bold'
-                        }}
-                    >
-                        Welcome, {user?.displayName}
-                    </Text>
-                </View>
-            </View>
-
             {/* Tip of the Day */}
             <Box className="bg-white rounded-2xl px-4 py-8 mb-6">
                 <View className="flex-col items-center gap-4">
                     <View className="flex-row items-center w-[100%]">
                         <Image
-                            // eslint-disable-next-line @typescript-eslint/no-require-imports
                             source={require('../../../assets/images/home-tip.png')}
                             className="w-20 h-22 mr-4"
                             resizeMode="contain"
                         />
                         <Text
                             style={{
-                                fontSize: textSize + 5,
-                                fontFamily: isBold
-                                    ? 'Montserrat-Bold'
-                                    : 'Montserrat-Regular'
+                                fontSize: textSize - 2,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                                flexShrink: 1,
+                                textAlign: 'center',
                             }}
+                            numberOfLines={2}
+                            ellipsizeMode="tail"
                         >
                             Milo’s Tip of the Day
                         </Text>
                     </View>
                     <Text
                         style={{
-                            fontSize: textSize - 4,
-                            fontFamily: isBold
-                                ? 'Montserrat-Bold'
-                                : 'Montserrat-Regular'
+                            fontSize: textSize - 3,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_Medium',
                         }}
                     >
                         {randomTip}
@@ -106,20 +151,16 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize + 3,
-                                fontFamily: isBold
-                                    ? 'Montserrat-Bold'
-                                    : 'Montserrat-Regular'
+                                fontSize: textSize - 1,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                             }}
                         >
                             News
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 4,
-                                fontFamily: isBold
-                                    ? 'Montserrat-Bold'
-                                    : 'Montserrat-Regular'
+                                fontSize: textSize - 3,
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
                             Read the scam-related news from verified authorities
@@ -129,7 +170,10 @@ const Home = (): React.JSX.Element => {
                             style={commonStyles.longButtonNew}
                             onPress={() => router.push('/news/news')}
                         >
-                            <Text style={commonStyles.buttonText}>
+                            <Text style={[commonStyles.homebuttonText, {
+                                fontSize: textSize - 3,
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                            }]}>
                                 Read News
                             </Text>
                         </TouchableOpacity>
@@ -146,20 +190,16 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize + 3,
-                                fontFamily: isBold
-                                    ? 'Montserrat-Bold'
-                                    : 'Montserrat-Regular'
+                                fontSize: textSize - 1 ,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                             }}
                         >
                             Calls
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 4,
-                                fontFamily: isBold
-                                    ? 'Montserrat-Bold'
-                                    : 'Montserrat-Regular'
+                                fontSize: textSize - 3,
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
                             For the list of phone numbers identified as scams
@@ -169,7 +209,10 @@ const Home = (): React.JSX.Element => {
                             style={commonStyles.longButtonNew}
                             onPress={() => router.push('/screening/calls')}
                         >
-                            <Text style={commonStyles.buttonText}>
+                            <Text style={[commonStyles.homebuttonText, {
+                                fontSize: textSize - 3,
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                            }]}>
                                 View More
                             </Text>
                         </TouchableOpacity>
@@ -186,20 +229,16 @@ const Home = (): React.JSX.Element => {
                     <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
                         <Text
                             style={{
-                                fontSize: textSize + 3,
-                                fontFamily: isBold
-                                    ? 'Montserrat-Bold'
-                                    : 'Montserrat-Regular'
+                                fontSize: textSize - 1 ,
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
                             }}
                         >
                             Message
                         </Text>
                         <Text
                             style={{
-                                fontSize: textSize - 4,
-                                fontFamily: isBold
-                                    ? 'Montserrat-Bold'
-                                    : 'Montserrat-Regular'
+                                fontSize: textSize - 3,
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
                             }}
                         >
                             For the list of messages flagged as scams
@@ -209,7 +248,10 @@ const Home = (): React.JSX.Element => {
                             style={commonStyles.longButtonNew}
                             onPress={() => router.push('/screening/messages')}
                         >
-                            <Text style={commonStyles.buttonText}>
+                            <Text style={[commonStyles.homebuttonText, {
+                                fontSize: textSize - 3,
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
+                            }]}>
                                 View More
                             </Text>
                         </TouchableOpacity>
