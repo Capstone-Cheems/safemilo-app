@@ -48,7 +48,7 @@ const Login = (): React.JSX.Element => {
         try {
             await signInWithEmailAndPassword(getAuth(), email, password)
 
-            router.replace('/honme')
+            router.replace('/home')
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(err.message || 'Login failed. Please try again.')
