@@ -26,7 +26,7 @@ const tips = [
 
 const Home = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState<number>(25)
-    const [isBold, setIsBold] = useState<boolean>(true)
+    const [isBold, setIsBold] = useState<boolean>(false)
     const [loading, setLoading] = useState(true)
     const router = useRouter()
     const navigation = useNavigation()

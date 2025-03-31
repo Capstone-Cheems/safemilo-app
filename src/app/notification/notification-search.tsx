@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
 import { Text } from 'react-native'
 import NotificationCard from './notification-card'
+import { Box } from '@/components/ui/box'
 
 const NotificationSearch: React.FC<{ type: string }> = ({ type }) => {
     const [notifications, setNotifications] = useState<Notification[]>([])
@@ -52,7 +53,15 @@ const NotificationSearch: React.FC<{ type: string }> = ({ type }) => {
                     })}
                 </VStack>
             ) : (
-                <Text>No notifications yet.</Text>
+                <Box className="items-center p-5">
+                    <Text style={{
+                    fontFamily:
+                        'Montserrat-Bold',
+                    fontSize: 24,
+                  
+                    textAlign:'center'
+                }}>No new notifications at the moment.</Text>
+                </Box>
             )}
         </>
     )

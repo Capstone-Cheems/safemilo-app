@@ -1,7 +1,6 @@
-import { View, Text, FlatList } from 'react-native'
+import { Text, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeModules } from 'react-native'
-import commonStyles from '../../styles/commonStyles'
 import { Box } from '@/components/ui/box'
 import { Heading } from '@/components/ui/heading'
 import { Divider } from '@/components/ui/divider'
@@ -9,7 +8,7 @@ import { VStack } from '@/components/ui/vstack'
 import { HStack } from '@/components/ui/hstack'
 import { Icon, InfoIcon, SlashIcon } from '@/components/ui/icon'
 import { Card } from '@/components/ui/card'
-import { timeAgo } from '@/src/shared'
+import { getDayFromDate, getTimeFromDate } from '@/src/shared'
 
 const { CustomModule } = NativeModules
 
@@ -35,8 +34,12 @@ const Calls = (): React.JSX.Element => {
     return (
         <Box className="bg-white flex-1">
             <Box className="m-5">
-                <Heading className="pb-2 text-2xl" style={{fontFamily: 'Montserrat-Bold',
-                    fontSize: 18}}>All Scam Calls</Heading>
+                <Heading
+                    size="2xl"
+                    style={{ fontFamily: 'Montserrat-Bold', fontSize: 32 }}
+                >
+                    All Scam Calls
+                </Heading>
                 <Divider />
             </Box>
             {spamNumbers && spamNumbers.length > 0 ? (
@@ -46,31 +49,64 @@ const Calls = (): React.JSX.Element => {
                     renderItem={({ item }) => (
                         <Card
                             size="md"
-                            className="m-5 bg-[#F9F4F4] rounded-lg outline-2"
+                            className="m-5 bg-[#FBEDE5] rounded-lg outline-2"
                         >
                             <VStack space="md" reversed={false}>
                                 <Box>
                                     <HStack
                                         space="2xl"
-                                        className="justify-between"
+                                        className="justify-around"
                                     >
-                                        <Box className="flex flex-row gap-4">
+                                        <Box className="flex flex-row gap-2 items-center">
                                             <Icon as={SlashIcon} />
-                                            <Text style={{fontFamily:"Montserrat-Regular"}}>{item.number}</Text>
+                                            <Text
+                                                style={{
+                                                    fontFamily:
+                                                        'Montserrat-Regular',
+                                                    fontSize: 24
+                                                }}
+                                            >
+                                                {item.number}
+                                            </Text>
                                         </Box>
 
-                                        <Text style={{fontFamily: 'Montserrat-Regular',
-                    fontSize: 18}}>{timeAgo(item.timestamp)}</Text>
+                                        <Text
+                                            style={{
+                                                fontFamily:
+                                                    'Montserrat-Regular',
+                                                fontSize: 20
+                                            }}
+                                        >
+                                            {getTimeFromDate(item.timestamp)}
+                                        </Text>
                                     </HStack>
                                 </Box>
                                 <Box>
                                     <HStack
-                                        space="2xl"
-                                        className="justify-around"
+                                        space="sm"
+                                        className="justify-around items-center"
                                     >
-                                        <Text style={{fontFamily: 'Montserrat-Regular',
-                    fontSize: 18}}>Banking Scam</Text>
-                                        <Icon as={InfoIcon} />
+                                        <Text
+                                            style={{
+                                                fontFamily:
+                                                    'Montserrat-Regular',
+                                                fontSize: 20
+                                            }}
+                                        >
+                                            Banking Scam
+                                        </Text>
+                                        <Box className="flex-row flex-nowrap gap-2 items-center">
+                                            <Text
+                                                style={{
+                                                    fontFamily:
+                                                        'Montserrat-Regular',
+                                                    fontSize: 20
+                                                }}
+                                            >
+                                                {getDayFromDate(item.timestamp)}
+                                            </Text>
+                                            <Icon as={InfoIcon} />
+                                        </Box>
                                     </HStack>
                                 </Box>
                             </VStack>
@@ -78,7 +114,9 @@ const Calls = (): React.JSX.Element => {
                     )}
                 />
             ) : (
-                <Box>No Calls yet.</Box>
+                <Box className="items-center">
+                    <Text className="font-bold">No Calls yet.</Text>
+                </Box>
             )}
         </Box>
     )

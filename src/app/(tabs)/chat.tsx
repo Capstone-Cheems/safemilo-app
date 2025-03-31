@@ -9,7 +9,13 @@ import { getAuth } from '@react-native-firebase/auth'
 import { useNavigation } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { Text } from '@/components/ui/text'
-import React, { ReactNode, useState, useEffect, useLayoutEffect } from 'react'
+import React, {
+    ReactNode,
+    useState,
+    useEffect,
+    useLayoutEffect,
+    useRef
+} from 'react'
 import {
     View,
     TextInput,
@@ -20,6 +26,10 @@ import {
     Image
 } from 'react-native'
 import Markdown from 'react-native-markdown-display'
+import * as Speech from 'expo-speech'
+import { ButtonWidget } from '@/src/widget'
+import { white } from 'tailwindcss/colors'
+
 const API_ENDPOINT = 'chatbot'
 
 const tips = [
@@ -30,9 +40,14 @@ const tips = [
 ]
 
 export default function Chat(): ReactNode {
+    const [speakingMessageId, setSpeakingMessageId] = useState<string | null>(
+        null
+    )
     const [randomTip, setRandomTip] = useState<string>('')
     const navigation = useNavigation()
     const { user } = useAuth()
+    const scrollViewRef = useRef<ScrollView>(null)
+
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * tips.length)
         setRandomTip(tips[randomIndex])
@@ -48,7 +63,7 @@ export default function Chat(): ReactNode {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerStyle: {
-                backgroundColor: '#0A2941' 
+                backgroundColor: '#0A2941'
             },
             headerTintColor: '#F9F4F4',
             headerTitleAlign: 'left',
@@ -59,8 +74,10 @@ export default function Chat(): ReactNode {
                         source={require('../../../assets/images/ChatIcon.png')}
                         className="max-w-10 max-h-10"
                     />
-                    <Text className="font-bold text-[#F9F4F4]" style={{fontFamily: 'Montserrat-Bold',
-                    fontSize: 18}}>
+                    <Text
+                        className="font-bold text-[#F9F4F4]"
+                        style={{ fontFamily: 'Montserrat-Bold', fontSize: 18 }}
+                    >
                         Chat with Milo
                     </Text>
                 </Box>
@@ -100,15 +117,30 @@ export default function Chat(): ReactNode {
         }
     }, [data])
 
+    useEffect(() => {
+        scrollViewRef.current?.scrollToEnd({ animated: true })
+    }, [messages])
+
+    const handleListen = (textToRead: string, messageId: string): void => {
+        setSpeakingMessageId(messageId)
+        Speech.speak(textToRead, {
+            language: 'en-US',
+            onDone: () => setSpeakingMessageId(null),
+            onStopped: () => setSpeakingMessageId(null)
+        })
+    }
+
+    const handleStop = (): void => {
+        Speech.stop()
+        setSpeakingMessageId(null)
+    }
+
     return (
-        <Box  className="bg-[#83D1FF] flex-1  p-5">
+        <Box className="bg-[#83D1FF] flex-1">
             <StatusBar style="light" />
-            
-            <ScrollView >
-                <VStack
-                    space="md"
-                    reversed={false}
-                >
+
+            <ScrollView ref={scrollViewRef} style={{padding:10}}>
+                <VStack space="md" reversed={false}>
                     {messages.map(msg => (
                         <HStack
                             space="sm"
@@ -117,14 +149,48 @@ export default function Chat(): ReactNode {
                             key={msg.id}
                         >
                             {msg.sender !== 'user' && (
-                                <Avatar size="md" className=''>
+                                <Avatar size="md" className="">
                                     <AvatarImage
                                         source={require('../../../assets/images/ChatIcon.png')}
                                     />
                                 </Avatar>
                             )}
-                            <Box className={`p-2 rounded-3xl bg-white grow shrink `}>
-                                <Markdown style={markdownStyles}>{msg.text}</Markdown>
+                            <Box
+                                className={`p-2 rounded-3xl grow shrink ${msg.sender !== 'user' ? 'bg-white' : 'bg-[#0A2941]'}`}
+                            >
+                                {msg.sender !== 'user' && (
+                                    <Box className="">
+                                        {speakingMessageId !== msg.id ? (
+                                            <ButtonWidget
+                                                text="Listen"
+                                                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                                                imageIcon={require('../../../assets/images/listen-icon.png')}
+                                                onPress={() =>
+                                                    handleListen(
+                                                        msg.text,
+                                                        msg.id
+                                                    )
+                                                }
+                                            />
+                                        ) : (
+                                            <ButtonWidget
+                                                text="Stop"
+                                                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                                                imageIcon={require('../../../assets/images/stop-icon.png')}
+                                                onPress={handleStop}
+                                            />
+                                        )}
+                                    </Box>
+                                )}
+                                <Markdown
+                                    style={
+                                        msg.sender !== 'user'
+                                            ? markdownStyles
+                                            : markdownUserStyles
+                                    }
+                                >
+                                    {msg.text}
+                                </Markdown>
                             </Box>
                             {msg.sender === 'user' && (
                                 <Avatar size="md">
@@ -149,22 +215,24 @@ export default function Chat(): ReactNode {
                 </VStack>
             </ScrollView>
 
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    value={inputText}
-                    onChangeText={setInputText}
-                    placeholder="Type a message..."
-                    editable={!loading}
-                />
-                <TouchableOpacity
-                    onPress={sendMessage}
-                    disabled={loading}
-                    className="border rounded-full p-4"
-                >
-                    <Icon as={ArrowUpIcon} size="xl" />
-                </TouchableOpacity>
-            </View>
+            <Box className='bg-[#0A2941] mt-3 p-4'>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        value={inputText}
+                        onChangeText={setInputText}
+                        placeholder="Type a message..."
+                        editable={!loading}
+                    />
+                    <TouchableOpacity
+                        onPress={sendMessage}
+                        disabled={loading}
+                        className="border rounded-full p-4"
+                    >
+                        <Icon as={ArrowUpIcon} size="xl" />
+                    </TouchableOpacity>
+                </View>
+            </Box>
         </Box>
     )
 }
@@ -173,26 +241,30 @@ const styles = StyleSheet.create({
     errorText: { color: 'red', textAlign: 'center', marginTop: 10 },
     inputContainer: {
         flexDirection: 'row',
-        
-        marginTop:5,
         backgroundColor: '#fff',
         padding: 10,
         borderRadius: 30,
-        
+        alignItems:'center'
     },
-    input: { flex: 1, fontSize: 16, padding: 10 },
-    scrollViewContent: {
-        flexGrow: 1,
+    input: { flex: 1, fontSize: 18, padding: 10,fontFamily: 'Montserrat-Regular' },
 
-        overflow: 'visible'
-    }
 })
 
 const markdownStyles = StyleSheet.create({
     // Apply fontFamily to TextStyle
-    
-    text:{
-      fontFamily: 'Montserrat-Regular',
-      fontSize: 18,
+
+    text: {
+        fontFamily: 'Montserrat-Regular',
+        fontSize: 18
     }
-  });
+})
+
+const markdownUserStyles = StyleSheet.create({
+    // Apply fontFamily to TextStyle
+
+    text: {
+        fontFamily: 'Montserrat-Regular',
+        fontSize: 18,
+        color: white
+    }
+})

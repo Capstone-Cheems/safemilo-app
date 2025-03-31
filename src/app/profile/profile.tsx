@@ -33,7 +33,7 @@ import {
 
 const Profile = (): React.JSX.Element => {
     const [textSize, setTextSize] = useState(20); // Default text size
-    const [isBold, setIsBold] = useState(true);
+    const [isBold, setIsBold] = useState(false);
 
     const navigation = useNavigation();
     const router = useRouter();

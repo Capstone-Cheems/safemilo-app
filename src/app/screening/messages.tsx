@@ -37,7 +37,12 @@ const Messages = (): React.JSX.Element => {
         <Box className="bg-white flex-1">
             <Box className="m-5">
                 <Heading style={{fontFamily: 'Montserrat-Bold',
-                    fontSize: 18}} className="pb-2" >All Scam Messages</Heading>
+                <Heading
+                    size="2xl"
+                    style={{ fontFamily: 'Montserrat-Bold', fontSize: 32 }}
+                >
+                    All Scam Messages
+                </Heading>
                 <Divider />
             </Box>
             {messages && messages.length > 0 ? (
@@ -47,34 +52,56 @@ const Messages = (): React.JSX.Element => {
                     renderItem={({ item }) => (
                         <Card
                             size="md"
-                            className="m-5 bg-[#F9F4F4] rounded-lg outline-2"
+                            className="m-5 bg-[#FBEDE5] rounded-lg outline-2"
                         >
                             <VStack space="md" reversed={false}>
                                 <Box>
                                     <HStack
-                                        space="2xl"
+                                        space="sm"
                                         className="justify-between"
                                     >
-                                        <Box className="flex flex-row gap-1">
+                                        <Box className="flex flex-row gap-1 items-center">
                                             <Icon as={SlashIcon} />
-                                            <Text style={{fontFamily: 'Montserrat-Regular',
-                    fontSize: 18}}>{item.sender}</Text>
+                                            <Text
+                                                style={{
+                                                    fontFamily:
+                                                        'Montserrat-Regular',
+                                                    fontSize: 20
+                                                }}
+                                            >
+                                                {item.sender}
+                                            </Text>
                                         </Box>
 
-                                        <Text style={{fontFamily: 'Montserrat-Regular',
-                    fontSize: 18}}>{timeAgo(item.timestamp)}</Text>
+                                        <Text
+                                            style={{
+                                                fontFamily:
+                                                    'Montserrat-Regular',
+                                                fontSize: 20
+                                            }}
+                                        >
+                                            {timeAgo(item.timestamp)}
+                                        </Text>
                                     </HStack>
                                 </Box>
                                 <Box>
-                                    <Text style={{fontFamily: 'Montserrat-Regular',
-                    fontSize: 18}}>{item.description}</Text>
+                                    <Text
+                                        style={{
+                                            fontFamily: 'Montserrat-Regular',
+                                            fontSize: 20
+                                        }}
+                                    >
+                                        {item.description}
+                                    </Text>
                                 </Box>
                             </VStack>
                         </Card>
                     )}
                 />
             ) : (
-                <Text>No Messages yet.</Text>
+                <Box className="items-center">
+                        <Text className="font-bold">No Messages yet.</Text>
+                </Box>
             )}
         </Box>
     )
