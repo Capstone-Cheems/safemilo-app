@@ -79,8 +79,7 @@ const commonStyles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontFamily: 'Montserrat-SemiBold',
-        textAlign: 'center',
-        marginBottom: 20
+        textAlign: 'center'
     },
     description: {
         fontSize: 22,
@@ -116,7 +115,7 @@ const commonStyles = StyleSheet.create({
     longButtonNew: {
         backgroundColor: '#0d1b2a',
         padding: 13.5,
-        borderRadius: 16,
+        borderRadius: 10,
         marginTop: 10,
         marginBottom: 10,
         width: '100%',
