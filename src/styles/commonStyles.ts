@@ -79,8 +79,7 @@ const commonStyles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontFamily: 'Montserrat-SemiBold',
-        textAlign: 'center',
-        marginBottom: 20
+        textAlign: 'center'
     },
     description: {
         fontSize: 22,
