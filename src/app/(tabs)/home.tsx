@@ -159,7 +159,7 @@ const Home = (): React.JSX.Element => {
                         style={{ maxWidth: '100%', height: '100%' }}
                         resizeMode="cover"
                     />
-                    <VStack space="sm" className="p-4 shrink">
+                    <VStack space="md" className="p-4 shrink">
                         <Text
                             style={{
                                 fontSize: textSize,
@@ -210,7 +210,7 @@ const Home = (): React.JSX.Element => {
                         style={{ maxWidth: '100%', height: '100%' }}
                         resizeMode="cover"
                     />
-                    <VStack className="shrink p-4" space="sm">
+                    <VStack className="shrink p-4" space="md">
                         <Text
                             style={{
                                 fontSize: textSize,
@@ -262,7 +262,7 @@ const Home = (): React.JSX.Element => {
                         style={{ maxWidth: '100%', height: '100%' }}
                         resizeMode="cover"
                     />
-                    <VStack className="shrink p-4" space="sm">
+                    <VStack className="shrink p-4" space="md">
                             <Text
                                 style={{
                                     fontSize: textSize,

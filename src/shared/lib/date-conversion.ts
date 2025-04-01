@@ -31,7 +31,7 @@ export const getDayFromDate = (dateString: string): string => {
         d1.getMonth() === d2.getMonth() &&
         d1.getDate() === d2.getDate();
 
-    if (isSameDay(date, now)) return "Today";
+    if (isSameDay(date, now)) return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
 
     const yesterday = new Date(now);
     yesterday.setDate(now.getDate() - 1);
