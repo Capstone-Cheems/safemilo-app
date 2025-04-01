@@ -80,12 +80,12 @@ const Home = (): React.JSX.Element => {
         navigation.setOptions({
             headerTitle: () => <Box></Box>,
             headerLeft: () => (
-                <Box style={{ paddingLeft: 16 }}>
+                <Box style={{ paddingLeft: 16 , gap:2}} >
                     <Text
                         style={{
                             fontSize: textSize - 4,
                             fontFamily: 'Montserrat_700Bold',
-                            paddingTop: 15,
+                            paddingTop:10,
                             color: '#0A2941'
                         }}
                     >
@@ -95,15 +95,14 @@ const Home = (): React.JSX.Element => {
                         style={{
                             fontSize: textSize - 8,
                             fontFamily: 'Montserrat_600SemiBold',
-                            paddingTop: 2,
+                            paddingBottom:4,
                             color: '#0A2941'
                         }}
                     >
                         {user?.displayName || 'User'}
                     </Text>
                 </Box>
-            ),
-            headerStyle: { backgroundColor: 'white' }
+            )
         })
     }, [navigation, user?.displayName, textSize, isBold])
 
@@ -114,9 +113,9 @@ const Home = (): React.JSX.Element => {
 
     return (
         <ScrollView className="p-4 bg-[#DADADA]">
-            <VStack space="lg" className="mb-10">
+            <VStack space="2xl" className="mb-10">
                 {/* Tip of the Day */}
-                <Card className="bg-white rounded-2xl shrink">
+                <Card className="bg-white rounded-2xl shrink" size='lg'>
                     <Box className="flex-row justify-items-center items-center">
                         <Image
                             source={require('../../../assets/images/home-tip.png')}
@@ -151,7 +150,7 @@ const Home = (): React.JSX.Element => {
                 {/* Main Section */}
                 <Card
                     className="flex-row p-0 rounded-2xl bg-white gap-2"
-                    size="md"
+                    size="lg"
                 >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -191,7 +190,7 @@ const Home = (): React.JSX.Element => {
                                     commonStyles.homebuttonText,
                                     {
                                         fontSize: textSize - 8,
-                                        fontFamily: 'Montserrat_600SemiBold'
+                                        fontFamily: 'Montserrat_700Bold'
                                     }
                                 ]}
                             >
@@ -202,7 +201,7 @@ const Home = (): React.JSX.Element => {
                 </Card>
                 <Card
                     className="flex-row p-0 rounded-2xl bg-white gap-2"
-                    size="md"
+                    size="lg"
                 >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -242,7 +241,7 @@ const Home = (): React.JSX.Element => {
                                     commonStyles.homebuttonText,
                                     {
                                         fontSize: textSize - 8,
-                                        fontFamily: 'Montserrat_600SemiBold'
+                                        fontFamily: 'Montserrat_700Bold'
                                     }
                                 ]}
                             >
@@ -254,7 +253,7 @@ const Home = (): React.JSX.Element => {
 
                 <Card
                     className="flex-row p-0 rounded-2xl bg-white gap-2"
-                    size="md"
+                    size="lg"
                 >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -296,7 +295,7 @@ const Home = (): React.JSX.Element => {
                                         commonStyles.homebuttonText,
                                         {
                                             fontSize: textSize - 8,
-                                            fontFamily: 'Montserrat_600SemiBold'
+                                            fontFamily: 'Montserrat_700Bold'
                                         }
                                     ]}
                                 >
