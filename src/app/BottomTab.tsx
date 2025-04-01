@@ -76,7 +76,7 @@ const BottomTab = (): React.JSX.Element => {
                                 )
                             }
                         >
-                            <Avatar size="sm">
+                            <Avatar size="md">
                                 <AvatarFallbackText>
                                     {user?.email || 'User'}
                                 </AvatarFallbackText>

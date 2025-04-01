@@ -61,7 +61,6 @@ const Settings = (): React.JSX.Element => {
             const storedBold = await AsyncStorage.getItem('isBold');
             const storedUserData = await AsyncStorage.getItem('user');
 
-           alert(storedSize)
             if (storedSize) setTextSize(parseInt(storedSize));
             if (storedBold) setIsBold(storedBold === 'true');
             if (storedUserData) setUserData(JSON.parse(storedUserData));

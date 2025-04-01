@@ -113,14 +113,14 @@ const commonStyles = StyleSheet.create({
         alignSelf: 'center'
     },
     longButtonNew: {
-        backgroundColor: '#0d1b2a',
+        backgroundColor: '#0A2941',
         padding: 13.5,
         borderRadius: 10,
         marginTop: 10,
         marginBottom: 10,
         width: '100%',
         borderWidth: 2,
-        borderColor: '#0d1b2a',
+        borderColor: '#0A2941',
         borderStyle: 'solid',
         alignSelf: 'center'
     },

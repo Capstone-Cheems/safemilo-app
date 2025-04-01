@@ -27,7 +27,7 @@ import Constants from 'expo-constants';
 
 const ReportBug = (): React.JSX.Element => {
     const [bugDescription, setBugDescription] = useState('');
-    const [textSize, setTextSize] = useState(20); // Default text size
+    const [textSize, setTextSize] = useState(28); // Default text size
     const [isBold, setIsBold] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false); // Confirmation Modal
     const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false); // Thank You Modal
@@ -54,7 +54,7 @@ const ReportBug = (): React.JSX.Element => {
 
             console.log('Stored User Data:', storedUserData); // Debug log
 
-            if (storedSize) setTextSize(parseInt(storedSize)-8);
+            if (storedSize) setTextSize(parseInt(storedSize));
             if (storedBold) setIsBold(storedBold === 'true');
             if (storedUserData) {
                 const parsedUserData = JSON.parse(storedUserData);
@@ -212,7 +212,7 @@ const ReportBug = (): React.JSX.Element => {
                     style={[
                         {
                             fontSize: textSize - 2,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular',
+                            fontFamily: 'Montserrat_700Bold'
                         },
                         commonStyles.PbuttonText,
                     ]}

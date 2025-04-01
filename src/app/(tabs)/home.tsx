@@ -5,15 +5,18 @@ import { useFocusEffect, useNavigation, useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFonts } from 'expo-font';
+import { useFonts } from 'expo-font'
 import {
     Montserrat_300Light,
     Montserrat_400Regular,
     Montserrat_500Medium,
     Montserrat_600SemiBold,
     Montserrat_700Bold
-} from '@expo-google-fonts/montserrat';
+} from '@expo-google-fonts/montserrat'
 import { Text } from '@/components/ui/text'
+import { HStack } from '@/components/ui/hstack'
+import { VStack } from '@/components/ui/vstack'
+import { Card } from '@/components/ui/card'
 const tips = [
     'Never share One Time Password or codes with anyone, not even your bank!',
     'Be cautious of emails asking for personal information, phishing scams are common.',
@@ -35,14 +38,14 @@ const Home = (): React.JSX.Element => {
     const { user } = useAuth()
 
     interface UserData {
-        displayName: string | null;
-        email: string;
-        uid: string;
-        providerData: { providerId: string }[];
-        photoURL: string | null;
+        displayName: string | null
+        email: string
+        uid: string
+        providerData: { providerId: string }[]
+        photoURL: string | null
     }
 
-     const loadSettings = useCallback(async () => {
+    const loadSettings = useCallback(async () => {
         try {
             const storedSize = await AsyncStorage.getItem('textSize')
             if (storedSize) setTextSize(parseInt(storedSize))
@@ -57,32 +60,32 @@ const Home = (): React.JSX.Element => {
         }
     }, [])
 
-      // Load settings when the screen is focused
-        useFocusEffect(
-            useCallback(() => {
-                loadSettings()
-            }, [loadSettings])
-        )
+    // Load settings when the screen is focused
+    useFocusEffect(
+        useCallback(() => {
+            loadSettings()
+        }, [loadSettings])
+    )
 
-     const [fontsLoaded] = useFonts({
-                Montserrat_400Regular,
-                Montserrat_700Bold,
-                Montserrat_500Medium,
-                Montserrat_300Light,
-                Montserrat_600SemiBold
-            });
-        
+    const [fontsLoaded] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_700Bold,
+        Montserrat_500Medium,
+        Montserrat_300Light,
+        Montserrat_600SemiBold
+    })
 
     // Set the navigation title
     useEffect(() => {
         navigation.setOptions({
-            headerTitle: () => (
-                <Box style={{ marginLeft: -150, padding:2}}>
+            headerTitle: () => <Box></Box>,
+            headerLeft: () => (
+                <Box style={{ paddingLeft: 16 }}>
                     <Text
                         style={{
                             fontSize: textSize - 4,
                             fontFamily: 'Montserrat_700Bold',
-                            paddingTop:15,
+                            paddingTop: 15,
                             color: '#0A2941'
                         }}
                     >
@@ -91,16 +94,16 @@ const Home = (): React.JSX.Element => {
                     <Text
                         style={{
                             fontSize: textSize - 8,
-                            fontFamily:  'Montserrat_600SemiBold',
-                            paddingTop:2,
-                            color:'#0A2941'
+                            fontFamily: 'Montserrat_600SemiBold',
+                            paddingTop: 2,
+                            color: '#0A2941'
                         }}
                     >
                         {user?.displayName || 'User'}
                     </Text>
                 </Box>
             ),
-            headerStyle: { backgroundColor: 'white' },
+            headerStyle: { backgroundColor: 'white' }
         })
     }, [navigation, user?.displayName, textSize, isBold])
 
@@ -111,161 +114,198 @@ const Home = (): React.JSX.Element => {
 
     return (
         <ScrollView className="p-4 bg-[#DADADA]">
-            {/* Tip of the Day */}
-            <Box className="bg-white rounded-2xl px-4 py-8 mb-6">
-                <View className="flex-col items-center gap-4">
-                    <View className="flex-row items-center">
+            <VStack space="lg" className="mb-10">
+                {/* Tip of the Day */}
+                <Card className="bg-white rounded-2xl shrink">
+                    <Box className="flex-row justify-items-center items-center">
                         <Image
                             source={require('../../../assets/images/home-tip.png')}
-                            resizeMode="contain"
+                            resizeMode="cover"
                         />
                         <Text
                             style={{
                                 fontSize: textSize - 2,
-                                fontFamily:  'Montserrat_700Bold',
+                                fontFamily: 'Montserrat_700Bold',
+                                lineHeight: 32
                             }}
-                           className='p-2 color-[#1C1C1C]'
+                            className=" color-[#1C1C1C] break-all"
                         >
                             Milo’s Tip of the Day
                         </Text>
-                    </View>
-                    <Text
-                        style={{
-                            fontSize: textSize - 8,
-                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
-                        }}
-                        className='color-[#000000]'
-                    >
-                        {randomTip}
-                    </Text>
-                </View>
-            </Box>
-
-            {/* Main Section */}
-            <View className="flex-col gap-8 mb-32">
-                <View className="flex-row bg-yellow-100 rounded-2xl">
+                    </Box>
+                    <Box>
+                        <Text
+                            style={{
+                                fontSize: textSize - 8,
+                                fontFamily: isBold
+                                    ? 'Montserrat_600SemiBold'
+                                    : 'Montserrat_500Medium',
+                                lineHeight: 32
+                            }}
+                            className="color-[#000000] text-justify"
+                        >
+                            {randomTip}
+                        </Text>
+                    </Box>
+                </Card>
+                {/* Main Section */}
+                <Card
+                    className="flex-row p-0 rounded-2xl bg-white gap-2"
+                    size="md"
+                >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-news.png')}
-                        className="w-30 h-full rounded-tl-2xl rounded-bl-2xl"
+                        className="rounded-tl-2xl rounded-bl-2xl"
+                        style={{ maxWidth: '100%', height: '100%' }}
                         resizeMode="cover"
                     />
-                    <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
+                    <VStack space="sm" className="p-4 shrink">
                         <Text
                             style={{
                                 fontSize: textSize,
-                                fontFamily: 'Montserrat_700Bold' ,
+                                fontFamily: 'Montserrat_600SemiBold'
                             }}
-                            className='p-2 color-[#1C1C1C]'
+                            className="pt-2 color-[#1C1C1C]"
                         >
                             News
                         </Text>
                         <Text
                             style={{
                                 fontSize: textSize - 10,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                                fontFamily: isBold
+                                    ? 'Montserrat_600SemiBold'
+                                    : 'Montserrat_500Medium',
+                                lineHeight: 24
                             }}
-                            className='color-[#1C1C1C]'
+                            className="text-wrap color-[#1C1C1C] break-all"
                         >
                             Read the scam-related news from verified authorities
                         </Text>
-
                         <TouchableOpacity
                             style={commonStyles.longButtonNew}
                             onPress={() => router.push('/news/news')}
                         >
-                            <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 8,
-                                fontFamily: 'Montserrat_600SemiBold',
-                            }]}>
+                            <Text
+                                style={[
+                                    commonStyles.homebuttonText,
+                                    {
+                                        fontSize: textSize - 8,
+                                        fontFamily: 'Montserrat_600SemiBold'
+                                    }
+                                ]}
+                            >
                                 Read news
                             </Text>
                         </TouchableOpacity>
-                    </View>
-                </View>
-
-                <View className="flex-row bg-orange-100 rounded-2xl">
+                    </VStack>
+                </Card>
+                <Card
+                    className="flex-row p-0 rounded-2xl bg-white gap-2"
+                    size="md"
+                >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-call.png')}
-                        className="w-30 h-full rounded-tl-2xl rounded-bl-2xl"
+                        className="rounded-tl-2xl rounded-bl-2xl"
+                        style={{ maxWidth: '100%', height: '100%' }}
                         resizeMode="cover"
                     />
-                    <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
+                    <VStack className="shrink p-4" space="sm">
                         <Text
                             style={{
-                                fontSize: textSize ,
-                                fontFamily:  'Montserrat_700Bold',
+                                fontSize: textSize,
+                                fontFamily: 'Montserrat_600SemiBold'
                             }}
-                            className='p-2 color-[#1C1C1C]'
+                            className="pt-2 color-[#1C1C1C]"
                         >
                             Calls
                         </Text>
                         <Text
                             style={{
                                 fontSize: textSize - 10,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                                fontFamily: isBold
+                                    ? 'Montserrat_600SemiBold'
+                                    : 'Montserrat_500Medium',
+                                lineHeight: 24
                             }}
-                            className='color-[#1C1C1C]'
+                            className=" color-[#1C1C1C]"
                         >
-                            For the list of phone numbers identified as scams
+                            For the list of calls flagged as scams
                         </Text>
-
                         <TouchableOpacity
                             style={commonStyles.longButtonNew}
                             onPress={() => router.push('/screening/calls')}
                         >
-                            <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 8,
-                                fontFamily: 'Montserrat_600SemiBold',
-                            }]}>
+                            <Text
+                                style={[
+                                    commonStyles.homebuttonText,
+                                    {
+                                        fontSize: textSize - 8,
+                                        fontFamily: 'Montserrat_600SemiBold'
+                                    }
+                                ]}
+                            >
                                 View more
                             </Text>
                         </TouchableOpacity>
-                    </View>
-                </View>
+                    </VStack>
+                </Card>
 
-                <View className="flex-row bg-blue-100 rounded-2xl">
+                <Card
+                    className="flex-row p-0 rounded-2xl bg-white gap-2"
+                    size="md"
+                >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/home-message.png')}
-                        className="w-30 h-full rounded-tl-2xl rounded-bl-2xl"
+                        className="rounded-tl-2xl rounded-bl-2xl"
+                        style={{ maxWidth: '100%', height: '100%' }}
                         resizeMode="cover"
                     />
-                    <View className="flex-1 gap-4 bg-white p-4 rounded-tr-2xl rounded-br-2xl">
-                        <Text
-                            style={{
-                                fontSize: textSize ,
-                                fontFamily: 'Montserrat_700Bold',
-                            }}
-                            className='p-2 color-[#1C1C1C]'
-                        >
-                            Message
-                        </Text>
-                        <Text
-                            style={{
-                                fontSize: textSize - 10,
-                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
-                            }}
-                            className=' color-[#1C1C1C]'
-                        >
-                            For the list of messages flagged as scams
-                        </Text>
-
-                        <TouchableOpacity
-                            style={commonStyles.longButtonNew}
-                            onPress={() => router.push('/screening/messages')}
-                        >
-                            <Text style={[commonStyles.homebuttonText, {
-                                fontSize: textSize - 8,
-                                fontFamily:  'Montserrat_600SemiBold',
-                            }]}>
-                                View more
+                    <VStack className="shrink p-4" space="sm">
+                            <Text
+                                style={{
+                                    fontSize: textSize,
+                                    fontFamily: 'Montserrat_600SemiBold'
+                                }}
+                                className="pt-2 color-[#1C1C1C]"
+                            >
+                                Messages
                             </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
+                            <Text
+                                style={{
+                                    fontSize: textSize - 10,
+                                    fontFamily: isBold
+                                        ? 'Montserrat_600SemiBold'
+                                        : 'Montserrat_500Medium',
+                                    lineHeight: 24
+                                }}
+                                className=" color-[#1C1C1C]"
+                            >
+                                For the list of messages flagged as scams
+                            </Text>
+                            <TouchableOpacity
+                                style={commonStyles.longButtonNew}
+                                onPress={() =>
+                                    router.push('/screening/messages')
+                                }
+                            >
+                                <Text
+                                    style={[
+                                        commonStyles.homebuttonText,
+                                        {
+                                            fontSize: textSize - 8,
+                                            fontFamily: 'Montserrat_600SemiBold'
+                                        }
+                                    ]}
+                                >
+                                    View more
+                                </Text>
+                            </TouchableOpacity>
+                        </VStack>
+                </Card>
+            </VStack>
         </ScrollView>
     )
 }

@@ -59,7 +59,7 @@ export default function TabLayout(): ReactNode {
                 headerRight: () => (
                     <HStack
                         space="2xl"
-                        className="pr-2 justify-center items-center"
+                        className="pr-4 justify-center items-center"
                     >
                         <TouchableOpacity
                             onPress={() =>
@@ -72,6 +72,7 @@ export default function TabLayout(): ReactNode {
                                 size='xl'
                                 fill='#161616'
                                 stroke='#161616'
+                                
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
