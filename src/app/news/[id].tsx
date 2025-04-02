@@ -7,6 +7,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router'
 import React, { ReactNode, useLayoutEffect } from 'react'
 import { Text } from '@/components/ui/text'
 import { ScrollView } from 'react-native'
+import Loader from '@/components/Loader'
 
 const ViewNewsPage = (): ReactNode => {
     const { id } = useLocalSearchParams<{ id: string }>()
@@ -19,9 +20,8 @@ const ViewNewsPage = (): ReactNode => {
         <ScrollView>
             {loading ? (
                 <Center>
-                    <HStack space="xl">
-                        <Spinner />
-                        <Text size="md">Loading..</Text>
+                    <HStack>
+                        <Loader />
                     </HStack>
                 </Center>
             ) : error ? (
