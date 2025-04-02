@@ -198,6 +198,24 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'Montserrat-SemiBold'
     },
+    newscardLongButton: {
+        backgroundColor: '#0A2941',
+        padding: 10,
+        borderRadius: 16,
+        marginTop: 10,
+        marginBottom: 10,
+        width: '100%',
+        borderWidth: 2,
+        borderColor: '#0A2941',
+        borderStyle: 'solid',
+        alignSelf: 'center'
+    },
+    newscardButtonText: {
+        color: 'white',
+        fontSize: 28,
+        textAlign: 'center',
+        fontFamily: 'Montserrat-SemiBold'
+    },
     PbuttonText: {
         color: 'white',
         textAlign: 'center'
