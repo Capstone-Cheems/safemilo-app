@@ -308,6 +308,14 @@ const commonStyles = StyleSheet.create({
         marginLeft: -60,
         resizeMode: 'contain'
     },
+    loaderAnimation: {
+        width: 120,
+        height: 120,
+        marginTop: 10,
+        marginBottom: -20,
+        marginLeft: 30,
+        resizeMode: 'contain'
+    },
     triangle: {
         position: 'absolute',
         bottom: -10,
