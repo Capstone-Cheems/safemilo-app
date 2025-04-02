@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/avatar'
 import { HStack } from '@/components/ui/hstack'
 import { useAuth } from '@/src/shared'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Image } from 'react-native'
 import TabBarIcon, { IconSource } from '@/components/TabBarIcon'
 
 export default function TabLayout(): ReactNode {
@@ -56,6 +56,18 @@ export default function TabLayout(): ReactNode {
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20
                 },
+                headerLeft: () => (
+                    <TouchableOpacity
+                        onPress={() => router.back()}
+                        style={{ paddingLeft: 16 }}
+                    >
+                        <Image
+                            source={require('../../../assets/images/Back-arrow.png')}
+                            style={{ width: 36, height: 36 }}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
+                ),
                 headerRight: () => (
                     <HStack
                         space="2xl"
