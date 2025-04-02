@@ -148,6 +148,7 @@ export default function TabLayout(): ReactNode {
                         )
                 }}
             />
+            <Tabs.Screen name="news" options={{ href: null }} />
         </Tabs>
     )
 }

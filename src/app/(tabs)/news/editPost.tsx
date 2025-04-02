@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router'
-import commonStyles from '../../styles/commonStyles'
+import commonStyles from '../../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
 import Constants from 'expo-constants'
 
