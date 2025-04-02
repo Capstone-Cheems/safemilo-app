@@ -21,7 +21,7 @@ export default function OrgTabLayout(): ReactNode {
     return (
         <Tabs
             screenOptions={{
-                headerTitleAlign: 'center',
+                headerShown: false,
                 tabBarShowLabel: false,
                 tabBarItemStyle: {
                     paddingBottom: 10,
@@ -48,8 +48,8 @@ export default function OrgTabLayout(): ReactNode {
                                 inactiveWidth={70}
                                 activeHeight={50}
                                 inactiveHeight={45}
-                                activeTop={6}
-                                inactiveTop={12}
+                                activeTop={-5}
+                                inactiveTop={3}
                             />
                         )
                 }}
@@ -67,8 +67,8 @@ export default function OrgTabLayout(): ReactNode {
                                 inactiveWidth={70}
                                 activeHeight={50}
                                 inactiveHeight={45}
-                                activeTop={6}
-                                inactiveTop={12}
+                                activeTop={-5}
+                                inactiveTop={3}
                             />
                         )
                 }}
