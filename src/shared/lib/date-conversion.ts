@@ -1,5 +1,7 @@
 export const timeAgo = (dateString: string): string => {
-    const date = new Date(!isNaN(Number(dateString))? Number(dateString): dateString)
+    const date = new Date(
+        !isNaN(Number(dateString)) ? Number(dateString) : dateString
+    )
     const now = new Date()
     const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
 
@@ -23,30 +25,47 @@ export const timeAgo = (dateString: string): string => {
 }
 
 export const getDayFromDate = (dateString: string): string => {
-    const date = new Date(!isNaN(Number(dateString)) ? Number(dateString) : dateString);
-    const now = new Date();
+    const date = new Date(
+        !isNaN(Number(dateString)) ? Number(dateString) : dateString
+    )
+    const now = new Date()
 
     const isSameDay = (d1: Date, d2: Date) =>
         d1.getFullYear() === d2.getFullYear() &&
         d1.getMonth() === d2.getMonth() &&
-        d1.getDate() === d2.getDate();
+        d1.getDate() === d2.getDate()
 
-    if (isSameDay(date, now)) return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+    if (isSameDay(date, now))
+        return date.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        })
 
-    const yesterday = new Date(now);
-    yesterday.setDate(now.getDate() - 1);
-    if (isSameDay(date, yesterday)) return "Yesterday";
+    const yesterday = new Date(now)
+    yesterday.setDate(now.getDate() - 1)
+    if (isSameDay(date, yesterday)) return 'Yesterday'
 
-    const oneWeekAgo = new Date(now);
-    oneWeekAgo.setDate(now.getDate() - 7);
+    const oneWeekAgo = new Date(now)
+    oneWeekAgo.setDate(now.getDate() - 7)
     if (date > oneWeekAgo) {
-        return date.toLocaleDateString("en-US", { weekday: "long" });
+        return date.toLocaleDateString('en-US', { weekday: 'long' })
     }
 
-    return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-};
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    })
+}
 
 export const getTimeFromDate = (dateString: string): string => {
-    const date = new Date(!isNaN(Number(dateString)) ? Number(dateString) : dateString);
-    return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
-};
+    const date = new Date(
+        !isNaN(Number(dateString)) ? Number(dateString) : dateString
+    )
+    return date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    })
+}

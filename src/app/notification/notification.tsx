@@ -3,7 +3,7 @@ import NotificationSearch from './notification-search'
 import { useState } from 'react'
 import { Box } from '@/components/ui/box'
 import { Heading } from '@/components/ui/heading'
-import { StyleSheet,Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native'
 const routes = [
     { key: 'all', title: 'All' },
     { key: 'news', title: 'News' },
@@ -38,41 +38,38 @@ const Notifications = (): React.JSX.Element => {
     const [index, setIndex] = useState(0)
     return (
         <>
-             <Box className="m-5">
+            <Box className="m-5">
                 <Heading
                     size="2xl"
-                    style={{ fontFamily: 'Montserrat-Bold', }}
+                    style={{ fontFamily: 'Montserrat-Bold' }}
                     className="color-[#1C1C1C]"
                 >
                     Notifications
                 </Heading>
-                
             </Box>
             <TabView
-                    navigationState={{ index, routes }}
-                    renderScene={renderScene}
-                    onIndexChange={setIndex}
-                    renderTabBar={props => (
-                        <TabBar
-                            {...props}
-                            style={{ backgroundColor: '#0A2941', padding:5 }}
-
-                        />
-                    )}
-                    style={{margin:10, borderRadius:20}}
+                navigationState={{ index, routes }}
+                renderScene={renderScene}
+                onIndexChange={setIndex}
+                renderTabBar={props => (
+                    <TabBar
+                        {...props}
+                        style={{ backgroundColor: '#0A2941', padding: 5 }}
+                    />
+                )}
+                style={{ margin: 10, borderRadius: 20 }}
             />
         </>
     )
 }
 const styles = StyleSheet.create({
     tabBar: {
-      backgroundColor: 'white',
+        backgroundColor: 'white'
     },
     labelStyle: {
-      fontSize: 18,
-      fontFamily: 'Roboto-Bold', //
-      
-    },
-  });
+        fontSize: 18,
+        fontFamily: 'Roboto-Bold' //
+    }
+})
 
 export default Notifications

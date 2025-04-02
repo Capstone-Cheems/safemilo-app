@@ -80,12 +80,12 @@ const Home = (): React.JSX.Element => {
         navigation.setOptions({
             headerTitle: () => <Box></Box>,
             headerLeft: () => (
-                <Box style={{ paddingLeft: 16 , gap:2}} >
+                <Box style={{ paddingLeft: 16, gap: 2 }}>
                     <Text
                         style={{
                             fontSize: textSize - 4,
                             fontFamily: 'Montserrat_700Bold',
-                            paddingTop:10,
+                            paddingTop: 10,
                             color: '#0A2941'
                         }}
                     >
@@ -95,7 +95,7 @@ const Home = (): React.JSX.Element => {
                         style={{
                             fontSize: textSize - 8,
                             fontFamily: 'Montserrat_600SemiBold',
-                            paddingBottom:4,
+                            paddingBottom: 4,
                             color: '#0A2941'
                         }}
                     >
@@ -115,7 +115,7 @@ const Home = (): React.JSX.Element => {
         <ScrollView className="p-4 bg-[#DADADA]">
             <VStack space="2xl" className="mb-10">
                 {/* Tip of the Day */}
-                <Card className="bg-white rounded-2xl shrink" size='lg'>
+                <Card className="bg-white rounded-2xl shrink" size="lg">
                     <Box className="flex-row justify-items-center items-center">
                         <Image
                             source={require('../../../assets/images/home-tip.png')}
@@ -263,46 +263,44 @@ const Home = (): React.JSX.Element => {
                         resizeMode="cover"
                     />
                     <VStack className="shrink p-4" space="md">
+                        <Text
+                            style={{
+                                fontSize: textSize,
+                                fontFamily: 'Montserrat_600SemiBold'
+                            }}
+                            className="pt-2 color-[#1C1C1C]"
+                        >
+                            Messages
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: textSize - 10,
+                                fontFamily: isBold
+                                    ? 'Montserrat_600SemiBold'
+                                    : 'Montserrat_500Medium',
+                                lineHeight: 24
+                            }}
+                            className=" color-[#1C1C1C]"
+                        >
+                            For the list of messages flagged as scams
+                        </Text>
+                        <TouchableOpacity
+                            style={commonStyles.longButtonNew}
+                            onPress={() => router.push('/screening/messages')}
+                        >
                             <Text
-                                style={{
-                                    fontSize: textSize,
-                                    fontFamily: 'Montserrat_600SemiBold'
-                                }}
-                                className="pt-2 color-[#1C1C1C]"
+                                style={[
+                                    commonStyles.homebuttonText,
+                                    {
+                                        fontSize: textSize - 8,
+                                        fontFamily: 'Montserrat_700Bold'
+                                    }
+                                ]}
                             >
-                                Messages
+                                View more
                             </Text>
-                            <Text
-                                style={{
-                                    fontSize: textSize - 10,
-                                    fontFamily: isBold
-                                        ? 'Montserrat_600SemiBold'
-                                        : 'Montserrat_500Medium',
-                                    lineHeight: 24
-                                }}
-                                className=" color-[#1C1C1C]"
-                            >
-                                For the list of messages flagged as scams
-                            </Text>
-                            <TouchableOpacity
-                                style={commonStyles.longButtonNew}
-                                onPress={() =>
-                                    router.push('/screening/messages')
-                                }
-                            >
-                                <Text
-                                    style={[
-                                        commonStyles.homebuttonText,
-                                        {
-                                            fontSize: textSize - 8,
-                                            fontFamily: 'Montserrat_700Bold'
-                                        }
-                                    ]}
-                                >
-                                    View more
-                                </Text>
-                            </TouchableOpacity>
-                        </VStack>
+                        </TouchableOpacity>
+                    </VStack>
                 </Card>
             </VStack>
         </ScrollView>

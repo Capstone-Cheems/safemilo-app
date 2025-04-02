@@ -1,11 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { useFonts } from 'expo-font';
-import { Montserrat_300Light, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
-import commonStyles from '../../styles/commonStyles';
-import { useNavigation } from 'expo-router'; // Add useNavigation
-import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight as a named export
+import React, { useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import {
+    View,
+    Text,
+    ScrollView,
+    StyleSheet,
+    Image,
+    TouchableOpacity
+} from 'react-native'
+import { useFonts } from 'expo-font'
+import {
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold
+} from '@expo-google-fonts/montserrat'
+import commonStyles from '../../styles/commonStyles'
+import { useNavigation } from 'expo-router' // Add useNavigation
+import { HeaderRight } from '../../../components/HeaderRight' // Import HeaderRight as a named export
 
 const faqs = [
     {
@@ -24,32 +37,32 @@ const faqs = [
         question: 'Will the app prevent all scams?',
         answer: 'While it helps a lot, always be cautious with emails, as no app is 100% perfect.'
     }
-];
+]
 
 const FAQ = () => {
-    const [textSize, setTextSize] = useState(28); // Default text size
-    const [isBold, setIsBold] = useState(true); // Whether to use bold font or not
-    const navigation = useNavigation(); // Add navigation hook
+    const [textSize, setTextSize] = useState(28) // Default text size
+    const [isBold, setIsBold] = useState(true) // Whether to use bold font or not
+    const navigation = useNavigation() // Add navigation hook
 
     // Load settings from AsyncStorage
     useEffect(() => {
         const loadSettings = async () => {
             try {
-                const savedTextSize = await AsyncStorage.getItem('textSize');
-                const savedIsBold = await AsyncStorage.getItem('isBold');
+                const savedTextSize = await AsyncStorage.getItem('textSize')
+                const savedIsBold = await AsyncStorage.getItem('isBold')
                 if (savedTextSize) {
-                    setTextSize(Number(savedTextSize));
+                    setTextSize(Number(savedTextSize))
                 }
                 if (savedIsBold) {
-                    setIsBold(savedIsBold === 'true');
+                    setIsBold(savedIsBold === 'true')
                 }
             } catch (error) {
-                console.error('Error loading settings:', error);
+                console.error('Error loading settings:', error)
             }
-        };
+        }
 
-        loadSettings();
-    }, []);
+        loadSettings()
+    }, [])
 
     // Set the header with HeaderRight
     React.useLayoutEffect(() => {
@@ -63,8 +76,8 @@ const FAQ = () => {
             //         />
             //     </TouchableOpacity>
             // ),
-        });
-    }, [navigation]);
+        })
+    }, [navigation])
 
     // Load fonts
     const [fontsLoaded] = useFonts({
@@ -73,14 +86,14 @@ const FAQ = () => {
         Montserrat_500Medium,
         Montserrat_300Light,
         Montserrat_600SemiBold
-    });
+    })
 
     if (!fontsLoaded) {
         return (
             <View style={commonStyles.loadingContainer}>
                 <Text>Loading Fonts...</Text>
             </View>
-        );
+        )
     }
 
     return (
@@ -90,8 +103,10 @@ const FAQ = () => {
                     styles.header,
                     {
                         fontSize: textSize + 4, // Slightly larger for header
-                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium', // Conditional font family
-                    },
+                        fontFamily: isBold
+                            ? 'Montserrat_700Bold'
+                            : 'Montserrat_500Medium' // Conditional font family
+                    }
                 ]}
             >
                 FAQ's
@@ -105,8 +120,10 @@ const FAQ = () => {
                                 styles.question,
                                 {
                                     fontSize: textSize - 4, // Apply stored font size
-                                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold', // Conditional font family
-                                },
+                                    fontFamily: isBold
+                                        ? 'Montserrat_700Bold'
+                                        : 'Montserrat_600SemiBold' // Conditional font family
+                                }
                             ]}
                         >
                             {index + 1}. {faq.question}
@@ -116,8 +133,10 @@ const FAQ = () => {
                                 styles.answer,
                                 {
                                     fontSize: textSize - 9, // Slightly smaller for answers
-                                    fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular', // Conditional font family
-                                },
+                                    fontFamily: isBold
+                                        ? 'Montserrat_600SemiBold'
+                                        : 'Montserrat_400Regular' // Conditional font family
+                                }
                             ]}
                         >
                             {faq.answer}
@@ -126,26 +145,26 @@ const FAQ = () => {
                 ))}
             </View>
         </ScrollView>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16,
+        padding: 16
         // backgroundColor: '#DADADA',
     },
     header: {
         fontSize: 24,
-        marginBottom: 16,
+        marginBottom: 16
     },
     question: {
         marginBottom: 4,
-        lineHeight: 25,
+        lineHeight: 25
     },
     answer: {
         color: '#0A2941',
-        lineHeight: 25,
-    },
-});
+        lineHeight: 25
+    }
+})
 
-export default FAQ;
+export default FAQ

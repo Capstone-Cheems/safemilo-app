@@ -632,7 +632,7 @@ const commonStyles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 10,
-        marginBottom:.7,
+        marginBottom: 0.7,
         width: '100%',
         backgroundColor: 'white',
         shadowColor: '#000',
@@ -646,7 +646,7 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom:.7,
+        marginBottom: 0.7,
         padding: 10,
         width: '100%',
         backgroundColor: 'white',
@@ -748,7 +748,7 @@ const commonStyles = StyleSheet.create({
     },
     noSavedPosts: {
         marginTop: 25,
-        padding: 20,
+        padding: 20
     },
     savedPostItem: {
         position: 'relative',
@@ -796,12 +796,12 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
         paddingTop: 25,
-        paddingBottom: 25, 
+        paddingBottom: 25,
         borderRadius: 16,
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 2,
+        elevation: 2
     },
     //FAQS
     faqContainer: {
@@ -811,7 +811,7 @@ const commonStyles = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 2,
+        elevation: 2
     },
     faqheader: {
         fontSize: 28,
@@ -829,7 +829,7 @@ const commonStyles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 3
     },
     expandedItem: {
         backgroundColor: '#F0F4F8' // Light grey for expanded items
@@ -961,7 +961,7 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     closeButton: {
         backgroundColor: '#0A2941',
@@ -989,7 +989,7 @@ const commonStyles = StyleSheet.create({
         padding: 15
     },
     //  home
-     homebuttonText: {
+    homebuttonText: {
         color: 'white',
         textAlign: 'center'
     }

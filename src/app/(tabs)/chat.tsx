@@ -139,7 +139,7 @@ export default function Chat(): ReactNode {
         <Box className="bg-[#83D1FF] flex-1">
             <StatusBar style="light" />
 
-            <ScrollView ref={scrollViewRef} style={{padding:10}}>
+            <ScrollView ref={scrollViewRef} style={{ padding: 10 }}>
                 <VStack space="md" reversed={false}>
                     {messages.map(msg => (
                         <HStack
@@ -215,7 +215,7 @@ export default function Chat(): ReactNode {
                 </VStack>
             </ScrollView>
 
-            <Box className='bg-[#0A2941] mt-3 p-4'>
+            <Box className="bg-[#0A2941] mt-3 p-4">
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
@@ -244,10 +244,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
         borderRadius: 30,
-        alignItems:'center'
+        alignItems: 'center'
     },
-    input: { flex: 1, fontSize: 18, padding: 10,fontFamily: 'Montserrat-Regular' },
-
+    input: {
+        flex: 1,
+        fontSize: 18,
+        padding: 10,
+        fontFamily: 'Montserrat-Regular'
+    }
 })
 
 const markdownStyles = StyleSheet.create({

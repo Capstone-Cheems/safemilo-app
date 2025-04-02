@@ -8,8 +8,11 @@ import {
     FlatList,
     TouchableOpacity,
     Image,
-    TextInput
+    TextInput,
+    Dimensions
 } from 'react-native'
+
+const cardWidth = (Dimensions.get('window').width - 48) / 2
 
 const categories = [
     {
@@ -63,9 +66,16 @@ const BrowseCategoriesScreen = (): JSX.Element => {
                 data={categories}
                 keyExtractor={item => item.id}
                 numColumns={2}
+                columnWrapperStyle={{ justifyContent: 'space-between' }}
+                contentContainerStyle={{ gap: 16 }}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        style={styles.categoryCard}
+                        style={[
+                            styles.categoryCard,
+                            {
+                                width: (Dimensions.get('window').width - 48) / 2 // aligns with 16 padding on sides + 16 gap
+                            }
+                        ]}
                         onPress={() =>
                             router.push({
                                 pathname: '/learning/SpecificCategory',
@@ -85,18 +95,21 @@ const BrowseCategoriesScreen = (): JSX.Element => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
-        backgroundColor: '#F9F9F9'
+        paddingHorizontal: 16,
+        backgroundColor: '#DADADA'
     },
     header: {
-        fontSize: 28,
-        fontFamily: 'Montserrat-Bold'
+        fontSize: 32,
+        fontFamily: 'Montserrat-Bold',
+        gap: 20,
+        marginTop: 20
     },
     subHeader: {
-        fontSize: 16,
-        color: '#666',
+        fontSize: 20,
+        color: '#1C1C1C',
         marginBottom: 20,
-        fontFamily: 'Montserrat-SemiBold'
+        fontFamily: 'Montserrat-Regular',
+        lineHeight: 32
     },
     searchContainer: {
         flexDirection: 'row',
@@ -105,29 +118,33 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 10,
         paddingVertical: 8,
-        marginBottom: 16,
+        marginBottom: 20,
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
-        elevation: 2
+        elevation: 2,
+        borderWidth: 1,
+        borderColor: '#1C1C1C'
     },
     searchInput: {
         flex: 1,
         fontSize: 16,
-        color: '#333',
+        color: '#1C1C1C',
         fontFamily: 'Montserrat-Medium'
     },
     searchIcon: {
         width: 20,
         height: 20,
-        tintColor: '#666'
+        tintColor: '#1C1C1C'
     },
     categoryCard: {
         backgroundColor: '#FFF',
         padding: 16,
         borderRadius: 12,
-        margin: 8,
         flex: 1,
+        maxWidth: cardWidth,
+        marginVertical: 8,
+        marginHorizontal: 0,
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: '#000',

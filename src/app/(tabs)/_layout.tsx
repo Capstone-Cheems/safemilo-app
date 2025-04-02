@@ -68,8 +68,12 @@ export default function TabLayout(): ReactNode {
                         >
                             <Icon
                                 as={BellIcon}
-                                style={{fill: '#0A2941', stroke:'#0A2941', height:30, width:30}}
-                                
+                                style={{
+                                    fill: '#0A2941',
+                                    stroke: '#0A2941',
+                                    height: 30,
+                                    width: 30
+                                }}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity

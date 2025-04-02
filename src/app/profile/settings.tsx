@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'
 import {
     View,
     Text,
@@ -7,69 +7,83 @@ import {
     Alert,
     ActivityIndicator,
     Image
-} from 'react-native';
-import { useNavigation } from 'expo-router';
-import { useFocusEffect } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Contacts from 'expo-contacts';
-import * as SMS from 'expo-sms';
-import * as Notifications from 'expo-notifications';
-import { Audio } from 'expo-av';
-import commonStyles from '../../styles/commonStyles';
+} from 'react-native'
+import { useNavigation } from 'expo-router'
+import { useFocusEffect } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as Contacts from 'expo-contacts'
+import * as SMS from 'expo-sms'
+import * as Notifications from 'expo-notifications'
+import { Audio } from 'expo-av'
+import commonStyles from '../../styles/commonStyles'
 import {
     Slider,
     SliderFilledTrack,
     SliderThumb,
     SliderTrack
-} from '@/components/ui/slider';
-import { useFonts } from 'expo-font';
+} from '@/components/ui/slider'
+import { useFonts } from 'expo-font'
 import {
     Montserrat_300Light,
     Montserrat_400Regular,
     Montserrat_500Medium,
     Montserrat_600SemiBold,
     Montserrat_700Bold
-} from '@expo-google-fonts/montserrat';
+} from '@expo-google-fonts/montserrat'
 
-import { HeaderRight } from '../../../components/HeaderRight';
+import { HeaderRight } from '../../../components/HeaderRight'
 
 const Settings = (): React.JSX.Element => {
-    const [textSize, setTextSize] = useState(28);
-    const [showSlider, setShowSlider] = useState(false);
-    const [isBold, setIsBold] = useState(true);
+    const [textSize, setTextSize] = useState(28)
+    const [showSlider, setShowSlider] = useState(false)
+    const [isBold, setIsBold] = useState(true)
 
-    const [contactsPermission, setContactsPermission] = useState<'granted' | 'denied' | null>(null);
-    const [messagesPermission, setMessagesPermission] = useState<'granted' | 'denied' | null>(null);
-    const [microphonePermission, setMicrophonePermission] = useState<'granted' | 'denied' | null>(null);
-    const [callPermission, setCallPermission] = useState<'granted' | 'denied' | null>(null);
-    const [notificationPermission, setNotificationPermission] = useState<'granted' | 'denied' | null>(null);
+    const [contactsPermission, setContactsPermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
+    const [messagesPermission, setMessagesPermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
+    const [microphonePermission, setMicrophonePermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
+    const [callPermission, setCallPermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
+    const [notificationPermission, setNotificationPermission] = useState<
+        'granted' | 'denied' | null
+    >(null)
 
     interface UserData {
-        displayName: string | null;
-        email: string;
-        uid: string;
-        providerData: { providerId: string }[];
-        photoURL: string | null;
+        displayName: string | null
+        email: string
+        uid: string
+        providerData: { providerId: string }[]
+        photoURL: string | null
     }
 
-    const [userData, setUserData] = useState<UserData | null>(null);
-    const navigation = useNavigation();
+    const [userData, setUserData] = useState<UserData | null>(null)
+    const navigation = useNavigation()
 
     const loadSettings = useCallback(async () => {
         try {
-            const storedSize = await AsyncStorage.getItem('textSize');
-            const storedBold = await AsyncStorage.getItem('isBold');
-            const storedUserData = await AsyncStorage.getItem('user');
+            const storedSize = await AsyncStorage.getItem('textSize')
+            const storedBold = await AsyncStorage.getItem('isBold')
+            const storedUserData = await AsyncStorage.getItem('user')
 
-            if (storedSize) setTextSize(parseInt(storedSize));
-            if (storedBold) setIsBold(storedBold === 'true');
-            if (storedUserData) setUserData(JSON.parse(storedUserData));
+            if (storedSize) setTextSize(parseInt(storedSize))
+            if (storedBold) setIsBold(storedBold === 'true')
+            if (storedUserData) setUserData(JSON.parse(storedUserData))
         } catch (error) {
-            console.error('Error loading settings:', error);
+            console.error('Error loading settings:', error)
         }
-    }, []);
+    }, [])
 
-    useFocusEffect(useCallback(() => { loadSettings(); }, [loadSettings]));
+    useFocusEffect(
+        useCallback(() => {
+            loadSettings()
+        }, [loadSettings])
+    )
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -82,9 +96,8 @@ const Settings = (): React.JSX.Element => {
             //         />
             //     </TouchableOpacity>
             // ),
-        });
-        
-    }, [navigation]);
+        })
+    }, [navigation])
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -92,71 +105,85 @@ const Settings = (): React.JSX.Element => {
         Montserrat_500Medium,
         Montserrat_300Light,
         Montserrat_600SemiBold
-    });
+    })
 
     useEffect(() => {
         const checkPermissions = async (): Promise<void> => {
-            const contacts = await Contacts.getPermissionsAsync();
-            setContactsPermission(contacts.status as 'granted' | 'denied');
-            const messages = await SMS.isAvailableAsync();
-            setMessagesPermission(messages ? 'granted' : 'denied');
-            const mic = await Audio.getPermissionsAsync();
-            setMicrophonePermission(mic.status === 'granted' ? 'granted' : 'denied');
-            const call = await Audio.getPermissionsAsync();
-            setCallPermission(call.status === 'granted' ? 'granted' : 'denied');
-            const notificationStatus = await Notifications.getPermissionsAsync();
-            setNotificationPermission(notificationStatus.status === 'granted' ? 'granted' : 'denied');
-        };
-        checkPermissions();
-    }, []);
+            const contacts = await Contacts.getPermissionsAsync()
+            setContactsPermission(contacts.status as 'granted' | 'denied')
+            const messages = await SMS.isAvailableAsync()
+            setMessagesPermission(messages ? 'granted' : 'denied')
+            const mic = await Audio.getPermissionsAsync()
+            setMicrophonePermission(
+                mic.status === 'granted' ? 'granted' : 'denied'
+            )
+            const call = await Audio.getPermissionsAsync()
+            setCallPermission(call.status === 'granted' ? 'granted' : 'denied')
+            const notificationStatus = await Notifications.getPermissionsAsync()
+            setNotificationPermission(
+                notificationStatus.status === 'granted' ? 'granted' : 'denied'
+            )
+        }
+        checkPermissions()
+    }, [])
 
     const requestCallPermission = async () => {
-        const { status } = await Audio.requestPermissionsAsync();
-        setCallPermission(status === 'granted' ? 'granted' : 'denied');
-    };
+        const { status } = await Audio.requestPermissionsAsync()
+        setCallPermission(status === 'granted' ? 'granted' : 'denied')
+    }
 
     const requestContactsPermission = async () => {
-        const { status } = await Contacts.requestPermissionsAsync();
-        setContactsPermission(status as 'granted' | 'denied');
-    };
+        const { status } = await Contacts.requestPermissionsAsync()
+        setContactsPermission(status as 'granted' | 'denied')
+    }
 
     const requestMessagesPermission = async () => {
         if (!messagesPermission) {
-            const available = await SMS.isAvailableAsync();
-            if (available) setMessagesPermission('granted');
-            else Alert.alert('SMS not supported on this device');
+            const available = await SMS.isAvailableAsync()
+            if (available) setMessagesPermission('granted')
+            else Alert.alert('SMS not supported on this device')
         }
-    };
+    }
 
     const requestMicrophonePermission = async () => {
-        const { status } = await Audio.requestPermissionsAsync();
-        setMicrophonePermission(status === 'granted' ? 'granted' : 'denied');
-    };
+        const { status } = await Audio.requestPermissionsAsync()
+        setMicrophonePermission(status === 'granted' ? 'granted' : 'denied')
+    }
 
     const requestNotificationPermission = async () => {
-        const { status } = await Notifications.requestPermissionsAsync();
-        setNotificationPermission(status === 'granted' ? 'granted' : 'denied');
-    };
+        const { status } = await Notifications.requestPermissionsAsync()
+        setNotificationPermission(status === 'granted' ? 'granted' : 'denied')
+    }
 
     useEffect(() => {
         const saveSettings = async () => {
-            await AsyncStorage.setItem('textSize', textSize.toString());
-            await AsyncStorage.setItem('isBold', isBold.toString());
-        };
-        saveSettings();
-    }, [textSize, isBold]);
+            await AsyncStorage.setItem('textSize', textSize.toString())
+            await AsyncStorage.setItem('isBold', isBold.toString())
+        }
+        saveSettings()
+    }, [textSize, isBold])
 
     if (!fontsLoaded) {
         return (
             <View style={commonStyles.loadingContainer}>
                 <ActivityIndicator size="large" color="#000000" />
-                <Text>{!fontsLoaded ? 'Loading Fonts...' : 'Loading saved posts...'}</Text>
+                <Text>
+                    {!fontsLoaded
+                        ? 'Loading Fonts...'
+                        : 'Loading saved posts...'}
+                </Text>
             </View>
-        );
+        )
     }
 
     // Custom Toggle Component
-    const CustomToggle = ({ value, onPress }: { value: boolean; onPress: () => void }) => (
+    const CustomToggle = ({
+        value,
+        onPress
+    }: {
+        value: boolean
+        onPress: () => void
+    }) => (
         <TouchableOpacity onPress={onPress}>
             <Image
                 source={
@@ -167,7 +194,7 @@ const Settings = (): React.JSX.Element => {
                 style={{ width: 40, height: 30 }} // Adjust size as needed
             />
         </TouchableOpacity>
-    );
+    )
 
     return (
         <ScrollView style={[{ flex: 1 }]}>
@@ -176,8 +203,8 @@ const Settings = (): React.JSX.Element => {
                     {
                         fontSize: textSize + 4,
                         padding: 20,
-                        fontFamily:  'Montserrat_600SemiBold',
-                         color:'#191919'
+                        fontFamily: 'Montserrat_600SemiBold',
+                        color: '#191919'
                     }
                 ]}
             >
@@ -188,8 +215,8 @@ const Settings = (): React.JSX.Element => {
                     {
                         fontSize: textSize - 2,
                         paddingLeft: 20,
-                        fontFamily: 'Montserrat_600SemiBold' ,
-                         color:'#191919'
+                        fontFamily: 'Montserrat_600SemiBold',
+                        color: '#191919'
                     }
                 ]}
             >
@@ -205,8 +232,10 @@ const Settings = (): React.JSX.Element => {
                             commonStyles.ptext,
                             {
                                 fontSize: textSize - 4,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                                 color:'#191919'
+                                fontFamily: isBold
+                                    ? 'Montserrat_700Bold'
+                                    : 'Montserrat_500Medium',
+                                color: '#191919'
                             }
                         ]}
                     >
@@ -214,27 +243,43 @@ const Settings = (): React.JSX.Element => {
                     </Text>
                     <Image
                         source={require('../../../assets/images/profile-arrow.png')}
-                        style={{ width: textSize - 12, height: textSize - 12, marginRight: 5 }}
+                        style={{
+                            width: textSize - 12,
+                            height: textSize - 12,
+                            marginRight: 5
+                        }}
                     />
                 </TouchableOpacity>
 
                 {showSlider && (
-                    <View style={[commonStyles.dividerContainer, { marginTop: 10 }]}>
+                    <View
+                        style={[
+                            commonStyles.dividerContainer,
+                            { marginTop: 10 }
+                        ]}
+                    >
                         <Text
                             style={[
                                 commonStyles.ptext,
                                 {
                                     fontSize: textSize - 4,
-                                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                    fontFamily: isBold
+                                        ? 'Montserrat_700Bold'
+                                        : 'Montserrat_500Medium',
                                     marginRight: 5,
                                     marginLeft: -20
                                 }
                             ]}
-                            className='color-[#191919]'
+                            className="color-[#191919]"
                         >
                             aA
                         </Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between'
+                            }}
+                        >
                             <View style={{ width: 230 }}>
                                 <Slider
                                     minValue={24}
@@ -259,11 +304,13 @@ const Settings = (): React.JSX.Element => {
                                 commonStyles.ptext,
                                 {
                                     fontSize: textSize,
-                                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                    fontFamily: isBold
+                                        ? 'Montserrat_700Bold'
+                                        : 'Montserrat_500Medium',
                                     marginLeft: 10
                                 }
                             ]}
-                            className='color-[#191919]'
+                            className="color-[#191919]"
                         >
                             aA
                         </Text>
@@ -279,13 +326,18 @@ const Settings = (): React.JSX.Element => {
                             commonStyles.ptext,
                             {
                                 fontSize: textSize - 4,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                fontFamily: isBold
+                                    ? 'Montserrat_700Bold'
+                                    : 'Montserrat_500Medium'
                             }
                         ]}
                     >
                         {isBold ? 'Bold Text' : 'Normal Text'}
                     </Text>
-                    <CustomToggle value={isBold} onPress={() => setIsBold(!isBold)} />
+                    <CustomToggle
+                        value={isBold}
+                        onPress={() => setIsBold(!isBold)}
+                    />
                 </TouchableOpacity>
 
                 <Text
@@ -296,10 +348,9 @@ const Settings = (): React.JSX.Element => {
                             paddingTop: 20,
                             paddingBottom: 20,
                             fontFamily: 'Montserrat_600SemiBold',
-                            color:'#191919'
+                            color: '#191919'
                         }
                     ]}
-                    
                 >
                     App Permissions
                 </Text>
@@ -312,7 +363,9 @@ const Settings = (): React.JSX.Element => {
                         style={[
                             {
                                 fontSize: textSize - 4,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                fontFamily: isBold
+                                    ? 'Montserrat_700Bold'
+                                    : 'Montserrat_500Medium'
                             }
                         ]}
                     >
@@ -333,7 +386,9 @@ const Settings = (): React.JSX.Element => {
                             commonStyles.ptext,
                             {
                                 fontSize: textSize - 4,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                fontFamily: isBold
+                                    ? 'Montserrat_700Bold'
+                                    : 'Montserrat_500Medium'
                             }
                         ]}
                     >
@@ -354,7 +409,9 @@ const Settings = (): React.JSX.Element => {
                             commonStyles.ptext,
                             {
                                 fontSize: textSize - 4,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                fontFamily: isBold
+                                    ? 'Montserrat_700Bold'
+                                    : 'Montserrat_500Medium'
                             }
                         ]}
                     >
@@ -373,7 +430,7 @@ const Settings = (): React.JSX.Element => {
                             paddingLeft: 5,
                             paddingTop: 20,
                             paddingBottom: 20,
-                            fontFamily:  'Montserrat_600SemiBold',
+                            fontFamily: 'Montserrat_600SemiBold'
                         }
                     ]}
                 >
@@ -388,7 +445,9 @@ const Settings = (): React.JSX.Element => {
                         style={[
                             {
                                 fontSize: textSize - 4,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                fontFamily: isBold
+                                    ? 'Montserrat_700Bold'
+                                    : 'Montserrat_500Medium'
                             }
                         ]}
                     >
@@ -409,7 +468,9 @@ const Settings = (): React.JSX.Element => {
                             commonStyles.ptext,
                             {
                                 fontSize: textSize - 4,
-                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                                fontFamily: isBold
+                                    ? 'Montserrat_700Bold'
+                                    : 'Montserrat_500Medium'
                             }
                         ]}
                     >
@@ -422,7 +483,7 @@ const Settings = (): React.JSX.Element => {
                 </TouchableOpacity>
             </View>
         </ScrollView>
-    );
-};
+    )
+}
 
-export default Settings;
+export default Settings

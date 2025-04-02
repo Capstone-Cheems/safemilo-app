@@ -54,13 +54,16 @@ const NotificationSearch: React.FC<{ type: string }> = ({ type }) => {
                 </VStack>
             ) : (
                 <Box className="items-center p-5">
-                    <Text style={{
-                    fontFamily:
-                        'Montserrat-Bold',
-                    fontSize: 24,
-                  
-                    textAlign:'center'
-                }}>No new notifications at the moment.</Text>
+                    <Text
+                        style={{
+                            fontFamily: 'Montserrat-Bold',
+                            fontSize: 24,
+
+                            textAlign: 'center'
+                        }}
+                    >
+                        No new notifications at the moment.
+                    </Text>
                 </Box>
             )}
         </>

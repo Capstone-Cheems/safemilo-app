@@ -226,7 +226,7 @@ const QuizScreen = (): JSX.Element => {
 
                     {/* Next Button */}
                     <TouchableOpacity
-                        className="bg-[#0A2941] py-4 px-6 rounded-xl items-center mb-6"
+                        className="bg-[#0A2941] py-4 px-6 rounded-xl items-center mb-10"
                         onPress={handleNext}
                     >
                         <Text className="text-white text-[20px] font-[<Montserrat-Bold>]">
@@ -238,7 +238,7 @@ const QuizScreen = (): JSX.Element => {
                 <View className="mt-6 flex-1 justify-between">
                     <View>
                         {/* Question */}
-                        <Text className="text-2xl font-[<Montserrat-Bold>] mb-4">
+                        <Text className="text-[22px] leading-[35px] font-[<Montserrat-Bold>] mb-4">
                             {quizQuestions[currentQuestion].question}
                         </Text>
 
@@ -247,7 +247,7 @@ const QuizScreen = (): JSX.Element => {
                             (option, index) => (
                                 <TouchableOpacity
                                     key={index}
-                                    className={`p-3 mb-3 rounded-xl ${
+                                    className={`p-7 mb-3 border rounded-xl ${
                                         selectedAnswer === option
                                             ? option ===
                                               quizQuestions[currentQuestion]
@@ -258,7 +258,7 @@ const QuizScreen = (): JSX.Element => {
                                     }`}
                                     onPress={() => handleAnswer(option)}
                                 >
-                                    <Text className="text-xl font-[<Montserrat-SemiBold>] text-gray-900">
+                                    <Text className="text-[20px] leading-[32px] font-[<Montserrat-SemiBold>] text-gray-900">
                                         {option}
                                     </Text>
                                 </TouchableOpacity>
@@ -268,7 +268,7 @@ const QuizScreen = (): JSX.Element => {
 
                     {/* Submit Button */}
                     <TouchableOpacity
-                        className={`mt-4 mb-6 py-4 px-6 rounded-xl w-full items-center ${
+                        className={`mt-4 mb-10 py-4 px-6 rounded-xl w-full items-center ${
                             selectedAnswer ? 'bg-[#0A2941]' : 'bg-gray-400'
                         }`}
                         disabled={!selectedAnswer}

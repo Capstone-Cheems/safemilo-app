@@ -31,7 +31,9 @@ const ReviewScreen = (): JSX.Element => {
 
             {/* Milo Animation positioned above Score Card */}
             <View style={styles.miloWrapper}>
-                <ModuleCompleteAnimation style={styles.moduleCompleteAnimation} />
+                <ModuleCompleteAnimation
+                    style={styles.moduleCompleteAnimation}
+                />
             </View>
 
             {/* Score Box */}

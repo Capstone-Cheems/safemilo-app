@@ -63,7 +63,7 @@ const Messages = (): React.JSX.Element => {
             </Box>
             {messages && messages.length > 0 ? (
                 <FlatList
-                    style= {{padding:16}}
+                    style={{ padding: 16 }}
                     data={messages}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
@@ -71,7 +71,7 @@ const Messages = (): React.JSX.Element => {
                             size="md"
                             className="mb-4 rounded-2xl border border-[#0A2941] color-[#FEFEFE]"
                         >
-                            <VStack space="sm" reversed={false} className='p-2'>
+                            <VStack space="sm" reversed={false} className="p-2">
                                 <Box className="flex flex-row gap-4 items-center">
                                     <Icon
                                         as={MessageIcon}
@@ -97,7 +97,7 @@ const Messages = (): React.JSX.Element => {
                                                 fontFamily:
                                                     'Montserrat-Regular',
                                                 fontSize: 20,
-                                                color:'#191919'
+                                                color: '#191919'
                                             }}
                                         >
                                             Banking Scam
@@ -108,7 +108,7 @@ const Messages = (): React.JSX.Element => {
                                                     fontFamily:
                                                         'Montserrat-Regular',
                                                     fontSize: 20,
-                                                    color:'#191919'
+                                                    color: '#191919'
                                                 }}
                                             >
                                                 {getDayFromDate(item.timestamp)}

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react'
 import {
     View,
     Text,
@@ -6,73 +6,73 @@ import {
     TouchableOpacity,
     ScrollView,
     Modal,
-    Image,
-} from 'react-native';
-import axios from 'axios';
-import commonStyles from '../../styles/commonStyles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect, useNavigation } from 'expo-router'; // Add useNavigation (useFocusEffect already imported)
-import { Buffer } from 'buffer';
-import { useFonts } from 'expo-font';
+    Image
+} from 'react-native'
+import axios from 'axios'
+import commonStyles from '../../styles/commonStyles'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect, useNavigation } from 'expo-router' // Add useNavigation (useFocusEffect already imported)
+import { Buffer } from 'buffer'
+import { useFonts } from 'expo-font'
 import {
     Montserrat_300Light,
     Montserrat_400Regular,
     Montserrat_500Medium,
     Montserrat_600SemiBold,
-    Montserrat_700Bold,
-} from '@expo-google-fonts/montserrat';
-import { white } from 'tailwindcss/colors';
-import { HeaderRight } from '../../../components/HeaderRight'; // Import HeaderRight
-import Constants from 'expo-constants';
+    Montserrat_700Bold
+} from '@expo-google-fonts/montserrat'
+import { white } from 'tailwindcss/colors'
+import { HeaderRight } from '../../../components/HeaderRight' // Import HeaderRight
+import Constants from 'expo-constants'
 
 const ReportBug = (): React.JSX.Element => {
-    const [bugDescription, setBugDescription] = useState('');
-    const [textSize, setTextSize] = useState(28); // Default text size
-    const [isBold, setIsBold] = useState(true);
-    const [isModalVisible, setIsModalVisible] = useState(false); // Confirmation Modal
-    const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false); // Thank You Modal
-    const navigation = useNavigation(); // Add navigation hook
+    const [bugDescription, setBugDescription] = useState('')
+    const [textSize, setTextSize] = useState(28) // Default text size
+    const [isBold, setIsBold] = useState(true)
+    const [isModalVisible, setIsModalVisible] = useState(false) // Confirmation Modal
+    const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false) // Thank You Modal
+    const navigation = useNavigation() // Add navigation hook
 
     const JIRA_API_URL = Constants.expoConfig?.extra?.JIRA_API_URL
     const JIRA_EMAIL = Constants.expoConfig?.extra?.JIRA_EMAIL
     const JIRA_API_TOKEN = Constants.expoConfig?.extra?.JIRA_API_TOKEN
     interface UserData {
-        displayName: string | null;
-        email: string;
-        uid: string;
-        providerData: { providerId: string }[];
-        photoURL: string | null;
+        displayName: string | null
+        email: string
+        uid: string
+        providerData: { providerId: string }[]
+        photoURL: string | null
     }
-    const [userData, setUserData] = useState<UserData | null>(null);
+    const [userData, setUserData] = useState<UserData | null>(null)
 
     // Load settings and user data from AsyncStorage
     const loadSettings = useCallback(async () => {
         try {
-            const storedSize = await AsyncStorage.getItem('textSize');
-            const storedBold = await AsyncStorage.getItem('isBold');
-            const storedUserData = await AsyncStorage.getItem('user');
+            const storedSize = await AsyncStorage.getItem('textSize')
+            const storedBold = await AsyncStorage.getItem('isBold')
+            const storedUserData = await AsyncStorage.getItem('user')
 
-            console.log('Stored User Data:', storedUserData); // Debug log
+            console.log('Stored User Data:', storedUserData) // Debug log
 
-            if (storedSize) setTextSize(parseInt(storedSize));
-            if (storedBold) setIsBold(storedBold === 'true');
+            if (storedSize) setTextSize(parseInt(storedSize))
+            if (storedBold) setIsBold(storedBold === 'true')
             if (storedUserData) {
-                const parsedUserData = JSON.parse(storedUserData);
-                console.log('Parsed User Data:', parsedUserData); // Debug log
-                setUserData(parsedUserData);
+                const parsedUserData = JSON.parse(storedUserData)
+                console.log('Parsed User Data:', parsedUserData) // Debug log
+                setUserData(parsedUserData)
             } else {
-                console.log('No user data found in AsyncStorage');
+                console.log('No user data found in AsyncStorage')
             }
         } catch (error) {
-            console.error('Error loading settings:', error);
+            console.error('Error loading settings:', error)
         }
-    }, []);
+    }, [])
 
     useFocusEffect(
         useCallback(() => {
-            loadSettings();
+            loadSettings()
         }, [loadSettings])
-    );
+    )
 
     // Set the header with HeaderRight
     React.useLayoutEffect(() => {
@@ -86,8 +86,8 @@ const ReportBug = (): React.JSX.Element => {
             //         />
             //     </TouchableOpacity>
             // ),
-        });
-    }, [navigation]);
+        })
+    }, [navigation])
 
     // Load fonts
     const [fontsLoaded] = useFonts({
@@ -95,29 +95,29 @@ const ReportBug = (): React.JSX.Element => {
         Montserrat_700Bold,
         Montserrat_500Medium,
         Montserrat_300Light,
-        Montserrat_600SemiBold,
-    });
+        Montserrat_600SemiBold
+    })
 
     if (!fontsLoaded) {
         return (
             <View style={commonStyles.loadingContainer}>
                 <Text>Loading Fonts...</Text>
             </View>
-        );
+        )
     }
 
     const handleReportBug = async () => {
         if (!bugDescription) {
-            setIsModalVisible(false);
-            return;
+            setIsModalVisible(false)
+            return
         }
 
         // Show modal for confirmation
-        setIsModalVisible(true);
-    };
+        setIsModalVisible(true)
+    }
 
     const confirmReportBug = async () => {
-        setIsModalVisible(false);
+        setIsModalVisible(false)
 
         const issueData = {
             fields: {
@@ -129,50 +129,56 @@ const ReportBug = (): React.JSX.Element => {
                     content: [
                         {
                             type: 'paragraph',
-                            content: [{ type: 'text', text: bugDescription }],
-                        },
-                    ],
+                            content: [{ type: 'text', text: bugDescription }]
+                        }
+                    ]
                 },
-                issuetype: { name: 'Bug' },
-            },
-        };
+                issuetype: { name: 'Bug' }
+            }
+        }
 
         try {
-            const authToken = Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString('base64');
+            const authToken = Buffer.from(
+                `${JIRA_EMAIL}:${JIRA_API_TOKEN}`
+            ).toString('base64')
 
             const response = await axios.post(JIRA_API_URL, issueData, {
                 headers: {
                     Authorization: `Basic ${authToken}`,
                     'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-            });
+                    Accept: 'application/json'
+                }
+            })
 
             if (response.status === 201) {
-                setBugDescription('');
-                setIsThankYouModalVisible(true); // Show Thank You Modal
+                setBugDescription('')
+                setIsThankYouModalVisible(true) // Show Thank You Modal
             }
         } catch (error) {
             console.error(
                 'Error creating Jira ticket:',
                 (axios.isAxiosError(error) && error.response?.data) || error
-            );
+            )
         }
-    };
+    }
 
     const cancelReportBug = () => {
-        setIsModalVisible(false);
-    };
+        setIsModalVisible(false)
+    }
 
     return (
         <ScrollView contentContainerStyle={commonStyles.container}>
             {/* Header Text */}
-            <View style={{ position: 'absolute', top: 0, left: 5, padding: 10 }}>
+            <View
+                style={{ position: 'absolute', top: 0, left: 5, padding: 10 }}
+            >
                 <Text
                     style={{
                         fontSize: textSize + 7,
-                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                        marginBottom: 10,
+                        fontFamily: isBold
+                            ? 'Montserrat_700Bold'
+                            : 'Montserrat_500Medium',
+                        marginBottom: 10
                     }}
                 >
                     Report a Bug
@@ -180,7 +186,9 @@ const ReportBug = (): React.JSX.Element => {
                 <Text
                     style={{
                         fontSize: textSize - 6,
-                        fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_300Light',
+                        fontFamily: isBold
+                            ? 'Montserrat_400Regular'
+                            : 'Montserrat_300Light'
                     }}
                 >
                     Encountered an issue? Let us know so we can fix it!
@@ -196,8 +204,10 @@ const ReportBug = (): React.JSX.Element => {
                             textAlignVertical: 'top',
                             backgroundColor: white,
                             height: 300,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                        },
+                            fontFamily: isBold
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_500Medium'
+                        }
                     ]}
                     value={bugDescription}
                     onChangeText={setBugDescription}
@@ -207,14 +217,17 @@ const ReportBug = (): React.JSX.Element => {
                 />
             </View>
 
-            <TouchableOpacity style={commonStyles.button} onPress={handleReportBug}>
+            <TouchableOpacity
+                style={commonStyles.button}
+                onPress={handleReportBug}
+            >
                 <Text
                     style={[
                         {
                             fontSize: textSize - 2,
                             fontFamily: 'Montserrat_700Bold'
                         },
-                        commonStyles.PbuttonText,
+                        commonStyles.PbuttonText
                     ]}
                 >
                     Send Report
@@ -233,7 +246,11 @@ const ReportBug = (): React.JSX.Element => {
                         <Text
                             style={[
                                 commonStyles.modalTitle,
-                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' },
+                                {
+                                    fontFamily: isBold
+                                        ? 'Montserrat_700Bold'
+                                        : 'Montserrat_400Regular'
+                                }
                             ]}
                         >
                             Send report?
@@ -241,10 +258,14 @@ const ReportBug = (): React.JSX.Element => {
                         <Text>We will look into it as soon as possible.</Text>
                         <View style={commonStyles.modalbuttonContainer}>
                             <TouchableOpacity onPress={cancelReportBug}>
-                                <Text style={commonStyles.closeButton}>Cancel</Text>
+                                <Text style={commonStyles.closeButton}>
+                                    Cancel
+                                </Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={confirmReportBug}>
-                                <Text style={commonStyles.closeButton}>Yes</Text>
+                                <Text style={commonStyles.closeButton}>
+                                    Yes
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -263,7 +284,11 @@ const ReportBug = (): React.JSX.Element => {
                         <Text
                             style={[
                                 commonStyles.modalTitle,
-                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' },
+                                {
+                                    fontFamily: isBold
+                                        ? 'Montserrat_700Bold'
+                                        : 'Montserrat_400Regular'
+                                }
                             ]}
                         >
                             Thank You!
@@ -279,7 +304,7 @@ const ReportBug = (): React.JSX.Element => {
                 </View>
             </Modal>
         </ScrollView>
-    );
-};
+    )
+}
 
-export default ReportBug;
+export default ReportBug

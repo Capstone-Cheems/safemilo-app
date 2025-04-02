@@ -14,7 +14,7 @@ const NotificationCard: React.FC<{
                     size="sm"
                     className="gap-1 p-0 overflow-hidden rounded-2xl"
                 >
-                    <Box 
+                    <Box
                         className={`top-0 left-0 right-0 h-10 ${
                             notification.title === 'Caution'
                                 ? 'bg-red-500'

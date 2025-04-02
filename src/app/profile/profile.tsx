@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react'
 import {
     View,
     Text,
@@ -8,69 +8,69 @@ import {
     Image,
     StyleSheet,
     ActivityIndicator
-} from 'react-native';
-import { useNavigation, useRouter } from 'expo-router';
-import { useFocusEffect } from '@react-navigation/native';
-import commonStyles from '../../styles/commonStyles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFonts } from 'expo-font';
-import { HeaderRight } from '../../../components/HeaderRight';
+} from 'react-native'
+import { useNavigation, useRouter } from 'expo-router'
+import { useFocusEffect } from '@react-navigation/native'
+import commonStyles from '../../styles/commonStyles'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFonts } from 'expo-font'
+import { HeaderRight } from '../../../components/HeaderRight'
 import {
     Montserrat_300Light,
     Montserrat_400Regular,
     Montserrat_500Medium,
     Montserrat_600SemiBold,
     Montserrat_700Bold
-} from '@expo-google-fonts/montserrat';
-import { useAuth } from '@/src/shared';
-import { getAuth } from '@react-native-firebase/auth';
+} from '@expo-google-fonts/montserrat'
+import { useAuth } from '@/src/shared'
+import { getAuth } from '@react-native-firebase/auth'
 import {
     Avatar,
     AvatarBadge,
     AvatarFallbackText,
     AvatarImage
-} from '@/components/ui/avatar';
+} from '@/components/ui/avatar'
 
 const Profile = (): React.JSX.Element => {
-    const [textSize, setTextSize] = useState(28); // Default text size
-    const [isBold, setIsBold] = useState(false);
+    const [textSize, setTextSize] = useState(28) // Default text size
+    const [isBold, setIsBold] = useState(false)
 
-    const navigation = useNavigation();
-    const router = useRouter();
-    const { logout } = useAuth();
+    const navigation = useNavigation()
+    const router = useRouter()
+    const { logout } = useAuth()
 
     interface UserData {
-        displayName: string | null;
-        email: string;
-        uid: string;
-        providerData: { providerId: string }[];
-        photoURL: string | null;
+        displayName: string | null
+        email: string
+        uid: string
+        providerData: { providerId: string }[]
+        photoURL: string | null
     }
 
     // Function to load settings
     const loadSettings = useCallback(async () => {
         try {
-            const storedSize = await AsyncStorage.getItem('textSize');
-            const storedBold = await AsyncStorage.getItem('isBold');
+            const storedSize = await AsyncStorage.getItem('textSize')
+            const storedBold = await AsyncStorage.getItem('isBold')
 
             if (storedSize) {
-                setTextSize(parseInt(storedSize));
+                setTextSize(parseInt(storedSize))
             }
 
             if (storedBold) {
-                setIsBold(storedBold === 'true');
+                setIsBold(storedBold === 'true')
             }
         } catch (error) {
-            console.error('Error loading settings:', error);
+            console.error('Error loading settings:', error)
         }
-    }, []);
+    }, [])
 
     // Load settings when the screen is focused
     useFocusEffect(
         useCallback(() => {
-            loadSettings();
+            loadSettings()
         }, [loadSettings])
-    );
+    )
 
     // Set the header with HeaderRight (no title in header)
     React.useLayoutEffect(() => {
@@ -84,38 +84,42 @@ const Profile = (): React.JSX.Element => {
             //         />
             //     </TouchableOpacity>
             // ),
-        });
-    }, [navigation]);
+        })
+    }, [navigation])
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
         Montserrat_700Bold,
         Montserrat_500Medium,
         Montserrat_300Light,
-        Montserrat_600SemiBold,
-    });
+        Montserrat_600SemiBold
+    })
 
     if (!fontsLoaded) {
         return (
             <View style={commonStyles.loadingContainer}>
                 <ActivityIndicator size="large" color="#000000" />
-                <Text>{!fontsLoaded ? 'Loading Fonts...' : 'Loading saved posts...'}</Text>
+                <Text>
+                    {!fontsLoaded
+                        ? 'Loading Fonts...'
+                        : 'Loading saved posts...'}
+                </Text>
             </View>
-        );
+        )
     }
 
     const handleLogout = async () => {
         try {
-            logout();
-            Alert.alert('Success', 'You have been logged out!');
+            logout()
+            Alert.alert('Success', 'You have been logged out!')
         } catch (error) {
-            Alert.alert('Logout Failed', (error as Error).message);
+            Alert.alert('Logout Failed', (error as Error).message)
         }
-    };
+    }
 
     const navigateTo = (path: string) => {
-        router.push(path);
-    };
+        router.push(path)
+    }
 
     return (
         <View style={commonStyles.profilecontainer}>
@@ -126,7 +130,9 @@ const Profile = (): React.JSX.Element => {
                 <Text
                     style={{
                         fontSize: textSize + 10,
-                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                        fontFamily: isBold
+                            ? 'Montserrat_700Bold'
+                            : 'Montserrat_500Medium'
                     }}
                 >
                     Profile
@@ -140,7 +146,7 @@ const Profile = (): React.JSX.Element => {
                     </AvatarFallbackText>
                     <AvatarImage
                         source={{
-                            uri: getAuth().currentUser?.photoURL ?? '',
+                            uri: getAuth().currentUser?.photoURL ?? ''
                         }}
                     />
                     <AvatarBadge />
@@ -150,7 +156,9 @@ const Profile = (): React.JSX.Element => {
             <Text
                 style={{
                     fontSize: textSize + 6,
-                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
+                    fontFamily: isBold
+                        ? 'Montserrat_700Bold'
+                        : 'Montserrat_500Medium'
                 }}
             >
                 {getAuth().currentUser?.displayName}
@@ -159,8 +167,10 @@ const Profile = (): React.JSX.Element => {
             <Text
                 style={{
                     fontSize: textSize - 7,
-                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                    marginBottom: 10,
+                    fontFamily: isBold
+                        ? 'Montserrat_700Bold'
+                        : 'Montserrat_500Medium',
+                    marginBottom: 10
                 }}
             >
                 {getAuth() ? getAuth().currentUser?.email : 'Guest'}
@@ -176,8 +186,10 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                        },
+                            fontFamily: isBold
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_500Medium'
+                        }
                     ]}
                 >
                     Settings
@@ -196,8 +208,10 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                        },
+                            fontFamily: isBold
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_500Medium'
+                        }
                     ]}
                 >
                     Saved Posts
@@ -216,8 +230,10 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                        },
+                            fontFamily: isBold
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_500Medium'
+                        }
                     ]}
                 >
                     Feature Walkthrough
@@ -236,8 +252,10 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                        },
+                            fontFamily: isBold
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_500Medium'
+                        }
                     ]}
                 >
                     FAQ's
@@ -256,8 +274,10 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ptext,
                         {
                             fontSize: textSize - 3,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                        },
+                            fontFamily: isBold
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_500Medium'
+                        }
                     ]}
                 >
                     Report a Bug
@@ -274,22 +294,24 @@ const Profile = (): React.JSX.Element => {
                         commonStyles.ltext,
                         {
                             fontSize: textSize + 3,
-                            fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
-                        },
+                            fontFamily: isBold
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_600SemiBold'
+                        }
                     ]}
                 >
                     Log Out
                 </Text>
             </TouchableOpacity>
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 20,
+        marginVertical: 20
     },
     image: {
         width: 120,
@@ -297,8 +319,8 @@ const styles = StyleSheet.create({
         borderRadius: 60,
         borderWidth: 2,
         borderColor: '#ccc',
-        marginBottom: 10,
-    },
-});
+        marginBottom: 10
+    }
+})
 
-export default Profile;
+export default Profile
