@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import commonStyles from '../../styles/commonStyles'
+import commonStyles from '../../../styles/commonStyles'
 import ActionSheet from 'react-native-action-sheet'
 
 const PostDetail = (): React.JSX.Element => {
@@ -47,7 +47,7 @@ const PostDetail = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/dark-back-button.png')}
+                    source={require('../../../../assets/images/dark-back-button.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
@@ -58,7 +58,7 @@ const PostDetail = (): React.JSX.Element => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/more-icon.png')}
+                    source={require('../../../../assets/images/more-icon.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>

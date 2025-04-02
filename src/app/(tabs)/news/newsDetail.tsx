@@ -9,7 +9,7 @@ import {
     ScrollView
 } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
-import commonStyles from '../../styles/commonStyles'
+import commonStyles from '../../../styles/commonStyles'
 
 const NewsDetail = (): React.JSX.Element => {
     const { title, content, scamTypeTag, createdAt } = useLocalSearchParams()
@@ -42,7 +42,7 @@ const NewsDetail = (): React.JSX.Element => {
             <TouchableOpacity onPress={handleShare}>
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../../../assets/images/share-icon.png')}
+                    source={require('../../../../assets/images/share-icon.png')}
                     style={commonStyles.backIcon}
                 />
             </TouchableOpacity>
