@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import LoaderAnimation from './LoaderAnimation'
 
-const Loader = (): React.JSX.Element => {
+const LoaderForView = (): React.JSX.Element => {
     return (
         <View style={styles.wrapper}>
             <LoaderAnimation style={styles.loaderAnimation} />
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         top: 260,
-        left: -80,
+        left: 130,
         backgroundColor: '#FFF',
         width: 160,
         height: 160,
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Loader
+export default LoaderForView

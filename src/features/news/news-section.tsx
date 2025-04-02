@@ -5,6 +5,7 @@ import { Text } from '@/components/ui/text'
 import { NewsResponse, useFetchData } from '@/src/shared'
 import { NewsList } from '@/src/widget/news'
 import React, { ReactNode } from 'react'
+import Loader from '@/components/Loader'
 
 export const NewsSection = (): ReactNode => {
     const { data, loading, error } = useFetchData<NewsResponse>('news')
@@ -12,9 +13,8 @@ export const NewsSection = (): ReactNode => {
         <>
             {loading ? (
                 <Center>
-                    <HStack space="xl">
-                        <Spinner />
-                        <Text size="md">Loading..</Text>
+                    <HStack className="items-center justify-center m-0 p-0">
+                        <Loader />
                     </HStack>
                 </Center>
             ) : error ? (
