@@ -179,8 +179,8 @@ const ReportBug = (): React.JSX.Element => {
                 </Text>
                 <Text
                     style={{
-                        fontSize: textSize - 6,
-                        fontFamily: isBold ? 'Montserrat_400Regular' : 'Montserrat_300Light',
+                        fontSize: textSize - 7,
+                        fontFamily: isBold ? 'Montserrat_500Medium' : 'Montserrat_400Regular',
                     }}
                 >
                     Encountered an issue? Let us know so we can fix it!
@@ -192,7 +192,7 @@ const ReportBug = (): React.JSX.Element => {
                     style={[
                         commonStyles.buginput,
                         {
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 5,
                             textAlignVertical: 'top',
                             backgroundColor: white,
                             height: 300,

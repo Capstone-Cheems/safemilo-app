@@ -259,8 +259,8 @@ const SavedPosts = (): React.JSX.Element => {
                             marginBottom: 5,
                             fontSize: textSize - 10,
                             fontFamily: isBold
-                                ? 'Montserrat_600SemiBold'
-                                : 'Montserrat_Regular'
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_600SemiBold'
                         }}
                         numberOfLines={expandedPosts.has(item.newsID) ? 10 : 2}
                         ellipsizeMode="tail"
