@@ -14,6 +14,7 @@ import { useRouter } from 'expo-router'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
 import Constants from 'expo-constants'
+import CompleteMsg from '@/components/CompleteMsg'
 
 const S3_BUCKET_URL = Constants.expoConfig?.extra?.S3_IMAGE_URL ?? ''
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -28,6 +29,7 @@ const NewPost = (): React.JSX.Element => {
     const [scamTypeTag, setScamTypeTag] = useState('')
     const [loading, setLoading] = useState(false)
     const [images, setImages] = useState<string[]>([])
+    const [showCompleteMsg, setShowCompleteMsg] = useState(false)
 
     const pickImages = async (): Promise<void> => {
         const result = await ImagePicker.launchImageLibraryAsync({
@@ -125,8 +127,11 @@ const NewPost = (): React.JSX.Element => {
                 throw new Error('Failed to create scam news')
             }
 
-            Alert.alert('Success', 'Scam news report created successfully!')
-            router.replace('/(organization)/createdPost')
+            setShowCompleteMsg(true)
+            setTimeout(() => {
+                setShowCompleteMsg(false)
+                router.replace('/(organization)/createdPost')
+            }, 3000)
         } catch (error) {
             console.error('Error creating scam news:', error)
             Alert.alert(
@@ -223,94 +228,113 @@ const NewPost = (): React.JSX.Element => {
     }
 
     return (
-        <FlatList
-            data={['form']}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={() => (
-                <View style={commonStyles.postContainer}>
-                    <Text style={commonStyles.header}>Create a Post</Text>
+        <View>
+            <FlatList
+                data={['form']}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={() => (
+                    <View style={commonStyles.postContainer}>
+                        <Text style={commonStyles.header}>Create a Post</Text>
 
-                    <Text style={commonStyles.newsInputLabel}>News Title</Text>
-                    <TextInput
-                        style={commonStyles.postInput}
-                        placeholder="Title"
-                        value={title}
-                        onChangeText={setTitle}
-                    />
+                        <Text style={commonStyles.newsInputLabel}>News Title</Text>
+                        <TextInput
+                            style={commonStyles.postInput}
+                            placeholder="Title"
+                            value={title}
+                            onChangeText={setTitle}
+                        />
 
-                    <Text style={commonStyles.newsInputLabel}>
-                        Scam Category
-                    </Text>
-                    <TextInput
-                        style={commonStyles.postInput}
-                        placeholder="Scam Type Tag (e.g. Phishing, Fraud)"
-                        value={scamTypeTag}
-                        onChangeText={setScamTypeTag}
-                    />
-
-                    <Text style={commonStyles.newsInputLabel}>Content</Text>
-                    <TextInput
-                        style={commonStyles.postInput}
-                        placeholder="Content"
-                        value={content}
-                        onChangeText={setContent}
-                        multiline
-                        numberOfLines={4}
-                    />
-
-                    <Text style={commonStyles.newsInputLabel}>Photos</Text>
-                    <FlatList
-                        data={[...images, null]}
-                        keyExtractor={(item, index) => index.toString()}
-                        numColumns={3}
-                        columnWrapperStyle={{ justifyContent: 'flex-start' }}
-                        renderItem={renderImageItem}
-                        className="mb-16"
-                    />
-
-                    <TouchableOpacity
-                        style={[
-                            commonStyles.longButton,
-                            loading && commonStyles.buttonDisabled
-                        ]}
-                        onPress={handleSubmit}
-                        disabled={loading}
-                    >
-                        <Text style={commonStyles.buttonText}>
-                            {loading ? 'Loading...' : 'Post'}
+                        <Text style={commonStyles.newsInputLabel}>
+                            Scam Category
                         </Text>
-                    </TouchableOpacity>
+                        <TextInput
+                            style={commonStyles.postInput}
+                            placeholder="Scam Type Tag (e.g. Phishing, Fraud)"
+                            value={scamTypeTag}
+                            onChangeText={setScamTypeTag}
+                        />
 
-                    <TouchableOpacity
-                        style={commonStyles.longButtonWhite}
-                        onPress={() => {
-                            setTitle('')
-                            setContent('')
-                            setScamTypeTag('')
-                            setImages([])
-                            router.replace('/(organization)/createdPost')
-                        }}
-                    >
-                        <Text style={commonStyles.buttonTextWhite}>
-                            Discard
-                        </Text>
-                    </TouchableOpacity>
+                        <Text style={commonStyles.newsInputLabel}>Content</Text>
+                        <TextInput
+                            style={commonStyles.postInput}
+                            placeholder="Content"
+                            value={content}
+                            onChangeText={setContent}
+                            multiline
+                            numberOfLines={50}
+                        />
 
-                    {/* Hidden Auto-Fill Button */}
-                    <TouchableOpacity
-                        style={{
-                            position: 'absolute',
-                            top: 10,
-                            right: 10,
-                            opacity: 0.2
-                        }}
-                        onPress={handleAutoFill}
-                    >
-                        <Text style={{ color: '#FFFFFF' }}>Auto-Fill</Text>
-                    </TouchableOpacity>
+                        <Text style={commonStyles.newsInputLabel}>Photos</Text>
+                        <FlatList
+                            data={[...images, null]}
+                            keyExtractor={(item, index) => index.toString()}
+                            numColumns={3}
+                            columnWrapperStyle={{ justifyContent: 'flex-start' }}
+                            renderItem={renderImageItem}
+                            className="mb-16"
+                        />
+
+                        <TouchableOpacity
+                            style={[
+                                commonStyles.longButton,
+                                loading && commonStyles.buttonDisabled
+                            ]}
+                            onPress={handleSubmit}
+                            disabled={loading}
+                        >
+                            <Text style={commonStyles.buttonText}>
+                                {loading ? 'Loading...' : 'Post'}
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={commonStyles.longButtonWhite}
+                            onPress={() => {
+                                setTitle('')
+                                setContent('')
+                                setScamTypeTag('')
+                                setImages([])
+                                router.replace('/(organization)/createdPost')
+                            }}
+                        >
+                            <Text style={commonStyles.buttonTextWhite}>
+                                Discard
+                            </Text>
+                        </TouchableOpacity>
+
+                        {/* Hidden Auto-Fill Button */}
+                        <TouchableOpacity
+                            style={{
+                                position: 'absolute',
+                                top: 10,
+                                right: 10,
+                                opacity: 0.2
+                            }}
+                            onPress={handleAutoFill}
+                        >
+                            <Text style={{ color: '#FFFFFF' }}>Auto-Fill</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            />
+            {showCompleteMsg && (
+                <View
+                    style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(218, 218, 218, 0.9)',
+                    zIndex: 10
+                    }}
+                >
+                    <CompleteMsg />
                 </View>
-            )}
-        />
+                )}
+        </View>
     )
 }
 
