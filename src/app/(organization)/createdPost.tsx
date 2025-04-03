@@ -11,6 +11,7 @@ import { useRouter } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 import commonStyles from '../../styles/commonStyles'
 import { useAuth } from '@/src/shared'
+import Loader from '@/components/Loader'
 
 type NewsItem = {
     newsID: string
@@ -81,7 +82,7 @@ const CreatedPost = (): React.JSX.Element => {
             <Text style={commonStyles.header}>Your Scam News</Text>
 
             {loading ? (
-                <ActivityIndicator size="large" color="#000000" />
+                <Loader />
             ) : !news || news.length === 0 ? (
                 <Text style={commonStyles.noNewsText}>No scam news found.</Text>
             ) : (

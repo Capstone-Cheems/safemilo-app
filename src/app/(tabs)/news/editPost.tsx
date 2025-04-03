@@ -261,7 +261,7 @@ const EditPost = (): React.JSX.Element => {
                         value={content}
                         onChangeText={setContent}
                         multiline
-                        numberOfLines={4}
+                        numberOfLines={50}
                     />
 
                     <Text style={commonStyles.newsInputLabel}>Photos</Text>
