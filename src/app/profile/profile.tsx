@@ -158,7 +158,7 @@ const Profile = (): React.JSX.Element => {
 
             <Text
                 style={{
-                    fontSize: textSize - 7,
+                    fontSize: textSize - 9,
                     fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                     marginBottom: 10,
                 }}
