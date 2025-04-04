@@ -230,7 +230,7 @@ const LearnDashboardScreen = (): JSX.Element => {
     )
 
     const CompletedCourseCard = ({ course }: { course: Course }) => (
-        <Card className="bg-[#DADADA] w-[260] px-0 py-0 mr-4 mb-16">
+        <Card className="bg-[#DADADA] w-[260] px-0 py-0 mr-4">
             <VStack>
                 <Box>
                     <Image
@@ -361,7 +361,7 @@ const LearnDashboardScreen = (): JSX.Element => {
 
             {/* Browse Scam Categories */}
             <TouchableOpacity
-                className="flex-row bg-blue-100 rounded-2xl mb-7"
+                className="flex-row bg-blue-100 rounded-2xl mb-7 mt-16"
                 onPress={() => router.push('/learning/BrowseCategories')}
             >
                 <Image
