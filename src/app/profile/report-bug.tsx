@@ -180,7 +180,7 @@ const ReportBug = (): React.JSX.Element => {
                 <Text
                     style={{
                         fontSize: textSize - 7,
-                        fontFamily: isBold ? 'Montserrat_500Medium' : 'Montserrat_400Regular',
+                        fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                     }}
                 >
                     Encountered an issue? Let us know so we can fix it!
@@ -233,18 +233,26 @@ const ReportBug = (): React.JSX.Element => {
                         <Text
                             style={[
                                 commonStyles.modalTitle,
-                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' },
+                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold' },
                             ]}
                         >
                             Send report?
                         </Text>
-                        <Text>We will look into it as soon as possible.</Text>
+                        <Text
+                            style={{
+                                fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold',
+                                fontSize: textSize - 8,
+                                textAlign: 'center',
+                            }}
+                        >
+                            We will look into it as soon as possible.
+                        </Text>
                         <View style={commonStyles.modalbuttonContainer}>
                             <TouchableOpacity onPress={cancelReportBug}>
-                                <Text style={commonStyles.closeButton}>Cancel</Text>
+                                <Text style={[commonStyles.closeButton, { fontFamily: 'Montserrat_600SemiBold' }]}>Cancel</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={confirmReportBug}>
-                                <Text style={commonStyles.closeButton}>Yes</Text>
+                                <Text style={[commonStyles.closeButton, { fontFamily: 'Montserrat_600SemiBold' }]}>Yes</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -263,17 +271,25 @@ const ReportBug = (): React.JSX.Element => {
                         <Text
                             style={[
                                 commonStyles.modalTitle,
-                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_400Regular' },
+                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold', textAlign: 'center' },
                             ]}
                         >
                             Thank You!
                         </Text>
-                        <Text>Your report has been sent successfully.</Text>
+                        <Text
+                            style={{
+                                fontFamily: 'Montserrat_600SemiBold',
+                                fontSize: textSize - 6,
+                                textAlign: 'center',
+                            }}
+                        >
+                            Your report has been sent successfully.
+                        </Text>
                         <TouchableOpacity
                             onPress={() => setIsThankYouModalVisible(false)}
                             style={commonStyles.button}
                         >
-                            <Text style={commonStyles.PbuttonText}>OK</Text>
+                            <Text style={[commonStyles.PbuttonText, { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold', textAlign: 'center' }]}>Close</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

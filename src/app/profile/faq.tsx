@@ -116,7 +116,7 @@ const FAQ = () => {
                                 styles.answer,
                                 {
                                     fontSize: textSize - 9, // Slightly smaller for answers
-                                    fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular', // Conditional font family
+                                    fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium', // Conditional font family
                                 },
                             ]}
                         >
