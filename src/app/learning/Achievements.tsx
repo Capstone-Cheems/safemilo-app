@@ -12,11 +12,13 @@ import {
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useAuth } from '@/src/shared'
 
 const { width } = Dimensions.get('window')
 
 const AchievementsScreen = (): JSX.Element => {
-    const [displayName, setDisplayName] = useState<string>('')
+    const { user } = useAuth()
+    const displayName = user?.displayName || ''
     const [completedCount, setCompletedCount] = useState<number>(0)
 
     const awarenessScore = completedCount * 50
@@ -32,14 +34,7 @@ const AchievementsScreen = (): JSX.Element => {
 
     useFocusEffect(
         useCallback(() => {
-            // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-            const fetchUserData = async () => {
-                const user = await AsyncStorage.getItem('user')
-                if (user) {
-                    const parsed = JSON.parse(user)
-                    setDisplayName(parsed.displayName || '')
-                }
-
+            const fetchCompletedModules = async () => {
                 const keys = await AsyncStorage.getAllKeys()
                 const completedKeys = keys.filter(key =>
                     key.startsWith('completedModule_')
@@ -47,9 +42,10 @@ const AchievementsScreen = (): JSX.Element => {
                 setCompletedCount(completedKeys.length)
             }
 
-            fetchUserData()
+            fetchCompletedModules()
         }, [])
     )
+
     const badges = [
         {
             id: '1',
