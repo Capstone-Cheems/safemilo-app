@@ -12,11 +12,13 @@ import {
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useAuth } from '@/src/shared'
 
 const { width } = Dimensions.get('window')
 
 const AchievementsScreen = (): JSX.Element => {
-    const [displayName, setDisplayName] = useState<string>('')
+    const { user } = useAuth()
+    const displayName = user?.displayName || ''
     const [completedCount, setCompletedCount] = useState<number>(0)
 
     const awarenessScore = completedCount * 50
@@ -32,14 +34,7 @@ const AchievementsScreen = (): JSX.Element => {
 
     useFocusEffect(
         useCallback(() => {
-            // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-            const fetchUserData = async () => {
-                const user = await AsyncStorage.getItem('user')
-                if (user) {
-                    const parsed = JSON.parse(user)
-                    setDisplayName(parsed.displayName || '')
-                }
-
+            const fetchCompletedModules = async () => {
                 const keys = await AsyncStorage.getAllKeys()
                 const completedKeys = keys.filter(key =>
                     key.startsWith('completedModule_')
@@ -47,9 +42,10 @@ const AchievementsScreen = (): JSX.Element => {
                 setCompletedCount(completedKeys.length)
             }
 
-            fetchUserData()
+            fetchCompletedModules()
         }, [])
     )
+
     const badges = [
         {
             id: '1',
@@ -96,7 +92,7 @@ const AchievementsScreen = (): JSX.Element => {
                 </Text>
 
                 {/* Awareness Points Section */}
-                <View style={styles.card}>
+                {/* <View style={styles.card}>
                     <Text style={styles.cardTitle}>Awareness Points</Text>
                     <View style={styles.arcWrapper}>
                         <Svg width={200} height={120}>
@@ -115,6 +111,40 @@ const AchievementsScreen = (): JSX.Element => {
                                 strokeDashoffset={283 * (1 - progress)}
                             />
                         </Svg>
+                        <View style={styles.arcText}>
+                            <Text style={styles.score}>{awarenessScore}</Text>
+                            <Text style={styles.scoreLabel}>
+                                {getScoreLabel()}
+                            </Text>
+                        </View>
+                    </View>
+                    <Text style={styles.scoreDescription}>
+                        Your awareness score shows how prepared you are to
+                        handle scams. Complete more modules to boost your score!
+                    </Text>
+                </View> */}
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle}>Awareness Points</Text>
+                    <View style={styles.arcWrapper}>
+                        <Svg width={300} height={180}>
+                            {' '}
+                            <Path
+                                d="M20 160 A130 130 0 0 1 280 160"
+                                fill="none"
+                                stroke="#D1D1D1"
+                                strokeWidth={20} // thicker stroke
+                            />
+                            {/* Foreground Progress Arc */}
+                            <Path
+                                d="M20 160 A130 130 0 0 1 280 160"
+                                fill="none"
+                                stroke="#1980F5"
+                                strokeWidth={20}
+                                strokeDasharray="408"
+                                strokeDashoffset={408 * (1 - progress)}
+                            />
+                        </Svg>
+
                         <View style={styles.arcText}>
                             <Text style={styles.score}>{awarenessScore}</Text>
                             <Text style={styles.scoreLabel}>
@@ -190,61 +220,64 @@ const styles = StyleSheet.create({
         zIndex: -1
     },
     content: {
-        padding: 16,
-        paddingTop: 40
+        padding: 16
     },
     heading: {
-        fontSize: 28,
+        fontSize: 32,
         textAlign: 'left',
-        marginBottom: 0,
+        gap: 20,
         fontFamily: 'Montserrat-Bold'
     },
     subheading: {
-        fontSize: 18,
+        fontSize: 20,
         textAlign: 'left',
         marginVertical: 0,
-        fontFamily: 'Montserrat-SemiBold'
+        color: '#1C1C1C',
+        fontFamily: 'Montserrat-Regular'
     },
     description: {
-        fontSize: 16,
+        fontSize: 20,
         textAlign: 'left',
-        color: '111',
-        marginBottom: 20,
-        fontFamily: 'Montserrat-Medium'
+        color: '#1C1C1C',
+        marginBottom: 50,
+        fontFamily: 'Montserrat-Regular'
     },
     card: {
         backgroundColor: '#FFF',
         borderRadius: 16,
         padding: 20,
         alignItems: 'center',
-        marginBottom: 16
+        marginBottom: 29
     },
     cardTitle: {
-        fontSize: 20,
+        fontSize: 22,
         fontFamily: 'Montserrat-Bold',
         marginBottom: 10
     },
     score: {
-        fontSize: 28,
-        fontFamily: 'Montserrat-Bold',
-        color: '#1C1C1C'
+        fontSize: 32,
+        fontFamily: 'Montserrat-SemiBold',
+        color: '#1C1C1C',
+        marginTop: 20
     },
     scoreLabel: {
-        fontSize: 14,
-        fontFamily: 'Montserrat-Bold',
+        fontSize: 20,
+        fontFamily: 'Montserrat-Medium',
         color: '#111',
-        marginTop: -2
+        marginTop: 1
     },
     scoreDescription: {
-        fontSize: 16,
+        fontSize: 20,
+        lineHeight: 32,
         textAlign: 'center',
         color: '#111',
         marginTop: 10,
-        fontFamily: 'Montserrat-SemiBold'
+        fontFamily: 'Montserrat-Medium'
     },
     badgeTitle: {
-        fontSize: 24,
+        fontSize: 22,
         marginBottom: 12,
+        lineHeight: 35,
         fontFamily: 'Montserrat-Bold'
     },
     badgeBox: {
@@ -274,9 +307,9 @@ const styles = StyleSheet.create({
     completedCoursesCard: {
         backgroundColor: '#FFF',
         borderRadius: 16,
-        paddingVertical: 24,
-        paddingHorizontal: 20,
-        marginBottom: 20,
+        paddingVertical: 57,
+        paddingHorizontal: 40,
+        marginBottom: 73,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -288,21 +321,23 @@ const styles = StyleSheet.create({
         height: 60
     },
     completedCoursesLabel: {
-        fontSize: 18,
+        fontSize: 22,
+        lineHeight: 35,
         fontFamily: 'Montserrat-Bold',
         color: '#1C1C1C',
         marginLeft: 30
     },
     completedCount: {
-        fontSize: 24,
+        fontSize: 32,
+        lineHeight: 42,
         fontFamily: 'Montserrat-Bold',
         color: '#1C1C1C',
         marginRight: 30
     },
     verticalDivider: {
-        height: 24,
+        height: 49,
         width: 1,
-        backgroundColor: '#D1D1D1',
+        backgroundColor: '#000',
         marginHorizontal: 16
     },
     badgeContainer: {
@@ -330,11 +365,11 @@ const styles = StyleSheet.create({
         height: 100
     },
     badgeLabel: {
-        fontSize: 14,
+        fontSize: 18,
         textAlign: 'center',
         marginTop: 10,
-        color: '#1C1C1C',
-        fontFamily: 'Montserrat-SemiBold'
+        color: '#0A2941',
+        fontFamily: 'Montserrat-Bold'
     },
     topBackground: {
         position: 'absolute',
