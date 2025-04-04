@@ -160,21 +160,22 @@ const SavedPosts = (): React.JSX.Element => {
                 <View style={commonStyles.faqContainer}>
                     <Text className='color-[#191919]'
                         style={{
-                            fontSize: textSize - 4,
-                            padding: 2,
+                            fontSize: textSize - 5,
+                            padding: 5,
                             textAlign: 'left',
-                            fontFamily:  'Montserrat_700Bold',
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                         }}
                     >
                         No saved posts yet!
                     </Text>
                     <Text
                         style={{
-                            fontSize: textSize - 4,
-                            fontFamily: isBold ? 'Montserrat_Regular' : 'Montserrat_400Regular',
-                            marginTop: 5,
-                            padding:2,
-                            lineHeight:25
+                            fontSize: textSize - 9,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                            marginTop: 20,
+                            marginBottom: 20,
+                            padding:4,
+                            lineHeight:22
                         }}
                         className='color-[#191919]'
                     >
@@ -187,10 +188,11 @@ const SavedPosts = (): React.JSX.Element => {
                         <Text
                             style={[
                                 commonStyles.browseButtonText,
-                                { fontSize: textSize - 3 },
-                                { fontFamily: isBold ? 'Montserrat_Regular' : 'Montserrat_400Regular' }
+                                { fontSize: textSize - 6 },
+                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium' },
+                                { padding: 2 },
+
                             ]}
-                            className='p-2'
                         >
                             Browse Posts
                         </Text>
