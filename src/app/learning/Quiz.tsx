@@ -4,9 +4,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import * as Speech from 'expo-speech'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-export const unstable_settings = {
-    headerShown: false
-}
+import { useNavigation } from '@react-navigation/native'
 
 const quizQuestions = [
     {
@@ -54,6 +52,7 @@ const quizQuestions = [
 
 const QuizScreen = (): JSX.Element => {
     const router = useRouter()
+    const navigation = useNavigation()
     const { courseId } = useLocalSearchParams<{ courseId: string }>()
     const [score, setScore] = useState<number>(0)
     const [currentQuestion, setCurrentQuestion] = useState<number>(0)
@@ -64,16 +63,47 @@ const QuizScreen = (): JSX.Element => {
     const progressPercentage: number =
         ((currentQuestion + 1) / quizQuestions.length) * 100
 
-    // useEffect((): void => {
-    //     const loadCourseProgress = async (): Promise<void> => {
-    //         if (!courseId) return
-    //         const savedScore = await AsyncStorage.getItem(
-    //             `quizScore_${courseId}`
-    //         )
-    //         if (savedScore) setScore(parseInt(savedScore))
-    //     }
-    //     loadCourseProgress()
-    // }, [courseId])
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: '', // remove the default title
+            headerLeft: () => (
+                <TouchableOpacity onPress={() => router.back()}>
+                    <Image
+                        source={require('../../../assets/images/Back-arrow.png')}
+                        style={{ width: 28, height: 28, marginLeft: 8 }}
+                        resizeMode="contain"
+                    />
+                </TouchableOpacity>
+            ),
+            // <View className="bg-orange-200 px-4 py-1 rounded-full">
+            //         <Text className="text-gray-800 font-[<Montserrat-Bold>] text-xl">
+            //             {score} points
+            //         </Text>
+            //     </View>
+            headerRight: () => (
+                <View
+                    style={{
+                        backgroundColor: '#FFEACE',
+                        paddingVertical: 4,
+                        paddingHorizontal: 12,
+                        borderRadius: 999,
+                        marginRight: 8
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: '#1F2937',
+                            fontSize: 16,
+                            fontFamily: 'Montserrat-Bold'
+                        }}
+                    >
+                        {score} points
+                    </Text>
+                </View>
+            )
+        })
+    }, [navigation, score])
+
     useEffect((): void => {
         const initializeQuiz = async (): Promise<void> => {
             if (!courseId) return
@@ -140,7 +170,7 @@ const QuizScreen = (): JSX.Element => {
                     }
                 })
             } catch (err) {
-                console.error('❌ Failed to save quiz result:', err)
+                console.error('Failed to save quiz result:', err)
             }
         }
     }
@@ -150,23 +180,6 @@ const QuizScreen = (): JSX.Element => {
     }
     return (
         <View className="flex-1 bg-[#F3F3F3] px-4 pt-6">
-            {/* Top Header */}
-            <View className="flex-row justify-between items-center px-2 mb-3">
-                <TouchableOpacity onPress={() => router.back()}>
-                    <Image
-                        source={require('../../../assets/images/Back-arrow.png')}
-                        className="w-8 h-8"
-                        resizeMode="contain"
-                    />
-                </TouchableOpacity>
-
-                <View className="bg-orange-200 px-4 py-1 rounded-full">
-                    <Text className="text-gray-800 font-[<Montserrat-Bold>] text-xl">
-                        {score} points
-                    </Text>
-                </View>
-            </View>
-
             {/* Progress Bar */}
             <View className="mt-2">
                 <Text className="text-xl font-[<Montserrat-SemiBold>]">
@@ -226,7 +239,7 @@ const QuizScreen = (): JSX.Element => {
 
                     {/* Next Button */}
                     <TouchableOpacity
-                        className="bg-[#0A2941] py-4 px-6 rounded-xl items-center mb-6"
+                        className="bg-[#0A2941] py-4 px-6 rounded-xl items-center mb-10"
                         onPress={handleNext}
                     >
                         <Text className="text-white text-[20px] font-[<Montserrat-Bold>]">
@@ -238,7 +251,7 @@ const QuizScreen = (): JSX.Element => {
                 <View className="mt-6 flex-1 justify-between">
                     <View>
                         {/* Question */}
-                        <Text className="text-2xl font-[<Montserrat-Bold>] mb-4">
+                        <Text className="text-[22px] leading-[35px] font-[<Montserrat-Bold>] mb-4">
                             {quizQuestions[currentQuestion].question}
                         </Text>
 
@@ -247,18 +260,18 @@ const QuizScreen = (): JSX.Element => {
                             (option, index) => (
                                 <TouchableOpacity
                                     key={index}
-                                    className={`p-3 mb-3 rounded-xl ${
+                                    className={`p-7 mb-3 border rounded-xl ${
                                         selectedAnswer === option
                                             ? option ===
                                               quizQuestions[currentQuestion]
                                                   .correctAnswer
-                                                ? 'bg-orange-500'
+                                                ? 'bg-orange-400'
                                                 : 'bg-orange-200'
                                             : 'bg-orange-100'
                                     }`}
                                     onPress={() => handleAnswer(option)}
                                 >
-                                    <Text className="text-xl font-[<Montserrat-SemiBold>] text-gray-900">
+                                    <Text className="text-[20px] leading-[32px] font-[<Montserrat-SemiBold>] text-gray-900">
                                         {option}
                                     </Text>
                                 </TouchableOpacity>
@@ -268,7 +281,7 @@ const QuizScreen = (): JSX.Element => {
 
                     {/* Submit Button */}
                     <TouchableOpacity
-                        className={`mt-4 mb-6 py-4 px-6 rounded-xl w-full items-center ${
+                        className={`mt-4 mb-10 py-4 px-6 rounded-xl w-full items-center ${
                             selectedAnswer ? 'bg-[#0A2941]' : 'bg-gray-400'
                         }`}
                         disabled={!selectedAnswer}
