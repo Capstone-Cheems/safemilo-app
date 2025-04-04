@@ -38,7 +38,7 @@ export const HeaderRight: React.FC<HeaderRightProps> = ({ user }) => {
             <TouchableOpacity onPress={() => router.push('/profile/profile')}>
                 <Avatar size="md">
                     <AvatarFallbackText>
-                        { authUser?.email || authUser?.displayName }{/* Fallback if no email */}
+                        {authUser?.displayName  || authUser?.email }{/* Fallback if no email */}
                     </AvatarFallbackText>
                     {user?.photoURL && (
                         <AvatarImage

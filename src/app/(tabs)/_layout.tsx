@@ -77,7 +77,7 @@ export default function TabLayout(): ReactNode {
                         >
                             <Avatar size="md">
                                 <AvatarFallbackText>
-                                    {user?.email}
+                                    {user?.displayName ?? user?.email}
                                 </AvatarFallbackText>
                                 <AvatarImage
                                     source={{
