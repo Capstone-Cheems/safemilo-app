@@ -237,7 +237,7 @@ const Settings = (): React.JSX.Element => {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ width: 230 }}>
                                 <Slider
-                                    minValue={25}
+                                    minValue={24}
                                     maxValue={30}
                                     value={textSize}
                                     onChange={setTextSize}
