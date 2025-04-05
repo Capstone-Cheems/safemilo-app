@@ -91,7 +91,7 @@ const FeatureWalkthrough = () => {
                     localStyles.header,
                     {
                         fontSize: textSize + 4,
-                        fontFamily: 'Montserrat_700Bold',
+                        fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                     },
                 ]}
             >
@@ -102,7 +102,7 @@ const FeatureWalkthrough = () => {
                     style={[
                         localStyles.question,
                         {
-                            fontSize: textSize - 4,
+                            fontSize: textSize - 1,
                             fontFamily:  'Montserrat_700Bold',
                             textAlign: 'left',
                         },
@@ -114,9 +114,9 @@ const FeatureWalkthrough = () => {
                     style={[
                         localStyles.question,
                         {
-                            fontSize: textSize - 4,
+                            fontSize: textSize - 5,
                             fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_400Regular',
-                            marginTop: 10,
+                           
                             marginBottom: 10,
                             lineHeight: 30,
                             textAlign: 'left',
@@ -137,7 +137,7 @@ const FeatureWalkthrough = () => {
                         style={[
                             {
                                 fontSize: textSize - 4,
-                                fontFamily:  'Montserrat_700Bold',
+                                fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                                 textAlign: 'left',
                             },
                             commonStyles.PbuttonText
@@ -162,7 +162,7 @@ const FeatureWalkthrough = () => {
                                 commonStyles.modalTitle,
                                 {
                                     fontSize: textSize,
-                                    fontWeight: isBold ? 'bold' : 'normal'
+                                    fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_600SemiBold'
                                 }
                             ]}
                         >
@@ -172,8 +172,8 @@ const FeatureWalkthrough = () => {
                             style={[
                                 commonStyles.modalContent,
                                 {
-                                    fontSize: textSize - 4,
-                                    fontWeight: isBold ? 'bold' : 'normal'
+                                    fontSize: textSize - 5,
+                                    fontFamily: isBold ? 'Montserrat_500Medium' : 'Montserrat_400Regular',
                                 }
                             ]}
                         >
@@ -183,13 +183,12 @@ const FeatureWalkthrough = () => {
                             flexDirection: 'row', 
                             justifyContent: 'space-between', 
                             width: '100%',
-                            marginTop: 20 
                         }}>
                             <TouchableOpacity
                                 style={[commonStyles.closeButton, { flex: 1, marginRight: 10 }]}
                                 onPress={closeModal}
                             >
-                                <Text style={[commonStyles.closeButtonText, { fontSize: textSize - 6 }]}>
+                                <Text style={[commonStyles.closeButtonText, { fontSize: textSize - 6, fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium' }]}>
                                     Close
                                 </Text>
                             </TouchableOpacity>
@@ -197,7 +196,7 @@ const FeatureWalkthrough = () => {
                                 style={[commonStyles.closeButton, { flex: 1 }]} 
                                 onPress={handleConfirm}
                             >
-                                <Text style={[commonStyles.closeButtonText, { fontSize: textSize - 6 }]}>
+                                 <Text style={[commonStyles.closeButtonText, { fontSize: textSize - 6, fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium' }]}>
                                     Confirm
                                 </Text>
                             </TouchableOpacity>

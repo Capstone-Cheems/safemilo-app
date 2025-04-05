@@ -123,7 +123,7 @@ const Home = (): React.JSX.Element => {
                         />
                         <Text
                             style={{
-                                fontSize: textSize - 2,
+                                fontSize: textSize - 3.5,
                                 fontFamily: 'Montserrat_700Bold',
                                 lineHeight: 32
                             }}
@@ -135,13 +135,13 @@ const Home = (): React.JSX.Element => {
                     <Box>
                         <Text
                             style={{
-                                fontSize: textSize - 8,
+                                fontSize: textSize - 7,
                                 fontFamily: isBold
                                     ? 'Montserrat_600SemiBold'
                                     : 'Montserrat_500Medium',
                                 lineHeight: 32
                             }}
-                            className="color-[#000000] text-justify"
+                            className="color-[#000000]"
                         >
                             {randomTip}
                         </Text>
