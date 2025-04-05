@@ -158,7 +158,7 @@ const Profile = (): React.JSX.Element => {
 
             <Text
                 style={{
-                    fontSize: textSize - 7,
+                    fontSize: textSize - 9,
                     fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                     marginBottom: 10,
                 }}
@@ -175,7 +175,7 @@ const Profile = (): React.JSX.Element => {
                     style={[
                         commonStyles.ptext,
                         {
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 3.5,
                             fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         },
                     ]}
@@ -184,7 +184,7 @@ const Profile = (): React.JSX.Element => {
                 </Text>
                 <Image
                     source={require('../../../assets/images/profile-arrow.png')}
-                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                    style={{ width: textSize - 3.5, height: textSize - 3.5, marginLeft: 10 }}
                 />
             </TouchableOpacity>
             <TouchableOpacity
@@ -195,7 +195,7 @@ const Profile = (): React.JSX.Element => {
                     style={[
                         commonStyles.ptext,
                         {
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 3.5,
                             fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         },
                     ]}
@@ -204,7 +204,7 @@ const Profile = (): React.JSX.Element => {
                 </Text>
                 <Image
                     source={require('../../../assets/images/profile-arrow.png')}
-                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                    style={{ width: textSize - 3.5, height: textSize - 3.5, marginLeft: 10 }}
                 />
             </TouchableOpacity>
             <TouchableOpacity
@@ -215,7 +215,7 @@ const Profile = (): React.JSX.Element => {
                     style={[
                         commonStyles.ptext,
                         {
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 3.5,
                             fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         },
                     ]}
@@ -224,7 +224,7 @@ const Profile = (): React.JSX.Element => {
                 </Text>
                 <Image
                     source={require('../../../assets/images/profile-arrow.png')}
-                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                    style={{ width: textSize - 3.5, height: textSize - 3.5, marginLeft: 10 }}
                 />
             </TouchableOpacity>
             <TouchableOpacity
@@ -235,7 +235,7 @@ const Profile = (): React.JSX.Element => {
                     style={[
                         commonStyles.ptext,
                         {
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 3.5,
                             fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         },
                     ]}
@@ -244,7 +244,7 @@ const Profile = (): React.JSX.Element => {
                 </Text>
                 <Image
                     source={require('../../../assets/images/profile-arrow.png')}
-                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                    style={{ width: textSize - 3.5, height: textSize - 3.5, marginLeft: 10 }}
                 />
             </TouchableOpacity>
             <TouchableOpacity
@@ -255,7 +255,7 @@ const Profile = (): React.JSX.Element => {
                     style={[
                         commonStyles.ptext,
                         {
-                            fontSize: textSize - 3,
+                            fontSize: textSize - 3.5,
                             fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
                         },
                     ]}
@@ -264,7 +264,7 @@ const Profile = (): React.JSX.Element => {
                 </Text>
                 <Image
                     source={require('../../../assets/images/profile-arrow.png')}
-                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                    style={{ width: textSize - 3.5, height: textSize - 3.5, marginLeft: 10 }}
                 />
             </TouchableOpacity>
 

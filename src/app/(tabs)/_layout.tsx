@@ -80,7 +80,7 @@ export default function TabLayout(): ReactNode {
                         >
                             <Icon
                                 as={BellIcon}
-                                style={{fill: '#0A2941', stroke:'#0A2941', height:30, width:30}}
+                                style={{stroke:'#0A2941', height:30, width:30}}
                                 
                             />
                         </TouchableOpacity>
@@ -89,7 +89,7 @@ export default function TabLayout(): ReactNode {
                         >
                             <Avatar size="md">
                                 <AvatarFallbackText>
-                                    {user?.email}
+                                    {user?.displayName ? user?.displayName : user?.email}
                                 </AvatarFallbackText>
                                 <AvatarImage
                                     source={{

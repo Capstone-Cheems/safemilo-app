@@ -214,7 +214,7 @@ const Settings = (): React.JSX.Element => {
                     </Text>
                     <Image
                         source={require('../../../assets/images/profile-arrow.png')}
-                        style={{ width: textSize - 12, height: textSize - 12, marginRight: 5 }}
+                        style={{ width: textSize - 3, height: textSize - 3, marginRight: 5 }}
                     />
                 </TouchableOpacity>
 
@@ -238,7 +238,7 @@ const Settings = (): React.JSX.Element => {
                             <View style={{ width: 230 }}>
                                 <Slider
                                     minValue={24}
-                                    maxValue={35}
+                                    maxValue={30}
                                     value={textSize}
                                     onChange={setTextSize}
                                     size="md"

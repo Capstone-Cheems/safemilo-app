@@ -160,21 +160,22 @@ const SavedPosts = (): React.JSX.Element => {
                 <View style={commonStyles.faqContainer}>
                     <Text className='color-[#191919]'
                         style={{
-                            fontSize: textSize - 4,
-                            padding: 2,
+                            fontSize: textSize - 5,
+                            padding: 5,
                             textAlign: 'left',
-                            fontFamily:  'Montserrat_700Bold',
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
                         }}
                     >
                         No saved posts yet!
                     </Text>
                     <Text
                         style={{
-                            fontSize: textSize - 4,
-                            fontFamily: isBold ? 'Montserrat_Regular' : 'Montserrat_400Regular',
-                            marginTop: 5,
-                            padding:2,
-                            lineHeight:25
+                            fontSize: textSize - 9,
+                            fontFamily: isBold ? 'Montserrat_600SemiBold' : 'Montserrat_500Medium',
+                            marginTop: 20,
+                            marginBottom: 20,
+                            padding:4,
+                            lineHeight:22
                         }}
                         className='color-[#191919]'
                     >
@@ -187,10 +188,11 @@ const SavedPosts = (): React.JSX.Element => {
                         <Text
                             style={[
                                 commonStyles.browseButtonText,
-                                { fontSize: textSize - 3 },
-                                { fontFamily: isBold ? 'Montserrat_Regular' : 'Montserrat_400Regular' }
+                                { fontSize: textSize - 6 },
+                                { fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium' },
+                                { padding: 2 },
+
                             ]}
-                            className='p-2'
                         >
                             Browse Posts
                         </Text>
@@ -229,7 +231,7 @@ const SavedPosts = (): React.JSX.Element => {
                                     fontFamily: isBold
                                         ? 'Montserrat_700Bold'
                                         : 'Montserrat_400Regular',
-                                    marginBottom: 10,
+                                    marginBottom: 3,
                                     textAlign: 'left'
                                 }
                             ]}
@@ -259,10 +261,10 @@ const SavedPosts = (): React.JSX.Element => {
                             marginBottom: 5,
                             fontSize: textSize - 10,
                             fontFamily: isBold
-                                ? 'Montserrat_600SemiBold'
-                                : 'Montserrat_Regular'
+                                ? 'Montserrat_700Bold'
+                                : 'Montserrat_600SemiBold'
                         }}
-                        numberOfLines={expandedPosts.has(item.newsID) ? 10 : 2}
+                        numberOfLines={expandedPosts.has(item.newsID) ? 16 : 2}
                         ellipsizeMode="tail"
                         className='pt-2 color-[##1C1C1C]'
                     >
@@ -285,11 +287,12 @@ const SavedPosts = (): React.JSX.Element => {
                         onPress={() => toggleExpand(item.newsID)}
                         style={{ marginBottom: 5 }}
                     >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10,paddingTop:10 }}>
                             <Text
                                 style={{
-                                    fontSize: textSize - 4,
+                                    fontSize: textSize - 8,
                                     color: '#0A2941',
+                                   
                                     fontFamily: 'Montserrat_700Bold'
                                 }}
                             >
@@ -297,7 +300,7 @@ const SavedPosts = (): React.JSX.Element => {
                             </Text>
                             <Image
                                 source={require('../../../assets/images/profile-arrow.png')}
-                                style={{ width: 20, height: 20, marginLeft: 5 }}
+                                style={{ width: 20, height: 20, marginLeft: 15 }}
                             />
                         </View>
                     </TouchableOpacity>
