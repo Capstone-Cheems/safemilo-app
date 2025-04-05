@@ -95,6 +95,10 @@ function RootLayoutNav(): ReactNode {
                         name="(organization)"
                         options={{ headerShown: false }}
                     />
+                    <Stack.Screen
+                        name="learning/ReviewScreen"
+                        options={{ headerShown: false }}
+                    />
                 </Stack>
             </ThemeProvider>
             <Toast />

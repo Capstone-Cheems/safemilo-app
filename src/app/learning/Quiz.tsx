@@ -70,7 +70,7 @@ const QuizScreen = (): JSX.Element => {
                 <TouchableOpacity onPress={() => router.back()}>
                     <Image
                         source={require('../../../assets/images/Back-arrow.png')}
-                        style={{ width: 28, height: 28, marginLeft: 8 }}
+                        style={{ width: 36, height: 36, marginLeft: 8 }}
                         resizeMode="contain"
                     />
                 </TouchableOpacity>
@@ -93,7 +93,7 @@ const QuizScreen = (): JSX.Element => {
                     <Text
                         style={{
                             color: '#1F2937',
-                            fontSize: 16,
+                            fontSize: 18,
                             fontFamily: 'Montserrat-Bold'
                         }}
                     >
