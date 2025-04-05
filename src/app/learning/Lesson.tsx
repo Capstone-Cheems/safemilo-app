@@ -4,10 +4,13 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { useNavigation } from '@react-navigation/native'
 import { useLocalSearchParams } from 'expo-router'
+import LoaderForLesson from '@/components/LoaderForLesson'
 
 const LessonScreen = (): JSX.Element => {
     const router = useRouter()
     const navigation = useNavigation()
+    const [loading, setLoading] = useState(true)
+
      useEffect(() => {
             navigation.setOptions({
                 headerTitle: '', // remove the default title
@@ -19,22 +22,28 @@ const LessonScreen = (): JSX.Element => {
         <View style={styles.container}>
             <Text style={styles.header}>Lesson Video</Text>
 
-            {/* YouTube Video Embed */}
-            <WebView
-                source={{ uri: 'https://www.youtube.com/embed/ar2MOvn2aDc' }}
-                style={styles.video}
-                allowsFullscreenVideo
-            />
+            <View style={styles.webviewWrapper}>
+                <WebView
+                    source={{ uri: 'https://www.youtube.com/embed/ar2MOvn2aDc' }}
+                    style={styles.video}
+                    allowsFullscreenVideo
+                    onLoadStart={() => setLoading(true)}
+                    onLoadEnd={() => setLoading(false)}
+                />
+                {loading && (
+                    <View style={styles.loaderWrapper}>
+                        <LoaderForLesson />
+                    </View>
+                )}
+            </View>
 
-            {/* Continue button to go to Quiz */}
             <TouchableOpacity
                 style={styles.button}
-                onPress={
-                    () =>
-                        router.push({
-                            pathname: '/learning/Quiz',
-                            params: { courseId }
-                        }) // Correct navigation
+                onPress={() =>
+                    router.push({
+                        pathname: '/learning/Quiz',
+                        params: { courseId }
+                    })
                 }
             >
                 <Text style={styles.buttonText}>Continue</Text>
@@ -75,6 +84,21 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 22,
         fontFamily: 'Montserrat-Bold'
+    },
+    webviewWrapper: {
+        position: 'relative',
+        width: 'auto',
+        height: '80%',
+        borderRadius: 20,
+        overflow: 'hidden'
+    },
+    loaderWrapper: {
+        ...StyleSheet.absoluteFillObject,
+        display: 'flex',
+        backgroundColor: 'rgba(255,255,255,0.8)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1,
     }
 })
 
