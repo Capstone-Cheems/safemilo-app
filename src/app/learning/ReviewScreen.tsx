@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import ModuleCompleteAnimation from '@/components/ModuleCompleteAnimation'
-export const unstable_settings = {
+export const options = {
     headerShown: false
 }
 

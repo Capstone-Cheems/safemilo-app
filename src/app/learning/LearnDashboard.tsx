@@ -7,7 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Card } from '@/components/ui/card'
 import { VStack } from '@/components/ui/vstack'
 import { Box } from '@/components/ui/box'
-import { useNavigation } from '@react-navigation/native'
 
 type Course = {
     id: string
@@ -94,41 +93,6 @@ const LearnDashboardScreen = (): JSX.Element => {
 
         fetchProgress()
     }, [])
-
-    const navigation = useNavigation()
-
-    useEffect(() => {
-        navigation.setOptions({
-            headerTitle: () => null, // Removes "Learn" from header
-            headerRight: () => (
-                <View
-                    style={{ flexDirection: 'row', gap: 16, marginRight: 12 }}
-                >
-                    {/* Notification icon */}
-                    <TouchableOpacity
-                        onPress={() => router.push('/notifications')}
-                    >
-                        <Image
-                            source={require('../../../assets/images/notification-icon.png')}
-                            style={{ width: 32, height: 32 }}
-                        />
-                    </TouchableOpacity>
-
-                    {/* Profile icon */}
-                    <TouchableOpacity onPress={() => router.push('/profile')}>
-                        <Image
-                            source={require('../../../assets/images/profile-icon.png')}
-                            style={{
-                                width: 32,
-                                height: 32,
-                                borderRadius: 16
-                            }}
-                        />
-                    </TouchableOpacity>
-                </View>
-            )
-        })
-    }, [navigation])
 
     const ActiveCourseCard = ({ course }: { course: Course }) => (
         <Card className="bg-[#DADADA] w-[260] px-0 py-0 mr-4">

@@ -1,11 +1,28 @@
 import { useRouter } from 'expo-router'
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { WebView } from 'react-native-webview'
+import { useNavigation } from '@react-navigation/native'
 import { useLocalSearchParams } from 'expo-router'
 
 const LessonScreen = (): JSX.Element => {
     const router = useRouter()
+    const navigation = useNavigation()
+     useEffect(() => {
+            navigation.setOptions({
+                headerTitle: '', // remove the default title
+                headerLeft: () => (
+                    <TouchableOpacity onPress={() => router.back()}>
+                    <Image
+                        source={require('../../../assets/images/Back-arrow.png')}
+                        style={{ width: 36, height: 36, marginLeft: 8 }}
+                        resizeMode="contain"
+                    />
+                </TouchableOpacity>
+                )
+            })
+        }, [navigation])
+
     const { courseId } = useLocalSearchParams()
     return (
         <View style={styles.container}>
