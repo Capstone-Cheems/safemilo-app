@@ -32,11 +32,11 @@ export const HeaderRight: React.FC<HeaderRightProps> = ({ user }) => {
             >
                 <Icon
                     as={BellIcon}
-                    style={{ stroke: '#0A2941', height: 30, width: 30 }}
+                    style={{fill:'#0A2941', stroke: '#0A2941', height: 30, width: 30 }}
                 />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => router.push('/profile/profile')}>
-                <Avatar size="md">
+                <Avatar size="md" className='bg-[#0A2941]'>
                     <AvatarFallbackText>
                         {authUser?.displayName  || authUser?.email }{/* Fallback if no email */}
                     </AvatarFallbackText>

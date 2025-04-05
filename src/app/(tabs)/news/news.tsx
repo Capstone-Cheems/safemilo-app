@@ -8,7 +8,7 @@ const News = (): ReactNode => {
     const navigation = useNavigation()
 
     useLayoutEffect(() => {
-        navigation.setOptions({ headerShown: false })
+        navigation.setOptions({ headerTitle:'' })
     }, [navigation])
     return (
         <ScrollView>

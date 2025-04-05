@@ -11,15 +11,6 @@ const LessonScreen = (): JSX.Element => {
      useEffect(() => {
             navigation.setOptions({
                 headerTitle: '', // remove the default title
-                headerLeft: () => (
-                    <TouchableOpacity onPress={() => router.back()}>
-                    <Image
-                        source={require('../../../assets/images/Back-arrow.png')}
-                        style={{ width: 36, height: 36, marginLeft: 8 }}
-                        resizeMode="contain"
-                    />
-                </TouchableOpacity>
-                )
             })
         }, [navigation])
 

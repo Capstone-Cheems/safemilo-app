@@ -67,8 +67,8 @@ export default function Chat(): ReactNode {
             },
             headerTintColor: '#F9F4F4',
             headerTitleAlign: 'left',
-            headerTitle: () => (
-                <Box className="flex flex-row items-center gap-3">
+            headerLeft: () => (
+                <Box className="flex flex-row items-center gap-3" style={{paddingLeft:10}}>
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../../../assets/images/ChatIcon.png')}

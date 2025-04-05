@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import React, { ReactNode, useEffect, useState } from 'react'
 import { Tabs, useRouter } from 'expo-router'
-import { BellIcon, Icon } from '@/components/ui/icon'
+import { ArrowLeftIcon, BellIcon, Icon } from '@/components/ui/icon'
 import {
     Avatar,
     AvatarBadge,
@@ -61,11 +61,7 @@ export default function TabLayout(): ReactNode {
                         onPress={() => router.back()}
                         style={{ paddingLeft: 16 }}
                     >
-                        <Image
-                            source={require('../../../assets/images/Back-arrow.png')}
-                            style={{ width: 36, height: 36 }}
-                            resizeMode="contain"
-                        />
+                        <Icon as={ArrowLeftIcon} size='xl' />
                     </TouchableOpacity>
                 ),
                 headerRight: () => (
@@ -80,14 +76,14 @@ export default function TabLayout(): ReactNode {
                         >
                             <Icon
                                 as={BellIcon}
-                                style={{stroke:'#0A2941', height:30, width:30}}
+                                style={{fill:'#0A2941', stroke:'#0A2941', height:30, width:30}}
                                 
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => router.push('/profile/profile')}
                         >
-                            <Avatar size="md">
+                            <Avatar size="md" className='bg-[#0A2941]'>
                                 <AvatarFallbackText>
                                     {user?.displayName ? user?.displayName : user?.email}
                                 </AvatarFallbackText>
@@ -125,7 +121,7 @@ export default function TabLayout(): ReactNode {
             <Tabs.Screen
                 name="learn"
                 options={{
-                    title: 'Learn',
+                    title: '',
                     tabBarIcon: ({ focused }) =>
                         learnIcon && (
                             <TabBarIcon
@@ -144,7 +140,7 @@ export default function TabLayout(): ReactNode {
             <Tabs.Screen
                 name="chat"
                 options={{
-                    title: 'Chat',
+                    title: '',
                     tabBarIcon: ({ focused }) =>
                         chatIcon && (
                             <TabBarIcon
@@ -160,7 +156,7 @@ export default function TabLayout(): ReactNode {
                         )
                 }}
             />
-            <Tabs.Screen name="news" options={{ href: null }} />
+            <Tabs.Screen name="news"  options={{ href: null,title: '' }} />
         </Tabs>
     )
 }

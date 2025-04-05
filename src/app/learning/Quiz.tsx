@@ -66,15 +66,7 @@ const QuizScreen = (): JSX.Element => {
     useEffect(() => {
         navigation.setOptions({
             headerTitle: '', // remove the default title
-            headerLeft: () => (
-                <TouchableOpacity onPress={() => router.back()}>
-                    <Image
-                        source={require('../../../assets/images/Back-arrow.png')}
-                        style={{ width: 36, height: 36, marginLeft: 8 }}
-                        resizeMode="contain"
-                    />
-                </TouchableOpacity>
-            ),
+            
             // <View className="bg-orange-200 px-4 py-1 rounded-full">
             //         <Text className="text-gray-800 font-[<Montserrat-Bold>] text-xl">
             //             {score} points

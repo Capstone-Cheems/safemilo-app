@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
     Image
 } from 'react-native';
-import { useNavigation } from 'expo-router';
+import { useNavigation, useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Contacts from 'expo-contacts';
@@ -34,6 +34,7 @@ import {
 import { HeaderRight } from '../../../components/HeaderRight';
 
 const Settings = (): React.JSX.Element => {
+    const router = useRouter()
     const [textSize, setTextSize] = useState(28);
     const [showSlider, setShowSlider] = useState(false);
     const [isBold, setIsBold] = useState(true);
@@ -73,17 +74,9 @@ const Settings = (): React.JSX.Element => {
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
-            headerRight: () => <HeaderRight />
-            // headerLeft: () => (
-            //     <TouchableOpacity onPress={() => navigation.goBack()}>
-            //         <Image
-            //             source={require('../../../assets/images/Back-arrow.png')} // Custom back button image
-            //             style={{ width: 30, height: 30, marginLeft: 10 }} // Adjust size as needed
-            //         />
-            //     </TouchableOpacity>
-            // ),
+           
         });
-        
+
     }, [navigation]);
 
     const [fontsLoaded] = useFonts({
@@ -176,8 +169,8 @@ const Settings = (): React.JSX.Element => {
                     {
                         fontSize: textSize + 4,
                         padding: 20,
-                        fontFamily:  'Montserrat_600SemiBold',
-                         color:'#191919'
+                        fontFamily: 'Montserrat_600SemiBold',
+                        color: '#191919'
                     }
                 ]}
             >
@@ -188,8 +181,8 @@ const Settings = (): React.JSX.Element => {
                     {
                         fontSize: textSize - 2,
                         paddingLeft: 20,
-                        fontFamily: 'Montserrat_600SemiBold' ,
-                         color:'#191919'
+                        fontFamily: 'Montserrat_600SemiBold',
+                        color: '#191919'
                     }
                 ]}
             >
@@ -206,7 +199,7 @@ const Settings = (): React.JSX.Element => {
                             {
                                 fontSize: textSize - 4,
                                 fontFamily: isBold ? 'Montserrat_700Bold' : 'Montserrat_500Medium',
-                                 color:'#191919'
+                                color: '#191919'
                             }
                         ]}
                     >
@@ -296,10 +289,10 @@ const Settings = (): React.JSX.Element => {
                             paddingTop: 20,
                             paddingBottom: 20,
                             fontFamily: 'Montserrat_600SemiBold',
-                            color:'#191919'
+                            color: '#191919'
                         }
                     ]}
-                    
+
                 >
                     App Permissions
                 </Text>
@@ -373,7 +366,7 @@ const Settings = (): React.JSX.Element => {
                             paddingLeft: 5,
                             paddingTop: 20,
                             paddingBottom: 20,
-                            fontFamily:  'Montserrat_600SemiBold',
+                            fontFamily: 'Montserrat_600SemiBold',
                         }
                     ]}
                 >
