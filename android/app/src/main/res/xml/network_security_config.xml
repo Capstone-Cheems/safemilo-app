@@ -10,8 +10,13 @@
         <domain includeSubdomains="true">192.168.1.183</domain>
         <domain includeSubdomains="true">172.20.10.8</domain>
         <domain includeSubdomains="true">10.128.221.101</domain>
+<<<<<<< Updated upstream
         <domain includeSubdomains="true">192.168.1.73:8081</domain>
         <domain includeSubdomains="true">192.168.1.89</domain>
+=======
+        <domain includeSubdomains="true">192.168.1.73</domain>
+        <domain>192.168.1.89</domain>
+>>>>>>> Stashed changes
     </domain-config>
 </network-security-config>
 
