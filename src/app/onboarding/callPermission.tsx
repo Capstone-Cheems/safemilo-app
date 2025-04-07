@@ -57,7 +57,7 @@ const CallPermission = (): React.JSX.Element => {
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
                     source={require('../../../assets/images/light-back-button.png')}
-                    style={commonStyles.backIcon}
+                    style={commonStyles.backIconNew}
                 />
             </TouchableOpacity>
 

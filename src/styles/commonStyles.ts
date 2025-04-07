@@ -236,6 +236,11 @@ const commonStyles = StyleSheet.create({
         width: 30,
         height: 30
     },
+    backIconNew: {
+        width: 30,
+        height: 30,
+        marginBottom: 8
+    },
     iconButtonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
