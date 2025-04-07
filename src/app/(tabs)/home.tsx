@@ -99,7 +99,7 @@ const Home = (): React.JSX.Element => {
                             color: '#0A2941'
                         }}
                     >
-                        {user?.displayName || 'User'}
+                        {user?.displayName || 'Andrei'}
                     </Text>
                 </Box>
             )
