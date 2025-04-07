@@ -129,7 +129,7 @@ const Home = (): React.JSX.Element => {
                             }}
                             className=" color-[#1C1C1C] break-all"
                         >
-                            Milo’s Tip of the Day
+                            Milo Tip of the Day
                         </Text>
                     </Box>
                     <Box>
