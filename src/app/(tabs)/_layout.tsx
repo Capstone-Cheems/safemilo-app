@@ -112,7 +112,7 @@ export default function TabLayout(): ReactNode {
                                 inactiveWidth={45}
                                 activeHeight={58}
                                 inactiveHeight={50}
-                                activeTop={-5}
+                                activeTop={-6}
                                 inactiveTop={5}
                             />
                         )
@@ -150,7 +150,7 @@ export default function TabLayout(): ReactNode {
                                 inactiveWidth={65}
                                 activeHeight={60}
                                 inactiveHeight={50}
-                                activeTop={-5}
+                                activeTop={-7}
                                 inactiveTop={5}
                             />
                         )
