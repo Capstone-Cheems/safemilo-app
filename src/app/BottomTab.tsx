@@ -106,7 +106,7 @@ const BottomTab = (): React.JSX.Element => {
                                 inactiveWidth={45}
                                 activeHeight={58}
                                 inactiveHeight={50}
-                                activeTop={-5}
+                                activeTop={-6}
                                 inactiveTop={5}
                             />
                         )
@@ -144,7 +144,7 @@ const BottomTab = (): React.JSX.Element => {
                                 inactiveWidth={65}
                                 activeHeight={60}
                                 inactiveHeight={50}
-                                activeTop={-5}
+                                activeTop={-7}
                                 inactiveTop={5}
                             />
                         )
