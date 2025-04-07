@@ -237,8 +237,8 @@ const commonStyles = StyleSheet.create({
         height: 30
     },
     backIconNew: {
-        width: 30,
-        height: 30,
+        width: 36,
+        height: 36,
         marginBottom: 8
     },
     iconButtonContainer: {
