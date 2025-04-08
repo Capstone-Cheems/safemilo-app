@@ -44,13 +44,13 @@ const CallPermission = (): React.JSX.Element => {
         router.replace('/onboarding/callPermissionDenied')
     }
 
-    const handleBack = (): void => {
-        router.replace('/onboarding/messagePermission')
-    }
+    // const handleBack = (): void => {
+    //     router.replace('/onboarding/messagePermission')
+    // }
 
     return (
         <View style={commonStyles.viewContainer}>
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 style={commonStyles.backButton}
                 onPress={handleBack}
             >
@@ -59,7 +59,7 @@ const CallPermission = (): React.JSX.Element => {
                     source={require('../../../assets/images/light-back-button.png')}
                     style={commonStyles.backIconNew}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <View style={commonStyles.dialogBox}>
                 <Image
