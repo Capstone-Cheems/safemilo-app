@@ -125,11 +125,13 @@ const Home = (): React.JSX.Element => {
                             style={{
                                 fontSize: textSize - 3.5,
                                 fontFamily: 'Montserrat_700Bold',
-                                lineHeight: 32
+                                lineHeight: 32,
+                                paddingRight: 12,
+                                maxWidth: '100%',
                             }}
                             className=" color-[#1C1C1C] break-all"
                         >
-                            Tip of the Day
+                            Milo Tip of the Day
                         </Text>
                     </Box>
                     <Box>
