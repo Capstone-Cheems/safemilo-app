@@ -105,7 +105,7 @@ const NewPost = (): React.JSX.Element => {
 
         try {
             const token = await user?.getIdToken()
-            const response = await fetch(`http://34.235.29.56:8080/news/`, {
+            const response = await fetch(`http://18.188.130.97:8080/news/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -236,7 +236,9 @@ const NewPost = (): React.JSX.Element => {
                     <View style={commonStyles.postContainer}>
                         <Text style={commonStyles.header}>Create a Post</Text>
 
-                        <Text style={commonStyles.newsInputLabel}>News Title</Text>
+                        <Text style={commonStyles.newsInputLabel}>
+                            News Title
+                        </Text>
                         <TextInput
                             style={commonStyles.postInput}
                             placeholder="Title"
@@ -269,7 +271,9 @@ const NewPost = (): React.JSX.Element => {
                             data={[...images, null]}
                             keyExtractor={(item, index) => index.toString()}
                             numColumns={3}
-                            columnWrapperStyle={{ justifyContent: 'flex-start' }}
+                            columnWrapperStyle={{
+                                justifyContent: 'flex-start'
+                            }}
                             renderItem={renderImageItem}
                             className="mb-16"
                         />
@@ -320,20 +324,20 @@ const NewPost = (): React.JSX.Element => {
             {showCompleteMsg && (
                 <View
                     style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: 'rgba(218, 218, 218, 0.9)',
-                    zIndex: 10
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(218, 218, 218, 0.9)',
+                        zIndex: 10
                     }}
                 >
                     <CompleteMsg />
                 </View>
-                )}
+            )}
         </View>
     )
 }

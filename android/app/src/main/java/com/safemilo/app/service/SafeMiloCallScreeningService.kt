@@ -81,7 +81,7 @@ class SafeMiloCallScreeningService : CallScreeningService() {
             val client = OkHttpClient()
             val token = getPreferences().getString("token","")
             val request = Request.Builder()
-                .url("http://34.235.29.56:8080/verifynumber/$phoneNumber")
+                .url("http://18.188.130.97:8080/verifynumber/$phoneNumber")
                 .addHeader("Authorization", "Bearer $token")
                 .build()
 

@@ -46,7 +46,7 @@ const CreatedPost = (): React.JSX.Element => {
         try {
             const token = await user?.getIdToken()
             const response = await fetch(
-                `http://34.235.29.56:8080/news/organization/${user?.uid}`,
+                `http://18.188.130.97:8080/news/organization/${user?.uid}`,
                 {
                     headers: { Authorization: `Bearer ${token}` }
                 }

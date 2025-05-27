@@ -118,7 +118,7 @@ const EditPost = (): React.JSX.Element => {
             let uploadedImageUrls = await uploadImagesToS3()
 
             const response = await fetch(
-                `http://34.235.29.56:8080/news/${newsID}`,
+                `http://18.188.130.97:8080/news/${newsID}`,
                 {
                     method: 'PATCH',
                     headers: {

@@ -47,7 +47,7 @@ const OrganizationNewsDetail = (): React.JSX.Element => {
         try {
             const token = await user?.getIdToken()
             const response = await fetch(
-                `http://34.235.29.56:8080/news/${newsID}`,
+                `http://18.188.130.97:8080/news/${newsID}`,
                 {
                     headers: { Authorization: `Bearer ${token}` }
                 }
