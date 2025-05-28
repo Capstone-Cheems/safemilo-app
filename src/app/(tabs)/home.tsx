@@ -167,7 +167,7 @@ const Home = (): React.JSX.Element => {
                                 fontSize: textSize,
                                 fontFamily: 'Montserrat_600SemiBold'
                             }}
-                            className="pt-2 color-[#1C1C1C]"
+                            className="pt-4 color-[#1C1C1C]"
                         >
                             News
                         </Text>
@@ -218,7 +218,7 @@ const Home = (): React.JSX.Element => {
                                 fontSize: textSize,
                                 fontFamily: 'Montserrat_600SemiBold'
                             }}
-                            className="pt-2 color-[#1C1C1C]"
+                            className="pt-4 color-[#1C1C1C]"
                         >
                             Calls
                         </Text>
@@ -270,7 +270,7 @@ const Home = (): React.JSX.Element => {
                                     fontSize: textSize,
                                     fontFamily: 'Montserrat_600SemiBold'
                                 }}
-                                className="pt-2 color-[#1C1C1C]"
+                                className="pt-4 color-[#1C1C1C]"
                             >
                                 Messages
                             </Text>
